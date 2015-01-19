@@ -389,7 +389,7 @@
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
-    <MSBuildCommunityTasksPath>$(SolutionDir)\lib\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <ItemGroup>
     <Page Include="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml">
@@ -401,6 +401,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
   <Target Name="AfterBuild">
     <RemoveDir Directories="$(TargetDir)\VSIX" />
     <Unzip ZipFileName="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix" TargetDirectory="$(TargetDir)\VSIX" />
