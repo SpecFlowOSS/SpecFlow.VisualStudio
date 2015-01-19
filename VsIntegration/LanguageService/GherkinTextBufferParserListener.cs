@@ -383,7 +383,7 @@ namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
                 Debug.Assert(_trackedTableForOutline != null, "We should have a table tracked...");
 
                 // We have a table outline to create.
-                var header = _trackedTableForOutline.ToString(true, false);
+                var header = GetHeaderTooltipText(_trackedTableForOutline);
                 string tooltip = null;
 
                 var count = _trackedTableForOutline.RowCount;
@@ -409,6 +409,11 @@ namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
                 // Reset the tracking values.
                 ClearTableOutlineTracking();
             }
+        }
+
+        private string GetHeaderTooltipText(Table table)
+        {
+            return "| " + string.Join(" | ", table.Header) + " |";
         }
 
         public void Step(string keyword, StepKeyword stepKeyword, Parser.Gherkin.ScenarioBlock scenarioBlock, string text, GherkinBufferSpan stepSpan)
