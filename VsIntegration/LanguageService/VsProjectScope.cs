@@ -15,13 +15,13 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.Vs2010Integration.Generator;
-using TechTalk.SpecFlow.Vs2010Integration.GherkinFileEditor;
-using TechTalk.SpecFlow.Vs2010Integration.StepSuggestions;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Generator;
+using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public class VsProjectScope : IProjectScope
     {

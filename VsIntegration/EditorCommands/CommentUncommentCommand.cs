@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using System.Linq;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
     internal enum CommentUncommentAction
     {

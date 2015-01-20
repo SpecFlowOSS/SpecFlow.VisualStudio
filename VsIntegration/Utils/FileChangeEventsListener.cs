@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     public class FileChangeEventsListener : IVsFileChangeEvents, IDisposable
     {

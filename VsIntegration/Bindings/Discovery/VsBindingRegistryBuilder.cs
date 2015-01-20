@@ -7,10 +7,10 @@ using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Discovery;
 using TechTalk.SpecFlow.IdeIntegration.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Bindings.Discovery
+namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
 {
     public class VsBindingRegistryBuilder
     {

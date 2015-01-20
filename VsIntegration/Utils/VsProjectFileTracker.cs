@@ -1,8 +1,8 @@
 ﻿using System;
 using EnvDTE;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     internal sealed class VsProjectFileTracker : VsProjectFileTrackerBase
     {

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Utilities;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing.OutputWindow;
+using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Tracing
+namespace TechTalk.SpecFlow.VsIntegration.Tracing
 {
     public static class OutputWindowDefinitions
     {

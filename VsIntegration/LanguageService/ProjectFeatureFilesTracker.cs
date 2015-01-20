@@ -8,11 +8,11 @@ using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
-using TechTalk.SpecFlow.Vs2010Integration.StepSuggestions;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public class FeatureFileInfo : FileInfo
     {

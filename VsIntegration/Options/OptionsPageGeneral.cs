@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Options
+namespace TechTalk.SpecFlow.VsIntegration.Options
 {
     /// <summary>
     // Extends a standard dialog functionality for implementing ToolsOptions pages, 

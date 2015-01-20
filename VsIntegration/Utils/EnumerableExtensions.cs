@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     internal static class EnumerableExtensions
     {

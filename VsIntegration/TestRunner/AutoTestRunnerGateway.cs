@@ -5,10 +5,10 @@ using BoDi;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.TestRunner
+namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
     public class AutoTestRunnerGateway : ITestRunnerGateway
     {

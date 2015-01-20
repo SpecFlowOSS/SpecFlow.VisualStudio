@@ -3,9 +3,9 @@ using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration
+namespace TechTalk.SpecFlow.VsIntegration
 {
     internal class VsSpecFlowConfigurationReader : FileBasedSpecFlowConfigurationReader
     {

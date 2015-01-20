@@ -7,9 +7,9 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
     [Export(typeof(IVsTextViewCreationListener))]
     [ContentType("gherkin")]

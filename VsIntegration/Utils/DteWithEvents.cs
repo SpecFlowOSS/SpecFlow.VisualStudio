@@ -3,7 +3,7 @@ using EnvDTE;
 using EnvDTE80;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     /// <summary>
     /// This class is ncecessary because of COM interop. If the .NET wrapper of the event sources are 

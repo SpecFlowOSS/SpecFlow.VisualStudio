@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public class IdleTaskProcessingQueue : IDisposable
     {

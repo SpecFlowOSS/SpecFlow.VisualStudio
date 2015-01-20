@@ -4,9 +4,9 @@ using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Options
+namespace TechTalk.SpecFlow.VsIntegration.Options
 {
     [Export(typeof(IIntegrationOptionsProvider))]
     internal class IntegrationOptionsProvider : IIntegrationOptionsProvider

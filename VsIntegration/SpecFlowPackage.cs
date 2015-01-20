@@ -10,10 +10,10 @@ using BoDi;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
-using TechTalk.SpecFlow.Vs2010Integration.Commands;
-using TechTalk.SpecFlow.Vs2010Integration.Options;
+using TechTalk.SpecFlow.VsIntegration.Commands;
+using TechTalk.SpecFlow.VsIntegration.Options;
 
-namespace TechTalk.SpecFlow.Vs2010Integration
+namespace TechTalk.SpecFlow.VsIntegration
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -31,8 +31,8 @@ namespace TechTalk.SpecFlow.Vs2010Integration
     // This attribute is used to register the informations needed to show the this package
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", "1.9.2", IconResourceID = 400)]
-    [ProvideOptionPageAttribute(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 122, true)]
-    [ProvideProfileAttribute(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 123, true, DescriptionResourceID = 121)]
+    [ProvideOptionPage(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 122, true)]
+    [ProvideProfile(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 123, true, DescriptionResourceID = 121)]
     [Guid(GuidList.guidSpecFlowPkgString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]

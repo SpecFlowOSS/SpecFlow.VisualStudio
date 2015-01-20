@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text.Editor;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
 {
     public partial class CompletionSessionView
     {

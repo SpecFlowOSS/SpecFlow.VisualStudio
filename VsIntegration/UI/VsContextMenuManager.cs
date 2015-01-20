@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.UI
+namespace TechTalk.SpecFlow.VsIntegration.UI
 {
     internal static class VsContextMenuManager
     {

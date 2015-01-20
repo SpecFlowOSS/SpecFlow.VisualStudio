@@ -18,7 +18,7 @@ using Constants = EnvDTE.Constants;
 using DefGuidList = Microsoft.VisualStudio.Editor.DefGuidList;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     internal static class VsxHelper
     {

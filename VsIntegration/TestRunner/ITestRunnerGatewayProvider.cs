@@ -3,7 +3,7 @@ using BoDi;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.TestRunner
+namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
     public interface ITestRunnerGatewayProvider
     {

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     /// <summary>
     /// Class controlling all Gherkin (feature file) related operation in the Visual Studio editor for a given file.

@@ -13,12 +13,12 @@ using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Tracing;
 using TechTalk.SpecFlow.Utils;
-using TechTalk.SpecFlow.Vs2010Integration.EditorCommands;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.UI;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.EditorCommands;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.UI;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public class GenerateStepDefinitionSkeletonCommand  : SpecFlowProjectSingleSelectionCommand
     {

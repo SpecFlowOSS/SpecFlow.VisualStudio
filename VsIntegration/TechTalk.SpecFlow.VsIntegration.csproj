@@ -16,8 +16,8 @@
     <ProjectGuid>{96294E6F-8875-4D12-8577-4EC83E60BD6C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TechTalk.SpecFlow.Vs2010Integration</RootNamespace>
-    <AssemblyName>TechTalk.SpecFlow.Vs2013Integration</AssemblyName>
+    <RootNamespace>TechTalk.SpecFlow.VsIntegration</RootNamespace>
+    <AssemblyName>TechTalk.SpecFlow.VsIntegration</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
@@ -395,9 +395,9 @@
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
   <Target Name="AfterBuild">
     <RemoveDir Directories="$(TargetDir)\VSIX" />
-    <Unzip ZipFileName="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix" TargetDirectory="$(TargetDir)\VSIX" />
-    <Delete Files="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix.orig" />
-    <Move SourceFiles="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix" DestinationFiles="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix.orig" />
+    <Unzip ZipFileName="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix" TargetDirectory="$(TargetDir)\VSIX" />
+    <Delete Files="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix.orig" />
+    <Move SourceFiles="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix" DestinationFiles="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix.orig" />
     <ItemGroup>
       <VsFiles Include="$(TargetDir)\VSIX\EnvDTE*.dll" />
       <VsFiles Include="$(TargetDir)\VSIX\VSLangProj*.dll" />
@@ -407,6 +407,6 @@
     <ItemGroup>
       <VsixFiles Include="$(TargetDir)\VSIX\**\*.*" />
     </ItemGroup>
-    <Zip Files="@(VsixFiles)" Flatten="false" WorkingDirectory="$(TargetDir)\VSIX" ZipFileName="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix" />
+    <Zip Files="@(VsixFiles)" Flatten="false" WorkingDirectory="$(TargetDir)\VSIX" ZipFileName="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix" />
   </Target>
 </Project>

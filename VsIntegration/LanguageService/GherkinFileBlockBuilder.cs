@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     internal class GherkinFileBlockBuilder
     {

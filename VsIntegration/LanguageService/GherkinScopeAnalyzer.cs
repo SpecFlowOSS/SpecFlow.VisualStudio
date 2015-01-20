@@ -1,7 +1,7 @@
 ﻿using System;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public enum BindingStatusKind
     {

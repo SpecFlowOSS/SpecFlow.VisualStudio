@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
     internal abstract class CompletionCommandFilter : IOleCommandTarget
     {

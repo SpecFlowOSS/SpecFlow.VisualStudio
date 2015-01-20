@@ -2,7 +2,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public class DelegateMenuCommandHandler : MenuCommandHandler
     {

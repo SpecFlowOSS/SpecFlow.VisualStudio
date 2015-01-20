@@ -9,12 +9,12 @@ using System.Windows.Threading;
 using EnvDTE;
 using EnvDTE80;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing.OutputWindow;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.TestRunner
+namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
     public class SpecRunTestRunnerGateway : ITestRunnerGateway
     {

@@ -3,10 +3,10 @@ using System.Linq;
 using EnvDTE;
 using EnvDTE80;
 using TechTalk.SpecFlow.Bindings.Reflection;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Bindings.Discovery
+namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
 {
     internal class VsBindingMethodLocator
     {

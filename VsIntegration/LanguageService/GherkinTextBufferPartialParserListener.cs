@@ -3,9 +3,9 @@ using System.Linq;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
-using TechTalk.SpecFlow.Vs2010Integration.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     internal class PartialListeningDoneException : ScanningCancelledException
     {

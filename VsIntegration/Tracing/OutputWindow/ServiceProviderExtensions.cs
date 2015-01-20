@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Tracing.OutputWindow
+namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow
 {
     public static class ServiceProviderExtensions
     {

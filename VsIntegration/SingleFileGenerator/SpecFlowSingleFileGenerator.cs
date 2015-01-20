@@ -3,13 +3,13 @@ using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
-using TechTalk.SpecFlow.Vs2010Integration.Generator;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Generator;
 using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj80;
 
-namespace TechTalk.SpecFlow.Vs2010Integration
+namespace TechTalk.SpecFlow.VsIntegration
 {
     [ComVisible(true)]
     [Guid("44F8C2E2-18A9-4B97-B830-6BCD0CAA161C")]

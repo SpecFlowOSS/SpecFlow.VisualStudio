@@ -1,9 +1,9 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Text.Editor;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
     public class GherkinEditorContext
     {

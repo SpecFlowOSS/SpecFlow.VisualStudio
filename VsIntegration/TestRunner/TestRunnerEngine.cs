@@ -2,9 +2,9 @@
 using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.TestRunner
+namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
     public interface ITestRunnerEngine
     {

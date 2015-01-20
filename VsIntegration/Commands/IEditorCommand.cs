@@ -1,6 +1,6 @@
 using EnvDTE;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public interface IEditorCommand
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using EnvDTE;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public class ContextDependentNavigationCommand : MenuCommandHandler
     {

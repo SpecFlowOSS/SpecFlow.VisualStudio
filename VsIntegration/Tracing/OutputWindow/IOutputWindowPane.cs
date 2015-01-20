@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Tracing.OutputWindow
+namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow
 {
     public interface IOutputWindowPane : IDisposable
     {

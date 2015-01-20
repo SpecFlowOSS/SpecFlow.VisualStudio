@@ -9,11 +9,11 @@ using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Vs2010Integration.Bindings.Discovery;
-using TechTalk.SpecFlow.Vs2010Integration.EditorCommands;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
+using TechTalk.SpecFlow.VsIntegration.EditorCommands;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public interface IGoToStepDefinitionCommand : IEditorCommand
     {

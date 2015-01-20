@@ -5,7 +5,7 @@ using TechTalk.SpecFlow.IdeIntegration.Install;
 using Window = EnvDTE.Window;
 using Timer = System.Windows.Forms.Timer;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Install
+namespace TechTalk.SpecFlow.VsIntegration.Install
 {
     class VsBrowserGuidanceNotificationService : IGuidanceNotificationService
     {

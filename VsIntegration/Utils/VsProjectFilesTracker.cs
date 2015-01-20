@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     internal sealed class VsProjectFilesTracker : VsProjectFileTrackerBase
     {

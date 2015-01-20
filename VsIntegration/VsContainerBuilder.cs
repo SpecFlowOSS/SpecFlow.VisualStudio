@@ -11,15 +11,15 @@ using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Install;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.TestRunner;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing.OutputWindow;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Install;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.TestRunner;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration
+namespace TechTalk.SpecFlow.VsIntegration
 {
     public static class VsContainerBuilder
     {

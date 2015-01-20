@@ -8,13 +8,13 @@ using Microsoft.VisualStudio.Text.Classification;
 using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.GherkinFileEditor;
-using TechTalk.SpecFlow.Vs2010Integration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 using Thread = System.Threading.Thread;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public interface IProjectScopeFactory
     {

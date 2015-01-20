@@ -1,6 +1,6 @@
 using System;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
     internal static class ReSharperCommandGroups
     {

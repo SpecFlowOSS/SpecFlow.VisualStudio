@@ -7,7 +7,7 @@ using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Bindings;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     public interface ISourceFilePosition
     {

@@ -3,7 +3,7 @@ using System.Globalization;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     public interface IStepSuggestion<out TNativeSuggestionItem>
     {

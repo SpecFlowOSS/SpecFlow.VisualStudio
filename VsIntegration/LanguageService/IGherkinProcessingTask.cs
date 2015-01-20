@@ -1,6 +1,6 @@
 using System;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public interface IGherkinProcessingTask
     {

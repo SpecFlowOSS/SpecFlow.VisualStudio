@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using BoDi;
-using TechTalk.SpecFlow.Vs2010Integration.Commands;
+using TechTalk.SpecFlow.VsIntegration.Commands;
 
-namespace TechTalk.SpecFlow.Vs2010Integration
+namespace TechTalk.SpecFlow.VsIntegration
 {
     partial class DefaultDependencyProvider
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TechTalk.SpecFlow.Vs2010Integration {
+namespace TechTalk.SpecFlow.VsIntegration {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TechTalk.SpecFlow.Vs2010Integration {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TechTalk.SpecFlow.Vs2010Integration.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TechTalk.SpecFlow.VsIntegration.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

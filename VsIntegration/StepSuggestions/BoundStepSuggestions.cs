@@ -5,7 +5,7 @@ using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Utils;
 using TechTalk.SpecFlow.Bindings;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     public interface IStepSuggestionGroup<TNativeSuggestionItem>
     {

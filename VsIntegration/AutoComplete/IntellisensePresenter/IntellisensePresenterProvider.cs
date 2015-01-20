@@ -5,7 +5,7 @@ using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Utilities;
 using Microsoft.VisualStudio.Shell;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
 {
     [Export(typeof(IIntellisensePresenterProvider))]
     [ContentType("gherkin")]

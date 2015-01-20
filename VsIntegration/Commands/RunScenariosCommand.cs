@@ -3,11 +3,11 @@ using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.EditorCommands;
-using TechTalk.SpecFlow.Vs2010Integration.TestRunner;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.EditorCommands;
+using TechTalk.SpecFlow.VsIntegration.TestRunner;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public class RunScenariosCommand : SpecFlowProjectSingleSelectionCommand
     {

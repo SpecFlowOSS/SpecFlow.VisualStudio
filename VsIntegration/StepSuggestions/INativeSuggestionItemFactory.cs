@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.Vs2010Integration.StepSuggestions
+﻿namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     public interface INativeSuggestionItemFactory<TNativeSuggestionItem>
     {

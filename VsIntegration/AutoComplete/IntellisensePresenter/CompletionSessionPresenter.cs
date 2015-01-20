@@ -6,7 +6,7 @@ using System.Windows;
 using EnvDTE;
 using Microsoft.VisualStudio.Text.Adornments;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
 {
     internal class CompletionSessionPresenter : IPopupIntellisensePresenter, IIntellisenseCommandTarget
     {

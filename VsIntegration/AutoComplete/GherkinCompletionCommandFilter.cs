@@ -12,11 +12,11 @@ using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
     [Export(typeof(IVsTextViewCreationListener))]
     [ContentType("gherkin")]

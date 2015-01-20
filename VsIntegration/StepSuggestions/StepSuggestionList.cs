@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     internal class StepSuggestionList<TNativeSuggestionItem> : ICollection<IBoundStepSuggestion<TNativeSuggestionItem>>
     {

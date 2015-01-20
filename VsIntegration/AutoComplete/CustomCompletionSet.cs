@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
     internal class CustomCompletionSet : CompletionSet
     {

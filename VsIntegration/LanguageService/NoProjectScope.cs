@@ -8,11 +8,11 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.Vs2010Integration.GherkinFileEditor;
-using TechTalk.SpecFlow.Vs2010Integration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     internal class NoProjectScope : IProjectScope
     {

@@ -6,12 +6,12 @@ using EnvDTE;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Bindings.Discovery;
-using TechTalk.SpecFlow.Vs2010Integration.StepSuggestions;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
+using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public class BindingAssemblyInfo
     {

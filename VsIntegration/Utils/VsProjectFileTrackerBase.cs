@@ -5,7 +5,7 @@ using System.Threading;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     internal abstract class VsProjectFileTrackerBase : IDisposable
     {

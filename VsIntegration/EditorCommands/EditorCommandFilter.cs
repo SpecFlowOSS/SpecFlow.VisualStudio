@@ -5,9 +5,9 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Vs2010Integration.Commands;
+using TechTalk.SpecFlow.VsIntegration.Commands;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
     internal static class VS2012CommandGroups
     {

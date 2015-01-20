@@ -1,7 +1,7 @@
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.TestRunner
+namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
     public class ReSharper5TestRunnerGateway : CommandBasedTestRunnerGateway
     {

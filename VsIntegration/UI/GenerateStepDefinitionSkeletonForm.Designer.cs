@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.Vs2010Integration.UI
+﻿namespace TechTalk.SpecFlow.VsIntegration.UI
 {
     partial class GenerateStepDefinitionSkeletonForm
     {

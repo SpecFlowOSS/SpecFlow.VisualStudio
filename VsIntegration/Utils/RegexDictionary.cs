@@ -5,9 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using TechTalk.SpecFlow.Vs2010Integration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     public class RegexDictionary<T> : IEnumerable<T>
     {

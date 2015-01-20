@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Tracing.OutputWindow
+namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow
 {
     [Export(typeof(IOutputWindowService))]
     internal sealed class OutputWindowService : IOutputWindowService

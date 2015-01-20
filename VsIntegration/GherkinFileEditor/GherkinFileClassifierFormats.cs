@@ -3,7 +3,7 @@ using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.GherkinFileEditor
+namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
 {
     // exports a classification format for the classification type gherkin.tag
     [Export(typeof(EditorFormatDefinition))]

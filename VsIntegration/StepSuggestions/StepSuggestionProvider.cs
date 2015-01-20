@@ -5,10 +5,10 @@ using System.Linq;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     public abstract class StepSuggestionProvider<TNativeSuggestionItem>
     {

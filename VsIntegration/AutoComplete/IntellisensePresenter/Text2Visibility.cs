@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
 {
     public sealed class Text2Visibility : IValueConverter
     {

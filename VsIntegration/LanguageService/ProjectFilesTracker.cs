@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Threading;
 using EnvDTE;
-using TechTalk.SpecFlow.Vs2010Integration.StepSuggestions;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 using TracerExtensions = TechTalk.SpecFlow.IdeIntegration.Tracing.TracerExtensions;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public abstract class FileInfo
     {

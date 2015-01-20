@@ -6,10 +6,10 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.Vs2010Integration.LanguageService;
-using TechTalk.SpecFlow.Vs2010Integration.Options;
+using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.GherkinFileEditor
+namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
 {
 
     #region Provider definition

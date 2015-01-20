@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EnvDTE;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
     public class SynchronizedResultCache<TSource, TKey, TValue> where TValue : class
     {

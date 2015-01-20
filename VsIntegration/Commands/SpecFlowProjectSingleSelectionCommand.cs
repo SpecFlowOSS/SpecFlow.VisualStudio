@@ -1,9 +1,9 @@
 ﻿using System;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using TechTalk.SpecFlow.Vs2010Integration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
     public abstract class SpecFlowProjectSingleSelectionCommand : MenuCommandHandler
     {

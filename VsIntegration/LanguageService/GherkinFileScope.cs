@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Text.Tagging;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
 
-namespace TechTalk.SpecFlow.Vs2010Integration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     internal class GherkinFileScope : IGherkinFileScope
     {
