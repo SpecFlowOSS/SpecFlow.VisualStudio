@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using FluentAssertions;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
-using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
-using TechTalk.SpecFlow.IdeIntegration;
-using Should;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Utils;
@@ -49,7 +45,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             using (var remoteFactory = CreateRemoteAppDomainTestGeneratorFactory())
             {
                 remoteFactory.EnsureInitialized();
-                remoteFactory.IsRunning.ShouldBeTrue();
+                remoteFactory.IsRunning.Should().BeTrue();
             }
         }
 
@@ -60,8 +56,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             {
                 var version = remoteFactory.GetGeneratorVersion();
 
-                version.ShouldNotBeNull();
-                version.ShouldEqual(TestGeneratorFactory.GeneratorVersion);
+                version.Should().NotBeNull();
+                version.Should().Be(TestGeneratorFactory.GeneratorVersion);
             }
         }
 
@@ -72,7 +68,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             {
                 var generator = remoteFactory.CreateGenerator(new ProjectSettings());
 
-                generator.ShouldNotBeNull();
+                generator.Should().NotBeNull();
             }
         }
 
@@ -125,7 +121,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             using (var remoteFactory = CreateRemoteAppDomainTestGeneratorFactory())
             {
                 var generator = remoteFactory.CreateGenerator(projectSettings);
-                generator.ToString().ShouldEqual("DummyGenerator"); // since the type is wrapped, we can only check it this way
+                generator.ToString().Should().Be("DummyGenerator"); // since the type is wrapped, we can only check it this way
             }
         }
 
@@ -144,7 +140,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
                 using (var remoteFactory = CreateRemoteAppDomainTestGeneratorFactory(tempFolder.FolderName))
                 {
                     var generator = remoteFactory.CreateGenerator(new ProjectSettings());
-                    generator.ShouldNotBeNull();
+                    generator.Should().NotBeNull();
                 }
             }
         }
@@ -158,7 +154,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
                 remoteFactory.EnsureInitialized();
             }
 
-            remoteFactory.IsRunning.ShouldBeFalse();
+            remoteFactory.IsRunning.Should().BeFalse();
         }
 
         [Test]
@@ -167,7 +163,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             RemoteAppDomainTestGeneratorFactory remoteFactory;
             using (remoteFactory = CreateRemoteAppDomainTestGeneratorFactory())
             {
-                remoteFactory.IsRunning.ShouldBeFalse();
+                remoteFactory.IsRunning.Should().BeFalse();
             }
         }
 
@@ -183,7 +179,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 
                 Thread.Sleep(TimeSpan.FromSeconds(1.1));
 
-                remoteFactory.IsRunning.ShouldBeFalse();
+                remoteFactory.IsRunning.Should().BeFalse();
             }
         }
 
@@ -195,7 +191,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
                 var generator = remoteFactory.CreateGenerator(new ProjectSettings());
                 generator.Dispose();
 
-                remoteFactory.IsRunning.ShouldBeTrue();
+                remoteFactory.IsRunning.Should().BeTrue();
             }
         }
 
@@ -208,7 +204,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
                 var generator2 = remoteFactory.CreateGenerator(new ProjectSettings());
                 generator1.Dispose();
 
-                remoteFactory.IsRunning.ShouldBeTrue();
+                remoteFactory.IsRunning.Should().BeTrue();
             }
         }
 
@@ -226,7 +222,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 
                 Thread.Sleep(TimeSpan.FromSeconds(1.1));
 
-                remoteFactory.IsRunning.ShouldBeFalse();
+                remoteFactory.IsRunning.Should().BeFalse();
             }
         }
 
@@ -256,9 +252,9 @@ Scenario: Add two numbers
                                                         };
                 var result = generator.GenerateTestFile(featureFileInput, new GenerationSettings());
 
-                result.ShouldNotBeNull();
-                result.Success.ShouldBeTrue();
-                result.GeneratedTestCode.ShouldNotBeNull();
+                result.Should().NotBeNull();
+                result.Success.Should().BeTrue();
+                result.GeneratedTestCode.Should().NotBeNull();
             }
         }
 
@@ -283,10 +279,10 @@ Scenario: Add two numbers
                                                         };
                 var result = generator.GenerateTestFile(featureFileInput, new GenerationSettings());
 
-                result.ShouldNotBeNull();
-                result.Success.ShouldBeFalse();
-                result.Errors.ShouldNotBeNull();
-                result.Errors.ShouldNotBeEmpty();
+                result.Should().NotBeNull();
+                result.Success.Should().BeFalse();
+                result.Errors.Should().NotBeNull();
+                result.Errors.Should().NotBeEmpty();
             }
         }
     }

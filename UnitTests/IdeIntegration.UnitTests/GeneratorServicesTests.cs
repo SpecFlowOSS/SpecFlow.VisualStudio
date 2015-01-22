@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
-using TechTalk.SpecFlow.IdeIntegration;
-using Should;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
@@ -53,8 +48,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 
             var result = generatorServices.CreateTestGenerator();
 
-            result.ShouldNotBeNull();
-            result.ShouldEqual(TestGeneratorStub.Object);
+            result.Should().NotBeNull();
+            result.Should().Be(TestGeneratorStub.Object);
         }
 
         [Test]
@@ -69,7 +64,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             generatorServices.CreateTestGenerator();
             generatorServices.CreateTestGenerator();
 
-            settingsCounter.ShouldEqual(2);
+            settingsCounter.Should().Be(2);
         }
 
         [Test]
@@ -85,7 +80,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             generatorServices.InvalidateSettings();
             generatorServices.CreateTestGenerator();
 
-            settingsCounter.ShouldEqual(2);
+            settingsCounter.Should().Be(2);
         }
 
         [Test]
@@ -100,7 +95,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             generatorServices.CreateTestGenerator();
             generatorServices.CreateTestGenerator();
 
-            settingsCounter.ShouldEqual(1);
+            settingsCounter.Should().Be(1);
         }
     }
 }

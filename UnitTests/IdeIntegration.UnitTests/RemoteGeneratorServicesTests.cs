@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using TechTalk.SpecFlow.Generator;
@@ -7,7 +8,6 @@ using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using Should;
 
 namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 {
@@ -63,28 +63,28 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
         public void Should_use_default_generator_when_no_generator_info_detected()
         {
             var generatorServices = CreateRemoteGeneratorServices(() => null);
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(TestGeneratorFactoryStub.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(TestGeneratorFactoryStub.Object);
         }
 
         [Test]
         public void Should_use_default_generator_when_no_generator_version_detected()
         {
             var generatorServices = CreateRemoteGeneratorServices(() => new GeneratorInfo { GeneratorAssemblyVersion = null, GeneratorFolder = SampleGeneratorFolder});
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(TestGeneratorFactoryStub.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(TestGeneratorFactoryStub.Object);
         }
 
         [Test]
         public void Should_use_default_generator_when_no_generator_folder_detected()
         {
             var generatorServices = CreateRemoteGeneratorServices(() => new GeneratorInfo {GeneratorAssemblyVersion = v16, GeneratorFolder = null});
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(TestGeneratorFactoryStub.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(TestGeneratorFactoryStub.Object);
         }
 
         [Test]
         public void Should_use_default_generator_when_generator_is_older_than_16()
         {
             var generatorServices = CreateRemoteGeneratorServices(() => new GeneratorInfo { GeneratorAssemblyVersion = v15, GeneratorFolder = SampleGeneratorFolder });
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(TestGeneratorFactoryStub.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(TestGeneratorFactoryStub.Object);
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
                                                                                 GeneratorFolder = SampleGeneratorFolder,
                                                                                 UsesPlugins = false
                                                                             });
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(TestGeneratorFactoryStub.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(TestGeneratorFactoryStub.Object);
         }
 
         [Test]
@@ -110,14 +110,14 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
                 GeneratorFolder = SampleGeneratorFolder,
                 UsesPlugins = true
             });
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(RemoteTestGeneratorFactoryMock.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(RemoteTestGeneratorFactoryMock.Object);
         }
 
         [Test]
         public void Should_use_remote_factory_when_is_at_least_v16_and_not_current()
         {
             var generatorServices = CreateRemoteGeneratorServices(() => new GeneratorInfo { GeneratorAssemblyVersion = v17, GeneratorFolder = SampleGeneratorFolder });
-            generatorServices.GetTestGeneratorFactoryForCreatePublic().ShouldEqual(RemoteTestGeneratorFactoryMock.Object);
+            generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(RemoteTestGeneratorFactoryMock.Object);
         }
 
         [Test]
