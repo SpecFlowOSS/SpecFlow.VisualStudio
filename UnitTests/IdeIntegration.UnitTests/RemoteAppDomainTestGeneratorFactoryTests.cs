@@ -16,7 +16,7 @@ using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Utils;
 
-namespace IdeIntegrationTests
+namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 {
     [TestFixture]
     public class RemoteAppDomainTestGeneratorFactoryTests

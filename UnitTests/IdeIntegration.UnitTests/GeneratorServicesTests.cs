@@ -11,7 +11,7 @@ using Should;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace IdeIntegrationTests
+namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 {
     internal class GeneratorServicesMock : GeneratorServices
     {

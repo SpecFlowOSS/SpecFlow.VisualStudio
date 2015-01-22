@@ -8,8 +8,8 @@
     <ProjectGuid>{69505BAC-12B9-4443-BB3B-A94E51EA5922}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IdeIntegrationTests</RootNamespace>
-    <AssemblyName>IdeIntegrationTests</AssemblyName>
+    <RootNamespace>TechTalk.SpecFlow.IdeIntegration.UnitTests</RootNamespace>
+    <AssemblyName>TechTalk.SpecFlow.IdeIntegration.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

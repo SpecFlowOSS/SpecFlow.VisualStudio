@@ -9,7 +9,7 @@ using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using Should;
 
-namespace IdeIntegrationTests
+namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 {
     internal class RemoteGeneratorServicesMock : RemoteGeneratorServices
     {
