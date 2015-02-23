@@ -24,10 +24,10 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 
         protected virtual IEnumerable<AutoTestRunnerGatewayLoader> GetLoaders()
         {
-            yield return new SpecRunWithVS2013GatewayLoader();
+            yield return new SpecRunWithVsTestExplorerGatewayLoader();
             yield return new SpecRunGatewayLoader();
             yield return new ReSharper6GatewayLoader();
-            yield return new VisualStudio2013GatewayLoader();
+            yield return new VsTestExplorerGatewayLoader();
         }
 
         private ITestRunnerGateway GetCurrentTestRunnerGateway(Project project)

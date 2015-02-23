@@ -10,9 +10,9 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public class VisualStudio2013GatewayLoader : AutoTestRunnerGatewayLoader
+    public class VsTestExplorerGatewayLoader : AutoTestRunnerGatewayLoader
     {
-        public VisualStudio2013GatewayLoader() : base(TestRunnerTool.VisualStudio2012)
+        public VsTestExplorerGatewayLoader() : base(TestRunnerTool.VisualStudio2012)
         {
         }
 
@@ -22,13 +22,13 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
         }
     }
 
-    public class VS2013RunnerGateway : ITestRunnerGateway
+    public class VsTestExplorerGateway : ITestRunnerGateway
     {
         private readonly DTE dte;
         private readonly IIdeTracer tracer;
         private readonly IServiceProvider serviceProvider;
 
-        public VS2013RunnerGateway(DTE dte, IIdeTracer tracer, IServiceProvider serviceProvider)
+        public VsTestExplorerGateway(DTE dte, IIdeTracer tracer, IServiceProvider serviceProvider)
         {
             this.dte = dte;
             this.tracer = tracer;

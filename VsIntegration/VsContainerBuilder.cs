@@ -67,7 +67,7 @@ namespace TechTalk.SpecFlow.VsIntegration
             container.RegisterTypeAs<TestRunnerGatewayProvider, ITestRunnerGatewayProvider>();
             container.RegisterTypeAs<ReSharper6TestRunnerGateway, ITestRunnerGateway>(TestRunnerTool.ReSharper.ToString());
             container.RegisterTypeAs<SpecRunTestRunnerGateway, ITestRunnerGateway>(TestRunnerTool.SpecRun.ToString());
-            container.RegisterTypeAs<VS2013RunnerGateway, ITestRunnerGateway>(TestRunnerTool.VisualStudio2012.ToString());
+            container.RegisterTypeAs<VsTestExplorerGateway, ITestRunnerGateway>(TestRunnerTool.VisualStudio2012.ToString());
             container.RegisterTypeAs<AutoTestRunnerGateway, ITestRunnerGateway>(TestRunnerTool.Auto.ToString());
 
             container.RegisterTypeAs<StepDefinitionSkeletonProvider, IStepDefinitionSkeletonProvider>();

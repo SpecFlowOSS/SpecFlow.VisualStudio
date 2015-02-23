@@ -6,9 +6,9 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public class SpecRunWithVS2013GatewayLoader : AutoTestRunnerGatewayLoader
+    public class SpecRunWithVsTestExplorerGatewayLoader : AutoTestRunnerGatewayLoader
     {
-        public SpecRunWithVS2013GatewayLoader()
+        public SpecRunWithVsTestExplorerGatewayLoader()
             : base(TestRunnerTool.VisualStudio2012)
         {
         }
