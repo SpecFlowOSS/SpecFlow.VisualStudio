@@ -4,11 +4,24 @@ using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using Microsoft.VisualStudio.TestWindow.Controller;
 using Microsoft.VisualStudio.TestWindow.Host;
+using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
+    public class VisualStudio2013GatewayLoader : AutoTestRunnerGatewayLoader
+    {
+        public VisualStudio2013GatewayLoader() : base(TestRunnerTool.VisualStudio2012)
+        {
+        }
+
+        public override bool CanUse(Project project)
+        {
+            return true; // if loaded, can be used
+        }
+    }
+
     public class VS2013RunnerGateway : ITestRunnerGateway
     {
         private readonly DTE dte;
