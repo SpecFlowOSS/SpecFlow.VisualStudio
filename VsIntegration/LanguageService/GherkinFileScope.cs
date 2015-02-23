@@ -150,7 +150,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
     internal class ScenarioOutlineExampleSet : KeywordLine, IScenarioOutlineExampleSet
     {
-        public Table ExamplesTable { get; set; }
+        public ScenarioOutlineExamplesTable ExamplesTable { get; set; }
 
         public ScenarioOutlineExampleSet(string keyword, string text, int blockRelativeLine) : base(keyword, text, blockRelativeLine)
         {

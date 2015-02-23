@@ -36,7 +36,8 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
                 return container.Resolve<ITestRunnerGateway>(TestRunnerTool.ReSharper.ToString());
             }
 
-            if (ideIntegration == IdeIntegration.Install.IdeIntegration.VisualStudio2012)
+            if (ideIntegration == IdeIntegration.Install.IdeIntegration.VisualStudio2012 ||
+                ideIntegration == IdeIntegration.Install.IdeIntegration.VisualStudio2013)
             {
                 return container.Resolve<ITestRunnerGateway>(TestRunnerTool.VisualStudio2012.ToString());
             }
@@ -51,13 +52,13 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
             return null;
         }
 
-        public bool RunScenario(ProjectItem projectItem, IScenarioBlock currentScenario, IGherkinFileScope fileScope, bool debug)
+        public bool RunScenario(ProjectItem projectItem, IScenarioBlock currentScenario, ScenarioOutlineExamplesRow examplesRow, IGherkinFileScope fileScope, bool debug)
         {
             var testRunnerGateway = GetCurrentTestRunnerGateway(projectItem.ContainingProject);
             if (testRunnerGateway == null)
                 return false;
 
-            return testRunnerGateway.RunScenario(projectItem, currentScenario, fileScope, debug);
+            return testRunnerGateway.RunScenario(projectItem, currentScenario, examplesRow, fileScope, debug);
         }
 
         public bool RunFeatures(ProjectItem projectItem, bool debug)

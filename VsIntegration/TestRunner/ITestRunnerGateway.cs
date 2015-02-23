@@ -9,7 +9,7 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
     public interface ITestRunnerGateway
     {
-        bool RunScenario(ProjectItem projectItem, IScenarioBlock currentScenario, IGherkinFileScope fileScope, bool debug);
+        bool RunScenario(ProjectItem projectItem, IScenarioBlock currentScenario, ScenarioOutlineExamplesRow examplesRow, IGherkinFileScope fileScope, bool debug);
         bool RunFeatures(ProjectItem projectItem, bool debug);
         bool RunFeatures(Project project, bool debug);
     }
