@@ -211,7 +211,6 @@
     <Compile Include="EditorCommands\ReSharperCommand.cs" />
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
-    <Compile Include="TestRunner\SpecFlowTestMethodResolver.cs" />
     <Compile Include="TestRunner\VS2013RunnerGateway.cs" />
     <Compile Include="UI\ContextMenuBuilder.cs" />
     <Compile Include="Generator\VsGeneratorInfoProvider.cs" />
