@@ -361,6 +361,13 @@
       <Project>{44D52C1B-0ABC-44B6-8EB8-0F754E264226}</Project>
       <Name>TechTalk.SpecFlow.IdeIntegration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj">
+      <Project>{662A06B2-A852-47C4-A258-D84FE81D4A80}</Project>
+      <Name>TechTalk.SpecFlow.VsIntegration.ItemTemplates</Name>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

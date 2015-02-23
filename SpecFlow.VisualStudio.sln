@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.IdeIntegration.UnitTests", "UnitTests\IdeIntegration.UnitTests\TechTalk.SpecFlow.IdeIntegration.UnitTests.csproj", "{69505BAC-12B9-4443-BB3B-A94E51EA5922}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.ItemTemplates", "ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj", "{662A06B2-A852-47C4-A258-D84FE81D4A80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
