@@ -223,7 +223,7 @@
     <Compile Include="LanguageService\VsBindingReflectionFactory.cs" />
     <Compile Include="LanguageService\VsStepSuggestionProvider.cs" />
     <Compile Include="Commands\MenuCommandHandler.cs" />
-    <Compile Include="SingleFileGenerator\CodeGeneratorRegistrationAttribute.cs" />
+    <Compile Include="SingleFileGenerator\CodeGeneratorRegistrationWithFileExtensionAttribute.cs" />
     <Compile Include="SingleFileGenerator\SingleFileGeneratorSupportRegistrationAttribute.cs" />
     <Compile Include="SingleFileGenerator\SpecFlowSingleFileGenerator.cs" />
     <Compile Include="SingleFileGenerator\SpecFlowSingleFileGeneratorBase.cs" />
