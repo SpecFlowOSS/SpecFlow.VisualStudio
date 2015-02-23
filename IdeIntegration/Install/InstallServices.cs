@@ -90,7 +90,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             }
         }
 
-        public void OnPackageUsed()
+        public void OnPackageUsed(bool isSpecRunUsed)
         {
             if (IsDevBuild)
                 tracer.Trace("Package used", this);
@@ -111,7 +111,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
 
             if (status.UsageDays >= AFTER_RAMP_UP_DAYS && status.UserLevel < (int)GuidanceNotification.AfterRampUp)
             {
-                if (ShowNotification(GuidanceNotification.AfterRampUp))
+                if (ShowNotification(GuidanceNotification.AfterRampUp, isSpecRunUsed))
                 {
                     status.UserLevel = (int)GuidanceNotification.AfterRampUp;
                     UpdateStatus(status);
@@ -119,7 +119,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             }
             else if (status.UsageDays >= EXPERIENCED_DAYS && status.UserLevel < (int)GuidanceNotification.Experienced)
             {
-                if (ShowNotification(GuidanceNotification.Experienced))
+                if (ShowNotification(GuidanceNotification.Experienced, isSpecRunUsed))
                 {
                     status.UserLevel = (int)GuidanceNotification.Experienced;
                     UpdateStatus(status);
@@ -127,7 +127,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             }
             else if (status.UsageDays >= VETERAN_DAYS && status.UserLevel < (int)GuidanceNotification.Veteran)
             {
-                if (ShowNotification(GuidanceNotification.Veteran))
+                if (ShowNotification(GuidanceNotification.Veteran, isSpecRunUsed))
                 {
                     status.UserLevel = (int)GuidanceNotification.Veteran;
                     UpdateStatus(status);
@@ -135,10 +135,10 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             }
         }
 
-        private bool ShowNotification(GuidanceNotification guidanceNotification)
+        private bool ShowNotification(GuidanceNotification guidanceNotification, bool isSpecRunUsed = false)
         {
             int linkid = (int)guidanceNotification + (int)IdeIntegration;
-            string url = string.Format("http://go.specflow.org/g{0}{1}{2}", linkid, CurrentVersion.Major, CurrentVersion.Minor);
+            string url = string.Format("http://go.specflow.org/g{0}{1}{2}{3}", linkid, CurrentVersion.Major, CurrentVersion.Minor, isSpecRunUsed ? "p" : "");
 
             if (IsDevBuild)
             {

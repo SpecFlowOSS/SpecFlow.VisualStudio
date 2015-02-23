@@ -51,7 +51,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             dteReference = new SynchInitializedInstance<DteWithEvents>(
                 () =>
                     {
-                        ContainerProvider.ObjectContainer.Resolve<InstallServices>().OnPackageUsed(); //TODO: find a better place
+                        ContainerProvider.ObjectContainer.Resolve<InstallServicesHelper>().OnPackageUsed(); //TODO: find a better place
                         var dtex = new DteWithEvents(VsxHelper.GetDte(ServiceProvider), VisualStudioTracer);
                         dtex.SolutionEvents.AfterClosing += OnSolutionClosed;
                         dtex.SolutionEventsListener.OnQueryUnloadProject += OnProjectClosed;

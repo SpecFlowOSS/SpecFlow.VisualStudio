@@ -22,16 +22,10 @@ using Process = EnvDTE.Process;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public class SpecRunGatewayLoader : AutoTestRunnerGatewayLoader
+    public class SpecRunTestRunnerGatewayLoader : SpecRunGatewayLoader
     {
-        public SpecRunGatewayLoader()
-            : base(TestRunnerTool.SpecRun)
+        public SpecRunTestRunnerGatewayLoader() : base(TestRunnerTool.SpecRun)
         {
-        }
-
-        public override bool CanUse(Project project)
-        {
-            return VsxHelper.GetReference(project, "TechTalk.SpecRun") != null;
         }
     }
 

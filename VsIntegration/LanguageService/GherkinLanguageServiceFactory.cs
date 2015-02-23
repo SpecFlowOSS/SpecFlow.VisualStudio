@@ -52,7 +52,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             var project = VsxHelper.GetCurrentProject(textBuffer, AdaptersFactory, ServiceProvider);
             var projectScope = ProjectScopeFactory.GetProjectScope(project);
 
-            ContainerProvider.ObjectContainer.Resolve<InstallServices>().OnPackageUsed(); //TODO: find a better place
+            ContainerProvider.ObjectContainer.Resolve<InstallServicesHelper>().OnPackageUsed(); //TODO: find a better place
 
             var languageService = new GherkinLanguageService(projectScope, VisualStudioTracer, enableStepMatchColoring: IntegrationOptionsProvider.GetOptions().EnableStepMatchColoring);
 

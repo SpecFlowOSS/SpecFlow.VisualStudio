@@ -6,16 +6,10 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public class SpecRunWithVsTestExplorerGatewayLoader : AutoTestRunnerGatewayLoader
+    public class SpecRunWithVsTestExplorerGatewayLoader : SpecRunGatewayLoader
     {
-        public SpecRunWithVsTestExplorerGatewayLoader()
-            : base(TestRunnerTool.VisualStudio2012)
+        public SpecRunWithVsTestExplorerGatewayLoader() : base(TestRunnerTool.VisualStudio2012)
         {
-        }
-
-        public override bool CanUse(Project project)
-        {
-            return VsxHelper.GetReference(project, "TechTalk.SpecRun") != null; // would make sense to check for version 1.2 or above, but too complicated
         }
     }
 }
