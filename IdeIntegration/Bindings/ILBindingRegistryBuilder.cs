@@ -33,15 +33,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Bindings
                 if (!bindingSourceProcessor.ProcessType(bindingSourceType))
                     continue;
 
-                var type = typeDefinition;
-
-                while (type.Module == module)
+                foreach (var methodDefinition in typeDefinition.Methods)
                 {
-                    foreach (var methodDefinition in type.Methods)
-                    {
-                        bindingSourceProcessor.ProcessMethod(CreateBindingSourceMethod(methodDefinition, bindingSourceType, bindingSourceProcessor));
-                    }
-                    type = typeDefinition.BaseType.Resolve();
+                    bindingSourceProcessor.ProcessMethod(CreateBindingSourceMethod(methodDefinition, bindingSourceType, bindingSourceProcessor));
                 }
 
                 bindingSourceProcessor.ProcessTypeDone();
