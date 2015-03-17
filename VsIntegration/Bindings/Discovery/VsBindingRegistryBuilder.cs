@@ -41,30 +41,47 @@ namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
             foreach (CodeClass codeClass in VsxHelper.GetClasses(projectItem))
             {
                 CodeClass2 bindingClassIncludingParts = codeClass as CodeClass2;
+
+                var parts = new List<CodeClass>();
+
                 if (bindingClassIncludingParts == null)
                 {
-                    ProcessCodeClass(codeClass, bindingSourceProcessor, codeClass);
+                    parts.Add(codeClass);
                 }
                 else
                 {
-                    var parts = bindingClassIncludingParts.Parts.OfType<CodeClass>().ToArray();
-                    relatedProjectItems.AddRange(parts.Select(p => p.ProjectItem).Where(pi => pi != null && pi != projectItem));
-                    // we need to use the class parts to grab class-related information (e.g. [Binding] attribute)
-                    // but we need to process the binding methods only from the current part, otherwise these
-                    // methods would be registered to multiple file pathes, and the update tracking would not work
-                    ProcessCodeClass(codeClass, bindingSourceProcessor, parts.ToArray());
+                    parts.AddRange(bindingClassIncludingParts.Parts.OfType<CodeClass>());
                 }
+
+
+                var baseClass = codeClass.Bases.OfType<CodeClass>().FirstOrDefault();
+
+                while (baseClass != null && baseClass.FullName != "System.Object")
+                {
+                    tracer.Trace("Adding inherited bindings for class: " + baseClass.FullName, GetType().Name);
+                    parts.Add(baseClass);
+                    baseClass = baseClass.Bases.OfType<CodeClass>().FirstOrDefault();
+                }
+
+                // we need to use the class parts to grab class-related information (e.g. [Binding] attribute)
+                // but we need to process the binding methods only from the current part, otherwise these
+                // methods would be registered to multiple file paths, and the update tracking would not work
+                    
+                relatedProjectItems.AddRange(parts.Select(p => p.ProjectItem).Where(pi => pi != null && pi != projectItem));
+                ProcessCodeClass(codeClass, bindingSourceProcessor, parts.ToArray());
             }
         }
 
         private void ProcessCodeClass(CodeClass codeClass, IdeBindingSourceProcessor bindingSourceProcessor, params CodeClass[] classParts)
         {
+            
             var filteredAttributes = classParts
                 .SelectMany(cc => cc.Attributes.Cast<CodeAttribute2>().Where(attr => CanProcessTypeAttribute(bindingSourceProcessor, attr))).ToArray();
-                
+
             if (!bindingSourceProcessor.PreFilterType(filteredAttributes.Select(attr => attr.FullName)))
                 return;
-
+        
+            
             var bindingSourceType = bindingReflectionFactory.CreateBindingSourceType(classParts, filteredAttributes); //TODO: merge info from parts
 
             if (!bindingSourceProcessor.ProcessType(bindingSourceType))
@@ -73,6 +90,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
             ProcessCodeFunctions(codeClass, bindingSourceType, bindingSourceProcessor);
 
             bindingSourceProcessor.ProcessTypeDone();
+            // process base classes
+            foreach (var part in classParts.Where(cp=> cp != codeClass))
+            {
+                var bindingSourceType2 = bindingReflectionFactory.CreateBindingSourceType(new[] { part }, filteredAttributes);  
+
+                if (!bindingSourceProcessor.ProcessType(bindingSourceType2))
+                    return;
+
+                ProcessCodeFunctions(part, bindingSourceType2, bindingSourceProcessor);
+
+                bindingSourceProcessor.ProcessTypeDone();
+            }
         }
 
         private void ProcessCodeFunctions(CodeClass codeClass, BindingSourceType bindingSourceType, IdeBindingSourceProcessor bindingSourceProcessor)
