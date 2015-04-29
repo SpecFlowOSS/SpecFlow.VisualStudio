@@ -7,7 +7,7 @@ Imports TechTalk.SpecFlow
 Namespace $rootnamespace$
 
     <Binding()> _
-    Public Class $safeitemname$
+    Public NotInheritable Class $safeitemname$
 
         'For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 

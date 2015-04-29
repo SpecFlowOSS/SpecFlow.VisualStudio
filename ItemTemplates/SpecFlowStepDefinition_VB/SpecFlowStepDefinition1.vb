@@ -9,7 +9,7 @@ Namespace $rootnamespace$
     ' For additional details on SpecFlow step definitions see http://go.specflow.org/doc-stepdef
 
     <Binding()> _
-    Public Class $safeitemname$
+    Public NotInheritable Class $safeitemname$
 
         <Given("I have entered (.*) into the calculator")> _
         Public Sub GivenIHaveEnteredSomethingIntoTheCalculator(ByVal number As Integer)

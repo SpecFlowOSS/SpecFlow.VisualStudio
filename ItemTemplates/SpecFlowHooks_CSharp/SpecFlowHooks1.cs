@@ -7,7 +7,7 @@ using TechTalk.SpecFlow;
 namespace $rootnamespace$
 {
     [Binding]
-    public class $safeitemname$
+    public sealed class $safeitemname$
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 
