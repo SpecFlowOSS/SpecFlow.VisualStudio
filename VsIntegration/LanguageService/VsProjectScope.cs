@@ -189,10 +189,20 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             {
                 if (!(typeToConvertTo is RuntimeBindingType))
                 {
-                    Type systemType = Type.GetType(typeToConvertTo.FullName, false);
-                    if (systemType == null)
+                    try
+                    {
+                        // in some special cases, Type.GetType throws exception
+                        // one of such case, if a Dictionary<string,string> step parameter is specified, see issue #340
+                        Type systemType = Type.GetType(typeToConvertTo.FullName, false);
+                        if (systemType == null)
+                            return false;
+                        typeToConvertTo = new RuntimeBindingType(systemType);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
                         return false;
-                    typeToConvertTo = new RuntimeBindingType(systemType);
+                    }
                 }
 
                 return StepArgumentTypeConverter.CanConvertSimple(typeToConvertTo, value, cultureInfo);
