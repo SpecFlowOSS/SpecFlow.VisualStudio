@@ -326,6 +326,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\changelog.txt">
+      <Link>changelog.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="..\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\Resources\gherkin.ico">
       <Link>gherkin.ico</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
