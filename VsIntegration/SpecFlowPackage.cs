@@ -56,7 +56,7 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             get
             {
-                return IdeIntegration.Install.IdeIntegration.VisualStudio2013;
+                return IdeIntegration.Install.IdeIntegration.VisualStudio2015;
             }
         }
 
