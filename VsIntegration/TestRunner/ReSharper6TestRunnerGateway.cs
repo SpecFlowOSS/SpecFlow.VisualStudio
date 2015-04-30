@@ -24,9 +24,9 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
         protected override string GetRunInCurrentContextCommand(bool debug)
         {
             if (debug)
-                return "ReSharper.ReSharper_ReSharper_UnitTest_DebugContext";
+                return "ReSharper.Reharper_ReSharperUnitTestDebugContext";
 
-            return "ReSharper.ReSharper_ReSharper_UnitTest_RunContext";
+            return "ReSharper.Reharper_ReSharperUnitTestRunContext";
         }
 
         public ReSharper6TestRunnerGateway(DTE dte, IIdeTracer tracer)
