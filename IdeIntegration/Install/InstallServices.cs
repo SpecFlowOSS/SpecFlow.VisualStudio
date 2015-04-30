@@ -68,14 +68,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             else if (status.InstalledVersion < CurrentVersion)
             {
                 //upgrading user   
-                if (ShowNotification(GuidanceNotification.Upgrade))
-                {
-                    status.InstallDate = today;
-                    status.InstalledVersion = CurrentVersion;
-
-                    UpdateStatus(status);
-                    CheckFileAssociation();
-                }
+                CheckFileAssociation();
             }
         }
 
@@ -109,7 +102,18 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 UpdateStatus(status);
             }
 
-            if (status.UsageDays >= AFTER_RAMP_UP_DAYS && status.UserLevel < (int)GuidanceNotification.AfterRampUp)
+            if (status.InstalledVersion < CurrentVersion)
+            {
+                //upgrading user   
+                if (ShowNotification(GuidanceNotification.Upgrade, isSpecRunUsed))
+                {
+                    status.InstallDate = today;
+                    status.InstalledVersion = CurrentVersion;
+
+                    UpdateStatus(status);
+                }
+            }
+            else if (status.UsageDays >= AFTER_RAMP_UP_DAYS && status.UserLevel < (int)GuidanceNotification.AfterRampUp)
             {
                 if (ShowNotification(GuidanceNotification.AfterRampUp, isSpecRunUsed))
                 {
