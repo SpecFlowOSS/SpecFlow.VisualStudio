@@ -1,6 +1,6 @@
 2015.1 - 2015/04/30
 
-Compatible with SpecFlow v1.9 or later.
+Compatible with SpecFlow v1.7 or later.
 
 Fixed issues:
 + 'Go To Definition' does not work if StepArgumentTransformation is used for Table (Issue 340)
