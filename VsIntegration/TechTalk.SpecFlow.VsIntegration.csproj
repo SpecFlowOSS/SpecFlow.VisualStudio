@@ -426,6 +426,6 @@
     <ItemGroup>
       <VsixFiles Include="$(TargetDir)\VSIX\**\*.*" />
     </ItemGroup>
-    <Zip Files="@(VsixFiles)" Flatten="false" WorkingDirectory="$(TargetDir)\VSIX" ZipFileName="$(TargetDir)\TechTalk.SpecFlow.Vs2013Integration.vsix" />
+    <Zip Files="@(VsixFiles)" Flatten="false" WorkingDirectory="$(TargetDir)\VSIX" ZipFileName="$(TargetDir)\TechTalk.SpecFlow.Vs2015Integration.vsix" />
   </Target>
 </Project>
