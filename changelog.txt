@@ -1,5 +1,6 @@
 2015.1 - 2015/04/30
 
+Supports Visual Studio 2013 and 2015.
 Compatible with SpecFlow v1.7 or later.
 
 Fixed issues:
