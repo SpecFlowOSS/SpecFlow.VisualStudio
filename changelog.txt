@@ -1,5 +1,14 @@
-2015.1 - 2015/04/30
+2015.1.1 - 2015/05/06
 
+Hotfix for release v2015.1
+
+Fixed issues:
++ VS2013 Plugin 2015.1 doesn't find step bindings if there is a base class in other project (Issue 438)
+
+
+2015.1.0 - 2015/04/30
+
+Supports Visual Studio 2013 and 2015.
 Compatible with SpecFlow v1.7 or later.
 
 Fixed issues:

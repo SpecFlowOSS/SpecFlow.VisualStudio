@@ -15,3 +15,4 @@ For documentation, please refer to the SpecFlow website:
 - The `master` branch always points to the "current" VS integration version (currently VS2013).
 - The `VS2015` branch conatins the Visual Studio 2015 integration.
 - For upcoming / older VS versions, we will keep other branches
+
