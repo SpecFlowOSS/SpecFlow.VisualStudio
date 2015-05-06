@@ -8,6 +8,7 @@ using TechTalk.SpecFlow.Bindings.Discovery;
 using TechTalk.SpecFlow.IdeIntegration.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.TestRunner;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
@@ -54,21 +55,57 @@ namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
                 }
 
 
-                var baseClass = codeClass.Bases.OfType<CodeClass>().FirstOrDefault();
+                var baseClass = GetBaseClass(codeClass);
 
-                while (baseClass != null && baseClass.FullName != "System.Object")
+                while (baseClass != null)
                 {
                     tracer.Trace("Adding inherited bindings for class: " + baseClass.FullName, GetType().Name);
                     parts.Add(baseClass);
-                    baseClass = baseClass.Bases.OfType<CodeClass>().FirstOrDefault();
+                    baseClass = GetBaseClass(baseClass);
                 }
 
                 // we need to use the class parts to grab class-related information (e.g. [Binding] attribute)
                 // but we need to process the binding methods only from the current part, otherwise these
                 // methods would be registered to multiple file paths, and the update tracking would not work
                     
-                relatedProjectItems.AddRange(parts.Select(p => p.ProjectItem).Where(pi => pi != null && pi != projectItem));
+                relatedProjectItems.AddRange(parts.Select(SafeGetProjectItem).Where(pi => pi != null && pi != projectItem));
                 ProcessCodeClass(codeClass, bindingSourceProcessor, parts.ToArray());
+            }
+        }
+
+        private CodeClass GetBaseClass(CodeClass codeClass)
+        {
+            return codeClass.Bases.OfType<CodeClass>().Where(IsProcessableBaseClass).FirstOrDefault();
+        }
+
+        private bool IsProcessableBaseClass(CodeClass codeClass)
+        {
+            try
+            {
+                if (codeClass.FullName == "System.Object")
+                    return false;
+                if (codeClass.ProjectItem == null)
+                    return false;
+                if (codeClass.Children == null)
+                    return false;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private ProjectItem SafeGetProjectItem(CodeClass codeClass)
+        {
+            try
+            {
+                return codeClass.ProjectItem;
+            }
+            catch (Exception ex)
+            {
+                tracer.Trace("Error while getting ProjectItem from CodeClass", GetType().Name, ex.Message);
+                return null;
             }
         }
 
