@@ -1,13 +1,23 @@
 <VSTemplate Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
   <TemplateData>
     <DefaultName>Hooks.vb</DefaultName>
-    <Name>SpecFlow Hooks (event bindings)</Name>
-    <Description>SpecFlow Hooks (event bindings)</Description>
+    <Name>SpecFlow Hooks</Name>
+    <Description>SpecFlow Hooks - Event bindings used to perform additional automation logic on specific events.</Description>
     <ProjectType>VisualBasic</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>SpecFlowHooksIcon.ico</Icon>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
   </TemplateData>
   <TemplateContent>
     <ProjectItem SubType="Code" TargetFileName="$fileinputname$.vb" ReplaceParameters="true">SpecFlowHooks1.vb</ProjectItem>
   </TemplateContent>
+  <WizardExtension>
+    <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+  </WizardExtension>
+  <WizardData>
+    <packages repository="extension" repositoryId="TechTalk.SpecFlow.Vs2013Integration">
+      <package id="SpecFlow" version="1.9.0" />
+    </packages>
+  </WizardData>
 </VSTemplate>

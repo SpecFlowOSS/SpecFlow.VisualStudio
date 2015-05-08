@@ -24,5 +24,6 @@
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
     <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="Project" d:ProjectName="%CurrentProject%.ItemTemplates" d:TargetPath="|TechTalk.SpecFlow.VsIntegration.ItemTemplates;TemplateProjectOutputGroup|" Path="ItemTemplates" d:VsixSubPath="ItemTemplates" />
+    <Asset Type="SpecFlow.1.9.0.nupkg" d:Source="File" Path="Packages\SpecFlow.1.9.0.nupkg" d:VsixSubPath="Packages" />
   </Assets>
 </PackageManifest>

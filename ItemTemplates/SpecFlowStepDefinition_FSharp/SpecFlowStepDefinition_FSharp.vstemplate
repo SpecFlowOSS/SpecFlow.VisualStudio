@@ -2,12 +2,22 @@
   <TemplateData>
     <DefaultName>StepDefinition.fs</DefaultName>
     <Name>SpecFlow Step Definition</Name>
-    <Description>SpecFlow Step Definition</Description>
+    <Description>SpecFlow Step Definition File contains the automation that connects the specification to the application interface.</Description>
     <ProjectType>FSharp</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>SpecFlowStepDefinitionIcon.ico</Icon>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
   </TemplateData>
   <TemplateContent>
     <ProjectItem SubType="" TargetFileName="$fileinputname$.fs" ReplaceParameters="true">SpecFlowStepDefinition1.fs</ProjectItem>
   </TemplateContent>
+  <WizardExtension>
+    <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+  </WizardExtension>
+  <WizardData>
+    <packages repository="extension" repositoryId="TechTalk.SpecFlow.Vs2013Integration">
+      <package id="SpecFlow" version="1.9.0" />
+    </packages>
+  </WizardData>
 </VSTemplate>

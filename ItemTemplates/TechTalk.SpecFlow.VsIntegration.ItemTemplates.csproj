@@ -76,19 +76,29 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SpecFlowFeature_VB\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_VB\SpecFlowFeature_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_VB\SpecFlowFeature_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_CSharp\SpecFlowHooks1.cs" />
-    <VSTemplate Include="SpecFlowHooks_FSharp\SpecFlowHooks_FSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowHooks_FSharp\SpecFlowHooks_FSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_FSharp\SpecFlowHooks1.fs" />
     <Content Include="SpecFlowHooks_FSharp\SpecFlowHooksIcon.ico" />
-    <VSTemplate Include="SpecFlowHooks_VB\SpecFlowHooks_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowHooks_VB\SpecFlowHooks_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_VB\SpecFlowHooks1.vb" />
     <Content Include="SpecFlowHooks_VB\SpecFlowHooksIcon.ico" />
     <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition1.cs" />
-    <VSTemplate Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition_FSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition_FSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition1.fs" />
     <Content Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinitionIcon.ico" />
-    <VSTemplate Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition1.vb" />
     <Content Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinitionIcon.ico" />
   </ItemGroup>
@@ -110,11 +120,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <VSTemplate Include="SpecFlowFeature_CSharp\SpecFlowFeature_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_CSharp\SpecFlowFeature_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_CSharp\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowHooks_CSharp\SpecFlowHooks_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowHooks_CSharp\SpecFlowHooks_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_CSharp\SpecFlowHooksIcon.ico" />
-    <VSTemplate Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinitionIcon.ico" />
   </ItemGroup>
   <ItemGroup>
