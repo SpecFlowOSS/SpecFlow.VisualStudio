@@ -42,7 +42,7 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
             }
             else
             {
-                commandFormat = "ReSharper.ReSharper_ReSharperUnitTest{0}Context";
+                commandFormat = "ReSharper.ReSharper_UnitTest{0}Context";
             }
 
             if (debug)
