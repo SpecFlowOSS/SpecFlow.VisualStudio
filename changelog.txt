@@ -1,3 +1,11 @@
+2015.1.2 - 2015/05/26
+
+Hotfix for release v2015.1
+
+Fixed issues:
++ "Run SpecFlow Scenarios" does not work with ReSharper 9 (Issue 435)
+
+
 2015.1.1 - 2015/05/06
 
 Hotfix for release v2015.1
