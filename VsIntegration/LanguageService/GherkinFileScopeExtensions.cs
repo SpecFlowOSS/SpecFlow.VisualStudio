@@ -193,7 +193,10 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                                                        string value;
                                                        return exampleDictionary.TryGetValue(match.Groups["param"].Value, out value) ? value : match.Value;
                                                    });
-            return new GherkinStep(step.StepDefinitionType, step.StepDefinitionKeyword, replacedText, step.StepContext, step.Keyword, step.BlockRelativeLine);
+            var substitutedStep = new GherkinStep(step.StepDefinitionType, step.StepDefinitionKeyword, replacedText, step.StepContext, step.Keyword, step.BlockRelativeLine);
+            substitutedStep.MultilineTextArgument = step.MultilineTextArgument;
+            substitutedStep.TableArgument = step.TableArgument;
+            return substitutedStep;
         }
 
         public static ScenarioOutlineExamplesRow GetExamplesRowFromPosition(this IScenarioOutlineBlock scenatioOutline, int line)
