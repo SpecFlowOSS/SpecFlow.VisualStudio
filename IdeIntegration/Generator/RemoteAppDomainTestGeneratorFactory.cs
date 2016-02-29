@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using TechTalk.SpecFlow.Generator;
@@ -85,6 +86,14 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
             AppDomainSetup appDomainSetup = new AppDomainSetup { ApplicationBase = generatorFolder };
             appDomainSetup.ShadowCopyFiles = "true";
+
+            //set configuration for generator app domain to have assembly redirects
+            var appConfigFile = Path.Combine(generatorFolder, "plugincompability.config");
+            if (File.Exists(appConfigFile))
+            {
+                appDomainSetup.ConfigurationFile = appConfigFile;
+            }
+
             appDomain = AppDomain.CreateDomain("AppDomainForTestGeneration", null, appDomainSetup);
 
             var testGeneratorFactoryTypeFullName = typeof(TestGeneratorFactory).FullName;
