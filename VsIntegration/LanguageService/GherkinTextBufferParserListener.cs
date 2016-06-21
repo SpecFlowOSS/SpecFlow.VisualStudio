@@ -10,6 +10,7 @@ using TechTalk.SpecFlow.Parser.Gherkin;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 using System.Globalization;
+using Gherkin;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 

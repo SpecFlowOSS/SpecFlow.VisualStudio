@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Bindings;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
@@ -12,7 +12,7 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
     public interface ISourceFilePosition
     {
         string SourceFile { get; }
-        FilePosition FilePosition { get; }
+        Location FilePosition { get; }
     }
 
     public class StepInstance<TNativeSuggestionItem> : StepInstance, IBoundStepSuggestion<TNativeSuggestionItem>, ISourceFilePosition
@@ -29,19 +29,19 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
         public StepInstanceTemplate<TNativeSuggestionItem> ParentTemplate { get; internal set; }
 
         public string SourceFile { get; private set; }
-        public FilePosition FilePosition { get; private set; }
+        public Location FilePosition { get; private set; }
 
-        public StepInstance(ScenarioStep step, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory, int level = 1)
-            : base((StepDefinitionType)step.ScenarioBlock, (StepDefinitionKeyword)step.StepKeyword, step.Keyword, step.Text, stepContext)
+        public StepInstance(Step step, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory, int level = 1)
+            : base(step.StepDefinitionType(), (StepDefinitionKeyword)step.StepKeyword, step.Keyword, step.Text, stepContext)
         {
             this.NativeSuggestionItem = nativeSuggestionItemFactory.Create(step.Text, GetInsertionText(step), level, StepDefinitionType.ToString().Substring(0, 1), this);
-            this.FilePosition = step.FilePosition;
+            this.FilePosition = step.Location;
             this.SourceFile = feature.SourceFile;
         }
 
         private const string stepParamIndent = "         ";
 
-        static internal string GetInsertionText(ScenarioStep step)
+        static internal string GetInsertionText(Step step)
         {
             if (step.TableArg == null && step.MultiLineTextArgument == null)
                 return step.Text;

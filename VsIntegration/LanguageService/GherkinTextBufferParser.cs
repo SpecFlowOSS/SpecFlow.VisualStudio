@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Gherkin;
 using Microsoft.VisualStudio.Text;
-using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.Gherkin;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 

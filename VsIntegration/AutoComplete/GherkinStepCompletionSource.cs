@@ -4,11 +4,11 @@ using System.Linq;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using System.ComponentModel.Composition;
+using Gherkin;
 using Microsoft.VisualStudio.Utilities;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.Gherkin;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
@@ -106,8 +106,12 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         private IEnumerable<Completion> GetKeywordCompletions()
         {
             GherkinDialect dialect = GetDialect(languageService);
-            return dialect.GetStepKeywords().Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
-                dialect.GetBlockKeywords().Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
+            return dialect.StepKeywords.Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
+                dialect.FeatureKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.ExamplesKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.ScenarioKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.ScenarioOutlineKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.BackgroundKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
         }
 
         static private GherkinDialect GetDialect(GherkinLanguageService languageService)
@@ -310,6 +314,52 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         public void Dispose()
         {
             disposed = true;
+        }
+    }
+
+    public static class GherkinDialectExtensions
+    {
+        public static IEnumerable<string> GetKeywords(this GherkinDialect dialect)
+        {
+            return dialect.StepKeywords
+                .Concat(dialect.ExamplesKeywords)
+                .Concat(dialect.ScenarioKeywords)
+                .Concat(dialect.ScenarioOutlineKeywords)
+                .Concat(dialect.BackgroundKeywords)
+                .Concat(dialect.FeatureKeywords);
+        }
+
+        public static bool IsStepKeyword(this GherkinDialect dialect, string keyword)
+        {
+            return dialect.TryParseStepKeyword(keyword) != null;
+        }
+
+        public static StepKeyword? TryParseStepKeyword(this GherkinDialect dialect, string keyword)
+        {
+            if (dialect.AndStepKeywords.Contains(keyword))
+                return StepKeyword.And;
+            // this is checked at the first place to interpret "*" as "and"
+
+            if (dialect.GivenStepKeywords.Contains(keyword))
+                return StepKeyword.Given;
+
+            if (dialect.WhenStepKeywords.Contains(keyword))
+                return StepKeyword.When;
+
+            if (dialect.ThenStepKeywords.Contains(keyword))
+                return StepKeyword.Then;
+
+            if (dialect.ButStepKeywords.Contains(keyword))
+                return StepKeyword.But;
+
+            // In Gherkin, the space at the end is also part of the keyword, becase in some 
+            // languages, there is no space between the step keyword and the step text.
+            // To support the keywords without leading space as well, we retry the matching with 
+            // an additional space too.
+            if (!keyword.EndsWith(" "))
+                return dialect.TryParseStepKeyword(keyword + " ");
+
+            return null;
         }
     }
 }

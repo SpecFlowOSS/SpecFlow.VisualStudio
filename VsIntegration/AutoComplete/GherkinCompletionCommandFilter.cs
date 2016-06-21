@@ -10,9 +10,6 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.Gherkin;
-using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 

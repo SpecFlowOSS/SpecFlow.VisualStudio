@@ -41,6 +41,10 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\..\packages\FluentAssertions.3.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Gherkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=86496cfa5b4a5851, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.CustomPlugin.2.1.0\lib\net45\Gherkin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -54,17 +58,21 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.2.1.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="TechTalk.SpecFlow.Generator">
-      <HintPath>..\..\packages\SpecFlow.CustomPlugin.1.9.0\lib\net40\TechTalk.SpecFlow.Generator.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow.Generator, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.CustomPlugin.2.1.0\lib\net45\TechTalk.SpecFlow.Generator.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="TechTalk.SpecFlow.Parser">
-      <HintPath>..\..\packages\SpecFlow.CustomPlugin.1.9.0\lib\net40\TechTalk.SpecFlow.Parser.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow.Parser, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.CustomPlugin.2.1.0\lib\net45\TechTalk.SpecFlow.Parser.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="TechTalk.SpecFlow.Utils">
-      <HintPath>..\..\packages\SpecFlow.CustomPlugin.1.9.0\lib\net40\TechTalk.SpecFlow.Utils.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow.Utils, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.CustomPlugin.2.1.0\lib\net45\TechTalk.SpecFlow.Utils.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

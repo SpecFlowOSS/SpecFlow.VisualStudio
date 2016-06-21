@@ -4,10 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using EnvDTE;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj;
@@ -76,13 +76,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             try
             {
-                SpecFlowLangParser specFlowLangParser = new SpecFlowLangParser(defaultLanguage);
+                SpecFlowGherkinParser specFlowLangParser = new SpecFlowGherkinParser(defaultLanguage);
 
                 StringReader featureFileReader = new StringReader(fileContent);
 
-                var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
+                var specFlowDocument = specFlowLangParser.Parse(featureFileReader, sourceFileName);
 
-                return feature;
+                return specFlowDocument.Feature;
             }
             catch (Exception)
             {

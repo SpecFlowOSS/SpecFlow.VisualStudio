@@ -4,9 +4,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Gherkin.Ast;
 using Microsoft.VisualStudio.Language.Intellisense;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 
@@ -146,19 +146,19 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 (feature.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Concat(scenario.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Select(t => t.Name).Distinct();
-            return new StepContext(feature.Title, scenario.Title, tags.ToArray(), GetLanguage(feature));
+            return new StepContext(feature.Name, scenario.Name, tags.ToArray(), GetLanguage(feature));
         }
 
         private StepContext CreateStepScope(Feature feature)
         {
             var tags = (feature.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Select(t => t.Name).Distinct();
-            return new StepContext(feature.Title, null, tags.ToArray(), GetLanguage(feature));
+            return new StepContext(feature.Name, null, tags.ToArray(), GetLanguage(feature));
         }
 
         private CultureInfo GetLanguage(Feature feature)
         {
-            var language = this.vsProjectScope.GherkinDialectServices.GetGherkinDialect(feature).CultureInfo;
+            var language = this.vsProjectScope.GherkinDialectServices.GetGherkinDialect(feature.Language).CultureInfo;
             return language;
         }
 

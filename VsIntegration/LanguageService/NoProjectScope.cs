@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using Gherkin;
 using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.IdeIntegration;
@@ -61,6 +63,21 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public void Dispose()
         {
             //nop
+        }
+    }
+
+    public class GherkinDialectServices
+    {
+        public GherkinDialectServices(CultureInfo featureLanguage)
+        {
+            DefaultLanguage = featureLanguage;
+        }
+
+        public CultureInfo DefaultLanguage { get; private set; }
+
+        public GherkinDialect GetDefaultDialect()
+        {
+            return new GherkinDialectProvider(DefaultLanguage.TwoLetterISOLanguageName).DefaultDialect;
         }
     }
 }

@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Bindings;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
@@ -71,9 +71,9 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 
         static private readonly Regex paramRe = new Regex(@"\<(?<param>[^\>]+)\>");
 
-        public StepInstanceTemplate(ScenarioStep scenarioStep, ScenarioOutline scenarioOutline, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
+        public StepInstanceTemplate(Step scenarioStep, ScenarioOutline scenarioOutline, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
         {
-            StepDefinitionType = (StepDefinitionType)scenarioStep.ScenarioBlock;
+            StepDefinitionType = scenarioStep.StepDefinitionType();
             Language = stepContext.Language;
 
             NativeSuggestionItem = nativeSuggestionItemFactory.Create(scenarioStep.Text, StepInstance<TNativeSuggestionItem>.GetInsertionText(scenarioStep), 1, StepDefinitionType.ToString().Substring(0, 1) + "-t", this);
@@ -84,7 +84,7 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
             StepPrefix = match.Success ? scenarioStep.Text.Substring(0, match.Index) : scenarioStep.Text;
         }
 
-        private void AddInstances(ScenarioStep scenarioStep, ScenarioOutline scenarioOutline, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
+        private void AddInstances(Step scenarioStep, ScenarioOutline scenarioOutline, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
         {
             foreach (var exampleSet in scenarioOutline.Examples.ExampleSets)
             {
@@ -107,9 +107,17 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
             }
         }
 
-        static public bool IsTemplate(ScenarioStep scenarioStep)
+        static public bool IsTemplate(Step scenarioStep)
         {
             return paramRe.Match(scenarioStep.Text).Success;
+        }
+    }
+
+    public static class StepExtensions
+    {
+        public static StepDefinitionType StepDefinitionType(this Step step)
+        {
+            return (StepDefinitionType) Enum.Parse(typeof (StepDefinitionType), step.Keyword);
         }
     }
 }
