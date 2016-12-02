@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
-    <VisualStudioVersion>14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <VSCommonExtensionsPath Condition="'$(VSCommonExtensionsPath)' == ''">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+    <!-- <VSCommonExtensionsPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions</VSCommonExtensionsPath> -->
+    <VSCommonExtensionsPath Condition="'$(VSCommonExtensionsPath)' == ''">$(MSBuildBinPath)\..\..\..\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -26,6 +27,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -84,13 +87,17 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestWindow">
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.dll</HintPath>
+      <HintPath>$(VSCommonExtensionsPath)\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestWindow.Core">
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Core.dll</HintPath>
+      <HintPath>$(VSCommonExtensionsPath)\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestWindow.Interfaces">
-      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+      <HintPath>$(VSCommonExtensionsPath)\Microsoft\TestWindow\Microsoft.VisualStudio.TestWindow.Interfaces.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Text.Data, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -339,6 +346,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AutoCompleteIcons.psd" />
     <None Include="source.extension.vsixmanifest">
@@ -440,19 +448,13 @@
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
   <Target Name="AfterBuild">
-    <RemoveDir Directories="$(TargetDir)\VSIX" />
-    <Unzip ZipFileName="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix" TargetDirectory="$(TargetDir)\VSIX" />
-    <Delete Files="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix.orig" />
-    <Move SourceFiles="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix" DestinationFiles="$(TargetDir)\TechTalk.SpecFlow.VsIntegration.vsix.orig" />
-    <ItemGroup>
-      <VsFiles Include="$(TargetDir)\VSIX\EnvDTE*.dll" />
-      <VsFiles Include="$(TargetDir)\VSIX\VSLangProj*.dll" />
-      <VsFiles Include="$(TargetDir)\VSIX\Microsoft.VisualStudio.*.dll" />
-    </ItemGroup>
-    <Delete Files="@(VsFiles)" />
-    <ItemGroup>
-      <VsixFiles Include="$(TargetDir)\VSIX\**\*.*" />
-    </ItemGroup>
-    <Zip Files="@(VsixFiles)" Flatten="false" WorkingDirectory="$(TargetDir)\VSIX" ZipFileName="$(TargetDir)\TechTalk.SpecFlow.Vs2017Integration.vsix" />
+    
+  </Target>
+  <Import Project="..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets'))" />
   </Target>
 </Project>
