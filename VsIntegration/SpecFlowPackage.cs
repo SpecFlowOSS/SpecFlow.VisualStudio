@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Commands;
 using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration
 {
@@ -56,7 +57,17 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             get
             {
-                return IdeIntegration.Install.IdeIntegration.VisualStudio2015;
+                switch(VSVersion.FullVersion.Major)
+                {
+                    case 12:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2013;
+                    case 14:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2015;
+                    case 15:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2017;
+                    
+                }
+                return IdeIntegration.Install.IdeIntegration.Unknown;
             }
         }
 
