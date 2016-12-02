@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -408,7 +409,21 @@ namespace TechTalk.SpecFlow.VsIntegration.Utils
 
         public static IEnumerable<CodeClass> GetClasses(Project project)
         {
-            return GetAllProjectItem(project).Where(pi => pi.FileCodeModel != null).SelectMany(projectItem => GetClasses(projectItem.FileCodeModel.CodeElements));
+            return GetAllProjectItem(project)
+                .Where(HasFileCodeModel)
+                .SelectMany(projectItem => GetClasses(projectItem.FileCodeModel.CodeElements));
+        }
+
+        public static bool HasFileCodeModel(ProjectItem projectItem)
+        {
+            try
+            {
+                return projectItem.FileCodeModel != null;
+            }
+            catch (COMException)
+            {
+                return false;
+            }
         }
 
         public static IEnumerable<CodeClass> GetClasses(ProjectItem projectItem)
