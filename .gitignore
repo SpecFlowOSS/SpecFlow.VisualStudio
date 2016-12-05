@@ -22,3 +22,5 @@ test-results
 Tests/TechTalk.SpecFlow.Specs.Silverlight4.Web/ClientBin/*
 *.stackdump
 packages/*
+*.ncrunchproject
+SpecFlow.VisualStudio.v2.ncrunchsolution

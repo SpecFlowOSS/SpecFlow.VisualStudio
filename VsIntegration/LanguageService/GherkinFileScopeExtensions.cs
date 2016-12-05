@@ -184,16 +184,39 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             return GetSubstitutedStep(step, firstNonEmptyExampleSet.ExamplesTable.Rows.First());
         }
 
-        static private readonly Regex paramRe = new Regex(@"\<(?<param>[^\>]+)\>");
+        private static readonly Regex paramRe = new Regex(@"\<(?<param>[^\>]+)\>");
         private static GherkinStep GetSubstitutedStep(GherkinStep step, IDictionary<string, string> exampleDictionary)
         {
-            var replacedText = paramRe.Replace(step.Text,
-                                               match =>
-                                                   {
-                                                       string value;
-                                                       return exampleDictionary.TryGetValue(match.Groups["param"].Value, out value) ? value : match.Value;
-                                                   });
-            return new GherkinStep(step.StepDefinitionType, step.StepDefinitionKeyword, replacedText, step.StepContext, step.Keyword, step.BlockRelativeLine);
+            var replacedText = ReplaceExamplesInText(step.Text, exampleDictionary);
+            var substitutedStep = new GherkinStep(step.StepDefinitionType, step.StepDefinitionKeyword, replacedText, step.StepContext, step.Keyword, step.BlockRelativeLine);
+            substitutedStep.MultilineTextArgument = step.MultilineTextArgument==null ? null: ReplaceExamplesInText(step.MultilineTextArgument,exampleDictionary);
+            substitutedStep.TableArgument = CreateSubstitutedTable(step.TableArgument, exampleDictionary);
+            return substitutedStep;
+        }
+
+        private static Table CreateSubstitutedTable(Table tableArgument,IDictionary<string, string> exampleDictionary)
+        {
+            if (tableArgument == null)
+            {
+                return null;
+            }
+            Table substitutedTable = new Table(tableArgument.Header.ToArray());
+            foreach (var row in tableArgument.Rows)
+            {
+                substitutedTable.AddRow(row.Values.Select(cell=>ReplaceExamplesInText(cell,exampleDictionary)).ToArray());
+            }
+
+            return substitutedTable;
+        }
+
+        private static string ReplaceExamplesInText(string text, IDictionary<string, string> exampleDictionary)
+        {
+            return paramRe.Replace(text,
+                match =>
+                {
+                    string value;
+                    return exampleDictionary.TryGetValue(match.Groups["param"].Value, out value) ? value : match.Value;
+                });
         }
 
         public static ScenarioOutlineExamplesRow GetExamplesRowFromPosition(this IScenarioOutlineBlock scenatioOutline, int line)
