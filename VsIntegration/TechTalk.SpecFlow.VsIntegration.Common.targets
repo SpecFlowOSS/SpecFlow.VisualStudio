@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+	<PropertyGroup>
+	    <MinimumVisualStudioVersion>$(VisualStudioVersion)</MinimumVisualStudioVersion>
+		<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '12.0'">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '14.0'">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio $(VisualStudioVersion)\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<VersionNumber>2016.1.1</VersionNumber>
+	</PropertyGroup>
+	
+</Project>
