@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2017", "VsIntegration\TechTalk.SpecFlow.VsIntegration.2017.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{DD083D4C-C52C-444C-8FEB-51FEFC77AEC1}"
+	ProjectSection(SolutionItems) = preProject
+		TechTalk.SpecFlow.VsIntegration.Common.Build.targets = TechTalk.SpecFlow.VsIntegration.Common.Build.targets
+		TechTalk.SpecFlow.VsIntegration.Common.targets = TechTalk.SpecFlow.VsIntegration.Common.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
