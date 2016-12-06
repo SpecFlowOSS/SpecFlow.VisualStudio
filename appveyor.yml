@@ -11,11 +11,11 @@ configuration: Release
 environment:
   matrix:
   - SpecFlow_VisualStudioVersion: 2013
-    VisualStudioVersion: 12
+    VisualStudioVersion: 12.0
   - SpecFlow_VisualStudioVersion: 2015
-    VisualStudioVersion: 14
+    VisualStudioVersion: 14.0
   - SpecFlow_VisualStudioVersion: 2017
-    VisualStudioVersion: 15
+    VisualStudioVersion: 15.0
 
   
 before_build:
