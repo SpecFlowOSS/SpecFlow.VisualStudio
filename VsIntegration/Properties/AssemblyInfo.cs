@@ -7,6 +7,3 @@ using System.Reflection;
 [assembly: AssemblyTitle("TechTalk.SpecFlow.VsIntegration")]
 [assembly: AssemblyDescription("SpecFlow Visual Studio integration library")]
 [assembly: AssemblyConfiguration("")]
-
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
