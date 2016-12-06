@@ -11,8 +11,12 @@ configuration: Release
 environment:
   matrix:
   - SpecFlow_VisualStudioVersion: 2013
+    VisualStudioVersion: 12
   - SpecFlow_VisualStudioVersion: 2015
+    VisualStudioVersion: 14
   - SpecFlow_VisualStudioVersion: 2017
+    VisualStudioVersion: 15
+
   
 before_build:
 - cmd: nuget restore SpecFlow.VisualStudio.%SpecFlow_VisualStudioVersion%.sln
