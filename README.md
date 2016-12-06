@@ -8,7 +8,7 @@ For documentation, please refer to the SpecFlow website:
 ## Build prerequisites
 
 - Visual Studio 2013, any edition but Express
-- Visual Studio 2013 SDK
+- Visual Studio 2015 SDK
 
 ## Branching
 

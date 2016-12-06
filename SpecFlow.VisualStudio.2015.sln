@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration", "VsIntegration\TechTalk.SpecFlow.VsIntegration.2015.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.IdeIntegration", "IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj", "{44D52C1B-0ABC-44B6-8EB8-0F754E264226}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E30EEB3E-0274-45EE-8FCE-4069823E670F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.IdeIntegration.UnitTests", "UnitTests\IdeIntegration.UnitTests\TechTalk.SpecFlow.IdeIntegration.UnitTests.csproj", "{69505BAC-12B9-4443-BB3B-A94E51EA5922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.ItemTemplates", "ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj", "{662A06B2-A852-47C4-A258-D84FE81D4A80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922} = {E30EEB3E-0274-45EE-8FCE-4069823E670F}
+	EndGlobalSection
+EndGlobal

@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Commands;
 using TechTalk.SpecFlow.VsIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration
 {
@@ -30,7 +31,7 @@ namespace TechTalk.SpecFlow.VsIntegration
     [PackageRegistration(UseManagedResourcesOnly = true)]
     // This attribute is used to register the informations needed to show the this package
     // in the Help/About dialog of Visual Studio.
-    [InstalledProductRegistration("#110", "#112", "2015.1", IconResourceID = 400)]
+    [InstalledProductRegistration("#110", "#112", "2017.1", IconResourceID = 400)]
     [ProvideOptionPage(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 122, true)]
     [ProvideProfile(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 123, true, DescriptionResourceID = 121)]
     [Guid(GuidList.guidSpecFlowPkgString)]
@@ -56,7 +57,17 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             get
             {
-                return IdeIntegration.Install.IdeIntegration.VisualStudio2013;
+                switch(VSVersion.FullVersion.Major)
+                {
+                    case 12:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2013;
+                    case 14:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2015;
+                    case 15:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2017;
+                    
+                }
+                return IdeIntegration.Install.IdeIntegration.Unknown;
             }
         }
 
