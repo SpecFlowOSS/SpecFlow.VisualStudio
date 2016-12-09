@@ -1,5 +1,10 @@
 version: 1.0.{build}
 
+branches:
+  only:
+    - /release.*/
+    - master
+
  
 image: Visual Studio 2017 RC
 
