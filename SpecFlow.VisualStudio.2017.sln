@@ -16,7 +16,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{DD083D4C-C52C-444C-8FEB-51FEFC77AEC1}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		changelog.txt = changelog.txt
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		GitVersion.yml = GitVersion.yml
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 		TechTalk.SpecFlow.VsIntegration.Common.Build.targets = TechTalk.SpecFlow.VsIntegration.Common.Build.targets
 		TechTalk.SpecFlow.VsIntegration.Common.targets = TechTalk.SpecFlow.VsIntegration.Common.targets
 	EndProjectSection
