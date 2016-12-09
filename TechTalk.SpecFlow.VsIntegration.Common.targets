@@ -9,8 +9,4 @@
 		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
 	</PropertyGroup>
 	
-	<PropertyGroup>
-		<VersionNumber>2017.1.1</VersionNumber>
-	</PropertyGroup>
-	
 </Project>
