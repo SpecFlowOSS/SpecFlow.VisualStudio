@@ -15,32 +15,34 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Path=IconSource}" Height="16" Width="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBlock Grid.Column="1" Text="{Binding Path=DisplayText, Mode=Default}" Padding="5,0,5,0" />
-            </Grid>            
+            </Grid>
         </DataTemplate>
         <IntellisensePresenter:Text2Visibility x:Key="text2Visibility" />
     </UserControl.Resources>
     <Border>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <!--<ColumnDefinition />-->
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+        <ScrollViewer Name="scrollViewer" Background="Transparent" IsDeferredScrollingEnabled="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid PreviewMouseWheel="Grid_PreviewMouseWheel">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <!--<ColumnDefinition />-->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-            <Border Background="White" BorderBrush="#FF828790" BorderThickness="1,1,1,0" Visibility="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay, Converter={StaticResource ResourceKey=text2Visibility}}">
-                <TextBlock Text="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay}" Padding="5,3,5,3" FontStyle="Italic" />
-            </Border>
-            
-            <ListBox x:Name="listViewCompletions" Grid.Row="1"
+                <Border Background="White" BorderBrush="#FF828790" BorderThickness="1,1,1,0" Visibility="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay, Converter={StaticResource ResourceKey=text2Visibility}}">
+                    <TextBlock Text="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay}" Padding="5,3,5,3" FontStyle="Italic" />
+                </Border>
+
+                <ListBox x:Name="listViewCompletions" Grid.Row="1"
                      ItemTemplate="{DynamicResource ItemDataTemplate}"
                  ItemsSource="{Binding Session.SelectedCompletionSet.Completions}"               
                  MouseDoubleClick="ListView_MouseDoubleClick" 
                  SelectionChanged="ListView_SelectionChanged" 
                  MouseLeftButtonDown="listViewCompletions_MouseLeftButtonDown">
-            </ListBox>
-        </Grid>
+                </ListBox>
+            </Grid>
+        </ScrollViewer>
     </Border>
 </UserControl>
