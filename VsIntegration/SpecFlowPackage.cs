@@ -53,7 +53,7 @@ namespace TechTalk.SpecFlow.VsIntegration
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
         }
 
-        private IdeIntegration.Install.IdeIntegration? CurrentIdeIntegration
+        public static IdeIntegration.Install.IdeIntegration? CurrentIdeIntegration
         {
             get
             {
@@ -68,6 +68,24 @@ namespace TechTalk.SpecFlow.VsIntegration
                     
                 }
                 return IdeIntegration.Install.IdeIntegration.Unknown;
+            }
+        }
+
+        public static string AssemblyName
+        {
+            get
+            {
+                switch (CurrentIdeIntegration)
+                {
+                    case IdeIntegration.Install.IdeIntegration.VisualStudio2013:
+                        return "TechTalk.SpecFlow.VsIntegration.2013";
+                    case IdeIntegration.Install.IdeIntegration.VisualStudio2015:
+                        return "TechTalk.SpecFlow.VsIntegration.2015";
+                    case IdeIntegration.Install.IdeIntegration.VisualStudio2017:
+                        return "TechTalk.SpecFlow.VsIntegration.2017";
+                    default:
+                        return "TechTalk.SpecFlow.VsIntegration";
+                }
             }
         }
 
