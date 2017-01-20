@@ -70,11 +70,5 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
         {
             this.SurrenderFocus();
         }
-
-        private void Grid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            this.scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
-            e.Handled = true;
-        }
     }
 }

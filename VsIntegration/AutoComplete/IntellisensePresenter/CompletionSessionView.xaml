@@ -19,30 +19,25 @@
         </DataTemplate>
         <IntellisensePresenter:Text2Visibility x:Key="text2Visibility" />
     </UserControl.Resources>
-    <Border>
-        <ScrollViewer Name="scrollViewer" Background="Transparent" IsDeferredScrollingEnabled="False" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid PreviewMouseWheel="Grid_PreviewMouseWheel">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <!--<ColumnDefinition />-->
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="White" BorderBrush="#FF828790" BorderThickness="1,1,1,0" Visibility="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay, Converter={StaticResource ResourceKey=text2Visibility}}">
+            <TextBlock Text="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay}" Padding="5,3,5,3" FontStyle="Italic" />
+        </Border>
 
-                <Border Background="White" BorderBrush="#FF828790" BorderThickness="1,1,1,0" Visibility="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay, Converter={StaticResource ResourceKey=text2Visibility}}">
-                    <TextBlock Text="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay}" Padding="5,3,5,3" FontStyle="Italic" />
-                </Border>
-
-                <ListBox x:Name="listViewCompletions" Grid.Row="1"
+        <ListBox x:Name="listViewCompletions" Grid.Row="1"
                      ItemTemplate="{DynamicResource ItemDataTemplate}"
                  ItemsSource="{Binding Session.SelectedCompletionSet.Completions}"               
                  MouseDoubleClick="ListView_MouseDoubleClick" 
                  SelectionChanged="ListView_SelectionChanged" 
-                 MouseLeftButtonDown="listViewCompletions_MouseLeftButtonDown">
-                </ListBox>
-            </Grid>
-        </ScrollViewer>
-    </Border>
+                 MouseLeftButtonDown="listViewCompletions_MouseLeftButtonDown"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+    </Grid>
 </UserControl>
