@@ -35,7 +35,8 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
             if (!IntegrationOptionsProvider.GetOptions().EnableIntelliSense)
                 return null;
 
-            return new GherkinStepCompletionSource(textBuffer, GherkinLanguageServiceFactory.GetLanguageService(textBuffer), Tracer);
+            int maxStepSuggestions = IntegrationOptionsProvider.GetOptions().MaxStepInstancesSuggestions;
+            return new GherkinStepCompletionSource(textBuffer, GherkinLanguageServiceFactory.GetLanguageService(textBuffer), Tracer, maxStepSuggestions);
         }
     }
 
@@ -45,12 +46,14 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         private readonly ITextBuffer textBuffer;
         private readonly GherkinLanguageService languageService;
         private readonly IIdeTracer tracer;
+        private readonly int maxStepInstancesSuggestions;
 
-        public GherkinStepCompletionSource(ITextBuffer textBuffer, GherkinLanguageService languageService, IIdeTracer tracer)
+        public GherkinStepCompletionSource(ITextBuffer textBuffer, GherkinLanguageService languageService, IIdeTracer tracer, int maxStepInstancesSuggestions)
         {
             this.textBuffer = textBuffer;
             this.languageService = languageService;
             this.tracer = tracer;
+            this.maxStepInstancesSuggestions = maxStepInstancesSuggestions;
         }
 
         public void AugmentCompletionSession(ICompletionSession session, IList<CompletionSet> completionSets)
@@ -95,7 +98,8 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
                     displayName, 
                     applicableTo, 
                     completions, 
-                    null);
+                    null,
+                    maxStepInstancesSuggestions);
 
                 if (!string.IsNullOrEmpty(statusText))
                     completionSet.StatusText = statusText;

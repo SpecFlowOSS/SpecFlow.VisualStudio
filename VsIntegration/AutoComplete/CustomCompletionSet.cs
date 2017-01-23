@@ -46,16 +46,16 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         {
             ITextSnapshot currentSnapshot = ApplicableTo.TextBuffer.CurrentSnapshot;
             var filterText = ApplicableTo.GetText(currentSnapshot).TrimEnd();
-            if (string.IsNullOrEmpty(filterText))
-            {
-                ((FilteredObservableCollection<Completion>)Completions).StopFiltering();
-                ((FilteredObservableCollection<Completion>)CompletionBuilders).StopFiltering();
-            }
-            else
-            {
-                ((FilteredObservableCollection<Completion>)Completions).Filter(completion => DoesCompletionMatchApplicabilityText(completion, filterText, matchType, caseSensitive));
-                ((FilteredObservableCollection<Completion>)CompletionBuilders).Filter(completion => DoesCompletionMatchApplicabilityText(completion, filterText, matchType, caseSensitive));
-            }
+            var predicate = GetFilterPredicate(filterText, matchType, caseSensitive);
+
+            ((FilteredObservableCollection<Completion>)Completions).Filter(predicate);
+            ((FilteredObservableCollection<Completion>)CompletionBuilders).Filter(predicate);
+        }
+
+        protected virtual Predicate<Completion> GetFilterPredicate(string filterText, CompletionMatchType matchType, bool caseSensitive)
+        {
+            bool isFilterTextEmpty = string.IsNullOrEmpty(filterText);
+            return completion => isFilterTextEmpty || DoesCompletionMatchApplicabilityText(completion, filterText, matchType, caseSensitive);
         }
 
         protected virtual bool DoesCompletionMatchApplicabilityText(Completion completion, string filterText, CompletionMatchType matchType, bool caseSensitive)
@@ -81,8 +81,8 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
             }
 
             StringComparison comparison = caseSensitive
-                                              ? StringComparison.CurrentCulture
-                                              : StringComparison.CurrentCultureIgnoreCase;
+                ? StringComparison.CurrentCulture
+                : StringComparison.CurrentCultureIgnoreCase;
 
             if (string.IsNullOrWhiteSpace(filterText))
                 return false;
@@ -99,7 +99,7 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
             var wordIndex = text.IndexOf(wordPrefix, comparison);
             while (wordIndex > 0 && char.IsLetterOrDigit(text[wordIndex - 1]))
             {
-                wordIndex = text.IndexOf(wordPrefix, wordIndex + 1, comparison);    
+                wordIndex = text.IndexOf(wordPrefix, wordIndex + 1, comparison);
             }
 
             return wordIndex >= 0;

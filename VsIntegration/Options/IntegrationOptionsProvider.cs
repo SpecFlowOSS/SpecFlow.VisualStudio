@@ -19,6 +19,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const bool EnableSyntaxColoringDefaultValue = true;
         public const bool EnableOutliningDefaultValue = true;
         public const bool EnableIntelliSenseDefaultValue = true;
+        public const int MaxStepInstancesSuggestionsDefaultValue = 5;
         public const bool EnableAnalysisDefaultValue = true;
         public const bool EnableTableAutoFormatDefaultValue = true;
         public const bool EnableStepMatchColoringDefaultValue = true;
@@ -54,6 +55,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                                               EnableSyntaxColoring = GetGeneralOption(dte, "EnableSyntaxColoring", EnableSyntaxColoringDefaultValue),
                                               EnableOutlining = GetGeneralOption(dte, "EnableOutlining", EnableOutliningDefaultValue),
                                               EnableIntelliSense = GetGeneralOption(dte, "EnableIntelliSense", EnableIntelliSenseDefaultValue),
+                                              MaxStepInstancesSuggestions = GetGeneralOption(dte, "MaxStepInstancesSuggestions", MaxStepInstancesSuggestionsDefaultValue),
                                               EnableAnalysis = GetGeneralOption(dte, "EnableAnalysis", EnableAnalysisDefaultValue),
                                               EnableTableAutoFormat = GetGeneralOption(dte, "EnableTableAutoFormat", EnableTableAutoFormatDefaultValue),
                                               EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),

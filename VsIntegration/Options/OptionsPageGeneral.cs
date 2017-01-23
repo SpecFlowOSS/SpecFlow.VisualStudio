@@ -61,6 +61,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public bool EnableIntelliSense { get; set; }
 
         [Category("Editor Settings")]
+        [Description("Limit quantity of IntelliSense step instances suggestions for each step template.")]
+        [DisplayName(@"Max Step Instances Suggestions")]
+        [DefaultValue(IntegrationOptionsProvider.MaxStepInstancesSuggestionsDefaultValue)]
+        public int MaxStepInstancesSuggestions { get; set; }
+
+        [Category("Editor Settings")]
         [Description("Controls whether the step definition match status should be indicated with a different color in the editor. (beta)")]
         [DisplayName(@"Enable Step Match Coloring")]
         [DefaultValue(IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue)]
@@ -96,6 +102,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             EnableSyntaxColoring = IntegrationOptionsProvider.EnableSyntaxColoringDefaultValue;
             EnableOutlining = IntegrationOptionsProvider.EnableOutliningDefaultValue;
             EnableIntelliSense = IntegrationOptionsProvider.EnableIntelliSenseDefaultValue;
+            MaxStepInstancesSuggestions = IntegrationOptionsProvider.MaxStepInstancesSuggestionsDefaultValue;
             EnableTableAutoFormat = IntegrationOptionsProvider.EnableTableAutoFormatDefaultValue;
             EnableStepMatchColoring = IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue;
             EnableTracing = IntegrationOptionsProvider.EnableTracingDefaultValue;
