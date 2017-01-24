@@ -10,19 +10,21 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
     internal class HierarchicalCompletionSet : CustomCompletionSet
     {
-        public HierarchicalCompletionSet(int maxStepInstances)
+        public HierarchicalCompletionSet()
         {
             PrefixMatch = false;
-            _maxStepInstances = maxStepInstances;
+            _limitStepInstances = false;
         }
 
-        public HierarchicalCompletionSet(string moniker, string displayName, ITrackingSpan applicableTo, IEnumerable<Completion> completions, IEnumerable<Completion> completionBuilders, int maxStepInstances)
+        public HierarchicalCompletionSet(string moniker, string displayName, ITrackingSpan applicableTo, IEnumerable<Completion> completions, IEnumerable<Completion> completionBuilders, bool limitStepInstances, int maxStepInstances)
             : base(moniker, displayName, applicableTo, completions, completionBuilders)
         {
             PrefixMatch = false;
-            _maxStepInstances = maxStepInstances;
+            this._limitStepInstances = limitStepInstances;
+            this._maxStepInstances = maxStepInstances;
         }
 
+        private readonly bool _limitStepInstances;
         private readonly int _maxStepInstances;
 
         protected override bool DoesCompletionMatchApplicabilityText(Completion completion, string filterText, CompletionMatchType matchType, bool caseSensitive)
@@ -33,8 +35,8 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
             object parentObject;
             completion.Properties.TryGetProperty("parentObject", out parentObject);
             IStepSuggestionGroup<Completion> parentObjectAsGroup = parentObject as IStepSuggestionGroup<Completion>;
-            return 
-                parentObjectAsGroup != null && 
+            return
+                parentObjectAsGroup != null &&
                 parentObjectAsGroup.Suggestions
                     .Any(stepSuggestion => stepSuggestion.NativeSuggestionItem != null && DoesCompletionMatchApplicabilityText(stepSuggestion.NativeSuggestionItem, filterText, matchType, caseSensitive));
         }
@@ -42,7 +44,9 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         protected override Predicate<Completion> GetFilterPredicate(string filterText, CompletionMatchType matchType, bool caseSensitive)
         {
             var basePredicate = base.GetFilterPredicate(filterText, matchType, caseSensitive);
-            return LimitStepInstances(_maxStepInstances, basePredicate);
+            return _limitStepInstances
+                ? LimitStepInstances(_maxStepInstances, basePredicate)
+                : basePredicate;
         }
 
         /// <summary>

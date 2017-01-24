@@ -32,11 +32,13 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 
         public ICompletionSource TryCreateCompletionSource(ITextBuffer textBuffer)
         {
-            if (!IntegrationOptionsProvider.GetOptions().EnableIntelliSense)
+            var options = IntegrationOptionsProvider.GetOptions();
+            if (!options.EnableIntelliSense)
                 return null;
 
-            int maxStepSuggestions = IntegrationOptionsProvider.GetOptions().MaxStepInstancesSuggestions;
-            return new GherkinStepCompletionSource(textBuffer, GherkinLanguageServiceFactory.GetLanguageService(textBuffer), Tracer, maxStepSuggestions);
+            bool limitStepInstancesSuggestions = options.LimitStepInstancesSuggestions;
+            int maxStepSuggestions = options.MaxStepInstancesSuggestions;
+            return new GherkinStepCompletionSource(textBuffer, GherkinLanguageServiceFactory.GetLanguageService(textBuffer), Tracer, limitStepInstancesSuggestions, maxStepSuggestions);
         }
     }
 
@@ -46,13 +48,15 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         private readonly ITextBuffer textBuffer;
         private readonly GherkinLanguageService languageService;
         private readonly IIdeTracer tracer;
+        private readonly bool limitStepInstancesSuggestions;
         private readonly int maxStepInstancesSuggestions;
 
-        public GherkinStepCompletionSource(ITextBuffer textBuffer, GherkinLanguageService languageService, IIdeTracer tracer, int maxStepInstancesSuggestions)
+        public GherkinStepCompletionSource(ITextBuffer textBuffer, GherkinLanguageService languageService, IIdeTracer tracer, bool limitStepInstancesSuggestions, int maxStepInstancesSuggestions)
         {
             this.textBuffer = textBuffer;
             this.languageService = languageService;
             this.tracer = tracer;
+            this.limitStepInstancesSuggestions = limitStepInstancesSuggestions;
             this.maxStepInstancesSuggestions = maxStepInstancesSuggestions;
         }
 
@@ -99,6 +103,7 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
                     applicableTo, 
                     completions, 
                     null,
+                    limitStepInstancesSuggestions,
                     maxStepInstancesSuggestions);
 
                 if (!string.IsNullOrEmpty(statusText))

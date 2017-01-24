@@ -5,6 +5,7 @@
         public bool EnableSyntaxColoring { get; set; }
         public bool EnableOutlining { get; set; }
         public bool EnableIntelliSense { get; set; }
+        public bool LimitStepInstancesSuggestions { get; set; }
         public int MaxStepInstancesSuggestions { get; set; }
         public bool EnableAnalysis { get; set; }
         public bool EnableTableAutoFormat { get; set; }
