@@ -70,7 +70,7 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
                             var ch = GetTypeChar(pvaIn);
                             if (!IsAutoCompleteSessionActive)
                                 StartAutoCompleteSession(ch);
-                            else 
+                            else
                                 FilterAutoComplete(ch);
                             break;
                         case VSConstants.VSStd2KCmdID.BACKSPACE:
@@ -113,15 +113,19 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
             SnapshotPoint caret = TextView.Caret.Position.BufferPosition;
             ITextSnapshot snapshot = caret.Snapshot;
 
-            if (!ShouldCompletionBeDiplayed(caret, ch)) 
+            if (!ShouldCompletionBeDiplayed(caret, ch))
                 return false;
 
-            currentAutoCompleteSession = !Broker.IsCompletionActive(TextView) ? 
-                                                                                  Broker.CreateCompletionSession(TextView, snapshot.CreateTrackingPoint(caret, PointTrackingMode.Positive), true) : 
-                                                                                                                                                                                                      Broker.GetSessions(TextView)[0];
+            currentAutoCompleteSession = !Broker.IsCompletionActive(TextView) 
+                ? Broker.CreateCompletionSession(TextView, snapshot.CreateTrackingPoint(caret, PointTrackingMode.Positive), true)
+                : Broker.GetSessions(TextView)[0];
 
             currentAutoCompleteSession.Start();
             currentAutoCompleteSession.Dismissed += (sender, args) => currentAutoCompleteSession = null;
+
+            currentAutoCompleteSession.SelectedCompletionSet.Filter();
+            currentAutoCompleteSession.SelectedCompletionSet.SelectBestMatch();
+            currentAutoCompleteSession.SelectedCompletionSet.Recalculate();
 
             return true;
         }
