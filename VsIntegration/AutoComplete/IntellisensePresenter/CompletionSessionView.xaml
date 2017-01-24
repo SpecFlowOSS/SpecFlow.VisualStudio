@@ -27,11 +27,11 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border Background="White" BorderBrush="#FF828790" BorderThickness="1,1,1,0" Visibility="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay, Converter={StaticResource ResourceKey=text2Visibility}}">
+        <Border Grid.Row="0" Grid.Column="0" Background="White" BorderBrush="#FF828790" BorderThickness="1,1,1,0" Visibility="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay, Converter={StaticResource ResourceKey=text2Visibility}}">
             <TextBlock Text="{Binding Session.SelectedCompletionSet.StatusText, Mode=OneWay}" Padding="5,3,5,3" FontStyle="Italic" />
         </Border>
 
-        <ListBox x:Name="listViewCompletions" Grid.Row="1"
+        <ListBox x:Name="listViewCompletions" Grid.Row="1" Grid.Column="0" 
                      ItemTemplate="{DynamicResource ItemDataTemplate}"
                  ItemsSource="{Binding Session.SelectedCompletionSet.Completions}"               
                  MouseDoubleClick="ListView_MouseDoubleClick" 
