@@ -140,7 +140,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Utils
 
                     // if the file is open, we have to wait until VS reloads the file content, because
                     // until it is not reloaded, the file code model might be out of sync with the new content.
-                    if (item.IsOpen[Constants.vsViewKindAny])
+                    if (item.IsOpen[EnvDTE.Constants.vsViewKindAny])
                     {
                         string contentOnDisk = VsxHelper.GetFileContent(item, loadLastSaved: true);
                         string contentInVS = VsxHelper.GetFileContent(item, loadLastSaved: false);

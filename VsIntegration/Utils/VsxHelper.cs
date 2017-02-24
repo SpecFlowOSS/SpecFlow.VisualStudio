@@ -15,7 +15,6 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using TechTalk.SpecFlow.Utils;
 using VSLangProj;
-using Constants = EnvDTE.Constants;
 using DefGuidList = Microsoft.VisualStudio.Editor.DefGuidList;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
@@ -328,7 +327,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Utils
 
         static public string GetFileContent(ProjectItem projectItem, bool loadLastSaved = false)
         {
-            if (!loadLastSaved && projectItem.IsOpen[Constants.vsViewKindAny])
+            
+            if (!loadLastSaved && projectItem.IsOpen[EnvDTE.Constants.vsViewKindAny])
             {
                 TextDocument textDoc = (TextDocument)projectItem.Document.Object("TextDocument");
                 EditPoint start = textDoc.StartPoint.CreateEditPoint();

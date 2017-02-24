@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.IdeIntegr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.ItemTemplates", "ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj", "{662A06B2-A852-47C4-A258-D84FE81D4A80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2017", "VsIntegration\TechTalk.SpecFlow.VsIntegration.2017.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration", "VsIntegration\TechTalk.SpecFlow.VsIntegration.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{DD083D4C-C52C-444C-8FEB-51FEFC77AEC1}"
 	ProjectSection(SolutionItems) = preProject
