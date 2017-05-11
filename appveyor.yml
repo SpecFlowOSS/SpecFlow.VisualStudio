@@ -22,6 +22,8 @@ environment:
   
 before_build:
 - cmd: >-
+    echo %SpecFlow_VisualStudioVersion%
+    set
     nuget restore SpecFlow.VisualStudio.%SpecFlow_VisualStudioVersion%.sln  
     set PATH=C:\Program Files (x86)\MSBuild\%VisualStudioVersion%\Bin;%PATH%
 
