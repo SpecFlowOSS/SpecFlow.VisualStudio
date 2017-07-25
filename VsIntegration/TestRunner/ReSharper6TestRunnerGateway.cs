@@ -27,7 +27,19 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 
     public class ReSharper6TestRunnerGateway : CommandBasedTestRunnerGateway
     {
+        private const int Resharper2017 = 108;
+
         private readonly int _currentVersion;
+
+        private string CommandToRun(bool debug)
+        {
+            if (debug)
+            {
+                return "Debug"; 
+            }
+
+            return _currentVersion >= Resharper2017 ? "RunFrom" : "Run";
+        }
 
         protected override string GetRunInCurrentContextCommand(bool debug)
         {
@@ -45,12 +57,7 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
                 commandFormat = "ReSharper.ReSharper_UnitTest{0}Context";
             }
 
-            if (debug)
-            {
-                return string.Format(commandFormat, "Debug");
-            }
-            return string.Format(commandFormat, "Run");
-
+            return string.Format(commandFormat, CommandToRun(debug));
         }
 
         public ReSharper6TestRunnerGateway(DTE dte, IIdeTracer tracer)
