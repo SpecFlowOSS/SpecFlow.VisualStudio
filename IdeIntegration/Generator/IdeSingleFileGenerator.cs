@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.Utils;
@@ -12,7 +12,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         public event Action<TestGenerationError> GenerationError;
         public event Action<Exception> OtherError;
 
-        public string GenerateFile(string inputFilePath, string outputFilePath, Func<GeneratorServices> generatorServicesProvider, Func<string, string> inputFileContentProvider = null, Action<string, string> outputFileContentWriter = null)
+        public string GenerateFile(string inputFilePath, string outputFilePath, Func<GeneratorServices> generatorServicesProvider,
+            Func<string, string> inputFileContentProvider = null, Action<string, string> outputFileContentWriter = null)
         {
             outputFileContentWriter = outputFileContentWriter ?? File.WriteAllText;
             inputFileContentProvider = inputFileContentProvider ?? File.ReadAllText;
@@ -27,7 +28,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 projectSettings = generatorServices.GetProjectSettings();
                 codeDomHelper = GenerationTargetLanguage.CreateCodeDomHelper(projectSettings.ProjectPlatformSettings.Language);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OnOtherError(ex);
                 return null;
@@ -38,7 +39,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             {
                 inputFileContent = inputFileContentProvider(inputFilePath);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OnOtherError(ex);
                 return null;
@@ -55,14 +56,15 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
                 return outputFilePath;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 OnOtherError(ex);
                 return null;
             }
         }
 
-        private string Generate(string inputFilePath, string inputFileContent, GeneratorServices generatorServices, CodeDomHelper codeDomHelper, ProjectSettings projectSettings)
+        private string Generate(string inputFilePath, string inputFileContent, GeneratorServices generatorServices, CodeDomHelper codeDomHelper,
+            ProjectSettings projectSettings)
         {
             string outputFileContent;
             try
@@ -81,16 +83,17 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             return outputFileContent;
         }
 
-        private TestGeneratorResult GenerateCode(string inputFilePath, string inputFileContent, GeneratorServices generatorServices, ProjectSettings projectSettings)
+        private TestGeneratorResult GenerateCode(string inputFilePath, string inputFileContent, GeneratorServices generatorServices,
+            ProjectSettings projectSettings)
         {
             using (var testGenerator = generatorServices.CreateTestGenerator())
             {
                 var fullPath = Path.GetFullPath(Path.Combine(projectSettings.ProjectFolder, inputFilePath));
                 FeatureFileInput featureFileInput =
                     new FeatureFileInput(FileSystemHelper.GetRelativePath(fullPath, projectSettings.ProjectFolder))
-                        {
-                            FeatureFileContent = inputFileContent
-                        };
+                    {
+                        FeatureFileContent = inputFileContent
+                    };
                 return testGenerator.GenerateTestFile(featureFileInput, new GenerationSettings());
             }
         }
@@ -111,7 +114,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         {
             TestGenerationError testGenerationError = new TestGenerationError(ex);
             OnGenerationError(testGenerationError);
-            return codeDomHelper.GetErrorStatementString(testGenerationError.Message);
+
+            var errorMessage = string.Join(Environment.NewLine, testGenerationError.ToString()
+                .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+                .Select(codeDomHelper.GetErrorStatementString));
+
+            return errorMessage;
         }
 
         protected virtual void OnGenerationError(TestGenerationError testGenerationError)

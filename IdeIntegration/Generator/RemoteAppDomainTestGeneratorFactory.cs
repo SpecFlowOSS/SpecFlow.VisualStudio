@@ -12,6 +12,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
     public class RemoteAppDomainTestGeneratorFactory : IRemoteAppDomainTestGeneratorFactory
     {
         private const int APPDOMAIN_CLEANUP_SECONDS = 10;
+        private const string LogCategory = "RemoteAppDomainTestGeneratorFactory";
 
         private readonly IIdeTracer tracer;
 
@@ -84,6 +85,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             if (generatorFolder == null)
                 throw new InvalidOperationException("The RemoteAppDomainTestGeneratorFactory has to be configured with the Setup() method before initialization.");
 
+            
             AppDomainSetup appDomainSetup = new AppDomainSetup { ApplicationBase = generatorFolder };
             appDomainSetup.ShadowCopyFiles = "true";
 
@@ -93,12 +95,16 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             {
                 appDomainSetup.ConfigurationFile = appConfigFile;
             }
+            tracer.Trace($"AppDomainSetup - ApplicationBase: {generatorFolder}; ConfigFile: {appDomainSetup.ConfigurationFile ?? "not specified"}", LogCategory);
 
             appDomain = AppDomain.CreateDomain("AppDomainForTestGeneration", null, appDomainSetup);
 
             var testGeneratorFactoryTypeFullName = typeof(TestGeneratorFactory).FullName;
             Debug.Assert(testGeneratorFactoryTypeFullName != null);
 
+            tracer.Trace($"TestGeneratorFactory: {testGeneratorFactoryTypeFullName}", LogCategory);
+
+            tracer.Trace("AssemblyResolve Event added", LogCategory);
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
 
             var generatorFactoryObject = appDomain.CreateInstanceAndUnwrap(remoteGeneratorAssemblyName, testGeneratorFactoryTypeFullName);
@@ -108,19 +114,29 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 throw new InvalidOperationException("Could not load test generator factory.");
 
             usageCounter = new UsageCounter(LoseReferences);
-            tracer.Trace("AppDomain for generator created", "RemoteAppDomainTestGeneratorFactory");
+            tracer.Trace("AppDomain for generator created", LogCategory);
         }
 
         private Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
         {
+            tracer.Trace($"GeneratorAssemlbyResolveEvent: Name: {args.Name}; ", LogCategory);
+            tracer.Trace($"GeneratorAssemlbyResolveEvent: RequestingAssemlby.Fullname: {args?.RequestingAssembly?.FullName}", LogCategory);
+            tracer.Trace($"GeneratorAssemlbyResolveEvent: RequestingAssemlby.Location: {args?.RequestingAssembly?.Location}", LogCategory);
+
             string assemblyName = args.Name.Split(new[] {','}, 2)[0];
             if (assemblyName.Equals(remoteGeneratorAssemblyName, StringComparison.InvariantCultureIgnoreCase))
             {
-                return typeof (ITestGeneratorFactory).Assembly;
+                var testGeneratorFactoryAssembly = typeof(ITestGeneratorFactory).Assembly;
+
+                tracer.Trace($"TestGeneratorFactoryAssembly resolved to {testGeneratorFactoryAssembly?.Location}", LogCategory);
+                return testGeneratorFactoryAssembly;
             }
             if (assemblyName.Equals(remoteRuntimeAssemblyName, StringComparison.InvariantCultureIgnoreCase))
             {
-                return typeof (SpecFlowException).Assembly;
+                var specFlowAssembly = typeof(SpecFlowException).Assembly;
+                tracer.Trace($"SpecFlowAssembly resolved to {specFlowAssembly?.Location}", LogCategory);
+
+                return specFlowAssembly;
             }
             return null;
         }
@@ -212,10 +228,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 return;
 
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
+            tracer.Trace("AssemblyResolve Event removed", LogCategory);
+
             remoteTestGeneratorFactory = null;
             AppDomain.Unload(appDomain);
             appDomain = null;
-            tracer.Trace("AppDomain for generator disposed", "RemoteAppDomainTestGeneratorFactory");
+            tracer.Trace("AppDomain for generator disposed", LogCategory);
         }
     }
 }
