@@ -95,14 +95,14 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             {
                 appDomainSetup.ConfigurationFile = appConfigFile;
             }
-            tracer.Trace($"AppDomainSetup - ApplicationBase: {generatorFolder}; ConfigFile: {appDomainSetup.ConfigurationFile ?? "not specified"}", LogCategory);
+            tracer.Trace(string.Format("AppDomainSetup - ApplicationBase: {0}; ConfigFile: {1}", generatorFolder, appDomainSetup.ConfigurationFile ?? "not specified"), LogCategory);
 
             appDomain = AppDomain.CreateDomain("AppDomainForTestGeneration", null, appDomainSetup);
 
             var testGeneratorFactoryTypeFullName = typeof(TestGeneratorFactory).FullName;
             Debug.Assert(testGeneratorFactoryTypeFullName != null);
 
-            tracer.Trace($"TestGeneratorFactory: {testGeneratorFactoryTypeFullName}", LogCategory);
+            tracer.Trace(string.Format("TestGeneratorFactory: {0}", testGeneratorFactoryTypeFullName), LogCategory);
 
             tracer.Trace("AssemblyResolve Event added", LogCategory);
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
@@ -119,22 +119,22 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
         private Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
         {
-            tracer.Trace($"GeneratorAssemlbyResolveEvent: Name: {args.Name}; ", LogCategory);
-            tracer.Trace($"GeneratorAssemlbyResolveEvent: RequestingAssemlby.Fullname: {args?.RequestingAssembly?.FullName}", LogCategory);
-            tracer.Trace($"GeneratorAssemlbyResolveEvent: RequestingAssemlby.Location: {args?.RequestingAssembly?.Location}", LogCategory);
+            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: Name: {0}; ", args.Name), LogCategory);
+            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: RequestingAssemlby.Fullname: {0}", args?.RequestingAssembly?.FullName), LogCategory);
+            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: RequestingAssemlby.Location: {0}", args?.RequestingAssembly?.Location), LogCategory);
 
             string assemblyName = args.Name.Split(new[] {','}, 2)[0];
             if (assemblyName.Equals(remoteGeneratorAssemblyName, StringComparison.InvariantCultureIgnoreCase))
             {
                 var testGeneratorFactoryAssembly = typeof(ITestGeneratorFactory).Assembly;
 
-                tracer.Trace($"TestGeneratorFactoryAssembly resolved to {testGeneratorFactoryAssembly?.Location}", LogCategory);
+                tracer.Trace(string.Format("TestGeneratorFactoryAssembly resolved to {0}", testGeneratorFactoryAssembly?.Location), LogCategory);
                 return testGeneratorFactoryAssembly;
             }
             if (assemblyName.Equals(remoteRuntimeAssemblyName, StringComparison.InvariantCultureIgnoreCase))
             {
                 var specFlowAssembly = typeof(SpecFlowException).Assembly;
-                tracer.Trace($"SpecFlowAssembly resolved to {specFlowAssembly?.Location}", LogCategory);
+                tracer.Trace(string.Format("SpecFlowAssembly resolved to {0}", specFlowAssembly?.Location), LogCategory);
 
                 return specFlowAssembly;
             }
