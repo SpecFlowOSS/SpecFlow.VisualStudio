@@ -25,7 +25,6 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-	
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -43,12 +42,12 @@
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '12'">
     <AssemblyName>TechTalk.SpecFlow.VsIntegration.2013</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-	<StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
+    <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '14'">
     <AssemblyName>TechTalk.SpecFlow.VsIntegration.2015</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-	<StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</StartProgram>
+    <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '15'">
     <AssemblyName>TechTalk.SpecFlow.VsIntegration.2017</AssemblyName>
@@ -66,8 +65,8 @@
     <DeployExtension>True</DeployExtension>
     <Prefer32Bit>false</Prefer32Bit>
     <PlatformTarget>x86</PlatformTarget>
-	<StartAction>Program</StartAction>
-	<StartArguments>/RootSuffix Exp</StartArguments>
+    <StartAction>Program</StartAction>
+    <StartArguments>/RootSuffix Exp</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -138,9 +137,8 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0" />
     <Reference Include="Microsoft.VisualStudio.Shell.Immutable.12.0" />
-    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -341,6 +339,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\AutoCompleteIcons.psd" />
     <None Include="$(VisualStudioVersion).source.extension.vsixmanifest">
