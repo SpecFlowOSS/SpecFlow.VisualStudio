@@ -120,21 +120,21 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         private Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
         {
             tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: Name: {0}; ", args.Name), LogCategory);
-            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: RequestingAssemlby.Fullname: {0}", args?.RequestingAssembly?.FullName), LogCategory);
-            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: RequestingAssemlby.Location: {0}", args?.RequestingAssembly?.Location), LogCategory);
+            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: RequestingAssemlby.Fullname: {0}", (args != null ? args.RequestingAssembly : null) != null ? args.RequestingAssembly.FullName : null), LogCategory);
+            tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: RequestingAssemlby.Location: {0}", args != null ? (args.RequestingAssembly != null ? args.RequestingAssembly.Location : null) : null), LogCategory);
 
             string assemblyName = args.Name.Split(new[] {','}, 2)[0];
             if (assemblyName.Equals(remoteGeneratorAssemblyName, StringComparison.InvariantCultureIgnoreCase))
             {
                 var testGeneratorFactoryAssembly = typeof(ITestGeneratorFactory).Assembly;
 
-                tracer.Trace(string.Format("TestGeneratorFactoryAssembly resolved to {0}", testGeneratorFactoryAssembly?.Location), LogCategory);
+                tracer.Trace(string.Format("TestGeneratorFactoryAssembly resolved to {0}", testGeneratorFactoryAssembly != null ? testGeneratorFactoryAssembly.Location : null), LogCategory);
                 return testGeneratorFactoryAssembly;
             }
             if (assemblyName.Equals(remoteRuntimeAssemblyName, StringComparison.InvariantCultureIgnoreCase))
             {
                 var specFlowAssembly = typeof(SpecFlowException).Assembly;
-                tracer.Trace(string.Format("SpecFlowAssembly resolved to {0}", specFlowAssembly?.Location), LogCategory);
+                tracer.Trace(string.Format("SpecFlowAssembly resolved to {0}", specFlowAssembly != null ? specFlowAssembly.Location : null), LogCategory);
 
                 return specFlowAssembly;
             }
