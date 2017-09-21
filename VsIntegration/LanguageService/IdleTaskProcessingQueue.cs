@@ -149,6 +149,8 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             itemsAvailableEvent.Set();
             try
             {
+            
+            
                 thread.Join();
                 thread = null;
             }
