@@ -54,6 +54,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
                     parts.AddRange(bindingClassIncludingParts.Parts.OfType<CodeClass>());
                 }
 
+                // in Visual Studio 2017, CodeClass2.Parts is always empty, fall back to CodeClass2.Collection
+                // https://github.com/dotnet/roslyn/issues/21074
+                if (parts.Count == 0)
+                    parts.AddRange(bindingClassIncludingParts.Collection.OfType<CodeClass>());
 
                 var baseClass = GetBaseClass(codeClass);
 
