@@ -30,14 +30,16 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
         private readonly RunScenariosCommand runScenariosCommand;
         private readonly FormatTableCommand formatTableCommand;
         private readonly CommentUncommentCommand commentUncommentCommand;
+        private readonly FormatDocumentCommand formatDocumentCommand;
 
-        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, DebugScenariosCommand debugScenariosCommand, RunScenariosCommand runScenariosCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand)
+        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, DebugScenariosCommand debugScenariosCommand, RunScenariosCommand runScenariosCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand, FormatDocumentCommand formatDocumentCommand)
         {
             this.goToStepDefinitionCommand = goToStepDefinitionCommand;
             this.debugScenariosCommand = debugScenariosCommand;
             this.runScenariosCommand = runScenariosCommand;
             this.formatTableCommand = formatTableCommand;
             this.commentUncommentCommand = commentUncommentCommand;
+            this.formatDocumentCommand = formatDocumentCommand;
             this.tracer = tracer;
         }
 
@@ -74,6 +76,7 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
                     case VSConstants.VSStd2KCmdID.COMMENTBLOCK:
                     case VSConstants.VSStd2KCmdID.UNCOMMENT_BLOCK:
                     case VSConstants.VSStd2KCmdID.UNCOMMENTBLOCK:
+                    case VSConstants.VSStd2KCmdID.FORMATDOCUMENT:
                         return true;
                 }
             }
@@ -152,6 +155,10 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
                     case VSConstants.VSStd2KCmdID.UNCOMMENT_BLOCK:
                     case VSConstants.VSStd2KCmdID.UNCOMMENTBLOCK:
                         if (commentUncommentCommand.CommentOrUncommentSelection(editorContext, CommentUncommentAction.Uncomment))
+                            return true;
+                        break;
+                    case VSConstants.VSStd2KCmdID.FORMATDOCUMENT:
+                        if (formatDocumentCommand.FormatDocument(editorContext))
                             return true;
                         break;
                 }

@@ -229,6 +229,7 @@
     <Compile Include="Commands\SpecFlowProjectSingleSelectionCommand.cs" />
     <Compile Include="EditorCommands\CommentUncommentCommand.cs" />
     <Compile Include="EditorCommands\EditorCommandFilter.cs" />
+    <Compile Include="EditorCommands\FormatDocumentCommand.cs" />
     <Compile Include="EditorCommands\FormatTableCommand.cs" />
     <Compile Include="EditorCommands\GherkinEditorContext.cs" />
     <Compile Include="EditorCommands\GherkinTextViewCreationListener.cs" />
