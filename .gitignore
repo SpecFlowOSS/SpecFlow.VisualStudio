@@ -25,3 +25,4 @@ packages/*
 *.ncrunchproject
 SpecFlow.VisualStudio.v2.ncrunchsolution
 VsIntegration/source.extension.vsixmanifest
+/.vs/
