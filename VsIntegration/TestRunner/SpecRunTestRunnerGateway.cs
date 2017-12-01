@@ -51,9 +51,14 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
             if (fileScope.HeaderBlock == null)
                 return false;
 
-            //TODO: support scenario outline
-            string path = string.Format("Feature:{0}/Scenario:{1}", Escape(fileScope.HeaderBlock.Title), Escape(currentScenario.Title));
-            return RunTests(projectItem.ContainingProject, "testpath:" + path, debug);
+            string escapedFeatureTitle = Escape(fileScope.HeaderBlock.Title);
+            string scenarioPattern = currentScenario is IScenarioOutlineBlock
+                                   ? string.Format("{0}, *", currentScenario.Title)
+                                   : currentScenario.Title;
+
+            string path = string.Format("Feature:{0}/Scenario:{1}", escapedFeatureTitle, Escape(scenarioPattern));
+
+            return RunTests(projectItem.ContainingProject, string.Format("testpath:{0}", path), debug);
         }
 
         private string Escape(string title)
@@ -187,11 +192,11 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
                 specRunVersion = new Version(1, 1);
 
             var args = BuildCommandArgs(new ConsoleOptions
-                                            {
-                                                BaseFolder = VsxHelper.GetProjectFolder(project) + @"\bin\Debug", //TODO
-                                                Target = VsxHelper.GetProjectAssemblyName(project) + ".dll",
-                                                Filter = filter
-                                            }, debug, specRunVersion);
+            {
+                BaseFolder = VsxHelper.GetProjectFolder(project) + @"\bin\Debug", //TODO
+                Target = VsxHelper.GetProjectAssemblyName(project) + ".dll",
+                Filter = filter
+            }, debug, specRunVersion);
             ExecuteTests(consolePath, args, debug, specRunVersion);
             return true;
         }
@@ -289,7 +294,7 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
                     var argsStrings = match.Groups["args"].Value.Trim().Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var argString in argsStrings)
                     {
-                        var keyValue = argString.Split(new[] {'='}, 2);
+                        var keyValue = argString.Split(new[] { '=' }, 2);
                         if (keyValue.Length == 0 || string.IsNullOrWhiteSpace(keyValue[0]))
                             continue;
                         Args.Add(keyValue[0].Trim().ToLowerInvariant(), keyValue.Length == 1 || string.IsNullOrWhiteSpace(keyValue[1]) ? "" : keyValue[1]);
@@ -389,8 +394,8 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
             var dispatcher = Dispatcher.CurrentDispatcher;
 
             var process = new System.Diagnostics.Process
-                {
-                    StartInfo =
+            {
+                StartInfo =
                         {
                             FileName = consolePath,
                             Arguments = commandArgs,
@@ -399,7 +404,7 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
                             RedirectStandardError = true,
                             CreateNoWindow = true
                         }
-                };
+            };
 
             var executionContext = new ExecutionContext(displayResult ? pane : null, dispatcher, process, debug, dte, tracer, specRunVersion);
 
