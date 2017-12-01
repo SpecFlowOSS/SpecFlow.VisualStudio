@@ -51,16 +51,14 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
             if (fileScope.HeaderBlock == null)
                 return false;
 
-            string path =
-                string.Format(
-                    "Feature:{0}/Scenario:{1}",
-                    Escape(fileScope.HeaderBlock.Title),
-                    Escape(
-                        currentScenario is IScenarioOutlineBlock
-                            ? string.Format("{0}, *", currentScenario.Title)
-                            : currentScenario.Title));
+            string escapedFeatureTitle = Escape(fileScope.HeaderBlock.Title);
+            string scenarioPattern = currentScenario is IScenarioOutlineBlock
+                                   ? string.Format("{0}, *", currentScenario.Title)
+                                   : currentScenario.Title;
 
-            return RunTests(projectItem.ContainingProject, "testpath:" + path, debug);
+            string path = string.Format("Feature:{0}/Scenario:{1}", escapedFeatureTitle, Escape(scenarioPattern));
+
+            return RunTests(projectItem.ContainingProject, string.Format("testpath:{0}", path), debug);
         }
 
         private string Escape(string title)
