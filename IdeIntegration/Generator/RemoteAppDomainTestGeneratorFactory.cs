@@ -23,7 +23,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         private ITestGeneratorFactory _remoteTestGeneratorFactory;
         private UsageCounter _usageCounter;
         public Timer CleanupTimer;
-        private Type _remoteAppDomainResolverType = typeof(RemoteAppDomainResolver);
+        private readonly Type _remoteAppDomainResolverType = typeof(RemoteAppDomainResolver);
 
         public RemoteAppDomainTestGeneratorFactory(IIdeTracer tracer)
         {
@@ -142,22 +142,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             var assemblyName = args.Name.Split(new[] { ',' }, 2)[0];
             _tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: Name: {0}; ", args.Name), LogCategory);
             
-            //if (assemblyName.Equals(_info.RemoteGeneratorAssemblyName, StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    var testGeneratorFactoryAssembly = typeof(ITestGeneratorFactory).Assembly;
-
-            //    _tracer.Trace(string.Format("TestGeneratorFactoryAssembly resolved to {0}", testGeneratorFactoryAssembly != null ? testGeneratorFactoryAssembly.Location : null), LogCategory);
-            //    return testGeneratorFactoryAssembly;
-            //}
-
-            //if (assemblyName.Equals(_info.RemoteRuntimeAssemblyName, StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    var specFlowAssembly = typeof(SpecFlowException).Assembly;
-            //    _tracer.Trace(string.Format("SpecFlowAssembly resolved to {0}", specFlowAssembly != null ? specFlowAssembly.Location : null), LogCategory);
-
-            //    return specFlowAssembly;
-            //}
-
             var extensionPath = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), assemblyName + ".dll");
             if (File.Exists(extensionPath))
             {

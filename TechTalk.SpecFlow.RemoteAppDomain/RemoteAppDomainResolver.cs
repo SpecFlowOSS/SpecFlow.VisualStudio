@@ -31,25 +31,8 @@ namespace TechTalk.SpecFlow.RemoteAppDomain
         {
             Debug.WriteLine(String.Format("GeneratorAssemlbyResolveEvent: Name: {0}; ", args.Name), LogCategory);
 
-
             var assemblyName = args.Name.Split(new[] { ',' }, 2)[0];
-            //if (assemblyName.Equals(_info.RemoteGeneratorAssemblyName, StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    var generatorAssemblyPath = Path.Combine(_info.GeneratorFolder, _info.RemoteGeneratorAssemblyName + ".dll");
-            //    Debug.WriteLine(String.Format("generatorAssemblyPath: {0}", generatorAssemblyPath), LogCategory);
-            //    var generatorAssembly = Assembly.LoadFile(generatorAssemblyPath);
-
-            //    return generatorAssembly;
-            //}
-            //if (assemblyName.Equals(_info.RemoteRuntimeAssemblyName, StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    var runtimeAssemblyPath = Path.Combine(_info.GeneratorFolder, _info.RemoteRuntimeAssemblyName + ".dll");
-            //    Debug.WriteLine(String.Format("runtimeAssemblyPath: {0}", runtimeAssemblyPath), LogCategory);
-            //    var runtimeAssembly = Assembly.LoadFile(runtimeAssemblyPath);
-            //    return runtimeAssembly;
-            //}
-
-
+           
             var extensionPath = Path.Combine(_info.GeneratorFolder, assemblyName + ".dll");
             if (File.Exists(extensionPath))
             {
