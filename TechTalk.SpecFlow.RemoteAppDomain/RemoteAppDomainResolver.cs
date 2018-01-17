@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace TechTalk.SpecFlow.RemoteAppDomain
@@ -30,6 +31,12 @@ namespace TechTalk.SpecFlow.RemoteAppDomain
         private Assembly AssemblyResolve(object sender, ResolveEventArgs args)
         {
             Debug.WriteLine(String.Format("GeneratorAssemlbyResolveEvent: Name: {0}; ", args.Name), LogCategory);
+
+            var assemblyAlreadyLoaded = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName == args.Name).SingleOrDefault();
+            if (assemblyAlreadyLoaded != null)
+            {
+                return assemblyAlreadyLoaded;
+            }
 
             var assemblyName = args.Name.Split(new[] { ',' }, 2)[0];
            

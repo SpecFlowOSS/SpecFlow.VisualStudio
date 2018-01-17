@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Threading;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
@@ -110,7 +112,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
             var appDomainSetup = new AppDomainSetup
             {
-                ShadowCopyFiles = "true"
+                ShadowCopyFiles = "true",
             };
             _appDomain = AppDomain.CreateDomain("AppDomainForTestGeneration", null, appDomainSetup);
 
@@ -141,7 +143,14 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         {
             var assemblyName = args.Name.Split(new[] { ',' }, 2)[0];
             _tracer.Trace(string.Format("GeneratorAssemlbyResolveEvent: Name: {0}; ", args.Name), LogCategory);
-            
+
+            var assemblyAlreadyLoaded = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName == args.Name).SingleOrDefault();
+            if (assemblyAlreadyLoaded != null)
+            {
+                return assemblyAlreadyLoaded;
+            }
+
+
             var extensionPath = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), assemblyName + ".dll");
             if (File.Exists(extensionPath))
             {
