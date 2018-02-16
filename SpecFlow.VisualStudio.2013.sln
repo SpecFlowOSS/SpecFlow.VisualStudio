@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.IdeIntegr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.ItemTemplates", "ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj", "{662A06B2-A852-47C4-A258-D84FE81D4A80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.RemoteAppDomain", "TechTalk.SpecFlow.RemoteAppDomain\TechTalk.SpecFlow.RemoteAppDomain.csproj", "{8B5402B9-7580-4AA3-9525-6C4563EF0623}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
