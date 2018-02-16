@@ -1,3 +1,14 @@
+2017.1.12 - 2018/02/16
+
+Public release to Visual Studio Marketplace
+
+
+2017.1.11 
+
+Fixed issues:
++ Visual Studio 2017 Generation error: Could not load file or assembly 'Microsoft.Build.Framework, Version=15.1.0.0 - https://github.com/techtalk/SpecFlow/issues/857
+
+
 2015.1.2 - 2015/05/26
 
 Hotfix for release v2015.1
