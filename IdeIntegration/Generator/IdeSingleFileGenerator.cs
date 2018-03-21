@@ -115,7 +115,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             TestGenerationError testGenerationError = new TestGenerationError(ex);
             OnGenerationError(testGenerationError);
 
-            var exceptionText = testGenerationError + Environment.NewLine +
+            var exceptionText =  ex.Message + Environment.NewLine +
+                                              Environment.NewLine +
                                 ex.Source + Environment.NewLine + 
                                 ex.StackTrace;
 
