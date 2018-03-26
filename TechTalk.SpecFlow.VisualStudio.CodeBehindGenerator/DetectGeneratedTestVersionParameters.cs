@@ -2,8 +2,8 @@
 
 namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
 {
-    [Verb("GetTestFullPath")]
-    public class GetTestFullPathParameters : CommonParameters
+    [Verb("DetectGeneratedTestVersion")]
+    public class DetectGeneratedTestVersionParameters : CommonParameters
     {
         [Option]
         public string FeatureFile { get; set; }
