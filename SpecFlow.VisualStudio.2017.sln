@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{DD083D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.RemoteAppDomain", "TechTalk.SpecFlow.RemoteAppDomain\TechTalk.SpecFlow.RemoteAppDomain.csproj", "{8B5402B9-7580-4AA3-9525-6C4563EF0623}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator", "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.csproj", "{5351E241-2B8B-4D04-8999-5E3A79E8DD64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

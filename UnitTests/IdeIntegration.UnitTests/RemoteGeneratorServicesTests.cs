@@ -16,7 +16,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
         private readonly Func<GeneratorInfo> getGeneratorInfo;
 
         public RemoteGeneratorServicesMock(ITestGeneratorFactory testGeneratorFactory, IRemoteAppDomainTestGeneratorFactory remoteAppDomainTestGeneratorFactory, Func<GeneratorInfo> getGeneratorInfo)
-            : base(testGeneratorFactory, remoteAppDomainTestGeneratorFactory, new Mock<IGeneratorInfoProvider>().Object, new Mock<IIdeTracer>().Object, false)
+            : base(testGeneratorFactory, remoteAppDomainTestGeneratorFactory,  new Mock<IOutOfProcessTestGeneratorFactory>().Object, new Mock<IGeneratorInfoProvider>().Object, new Mock<IIdeTracer>().Object, false)
         {
             this.getGeneratorInfo = getGeneratorInfo;
         }

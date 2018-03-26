@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("TechTalk")]
 [assembly: AssemblyProduct("SpecFlow")]
-[assembly: AssemblyCopyright("Copyright © TechTalk 2011 - 2017")]
+[assembly: AssemblyCopyright("Copyright © TechTalk 2011 - 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

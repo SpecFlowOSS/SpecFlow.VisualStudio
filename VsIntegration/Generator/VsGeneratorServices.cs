@@ -6,6 +6,7 @@ using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
+using TechTalk.SpecFlow.RemoteAppDomain;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 
@@ -19,6 +20,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
         public VsGeneratorServices(Project project, ISpecFlowConfigurationReader configurationReader, IIdeTracer tracer) : base( //TODO: load dependencies through DI
             new TestGeneratorFactory(), 
             new RemoteAppDomainTestGeneratorFactory(tracer), 
+            new OutOfProcessTestGeneratorFactory(tracer), 
             new VsGeneratorInfoProvider(project, tracer, configurationReader), 
             tracer, false)
         {

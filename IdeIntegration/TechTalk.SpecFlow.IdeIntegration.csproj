@@ -54,6 +54,9 @@
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=2.2.1.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.2.2.1\lib\net45\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Cecil, Version=0.9.5.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Mono.Cecil.0.9.5.3\lib\net40\Mono.Cecil.dll</HintPath>
@@ -69,6 +72,9 @@
     <Reference Include="Mono.Cecil.Rocks, Version=0.9.5.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Mono.Cecil.0.9.5.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,7 +106,10 @@
     <Compile Include="Generator\GeneratorServices.cs" />
     <Compile Include="Generator\IdeSingleFileGenerator.cs" />
     <Compile Include="Generator\IGeneratorServices.cs" />
+    <Compile Include="Generator\IOutOfProcessTestGeneratorFactory.cs" />
     <Compile Include="Generator\IRemoteAppDomainTestGeneratorFactory.cs" />
+    <Compile Include="Generator\OutOfProcessTestGenerator.cs" />
+    <Compile Include="Generator\OutOfProcessTestGeneratorFactory.cs" />
     <Compile Include="Install\ExternalBrowserGuidanceNotificationService.cs" />
     <Compile Include="Install\GuidanceNotification.cs" />
     <Compile Include="Install\IFileAssociationDetector.cs" />
@@ -113,6 +122,7 @@
     <Compile Include="Install\InstallServices.cs" />
     <Compile Include="Options\IIntegrationOptionsProvider.cs" />
     <Compile Include="Options\IntegrationOptions.cs" />
+    <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Generator\RemoteAppDomainTestGeneratorFactory.cs" />
     <Compile Include="Generator\RemoteGeneratorServices.cs" />
@@ -132,6 +142,10 @@
     <ProjectReference Include="..\TechTalk.SpecFlow.RemoteAppDomain\TechTalk.SpecFlow.RemoteAppDomain.csproj">
       <Project>{8b5402b9-7580-4aa3-9525-6c4563ef0623}</Project>
       <Name>TechTalk.SpecFlow.RemoteAppDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.csproj">
+      <Project>{5351e241-2b8b-4d04-8999-5e3a79e8dd64}</Project>
+      <Name>TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
