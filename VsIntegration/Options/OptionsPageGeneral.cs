@@ -90,6 +90,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.TestRunnerToolDefaultValue)]
         public TestRunnerTool TestRunnerTool { get; set; }
 
+        [Category("Code Behind File Generation")]
+        [Description("Specifies the mode how the code behind file is generated")]
+        [DisplayName("Generation Mode")]
+        [DefaultValue(IntegrationOptionsProvider.GenerationModeDefaultValue)]
+        public GenerationMode GenerationMode { get; set; }
+
         public OptionsPageGeneral()
         {
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
@@ -102,6 +108,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             TracingCategories = IntegrationOptionsProvider.TracingCategoriesDefaultValue;
             TestRunnerTool = IntegrationOptionsProvider.TestRunnerToolDefaultValue;
             DisableRegenerateFeatureFilePopupOnConfigChange = IntegrationOptionsProvider.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue;
+            GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
         }
 
         public override void SaveSettingsToStorage()

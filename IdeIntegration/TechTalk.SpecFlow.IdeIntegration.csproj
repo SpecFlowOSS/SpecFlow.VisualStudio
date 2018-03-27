@@ -111,6 +111,7 @@
     <Compile Include="Generator\OutOfProcess\OutOfProcessExecutor.cs" />
     <Compile Include="Generator\OutOfProcess\OutOfProcessTestGenerator.cs" />
     <Compile Include="Generator\OutOfProcess\OutOfProcessTestGeneratorFactory.cs" />
+    <Compile Include="Generator\OutOfProcess\Result.cs" />
     <Compile Include="Install\ExternalBrowserGuidanceNotificationService.cs" />
     <Compile Include="Install\GuidanceNotification.cs" />
     <Compile Include="Install\IFileAssociationDetector.cs" />

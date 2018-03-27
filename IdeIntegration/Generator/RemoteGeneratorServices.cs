@@ -20,8 +20,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             _remoteAppDomainTestGeneratorFactory = remoteAppDomainTestGeneratorFactory;
             _outOfProcessTestGeneratorFactory = outOfProcessTestGeneratorFactory;
             _generatorInfoProvider = generatorInfoProvider;
-
-            UseOutOfProcess = true;
         }
 
         protected virtual GeneratorInfo GetGeneratorInfo()
