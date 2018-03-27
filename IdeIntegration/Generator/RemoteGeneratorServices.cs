@@ -2,6 +2,8 @@
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
+using TechTalk.SpecFlow.IdeIntegration.Generator.AppDomain;
+using TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Generator

@@ -1,7 +1,7 @@
 ﻿using System;
 using TechTalk.SpecFlow.Generator.Interfaces;
 
-namespace TechTalk.SpecFlow.IdeIntegration.Generator
+namespace TechTalk.SpecFlow.IdeIntegration.Generator.AppDomain
 {
     public interface IRemoteAppDomainTestGeneratorFactory : ITestGeneratorFactory, IDisposable
     {

@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
+namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters
 {
     [Verb("GenerateTestFile")]
     public class GenerateTestFileParameters : CommonParameters

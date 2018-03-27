@@ -66,13 +66,16 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CommonParameters.cs" />
-    <Compile Include="DetectGeneratedTestVersionAction.cs" />
-    <Compile Include="DetectGeneratedTestVersionParameters.cs" />
-    <Compile Include="GenerateTestFileAction.cs" />
-    <Compile Include="GenerateTestFileParameters.cs" />
-    <Compile Include="GetTestFullPathAction.cs" />
-    <Compile Include="GetTestFullPathParameters.cs" />
+    <Compile Include="Actions\GetGeneratorVersionAction.cs" />
+    <Compile Include="CommandLineHandling.cs" />
+    <Compile Include="Parameters\CommonParameters.cs" />
+    <Compile Include="Actions\DetectGeneratedTestVersionAction.cs" />
+    <Compile Include="Parameters\DetectGeneratedTestVersionParameters.cs" />
+    <Compile Include="Actions\GenerateTestFileAction.cs" />
+    <Compile Include="Parameters\GenerateTestFileParameters.cs" />
+    <Compile Include="Actions\GetTestFullPathAction.cs" />
+    <Compile Include="Parameters\GetGeneratorVersionParameters.cs" />
+    <Compile Include="Parameters\GetTestFullPathParameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
+using TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters;
 
-namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
+namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
 {
-    class GetTestFullPathAction
+    class DetectGeneratedTestVersionAction
     {
-        public int GetTestFullPath(GetTestFullPathParameters opts)
+        public int DetectGeneratedTestVersion(DetectGeneratedTestVersionParameters opts)
         {
-
             try
             {
                 var featureFileInput = JsonConvert.DeserializeObject<FeatureFileInput>(File.ReadAllText(opts.FeatureFile));
@@ -22,7 +18,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
 
                 var testGeneratorFactory = new TestGeneratorFactory();
                 var testGenerator = testGeneratorFactory.CreateGenerator(new ProjectSettings());
-                var version = testGenerator.GetTestFullPath(featureFileInput);
+                var version = testGenerator.DetectGeneratedTestVersion(featureFileInput);
                 Console.WriteLine(version);
                 return 0;
             }
@@ -32,5 +28,6 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
                 return 1;
             }
         }
+
     }
 }
