@@ -409,6 +409,10 @@
       <Project>{8b5402b9-7580-4aa3-9525-6c4563ef0623}</Project>
       <Name>TechTalk.SpecFlow.RemoteAppDomain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.csproj">
+      <Project>{5351e241-2b8b-4d04-8999-5e3a79e8dd64}</Project>
+      <Name>TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

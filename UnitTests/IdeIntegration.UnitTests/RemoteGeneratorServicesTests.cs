@@ -7,6 +7,8 @@ using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
+using TechTalk.SpecFlow.IdeIntegration.Generator.AppDomain;
+using TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
@@ -16,7 +18,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
         private readonly Func<GeneratorInfo> getGeneratorInfo;
 
         public RemoteGeneratorServicesMock(ITestGeneratorFactory testGeneratorFactory, IRemoteAppDomainTestGeneratorFactory remoteAppDomainTestGeneratorFactory, Func<GeneratorInfo> getGeneratorInfo)
-            : base(testGeneratorFactory, remoteAppDomainTestGeneratorFactory, new Mock<IGeneratorInfoProvider>().Object, new Mock<IIdeTracer>().Object, false)
+            : base(testGeneratorFactory, remoteAppDomainTestGeneratorFactory,  new Mock<IOutOfProcessTestGeneratorFactory>().Object, new Mock<IGeneratorInfoProvider>().Object, new Mock<IIdeTracer>().Object, false)
         {
             this.getGeneratorInfo = getGeneratorInfo;
         }

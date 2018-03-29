@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlow.VisualStudio", "VsIntegration\TechTalk.SpecFlow.VsIntegration.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration", "VsIntegration\TechTalk.SpecFlow.VsIntegration.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.IdeIntegration", "IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj", "{44D52C1B-0ABC-44B6-8EB8-0F754E264226}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.ItemTemplates", "ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj", "{662A06B2-A852-47C4-A258-D84FE81D4A80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.RemoteAppDomain", "TechTalk.SpecFlow.RemoteAppDomain\TechTalk.SpecFlow.RemoteAppDomain.csproj", "{8B5402B9-7580-4AA3-9525-6C4563EF0623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator", "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.csproj", "{5351E241-2B8B-4D04-8999-5E3A79E8DD64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,25 +2,29 @@
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
+using TechTalk.SpecFlow.IdeIntegration.Generator.AppDomain;
+using TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Generator
 {
     public abstract class RemoteGeneratorServices : GeneratorServices
     {
-        private readonly IRemoteAppDomainTestGeneratorFactory remoteAppDomainTestGeneratorFactory;
-        private readonly IGeneratorInfoProvider generatorInfoProvider;
+        private readonly IRemoteAppDomainTestGeneratorFactory _remoteAppDomainTestGeneratorFactory;
+        private readonly IOutOfProcessTestGeneratorFactory _outOfProcessTestGeneratorFactory;
+        private readonly IGeneratorInfoProvider _generatorInfoProvider;
 
-        protected RemoteGeneratorServices(ITestGeneratorFactory testGeneratorFactory, IRemoteAppDomainTestGeneratorFactory remoteAppDomainTestGeneratorFactory, IGeneratorInfoProvider generatorInfoProvider, IIdeTracer tracer, bool enableSettingsCache)
+        protected RemoteGeneratorServices(ITestGeneratorFactory testGeneratorFactory, IRemoteAppDomainTestGeneratorFactory remoteAppDomainTestGeneratorFactory, IOutOfProcessTestGeneratorFactory outOfProcessTestGeneratorFactory, IGeneratorInfoProvider generatorInfoProvider, IIdeTracer tracer, bool enableSettingsCache)
             : base(testGeneratorFactory, tracer, enableSettingsCache)
         {
-            this.remoteAppDomainTestGeneratorFactory = remoteAppDomainTestGeneratorFactory;
-            this.generatorInfoProvider = generatorInfoProvider;
+            _remoteAppDomainTestGeneratorFactory = remoteAppDomainTestGeneratorFactory;
+            _outOfProcessTestGeneratorFactory = outOfProcessTestGeneratorFactory;
+            _generatorInfoProvider = generatorInfoProvider;
         }
 
         protected virtual GeneratorInfo GetGeneratorInfo()
         {
-            return generatorInfoProvider.GetGeneratorInfo();
+            return _generatorInfoProvider.GetGeneratorInfo();
         }
 
         protected Version GetCurrentGeneratorAssemblyVersion()
@@ -57,10 +61,22 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
             try
             {
-                tracer.Trace(string.Format("Creating remote wrapper for the project's generator ({0} at {1})", generatorInfo.GeneratorAssemblyVersion, generatorInfo.GeneratorFolder), "RemoteGeneratorServices");
-                remoteAppDomainTestGeneratorFactory.Setup(generatorInfo.GeneratorFolder);
-                remoteAppDomainTestGeneratorFactory.EnsureInitialized();
-                return remoteAppDomainTestGeneratorFactory;
+                if (UseOutOfProcess)
+                {
+                    tracer.Trace(string.Format("Creating out of process remote wrapper for the project's generator ({0} at {1})", generatorInfo.GeneratorAssemblyVersion, generatorInfo.GeneratorFolder), "RemoteGeneratorServices");
+                    _outOfProcessTestGeneratorFactory.Setup(generatorInfo.GeneratorFolder);
+                    _outOfProcessTestGeneratorFactory.EnsureInitialized();
+                    return _outOfProcessTestGeneratorFactory;
+                }
+                else
+                {
+                    tracer.Trace(string.Format("Creating appdomain remote wrapper for the project's generator ({0} at {1})", generatorInfo.GeneratorAssemblyVersion, generatorInfo.GeneratorFolder), "RemoteGeneratorServices");
+                    _remoteAppDomainTestGeneratorFactory.Setup(generatorInfo.GeneratorFolder);
+                    _remoteAppDomainTestGeneratorFactory.EnsureInitialized();
+                    return _remoteAppDomainTestGeneratorFactory;
+                }
+
+                
             }
             catch(Exception exception)
             {
@@ -70,6 +86,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 return base.GetTestGeneratorFactoryForCreate();
             }
         }
+
+        public bool UseOutOfProcess { get; set; } 
 
         public override void InvalidateSettings()
         {
@@ -85,7 +103,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
         private void Cleanup()
         {
-            remoteAppDomainTestGeneratorFactory.Cleanup();
+            _remoteAppDomainTestGeneratorFactory.Cleanup();
         }
     }
 }

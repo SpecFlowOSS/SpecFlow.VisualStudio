@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.Composition;
 using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
+using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Generator;
 using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
@@ -21,10 +23,14 @@ namespace TechTalk.SpecFlow.VsIntegration
     [ProvideObject(typeof(SpecFlowSingleFileGenerator))]
     public class SpecFlowSingleFileGenerator : SpecFlowSingleFileGeneratorBase
     {
+        [Import]
+        internal IIntegrationOptionsProvider IntegrationOptionsProvider = null;
+
         protected override Func<GeneratorServices> GeneratorServicesProvider(Project project)
         {
             IVisualStudioTracer tracer = VsxHelper.ResolveMefDependency<IVisualStudioTracer>(ServiceProvider.GlobalProvider);
-            return () => new VsGeneratorServices(project, new VsSpecFlowConfigurationReader(project, tracer), tracer);
+            IntegrationOptionsProvider = VsxHelper.ResolveMefDependency<IIntegrationOptionsProvider>(ServiceProvider.GlobalProvider);
+            return () => new VsGeneratorServices(project, new VsSpecFlowConfigurationReader(project, tracer), tracer, IntegrationOptionsProvider);
         }
     }
 }
