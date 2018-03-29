@@ -155,7 +155,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public static string GetLabel(this StepInstance stepInstance)
         {
             string inFilePositionText = stepInstance.StepContext.ScenarioTitle == null
-                                            ? "'Backround' section"
+                                            ? "'Background' section"
                                             : String.Format("scenario \"{0}\"", stepInstance.StepContext.ScenarioTitle);
 
             return String.Format("\"{0}{1}\" in {2}", stepInstance.Keyword, stepInstance.Text, inFilePositionText);
