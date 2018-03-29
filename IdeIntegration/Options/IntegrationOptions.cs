@@ -12,6 +12,7 @@
         public string TracingCategories { get; set; }
         public TestRunnerTool TestRunnerTool { get; set; }
         public bool DisableRegenerateFeatureFilePopupOnConfigChange { get; set; }
+        public GenerationMode GenerationMode { get; set; }
     }
 
     public enum TestRunnerTool
@@ -23,5 +24,11 @@
         //TestDrivenDotNet = 4,
         ReSharper5 = 5,
         VisualStudio2012 = 6,
+    }
+
+    public enum GenerationMode
+    {
+        AppDomain = 0,
+        OutOfProcess = 1
     }
 }

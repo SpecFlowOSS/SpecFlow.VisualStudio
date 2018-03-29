@@ -9,6 +9,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
+using TechTalk.SpecFlow.IdeIntegration.Generator.AppDomain;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Utils;
 

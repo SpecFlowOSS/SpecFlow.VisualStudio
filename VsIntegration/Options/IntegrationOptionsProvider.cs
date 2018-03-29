@@ -26,6 +26,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const string TracingCategoriesDefaultValue = "all";
         public const TestRunnerTool TestRunnerToolDefaultValue = TestRunnerTool.Auto;
         public const bool DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue = false;
+        public const GenerationMode GenerationModeDefaultValue = GenerationMode.AppDomain;
 
         private DTE dte;
 
@@ -60,7 +61,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                                               EnableTracing = GetGeneralOption(dte, "EnableTracing", EnableTracingDefaultValue),
                                               TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
                                               TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
-                                              DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue)
+                                              DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
+                                              GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue)
                                           };
             cachedOptions = options;
             return options;
