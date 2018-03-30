@@ -1,3 +1,8 @@
+2017.1.13 - 2018/03/30
+
+New Features:
++ Add option to use an out of process tool to generate the code behind files
+
 2017.1.12 - 2018/02/16
 
 Public release to Visual Studio Marketplace
