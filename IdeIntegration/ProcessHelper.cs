@@ -21,7 +21,8 @@ namespace TechTalk.SpecFlow.IdeIntegration
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
             psi.UseShellExecute = false;
-            psi.CreateNoWindow = false;
+            psi.CreateNoWindow = true;
+            psi.WindowStyle = ProcessWindowStyle.Hidden;
             psi.WorkingDirectory = workingDirectory;
 
 
