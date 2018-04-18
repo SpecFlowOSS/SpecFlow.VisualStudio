@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using CommandLine;
 using TechTalk.SpecFlow.RemoteAppDomain;
 using TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters;
@@ -24,6 +25,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             string commandLineParameters = CommandLine.Parser.Default.FormatCommandLine(commonParameters);
 
             var processHelper = new ProcessHelper();
+
+            if (!File.Exists(_fullPathToExe))
+            {
+                return new Result(1, string.Format("Could not find CodeBehindGenerator binary at location {0}." + Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/", _fullPathToExe));
+            }
 
             int exitCode = processHelper.RunProcess(_info.GeneratorFolder, _fullPathToExe, commandLineParameters);
 
