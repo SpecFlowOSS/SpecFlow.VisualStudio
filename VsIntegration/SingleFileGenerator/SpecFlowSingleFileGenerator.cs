@@ -30,7 +30,7 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             IVisualStudioTracer tracer = VsxHelper.ResolveMefDependency<IVisualStudioTracer>(ServiceProvider.GlobalProvider);
             IntegrationOptionsProvider = VsxHelper.ResolveMefDependency<IIntegrationOptionsProvider>(ServiceProvider.GlobalProvider);
-            return () => new VsGeneratorServices(project, new VsSpecFlowConfigurationReader(project, tracer), tracer, IntegrationOptionsProvider);
+            return () => new VsGeneratorServices(project, new VsSpecFlowConfigurationReader(project, tracer), tracer);
         }
     }
 }
