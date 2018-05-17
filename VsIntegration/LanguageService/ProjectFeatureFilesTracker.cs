@@ -14,29 +14,15 @@ using VSLangProj;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    public class FeatureFileInfo : FileInfo
-    {
-        public Version GeneratorVersion { get; set; }
-        public Feature ParsedFeature { get; set; }
-
-        public FeatureFileInfo(ProjectItem projectItem, ProjectItem codeBehindItem)
-        {
-            ProjectRelativePath = VsxHelper.GetProjectRelativePath(projectItem);
-            var codeBehindItemChangeDate = VsxHelper.GetLastChangeDate(codeBehindItem) ?? DateTime.MinValue;
-            var featureFileLastChangeDate = VsxHelper.GetLastChangeDate(projectItem) ?? DateTime.MinValue;
-            LastChangeDate = featureFileLastChangeDate > codeBehindItemChangeDate ? featureFileLastChangeDate : codeBehindItemChangeDate;
-        }
-    }
-
     internal class ProjectFeatureFilesTracker : ProjectFilesTracker<FeatureFileInfo>, IDisposable
     {
-        private readonly VsProjectFilesTracker filesTracker;
-        private readonly Lazy<ITestGenerator> testGeneratorForCodeBehindVersionDetection;
+        private readonly VsProjectFilesTracker _filesTracker;
+        private readonly Lazy<ITestGenerator> _testGeneratorForCodeBehindVersionDetection;
 
         public ProjectFeatureFilesTracker(VsProjectScope vsProjectScope) : base(vsProjectScope)
         {
-            filesTracker = CreateFilesTracker(this.vsProjectScope.Project, @"\.feature$");
-            testGeneratorForCodeBehindVersionDetection = new Lazy<ITestGenerator>(() => vsProjectScope.GeneratorServices.CreateTestGeneratorOfIDE(), true);
+            _filesTracker = CreateFilesTracker(this.vsProjectScope.Project, @"\.feature$");
+            _testGeneratorForCodeBehindVersionDetection = new Lazy<ITestGenerator>(() => vsProjectScope.GeneratorServices.CreateTestGenerator(), true);
         }
 
         protected override FeatureFileInfo CreateFileInfo(ProjectItem projectItem)
@@ -109,7 +95,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             try
             {
-                var testGenerator = testGeneratorForCodeBehindVersionDetection.Value;
+                var testGenerator = _testGeneratorForCodeBehindVersionDetection.Value;
                 featureFileInfo.GeneratorVersion = testGenerator.DetectGeneratedTestVersion(
                     new FeatureFileInput(featureFileInfo.ProjectRelativePath)
                         {
@@ -167,7 +153,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public void Dispose()
         {
             vsProjectScope.GherkinDialectServicesChanged -= OnGherkinDialectServicesChanged;
-            DisposeFilesTracker(filesTracker);
+            DisposeFilesTracker(_filesTracker);
         }
 
         protected override void SaveToStepMapInternal(StepMap stepMap)
