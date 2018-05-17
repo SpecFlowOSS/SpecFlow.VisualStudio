@@ -26,7 +26,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const string TracingCategoriesDefaultValue = "all";
         public const TestRunnerTool TestRunnerToolDefaultValue = TestRunnerTool.Auto;
         public const bool DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue = false;
-        public const GenerationMode GenerationModeDefaultValue = GenerationMode.AppDomain;
+        public const GenerationMode GenerationModeDefaultValue = GenerationMode.OutOfProcess;
 
         private DTE dte;
 
