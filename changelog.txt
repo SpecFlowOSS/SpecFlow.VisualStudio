@@ -1,3 +1,8 @@
+2017.2.1 - 2018/05/??
+
+Changed behaviour:
++ Set out of process as default generation mode
+
 2017.1.13 - 2018/03/30
 
 New Features:
