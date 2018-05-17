@@ -51,6 +51,18 @@ namespace TechTalk.SpecFlow.VsIntegration
         public SpecFlowPackagePackage()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+
+
+            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+        }
+
+        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            if (args.LoadedAssembly.GetName().Name.StartsWith("TechTalk.SpecFlow") && args.LoadedAssembly.Location.Contains("\\bin\\Debug"))
+            {
+                Debugger.Break();
+            }
+
         }
 
         public static IdeIntegration.Install.IdeIntegration? CurrentIdeIntegration

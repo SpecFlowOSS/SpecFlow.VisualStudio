@@ -21,7 +21,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
         public VsGeneratorServices(Project project, ISpecFlowConfigurationReader configurationReader, IIdeTracer tracer) :
             base( //TODO: load dependencies through DI
                 new TestGeneratorFactory(),
-                new OutOfProcessTestGeneratorFactory(tracer),
+                new OutOfProcessTestGeneratorFactory(),
                 new VsGeneratorInfoProvider(project, tracer, configurationReader),
                 tracer, false)
         {
