@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
@@ -96,6 +95,36 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.GenerationModeDefaultValue)]
         public GenerationMode GenerationMode { get; set; }
 
+        [Category("Feature File Formatting")]
+        [Description("Specifies if line breaks will be normalized when the format document command is executed. If set to false, all configurations in the Feature File Formatting section will not take any effect.")]
+        [DisplayName("Normalize line breaks")]
+        [DefaultValue(IntegrationOptionsProvider.NormalizeLineBreaksDefaultValue)]
+        public bool NormalizeLineBreaks { get; set; }
+
+        [Category("Feature File Formatting")]
+        [Description("Specifies the number of line breaks which will be placed before a step definition when the format document command is executed.")]
+        [DisplayName("Line breaks before step definitions")]
+        [DefaultValue(IntegrationOptionsProvider.LineBreaksBeforeStepDefaultValue)]
+        public int LineBreaksBeforeStep { get; set; }
+
+        [Category("Feature File Formatting")]
+        [Description("Specifies the number of line breaks which will be placed before a scenario definition when the format document command is executed.")]
+        [DisplayName("Line breaks before scenario definitions")]
+        [DefaultValue(IntegrationOptionsProvider.LineBreaksBeforeScenarioDefaultValue)]
+        public int LineBreaksBeforeScenario { get; set; }
+
+        [Category("Feature File Formatting")]
+        [Description("Specifies the number of line breaks which will be placed before example definitions when the format document command is executed.")]
+        [DisplayName("Line breaks before example definitions")]
+        [DefaultValue(IntegrationOptionsProvider.LineBreaksBeforeExamplesDefaultValue)]
+        public int LineBreaksBeforeExamples { get; set; }
+
+        [Category("Feature File Formatting")]
+        [Description("Specifies the number of line breaks which will be placed before a feature definition when the format document command is executed.")]
+        [DisplayName("Line breaks before feature definitions")]
+        [DefaultValue(IntegrationOptionsProvider.LineBreaksBeforeFeatureDefaultValue)]
+        public int LineBreaksBeforeFeature { get; set; }
+
         public OptionsPageGeneral()
         {
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
@@ -109,6 +138,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             TestRunnerTool = IntegrationOptionsProvider.TestRunnerToolDefaultValue;
             DisableRegenerateFeatureFilePopupOnConfigChange = IntegrationOptionsProvider.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue;
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
+
+            NormalizeLineBreaks = IntegrationOptionsProvider.NormalizeLineBreaksDefaultValue;
+            LineBreaksBeforeStep = IntegrationOptionsProvider.LineBreaksBeforeStepDefaultValue;
+            LineBreaksBeforeScenario = IntegrationOptionsProvider.LineBreaksBeforeScenarioDefaultValue;
+            LineBreaksBeforeExamples = IntegrationOptionsProvider.LineBreaksBeforeExamplesDefaultValue;
+            LineBreaksBeforeFeature = IntegrationOptionsProvider.LineBreaksBeforeFeatureDefaultValue;
         }
 
         public override void SaveSettingsToStorage()

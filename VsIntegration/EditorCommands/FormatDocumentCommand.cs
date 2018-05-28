@@ -16,20 +16,22 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
         private const string MultilineIndent = "\t\t";
         private const string ExampleIndent = "\t";
 
-        private const int LineBreaksBeforeScenario = 1;
-        private const int LineBreaksBeforeExamples = 1;
-        private const int LineBreaksBeforeFeature = 0;
-
-        private const bool NormalizeLineBreaks = true;
-
         private const string CommentSymbol = "#";
         private const string TableSeparator = "|";
         private const string TagSymbol = "@";
         private const string MultilineArgumentDelimeter = "\"\"\"";
 
+        private bool _normalizeLineBreaks;
+        private int _lineBreaksBeforeStep;
+        private int _lineBreaksBeforeScenario;
+        private int _lineBreaksBeforeExamples;
+        private int _lineBreaksBeforeFeature;
+
 
         public bool FormatDocument(GherkinEditorContext editorContext)
         {
+            ConfigureLineBreakOptions(editorContext);
+
             var dialect = GetDialect(editorContext.LanguageService);
             var textSnapshot = editorContext.TextView.TextSnapshot;
 
@@ -41,6 +43,16 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
             ReplaceText(textSnapshot, formattedTextLines);
 
             return true;
+        }
+
+        private void ConfigureLineBreakOptions(GherkinEditorContext editorContext)
+        {
+            var options = editorContext.LanguageService.ProjectScope.IntegrationOptionsProvider.GetOptions();
+            _normalizeLineBreaks = options.NormalizeLineBreaks;
+            _lineBreaksBeforeStep = options.LineBreaksBeforeStep;
+            _lineBreaksBeforeScenario = options.LineBreaksBeforeScenario;
+            _lineBreaksBeforeExamples = options.LineBreaksBeforeExamples;
+            _lineBreaksBeforeFeature = options.LineBreaksBeforeFeature;
         }
 
         private void ReplaceText(ITextSnapshot textSnapshot, List<string> newTextLines)
@@ -88,7 +100,7 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 
                 if (string.IsNullOrWhiteSpace(textLines[i]))
                 {
-                    if (!NormalizeLineBreaks)
+                    if (!_normalizeLineBreaks)
                     {
                         formattedTextLines.AddRange(stringsToInsertBefore);
                         stringsToInsertBefore.Clear();
@@ -154,7 +166,7 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
                 }
                 else if (IsBlockLine(trimmedLine, dialect) || IsStepLine(trimmedLine, dialect))
                 {
-                    if (NormalizeLineBreaks)
+                    if (_normalizeLineBreaks)
                     {
                         int addLinesBefore = GetPreceedingLineBreaks(trimmedLine, dialect);
                         for (int j = 0; j < addLinesBefore; j++)
@@ -205,7 +217,7 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
             }
             else if (IsStepLine(line, dialect))
             {
-                return StepIndent;
+                return GetConfiguredStepLineBreaksAndIndent();
             }
             else if (IsTableLine(line))
             {
@@ -213,6 +225,21 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
             }
 
             return string.Empty;
+        }
+
+        private string GetConfiguredStepLineBreaksAndIndent()
+        {
+            var str = string.Empty;
+
+            if (_normalizeLineBreaks)
+            {
+                for (var i = 0; i < _lineBreaksBeforeStep; i++)
+                {
+                    str = str + "\n";
+                }
+            }
+
+            return str + StepIndent;
         }
 
         private int GetPreceedingLineBreaks(string line, GherkinDialect dialect)
@@ -225,13 +252,13 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
                     case GherkinBlockKeyword.Scenario:
                     case GherkinBlockKeyword.ScenarioOutline:
                     case GherkinBlockKeyword.Background:
-                        return LineBreaksBeforeScenario;
+                        return _lineBreaksBeforeScenario;
 
                     case GherkinBlockKeyword.Examples:
-                        return LineBreaksBeforeExamples;
+                        return _lineBreaksBeforeExamples;
 
                     case GherkinBlockKeyword.Feature:
-                        return LineBreaksBeforeFeature;
+                        return _lineBreaksBeforeFeature;
                 }
             }
 

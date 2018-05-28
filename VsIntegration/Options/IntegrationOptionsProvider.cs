@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition;
-using System.Linq;
+﻿using System.ComponentModel.Composition;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
@@ -27,6 +25,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const TestRunnerTool TestRunnerToolDefaultValue = TestRunnerTool.Auto;
         public const bool DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue = false;
         public const GenerationMode GenerationModeDefaultValue = GenerationMode.OutOfProcess;
+        public const bool NormalizeLineBreaksDefaultValue = true;
+        public const int LineBreaksBeforeStepDefaultValue = 1;
+        public const int LineBreaksBeforeScenarioDefaultValue = 1;
+        public const int LineBreaksBeforeExamplesDefaultValue = 1;
+        public const int LineBreaksBeforeFeatureDefaultValue = 0;
 
         private DTE dte;
 
@@ -51,19 +54,24 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                 return options;
 
             options = new IntegrationOptions
-                                          {
-                                              EnableSyntaxColoring = GetGeneralOption(dte, "EnableSyntaxColoring", EnableSyntaxColoringDefaultValue),
-                                              EnableOutlining = GetGeneralOption(dte, "EnableOutlining", EnableOutliningDefaultValue),
-                                              EnableIntelliSense = GetGeneralOption(dte, "EnableIntelliSense", EnableIntelliSenseDefaultValue),
-                                              EnableAnalysis = GetGeneralOption(dte, "EnableAnalysis", EnableAnalysisDefaultValue),
-                                              EnableTableAutoFormat = GetGeneralOption(dte, "EnableTableAutoFormat", EnableTableAutoFormatDefaultValue),
-                                              EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),
-                                              EnableTracing = GetGeneralOption(dte, "EnableTracing", EnableTracingDefaultValue),
-                                              TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
-                                              TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
-                                              DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
-                                              GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue)
-                                          };
+            {
+                EnableSyntaxColoring = GetGeneralOption(dte, "EnableSyntaxColoring", EnableSyntaxColoringDefaultValue),
+                EnableOutlining = GetGeneralOption(dte, "EnableOutlining", EnableOutliningDefaultValue),
+                EnableIntelliSense = GetGeneralOption(dte, "EnableIntelliSense", EnableIntelliSenseDefaultValue),
+                EnableAnalysis = GetGeneralOption(dte, "EnableAnalysis", EnableAnalysisDefaultValue),
+                EnableTableAutoFormat = GetGeneralOption(dte, "EnableTableAutoFormat", EnableTableAutoFormatDefaultValue),
+                EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),
+                EnableTracing = GetGeneralOption(dte, "EnableTracing", EnableTracingDefaultValue),
+                TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
+                TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
+                DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
+                GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
+                NormalizeLineBreaks = GetGeneralOption(dte, "NormalizeLineBreaks", NormalizeLineBreaksDefaultValue),
+                LineBreaksBeforeStep = GetGeneralOption(dte, "LineBreaksBeforeStep", LineBreaksBeforeStepDefaultValue),
+                LineBreaksBeforeFeature = GetGeneralOption(dte, "LineBreaksBeforeFeature", LineBreaksBeforeFeatureDefaultValue),
+                LineBreaksBeforeExamples = GetGeneralOption(dte, "LineBreaksBeforeExamples", LineBreaksBeforeExamplesDefaultValue),
+                LineBreaksBeforeScenario = GetGeneralOption(dte, "LineBreaksBeforeScenario", LineBreaksBeforeScenarioDefaultValue)
+            };
             cachedOptions = options;
             return options;
         }
