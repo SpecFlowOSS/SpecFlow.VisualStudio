@@ -1,30 +1,8 @@
-﻿using System;
-using System.Linq;
-using EnvDTE;
-using TechTalk.SpecFlow.IdeIntegration.Options;
+﻿using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public class ReSharper6GatewayLoader : AutoTestRunnerGatewayLoader
-    {
-        public ReSharper6GatewayLoader()
-            : base(TestRunnerTool.ReSharper)
-        {
-        }
-
-        public override bool CanUse(Project project)
-        {
-            return GetResharperVersion() != -1;
-        }
-
-        public static int GetResharperVersion()
-        {
-            var reSharperAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == "JetBrains.ReSharper.UnitTestFramework");
-            return reSharperAssembly != null ? reSharperAssembly.GetName().Version.Major : -1;
-        }
-    }
-
     public class ReSharper6TestRunnerGateway : CommandBasedTestRunnerGateway
     {
         private const int Resharper2017 = 108;

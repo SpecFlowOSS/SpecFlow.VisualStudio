@@ -6,13 +6,6 @@ using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public interface ITestRunnerEngine
-    {
-        bool RunFromEditor(GherkinLanguageService languageService, bool debug, TestRunnerTool? runnerTool = null);
-        bool RunFromProjectItem(ProjectItem projectItem, bool debug, TestRunnerTool? runnerTool = null);
-        bool RunFromProject(Project project, bool debug, TestRunnerTool? runnerTool = null);
-    }
-
     public class TestRunnerEngine : ITestRunnerEngine
     {
         private readonly DTE dte;

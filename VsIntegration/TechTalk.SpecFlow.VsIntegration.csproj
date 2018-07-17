@@ -233,10 +233,16 @@
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
     <Compile Include="TestRunner\AutoTestRunnerGatewayLoader.cs" />
+    <Compile Include="TestRunner\ITestRunnerEngine.cs" />
+    <Compile Include="TestRunner\ReSharper6GatewayLoader.cs" />
+    <Compile Include="TestRunner\SpecRunConstants.cs" />
     <Compile Include="TestRunner\SpecRunGatewayLoader.cs" />
     <Compile Include="TestRunner\SpecRunTestMethodResolver.cs" />
+    <Compile Include="TestRunner\SpecRunTestRunnerGatewayLoader.cs" />
     <Compile Include="TestRunner\SpecRunWithVsTestExplorerGatewayLoader.cs" />
+    <Compile Include="TestRunner\TestRunnerGatewayProvider.cs" />
     <Compile Include="TestRunner\VsTestExplorerGateway.cs" />
+    <Compile Include="TestRunner\VsTestExplorerGatewayLoader.cs" />
     <Compile Include="UI\ContextMenuBuilder.cs" />
     <Compile Include="Generator\VsGeneratorInfoProvider.cs" />
     <Compile Include="Install\VsBrowserGuidanceNotificationService.cs" />
