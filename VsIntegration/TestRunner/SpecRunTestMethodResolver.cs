@@ -6,12 +6,6 @@ using Microsoft.VisualStudio.TestWindow.Extensibility;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public static class SpecRunConstants
-    {
-        public const string ExecutorUriString = "executor://specrun.com/executor_v1.2";
-        public static Uri ExecutorUri = new Uri(ExecutorUriString);
-    }
-
     [Export(typeof(ITestMethodResolver))]
     public class SpecRunTestMethodResolver : ITestMethodResolver
     {

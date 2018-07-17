@@ -12,7 +12,6 @@ using System.Windows.Threading;
 using EnvDTE;
 using EnvDTE80;
 using TechTalk.SpecFlow.IdeIntegration.Install;
-using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
@@ -22,13 +21,6 @@ using Process = EnvDTE.Process;
 
 namespace TechTalk.SpecFlow.VsIntegration.TestRunner
 {
-    public class SpecRunTestRunnerGatewayLoader : SpecRunGatewayLoader
-    {
-        public SpecRunTestRunnerGatewayLoader() : base(TestRunnerTool.SpecRun)
-        {
-        }
-    }
-
     public class SpecRunTestRunnerGateway : ITestRunnerGateway
     {
         private readonly IOutputWindowService outputWindowService;
