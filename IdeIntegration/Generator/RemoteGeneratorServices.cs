@@ -52,13 +52,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 return GetTestGeneratorFactoryOfIDE();
             }
 
-            if (generatorInfo.GeneratorAssemblyVersion == currentGeneratorAssemblyVersion && !generatorInfo.UsesPlugins)
-            {
-                // uses the "current" generator (and no plugins) -> call it directly
-                tracer.Trace("The generator of the project is the same as the generator bound to the IDE: using it from the IDE", "RemoteGeneratorServices");
-                return GetTestGeneratorFactoryOfIDE();
-            }
-
             try
             {
                 if (UseOutOfProcess)

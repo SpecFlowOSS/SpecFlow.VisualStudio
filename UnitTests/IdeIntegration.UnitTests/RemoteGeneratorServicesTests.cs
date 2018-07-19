@@ -96,8 +96,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             var generatorServices = CreateRemoteGeneratorServices(() => new GeneratorInfo
                                                                             {
                                                                                 GeneratorAssemblyVersion = currentGeneratorVersion, 
-                                                                                GeneratorFolder = SampleGeneratorFolder,
-                                                                                UsesPlugins = false
+                                                                                GeneratorFolder = SampleGeneratorFolder
                                                                             });
             generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(TestGeneratorFactoryStub.Object);
         }
@@ -109,8 +108,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
             var generatorServices = CreateRemoteGeneratorServices(() => new GeneratorInfo
             {
                 GeneratorAssemblyVersion = currentGeneratorVersion,
-                GeneratorFolder = SampleGeneratorFolder,
-                UsesPlugins = true
+                GeneratorFolder = SampleGeneratorFolder
             });
             generatorServices.GetTestGeneratorFactoryForCreatePublic().Should().Be(RemoteTestGeneratorFactoryMock.Object);
         }

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Discovery;
 using TechTalk.SpecFlow.Configuration;
+using TechTalk.SpecFlow.Generator.Configuration;
+using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Bindings
@@ -11,7 +13,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Bindings
         private readonly IIdeTracer tracer;
         private List<IStepDefinitionBinding> stepDefinitionBindings = new List<IStepDefinitionBinding>();
 
-        public IdeBindingSourceProcessor(IIdeTracer tracer) : base(new BindingFactory(new StepDefinitionRegexCalculator(new RuntimeConfiguration())))
+        public IdeBindingSourceProcessor(IIdeTracer tracer) : base(new BindingFactory(new StepDefinitionRegexCalculator(ConfigurationLoader.GetDefault())))
         {
             this.tracer = tracer;
         }
