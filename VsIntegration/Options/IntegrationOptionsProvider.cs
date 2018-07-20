@@ -27,6 +27,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const TestRunnerTool TestRunnerToolDefaultValue = TestRunnerTool.Auto;
         public const bool DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue = false;
         public const GenerationMode GenerationModeDefaultValue = GenerationMode.OutOfProcess;
+        public const string CodeBehindFileGeneratorPath = null;
+
 
         private DTE dte;
 
@@ -62,8 +64,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                                               TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
                                               TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
                                               DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
-                                              GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue)
-                                          };
+                                              GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
+                                              CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath)
+            };
             cachedOptions = options;
             return options;
         }
@@ -73,6 +76,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         {
             set { dte = VsxHelper.GetDte(value); }
         }
+
 
         public IntegrationOptions GetOptions()
         {
