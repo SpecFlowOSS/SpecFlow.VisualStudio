@@ -13,6 +13,7 @@
         public TestRunnerTool TestRunnerTool { get; set; }
         public bool DisableRegenerateFeatureFilePopupOnConfigChange { get; set; }
         public GenerationMode GenerationMode { get; set; }
+        public string CodeBehindFileGeneratorPath { get; set; }
     }
 
     public enum TestRunnerTool
