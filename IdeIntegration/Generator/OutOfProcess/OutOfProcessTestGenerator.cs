@@ -37,10 +37,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
                 Debug = Debugger.IsAttached
             });
 
-
-            var output = FilterConfigDebugOutput(result);
-
-            return new TestGeneratorResult(output.ToString(), true);
+            return new TestGeneratorResult(result.Output, true);
         }
 
         public Version DetectGeneratedTestVersion(FeatureFileInput featureFileInput)
@@ -82,23 +79,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             return result.Output;
         }
 
-        private StringBuilder FilterConfigDebugOutput(Result result)
-        {
-            var lines = result.Output.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-            var output = new StringBuilder();
-
-            foreach (string line in lines)
-            {
-                if (line.Contains("Using default config") || line.Contains("Using app.config") || line.Contains("Using specflow.json"))
-                {
-                    continue;
-                }
-
-                output.AppendLine(line);
-            }
-
-            return output;
-        }
+        
 
         private string WriteTempFile(object settings)
         {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Text;
 using CommandLine;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.RemoteAppDomain;
@@ -43,7 +45,39 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
             var outputFileContent = processHelper.ConsoleOutput;
 
+            outputFileContent = FilterConfigDebugOutput(outputFileContent);
+
+            var firstLine = outputFileContent
+                .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+
+            if (firstLine != null)
+            {
+                if (File.Exists(firstLine))
+                {
+                    outputFileContent = File.ReadAllText(firstLine, Encoding.UTF8);
+                }
+            }
+
+
             return new Result(exitCode, outputFileContent);
+        }
+
+        private string FilterConfigDebugOutput(string result)
+        {
+            var lines = result.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            var output = new StringBuilder();
+
+            foreach (string line in lines)
+            {
+                if (line.Contains("Using default config") || line.Contains("Using app.config") || line.Contains("Using specflow.json"))
+                {
+                    continue;
+                }
+
+                output.AppendLine(line);
+            }
+
+            return output.ToString();
         }
     }
 }

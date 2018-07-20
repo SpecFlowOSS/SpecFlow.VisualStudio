@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TechTalk.SpecFlow.Generator;
@@ -44,7 +45,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
                     outputFileContent = GenerateError(testGeneratorResult, codeDomHelper);
                 }
 
-                Console.WriteLine(outputFileContent);
+                Console.WriteLine(WriteTempFile(outputFileContent));
 
                 return 0;
             }
@@ -53,6 +54,13 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
                 Console.WriteLine(e);
                 return 1;
             }
+        }
+
+        private string WriteTempFile(string content)
+        {
+            var fileName = Path.GetTempFileName();
+            File.WriteAllText(fileName, content, Encoding.UTF8);
+            return fileName;
         }
 
         private CodeDomHelper GetCodeDomHelper(ProjectSettings projectSettings)
