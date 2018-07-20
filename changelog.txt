@@ -5,6 +5,7 @@ New Features:
 
 Bugfix:
 + fix encoding problems with special chars https://github.com/techtalk/SpecFlow/issues/1205
++ Add Newtonsoft.Json to VSIX
 
 2017.2.1 - 2018/07/10
 
