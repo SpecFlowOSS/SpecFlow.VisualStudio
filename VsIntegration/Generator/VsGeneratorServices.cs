@@ -27,7 +27,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
             IIntegrationOptionsProvider integrationOptionsProvider) : base( //TODO: load dependencies through DI
             new TestGeneratorFactory(), 
             new RemoteAppDomainTestGeneratorFactory(tracer), 
-            new OutOfProcessTestGeneratorFactory(tracer), 
+            new OutOfProcessTestGeneratorFactory(tracer, integrationOptionsProvider.GetOptions()), 
             new VsGeneratorInfoProvider(project, tracer, configurationReader), 
             tracer, false)
         {

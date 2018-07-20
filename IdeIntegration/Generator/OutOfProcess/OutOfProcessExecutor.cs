@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using CommandLine;
+using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.RemoteAppDomain;
 using TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters;
 
@@ -13,11 +14,18 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
         private const string ExeName = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe";
 
 
-        public OutOfProcessExecutor(Info info)
+        public OutOfProcessExecutor(Info info, IntegrationOptions integrationOptions)
         {
             _info = info;
             string currentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
-            _fullPathToExe = Path.Combine(currentDirectory, ExeName);
+            if (String.IsNullOrWhiteSpace(integrationOptions.CodeBehindFileGeneratorPath))
+            {
+                _fullPathToExe = Path.Combine(currentDirectory, ExeName);
+            }
+            else
+            {
+                _fullPathToExe = integrationOptions.CodeBehindFileGeneratorPath;
+            }
         }
 
         public Result Execute(CommonParameters commonParameters)
