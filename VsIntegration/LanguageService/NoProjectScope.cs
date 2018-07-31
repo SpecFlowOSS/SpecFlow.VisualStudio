@@ -8,6 +8,7 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
@@ -19,12 +20,12 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public GherkinTextBufferParser GherkinTextBufferParser { get; private set; }
         public GherkinFileEditorClassifications Classifications { get; private set; }
         public GherkinProcessingScheduler GherkinProcessingScheduler { get; private set; }
-        public SpecFlowProjectConfiguration SpecFlowProjectConfiguration { get; private set; }
+        public SpecFlowConfiguration SpecFlowConfiguration { get; private set; }
         public GherkinDialectServices GherkinDialectServices { get; private set; }
         public IIntegrationOptionsProvider IntegrationOptionsProvider { get; private set; }
         public IIdeTracer Tracer { get; private set; }
 
-        public event Action SpecFlowProjectConfigurationChanged { add {} remove {} }
+        public event Action SpecFlowConfigurationChanged { add {} remove {} }
         public event Action GherkinDialectServicesChanged { add { } remove { } }
 
         public GherkinScopeAnalyzer GherkinScopeAnalyzer
@@ -51,8 +52,8 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             GherkinTextBufferParser = new GherkinTextBufferParser(this, visualStudioTracer);
             GherkinProcessingScheduler = new GherkinProcessingScheduler(visualStudioTracer, false);
-            SpecFlowProjectConfiguration = new SpecFlowProjectConfiguration();
-            GherkinDialectServices = new GherkinDialectServices(SpecFlowProjectConfiguration.GeneratorConfiguration.FeatureLanguage); 
+            SpecFlowConfiguration = ConfigurationLoader.GetDefault();
+            GherkinDialectServices = new GherkinDialectServices(SpecFlowConfiguration.FeatureLanguage); 
             Classifications = classifications;
             IntegrationOptionsProvider = integrationOptionsProvider;
             Tracer = visualStudioTracer;

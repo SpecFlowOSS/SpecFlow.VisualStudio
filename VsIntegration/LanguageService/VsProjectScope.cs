@@ -40,7 +40,6 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private bool initializing = false;
         
         // delay initialized members
-        private SpecFlowProjectConfiguration specFlowProjectConfiguration = null;
         private SpecFlowConfiguration specFlowConfiguration = null;
         private GherkinDialectServices gherkinDialectServices = null;
         private VsProjectFileTracker appConfigTracker = null;
@@ -49,14 +48,6 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private VsStepSuggestionProvider stepSuggestionProvider = null;
         private IStepDefinitionMatchService stepDefinitionMatchService = null;
 
-        public SpecFlowProjectConfiguration SpecFlowProjectConfiguration
-        {
-            get
-            {
-                EnsureInitialized();
-                return specFlowProjectConfiguration;
-            }
-        }
         public SpecFlowConfiguration SpecFlowConfiguration
         {
             get
@@ -120,7 +111,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get { return integrationOptionsProvider; }
         }
 
-        public event Action SpecFlowProjectConfigurationChanged;
+        public event Action SpecFlowConfigurationChanged;
         public event Action GherkinDialectServicesChanged;
 
         internal VsProjectScope(Project project, DteWithEvents dteWithEvents, GherkinFileEditorClassifications classifications, IVisualStudioTracer tracer, IIntegrationOptionsProvider integrationOptionsProvider)
@@ -326,7 +317,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             bool dialectServicesChanged = !newConfig.FeatureLanguage.Equals(GherkinDialectServices.DefaultLanguage);
 
             specFlowConfiguration = newConfig;
-            OnSpecFlowProjectConfigurationChanged();
+            OnSpecFlowConfigurationChanged();
 
             if (dialectServicesChanged)
             {
@@ -357,11 +348,11 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
-        private void OnSpecFlowProjectConfigurationChanged()
+        private void OnSpecFlowConfigurationChanged()
         {
             this.tracer.Trace("SpecFlow configuration changed", "VsProjectScope");
-            if (SpecFlowProjectConfigurationChanged != null)
-                SpecFlowProjectConfigurationChanged();
+            if (SpecFlowConfigurationChanged != null)
+                SpecFlowConfigurationChanged();
 
             GeneratorServices.InvalidateSettings();
 
