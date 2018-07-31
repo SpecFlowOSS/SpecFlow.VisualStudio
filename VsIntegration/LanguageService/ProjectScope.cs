@@ -8,6 +8,7 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 
@@ -20,14 +21,14 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         GherkinDialectServices GherkinDialectServices { get; }
         GherkinFileEditorClassifications Classifications { get; }
         GherkinProcessingScheduler GherkinProcessingScheduler { get; }
-        SpecFlowProjectConfiguration SpecFlowProjectConfiguration { get; }
+        SpecFlowConfiguration SpecFlowConfiguration { get; }
         VsStepSuggestionProvider StepSuggestionProvider { get; }
         IStepDefinitionMatchService BindingMatchService { get; }
         IIntegrationOptionsProvider IntegrationOptionsProvider { get; }
         IGeneratorServices GeneratorServices { get; }
         IIdeTracer Tracer { get; }
 
-        event Action SpecFlowProjectConfigurationChanged;
+        event Action SpecFlowConfigurationChanged;
         event Action GherkinDialectServicesChanged;
     }
 }
