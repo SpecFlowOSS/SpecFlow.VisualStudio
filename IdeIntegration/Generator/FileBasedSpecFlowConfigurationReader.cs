@@ -4,11 +4,13 @@ using System.Linq;
 using System.Xml;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Generator
 {
-    public abstract class FileBasedSpecFlowConfigurationReader : ISpecFlowConfigurationReader
+
+    public abstract class FileBasedSpecFlowConfigurationReader : IConfigurationReader
     {
         protected readonly IIdeTracer tracer;
 
@@ -17,13 +19,14 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             this.tracer = tracer;
         }
 
-        public SpecFlowConfigurationHolder ReadConfiguration()
+        public ConfigurationHolder ReadConfiguration()
         {
             string configFileContent = GetConfigFileContent();
             if (configFileContent == null)
-                return new SpecFlowConfigurationHolder();
+                return new ConfigurationHolder();
             return GetConfigurationHolderFromFileContent(configFileContent);
         }
+
 
         protected virtual string GetConfigFileContent()
         {
@@ -46,20 +49,38 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             throw new NotImplementedException();
         }
 
-        private SpecFlowConfigurationHolder GetConfigurationHolderFromFileContent(string configFileContent)
+        private ConfigurationHolder GetConfigurationHolderFromFileContent(string configFileContent)
         {
-            try
+            if (IsConfigXml(configFileContent))
             {
-                XmlDocument configDocument = new XmlDocument();
-                configDocument.LoadXml(configFileContent);
+                try
+                {
+                    XmlDocument configDocument = new XmlDocument();
+                    configDocument.LoadXml(configFileContent);
 
-                return new SpecFlowConfigurationHolder(configDocument.SelectSingleNode("/configuration/specFlow"));
+                    return new ConfigurationHolder(configDocument.SelectSingleNode("/configuration/specFlow"));
+                }
+                catch (Exception ex)
+                {
+                    tracer.Trace("Config load error: " + ex, GetType().Name);
+                    return new ConfigurationHolder();
+                }
             }
-            catch (Exception ex)
-            {
-                tracer.Trace("Config load error: " + ex, GetType().Name);
-                return new SpecFlowConfigurationHolder();
-            }
+
+            if (IsConfigJson(configFileContent))
+                return new ConfigurationHolder(ConfigSource.Json, configFileContent);
+
+            throw new Exception("Config file is not recognized as json nor app.config!");
+        }
+
+        private bool IsConfigJson(string configContent)
+        {
+            return configContent.StartsWith("{") || configContent.StartsWith("[");
+        }
+
+        private bool IsConfigXml(string configContent)
+        {
+            return configContent.StartsWith("<");
         }
 
     }
