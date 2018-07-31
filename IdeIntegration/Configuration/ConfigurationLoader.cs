@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig;
 using TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig;
@@ -27,9 +28,20 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
         {
             get { return CultureInfo.GetCultureInfo(ConfigDefaults.FeatureLanguage); }
         }
+
+        private static CultureInfo DefaultBindingCulture
+        {
+            get { return null; }
+        }
+
         private static List<string> DefaultAdditionalStepAssemblies
         {
             get { return new List<string>(); }
+        }
+
+        private static StepDefinitionSkeletonStyle DefaultStepDefinitionSkeletonStyle
+        {
+            get { return StepDefinitionSkeletonStyle.RegexAttribute; }
         }
 
         public SpecFlowConfiguration Load(SpecFlowConfiguration specFlowConfiguration, IConfigurationHolder configurationHolder)
@@ -55,7 +67,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
 
         public static SpecFlowConfiguration GetDefault()
         {
-            return new SpecFlowConfiguration(ConfigSource.Default, DefaultFeatureLanguage, DefaultAdditionalStepAssemblies);
+            return new SpecFlowConfiguration(ConfigSource.Default, 
+                DefaultFeatureLanguage, 
+                DefaultBindingCulture,
+                DefaultAdditionalStepAssemblies,
+                DefaultStepDefinitionSkeletonStyle);
         }
 
         private SpecFlowConfiguration LoadAppConfig(SpecFlowConfiguration specFlowConfiguration,

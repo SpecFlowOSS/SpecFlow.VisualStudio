@@ -1,7 +1,7 @@
 using System;
 using System.Configuration;
 
-namespace TechTalk.SpecFlow.Configuration.AppConfig
+namespace TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig
 {
     public class LanguageConfigElement : ConfigurationElement
     {
