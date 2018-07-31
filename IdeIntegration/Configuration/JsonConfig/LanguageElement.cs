@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace TechTalk.SpecFlow.Configuration.JsonConfig
+namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 {
     public class LanguageElement
     {
