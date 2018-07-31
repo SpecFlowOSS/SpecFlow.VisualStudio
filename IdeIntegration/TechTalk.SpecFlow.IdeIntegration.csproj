@@ -77,7 +77,9 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -102,6 +104,20 @@
     </Compile>
     <Compile Include="Bindings\IdeBindingSourceProcessor.cs" />
     <Compile Include="Bindings\ILBindingRegistryBuilder.cs" />
+    <Compile Include="Configuration\AppConfig\AppConfigConfigurationLoader.cs" />
+    <Compile Include="Configuration\AppConfig\LanguageConfigElement.cs" />
+    <Compile Include="Configuration\AppConfig\StepAssemblyCollection.cs" />
+    <Compile Include="Configuration\AppConfig\StepAssemblyConfigElement.cs" />
+    <Compile Include="Configuration\ConfigurationLoader.cs" />
+    <Compile Include="Configuration\IConfigurationLoader.cs" />
+    <Compile Include="Configuration\IConfigurationHolder.cs" />
+    <Compile Include="Configuration\IConfigurationReader.cs" />
+    <Compile Include="Configuration\JsonConfig\JsonConfig.cs" />
+    <Compile Include="Configuration\JsonConfig\JsonConfigurationLoader.cs" />
+    <Compile Include="Configuration\JsonConfig\LanguageElement.cs" />
+    <Compile Include="Configuration\JsonConfig\SpecFlowElement.cs" />
+    <Compile Include="Configuration\JsonConfig\StepAssemblyElement.cs" />
+    <Compile Include="Configuration\ConfigurationHolder.cs" />
     <Compile Include="Generator\FileBasedSpecFlowConfigurationReader.cs" />
     <Compile Include="Generator\GeneratorServices.cs" />
     <Compile Include="Generator\IdeSingleFileGenerator.cs" />
@@ -112,6 +128,7 @@
     <Compile Include="Generator\OutOfProcess\OutOfProcessTestGenerator.cs" />
     <Compile Include="Generator\OutOfProcess\OutOfProcessTestGeneratorFactory.cs" />
     <Compile Include="Generator\OutOfProcess\Result.cs" />
+    <Compile Include="Configuration\SpecFlowConfiguration.cs" />
     <Compile Include="Install\ExternalBrowserGuidanceNotificationService.cs" />
     <Compile Include="Install\GuidanceNotification.cs" />
     <Compile Include="Install\IFileAssociationDetector.cs" />
