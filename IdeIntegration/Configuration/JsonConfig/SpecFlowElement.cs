@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow.Configuration.JsonConfig;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 {
@@ -22,5 +23,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 
         [DataMember(Name = "trace")]
         public TraceElement Trace { get; set; }
+
+        //[JsonProperty("generator", NullValueHandling = NullValueHandling.Ignore)]
+        [DataMember(Name = "generator")]
+        public GeneratorElement Generator { get; set; }
+
+        [DataMember(Name = "unitTestProvider")]
+        public UnitTestProviderElement UnitTestProvider { get; set; }
     }
 }

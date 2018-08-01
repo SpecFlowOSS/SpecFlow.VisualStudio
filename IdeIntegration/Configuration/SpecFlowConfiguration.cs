@@ -25,13 +25,18 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
             CultureInfo featureLanguage,
             CultureInfo bindingCulture,
             List<string> additionalStepAssemblies,
-            StepDefinitionSkeletonStyle stepDefinitionSkeletonStyle)
+            StepDefinitionSkeletonStyle stepDefinitionSkeletonStyle,
+            bool usesPlugins,
+            string generatorPath
+            )
         {
             ConfigSource = configSource;
             FeatureLanguage = featureLanguage;
             BindingCulture = bindingCulture;
             AdditionalStepAssemblies = additionalStepAssemblies;
             StepDefinitionSkeletonStyle = stepDefinitionSkeletonStyle;
+            UsesPlugins = usesPlugins;
+            GeneratorPath = generatorPath;
         }
 
         public ConfigSource ConfigSource { get; set; }
@@ -42,5 +47,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
         public List<string> AdditionalStepAssemblies { get; set; }
 
         public StepDefinitionSkeletonStyle StepDefinitionSkeletonStyle { get; set; }
+
+        //old stuff
+        public bool UsesPlugins { get; set; }
+        public string GeneratorPath { get; set; }
     }
 }

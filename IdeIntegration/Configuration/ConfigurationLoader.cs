@@ -44,6 +44,15 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
             get { return StepDefinitionSkeletonStyle.RegexAttribute; }
         }
 
+        private static bool DefaultUsesPlugins
+        {
+            get { return false; }
+        }
+        private static string DefaultGeneratorPath
+        {
+            get { return null; }
+        }
+
         public SpecFlowConfiguration Load(SpecFlowConfiguration specFlowConfiguration, IConfigurationHolder configurationHolder)
         {
             switch (configurationHolder.ConfigSource)
@@ -71,7 +80,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
                 DefaultFeatureLanguage, 
                 DefaultBindingCulture,
                 DefaultAdditionalStepAssemblies,
-                DefaultStepDefinitionSkeletonStyle);
+                DefaultStepDefinitionSkeletonStyle,
+                DefaultUsesPlugins,
+                DefaultGeneratorPath);
         }
 
         private SpecFlowConfiguration LoadAppConfig(SpecFlowConfiguration specFlowConfiguration,
