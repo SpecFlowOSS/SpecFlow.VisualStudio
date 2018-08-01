@@ -24,6 +24,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
             CultureInfo bindingCulture = specFlowConfiguration.BindingCulture;
             List<string> additionalStepAssemblies = specFlowConfiguration.AdditionalStepAssemblies;
             StepDefinitionSkeletonStyle stepDefinitionSkeletonStyle = specFlowConfiguration.StepDefinitionSkeletonStyle;
+            bool usesPlugins = false;
+            string generatorPath = null;
 
             var specFlowElement = jsonConfig.SpecFlow;
             if (specFlowElement.Language != null)
@@ -55,11 +57,25 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
                 stepDefinitionSkeletonStyle = specFlowElement.Trace.StepDefinitionSkeletonStyle;
             }
 
+            if (specFlowElement.Generator != null)
+            {
+                generatorPath = specFlowElement.Generator.GeneratorPath;
+                if (specFlowElement.Generator.Dependencies != null)
+                    usesPlugins = true;
+            }
+
+            if(specFlowElement.UnitTestProvider != null && !string.IsNullOrEmpty(specFlowElement.UnitTestProvider.GeneratorProvider))
+            {
+                usesPlugins = true;
+            }
+
             return new SpecFlowConfiguration(ConfigSource.Json,
                                             featureLanguage,
                                             bindingCulture,
                                             additionalStepAssemblies,
-                                            stepDefinitionSkeletonStyle);
+                                            stepDefinitionSkeletonStyle,
+                                            usesPlugins,
+                                            generatorPath);
         }
     }
 }
