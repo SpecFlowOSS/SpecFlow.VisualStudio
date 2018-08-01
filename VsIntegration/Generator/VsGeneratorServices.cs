@@ -5,6 +5,7 @@ using EnvDTE;
 using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.Generator.Interfaces;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Generator.AppDomain;
 using TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess;
@@ -19,11 +20,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
     internal class VsGeneratorServices : RemoteGeneratorServices
     {
         protected readonly Project project;
-        private readonly ISpecFlowConfigurationReader configurationReader;
+        private readonly IConfigurationReader configurationReader;
         private readonly IIntegrationOptionsProvider _integrationOptionsProvider;
 
 
-        public VsGeneratorServices(Project project, ISpecFlowConfigurationReader configurationReader, IIdeTracer tracer,
+        public VsGeneratorServices(Project project, IConfigurationReader configurationReader, IIdeTracer tracer,
             IIntegrationOptionsProvider integrationOptionsProvider) : base( //TODO: load dependencies through DI
             new TestGeneratorFactory(), 
             new RemoteAppDomainTestGeneratorFactory(tracer), 
@@ -76,7 +77,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
                            ProjectFolder = VsxHelper.GetProjectFolder(project),
                            DefaultNamespace = VsxHelper.GetProjectDefaultNamespace(project),
                            ProjectPlatformSettings = projectPlatformSettings,
-                           ConfigurationHolder = configurationHolder
+                           ConfigurationHolder = configurationHolder.TransformConfigurationToOldHolder()
                        };
         }
     }
