@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration
@@ -40,6 +41,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration
         {
             xmlString = configXmlNode != null ? configXmlNode.OuterXml : null;
             ConfigSource = ConfigSource.AppConfig;
+        }
+
+        public SpecFlowConfigurationHolder TransformConfigurationToOldHolder()
+        {
+            return new SpecFlowConfigurationHolder(Content);
         }
     }
 }
