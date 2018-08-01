@@ -96,10 +96,35 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
 
             if (configSourceFieldInfo != null)
             {
-                configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 0);
+                if (IsConfigXml(xmlString))
+                {
+                    configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 0);
+                }
+                else
+                {
+                    if (IsConfigJson(xmlString))
+                    {
+                        configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 1);
+                    }
+                    else
+                    {
+                        configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 2);
+                    }
+                }
+                    
             }
 
             return projectSettings;
+        }
+
+        private bool IsConfigJson(string configContent)
+        {
+            return configContent.StartsWith("{") || configContent.StartsWith("[");
+        }
+
+        private bool IsConfigXml(string configContent)
+        {
+            return configContent.StartsWith("<");
         }
 
         private string GenerateError(TestGeneratorResult generationResult, CodeDomHelper codeDomHelper)
