@@ -16,18 +16,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
         private const string ExeName = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe";
 
 
-        public OutOfProcessExecutor(Info info, IntegrationOptions integrationOptions)
+        public OutOfProcessExecutor(Info info)
         {
             _info = info;
             string currentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
-            if (String.IsNullOrWhiteSpace(integrationOptions.CodeBehindFileGeneratorPath))
-            {
-                _fullPathToExe = Path.Combine(currentDirectory, ExeName);
-            }
-            else
-            {
-                _fullPathToExe = integrationOptions.CodeBehindFileGeneratorPath;
-            }
+            _fullPathToExe = Path.Combine(currentDirectory, ExeName);
         }
 
         public Result Execute(CommonParameters commonParameters)
@@ -48,7 +41,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             outputFileContent = FilterConfigDebugOutput(outputFileContent);
 
             var firstLine = outputFileContent
-                .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 
             if (firstLine != null)
             {
@@ -79,5 +72,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
             return output.ToString();
         }
+
     }
 }
