@@ -28,7 +28,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             var result = _outOfProcessExecutor.Execute(new GetGeneratorVersionParameters()
             {
                 Debug = Debugger.IsAttached
-            });
+            },false);
 
             return Version.Parse(result.Output);
         }

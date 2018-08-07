@@ -6,5 +6,8 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters
     {
         [Option]
         public bool Debug { get; set; }
+
+        [Option]
+        public string OutputDirectory { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
     class OutOfProcessExecutor
     {
         private readonly Info _info;
+        private readonly IntegrationOptions _integrationOptions;
         private readonly string _fullPathToExe;
         private const string ExeName = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe";
 
@@ -19,6 +20,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
         public OutOfProcessExecutor(Info info, IntegrationOptions integrationOptions)
         {
             _info = info;
+            _integrationOptions = integrationOptions;
             string currentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
             if (String.IsNullOrWhiteSpace(integrationOptions.CodeBehindFileGeneratorPath))
             {
@@ -30,8 +32,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             }
         }
 
-        public Result Execute(CommonParameters commonParameters)
+        public Result Execute(CommonParameters commonParameters, bool transferViaFile)
         {
+            commonParameters.OutputDirectory = String.IsNullOrWhiteSpace(_integrationOptions.CodeBehindFileGeneratorExchangePath) ? Path.GetTempPath() : _integrationOptions.CodeBehindFileGeneratorExchangePath;
+
+
             string commandLineParameters = CommandLine.Parser.Default.FormatCommandLine(commonParameters);
 
             var processHelper = new ProcessHelper();
@@ -47,14 +52,39 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
             outputFileContent = FilterConfigDebugOutput(outputFileContent);
 
-            var firstLine = outputFileContent
-                .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
 
-            if (firstLine != null)
+            if (transferViaFile)
             {
-                if (File.Exists(firstLine))
+                var firstLine = outputFileContent.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+
+                if (firstLine != null)
                 {
-                    outputFileContent = File.ReadAllText(firstLine, Encoding.UTF8);
+                    if (File.Exists(firstLine))
+                    {
+                        outputFileContent = File.ReadAllText(firstLine, Encoding.UTF8);
+                        try
+                        {
+                            File.Delete(firstLine);
+                        }
+                        catch
+                        {
+                            // ignored
+                        }
+                    }
+                    else
+                    {
+                        return new Result(1, "We could not find a data exchange file at the path " + firstLine + "" + Environment.NewLine +
+                                             Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/" +
+                                             "Complete output: " + Environment.NewLine +
+                                             outputFileContent);
+                    }
+                }
+                else
+                {
+                    return new Result(1, "Data Exchange via file did not worked, because we didn't receive a file path to read. " + Environment.NewLine +
+                                         Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/" + 
+                                         "Complete output: " + Environment.NewLine +
+                                         outputFileContent);
                 }
             }
 
