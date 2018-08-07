@@ -10,6 +10,8 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
     {
         static int Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+
             if (args.Contains("--debug"))
             {
                 Debugger.Launch();

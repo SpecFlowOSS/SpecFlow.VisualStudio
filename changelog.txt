@@ -1,4 +1,13 @@
-2017.2.1 - 2018/05/??
+2017.2.2 - 2018/07/25
+
+New Features:
++ possibility to specific path to TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe
+
+Bugfix:
++ fix encoding problems with special chars https://github.com/techtalk/SpecFlow/issues/1205
++ Add Newtonsoft.Json to VSIX
+
+2017.2.1 - 2018/07/10
 
 Changed behaviour:
 + Set out of process as default generation mode

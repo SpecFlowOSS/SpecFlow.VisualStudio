@@ -6,8 +6,6 @@ using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj;

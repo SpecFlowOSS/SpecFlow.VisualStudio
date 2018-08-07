@@ -96,6 +96,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.GenerationModeDefaultValue)]
         public GenerationMode GenerationMode { get; set; }
 
+        [Category("Code Behind File Generation")]
+        [Description("Specifies the path to TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe")]
+        [DisplayName("Path to cmd tool")]
+        [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
+        public string PathToCodeBehindGeneratorExe { get; set; }
+
         public OptionsPageGeneral()
         {
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;

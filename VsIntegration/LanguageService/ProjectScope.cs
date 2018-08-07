@@ -6,8 +6,6 @@ using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 

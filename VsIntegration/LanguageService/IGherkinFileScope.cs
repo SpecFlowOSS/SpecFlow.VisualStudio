@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
-using TechTalk.SpecFlow.Parser;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {

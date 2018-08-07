@@ -6,8 +6,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.Language.Intellisense;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
