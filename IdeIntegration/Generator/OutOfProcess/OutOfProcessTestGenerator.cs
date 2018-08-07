@@ -34,8 +34,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 ProjectSettingsFile = projectSettingsFile,
-                Debug = Debugger.IsAttached
-            });
+                Debug = Debugger.IsAttached,
+                
+            }, true);
 
             return new TestGeneratorResult(result.Output, true);
         }
@@ -49,7 +50,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 Debug = Debugger.IsAttached
-            });
+            }, false);
 
 
             if (result.ExitCode > 0)
@@ -69,7 +70,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 Debug = Debugger.IsAttached
-            });
+            },false);
 
             if (result.ExitCode > 0)
             {

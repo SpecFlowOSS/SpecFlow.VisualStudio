@@ -10,5 +10,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters
 
         [Option]
         public string ProjectSettingsFile { get; set; }
+
+        
     }
 }

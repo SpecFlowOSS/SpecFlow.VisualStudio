@@ -102,6 +102,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
         public string PathToCodeBehindGeneratorExe { get; set; }
 
+        [Category("Code Behind File Generation")]
+        [Description("Specifies the path where to save data exchange files (Default: %TEMP%)")]
+        [DisplayName("Data Exchange Path")]
+        [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
+        public string CodeBehindFileGeneratorExchangePath { get; set; }
+
         public OptionsPageGeneral()
         {
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
@@ -115,6 +121,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             TestRunnerTool = IntegrationOptionsProvider.TestRunnerToolDefaultValue;
             DisableRegenerateFeatureFilePopupOnConfigChange = IntegrationOptionsProvider.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue;
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
+            PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
+            CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
         }
 
         public override void SaveSettingsToStorage()
