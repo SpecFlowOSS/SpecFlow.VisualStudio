@@ -101,7 +101,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private static IEnumerable<string> GetAdditionalBindingAssemblyNames(IProjectScope projectScope)
         {
-            return projectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.AdditionalStepAssemblies.Select(a => a.Split(new[] {','}, 2)[0]);
+            return projectScope.SpecFlowProjectConfiguration.SpecFlowConfiguration.AdditionalStepAssemblies.Select(a => a.Split(new[] {','}, 2)[0]);
         }
 
         private void OnProjectClosed(Project project)

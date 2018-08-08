@@ -73,7 +73,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
 
             List<BindingMatch> candidatingMatches;
             StepDefinitionAmbiguityReason ambiguityReason;
-            CultureInfo bindingCulture = editorContext.ProjectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.BindingCulture ?? step.StepContext.Language;
+            CultureInfo bindingCulture = editorContext.ProjectScope.SpecFlowProjectConfiguration.SpecFlowConfiguration.BindingCulture ?? step.StepContext.Language;
             var match = bindingMatchService.GetBestMatch(step, bindingCulture, out ambiguityReason, out candidatingMatches);
             var binding = match.StepBinding;
 
@@ -89,7 +89,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
                 else
                 {
                     var language = editorContext.ProjectScope is VsProjectScope ? VsProjectScope.GetTargetLanguage(((VsProjectScope) editorContext.ProjectScope).Project) : ProgrammingLanguage.CSharp;
-                    var stepDefinitionSkeletonStyle = editorContext.ProjectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.StepDefinitionSkeletonStyle;
+                    var stepDefinitionSkeletonStyle = editorContext.ProjectScope.SpecFlowProjectConfiguration.SpecFlowConfiguration.StepDefinitionSkeletonStyle;
                     string skeleton = stepDefinitionSkeletonProvider.GetStepDefinitionSkeleton(language, step, stepDefinitionSkeletonStyle, bindingCulture);
 
                     var result = MessageBox.Show("No matching step binding found for this step! Do you want to copy the step binding skeleton to the clipboard?"

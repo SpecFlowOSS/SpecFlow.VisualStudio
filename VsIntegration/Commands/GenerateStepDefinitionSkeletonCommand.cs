@@ -70,7 +70,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
                 return false;
 
             var featureTitle = GetFeatureTitle(fileScope);
-            var bindingCulture = editorContext.ProjectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.BindingCulture ?? fileScope.GherkinDialect.CultureInfo;
+            var bindingCulture = editorContext.ProjectScope.SpecFlowProjectConfiguration.SpecFlowConfiguration.BindingCulture ?? fileScope.GherkinDialect.GetCultureInfo();
             var steps = GetUnboundSteps(bindingMatchService, fileScope, bindingCulture).ToArray();
 
             if (steps.Length == 0)
@@ -81,7 +81,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
 
             var specFlowProject = ((VsProjectScope) editorContext.ProjectScope).Project;
             var defaultLanguage = VsProjectScope.GetTargetLanguage(specFlowProject);
-            var stepDefinitionSkeletonStyle = editorContext.ProjectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.StepDefinitionSkeletonStyle;
+            var stepDefinitionSkeletonStyle = editorContext.ProjectScope.SpecFlowProjectConfiguration.SpecFlowConfiguration.StepDefinitionSkeletonStyle;
 
             using (var skeletonGeneratorForm = new GenerateStepDefinitionSkeletonForm(featureTitle, steps, specFlowProject, stepDefinitionSkeletonStyle, defaultLanguage, dte))
             {

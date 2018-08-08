@@ -23,7 +23,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
             var specFlowProject = projectScope.SpecFlowProjectConfiguration;
             if (specFlowProject != null)
             {
-                foreach (var assemblyName in specFlowProject.RuntimeConfiguration.AdditionalStepAssemblies)
+                foreach (var assemblyName in specFlowProject.SpecFlowConfiguration.AdditionalStepAssemblies)
                 {
                     string simpleName = assemblyName.Split(new[] { ',' }, 2)[0];
 
