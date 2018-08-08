@@ -101,7 +101,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
 
             if (!featureProjItem.IsOpen)
                 featureProjItem.Open();
-            GoToLine(featureProjItem, position.FilePosition.Line);
+            GoToLine(featureProjItem, position.Location.Line);
         }
 
         private static void GoToLine(ProjectItem projectItem, int line)
@@ -122,7 +122,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
             {
                 var sp1 = (ISourceFilePosition) si1;
                 var sp2 = (ISourceFilePosition) si2;
-                return sp1.SourceFile.Equals(sp2.SourceFile, StringComparison.InvariantCultureIgnoreCase) && sp1.FilePosition.Line == sp2.FilePosition.Line;
+                return sp1.SourceFile.Equals(sp2.SourceFile, StringComparison.InvariantCultureIgnoreCase) && sp1.Location.Line == sp2.Location.Line;
             }
 
             public int GetHashCode(StepInstance obj)
@@ -137,7 +137,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
 
                 int result = StringComparer.InvariantCultureIgnoreCase.Compare(sp1.SourceFile, sp2.SourceFile);
                 if (result == 0)
-                    result = sp1.FilePosition.Line.CompareTo(sp2.FilePosition.Line);
+                    result = sp1.Location.Line.CompareTo(sp2.Location.Line);
                 return result;
             }
         }

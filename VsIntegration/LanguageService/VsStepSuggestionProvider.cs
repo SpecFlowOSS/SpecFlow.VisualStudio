@@ -4,11 +4,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Gherkin.Ast;
 using Microsoft.VisualStudio.Language.Intellisense;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
@@ -140,54 +142,58 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             vsProjectScope.BindingFilesTracker.FileRemoved += BindingFilesTrackerOnFileRemoved;
         }
 
-        private StepContext CreateStepScope(Feature feature, Scenario scenario)
+        private StepContext CreateStepScope(SpecFlowFeature feature, Scenario scenario)
         {
             var tags =
                 (feature.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Concat(scenario.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Select(t => t.Name).Distinct();
-            return new StepContext(feature.Title, scenario.Title, tags.ToArray(), GetLanguage(feature));
+            return new StepContext(feature.Name, scenario.Name, tags.ToArray(), GetLanguage(feature));
         }
 
-        private StepContext CreateStepScope(Feature feature)
+        private StepContext CreateStepScope(SpecFlowFeature feature)
         {
             var tags = (feature.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Select(t => t.Name).Distinct();
-            return new StepContext(feature.Title, null, tags.ToArray(), GetLanguage(feature));
+            return new StepContext(feature.Name, null, tags.ToArray(), GetLanguage(feature));
         }
 
-        private CultureInfo GetLanguage(Feature feature)
+        private CultureInfo GetLanguage(SpecFlowFeature feature)
         {
-            var language = this.vsProjectScope.GherkinDialectServices.GetGherkinDialect(feature).CultureInfo;
-            return language;
+            var lang = this.vsProjectScope.GherkinDialectProvider.DefaultDialect.GetCultureInfo();
+            //var language = this.vsProjectScope.GherkinDialectServices.GetGherkinDialect(feature).CultureInfo;
+            return lang;
         }
 
-        private IEnumerable<IStepSuggestion<Completion>> GetStepSuggestions(Feature feature)
+        private IEnumerable<IStepSuggestion<Completion>> GetStepSuggestions(SpecFlowDocument specFlowDocument)
         {
-            if (feature.Background != null)
+            if (specFlowDocument.SpecFlowFeature.Background != null)
             {
-                var featureScope = CreateStepScope(feature);
-                foreach (var scenarioStep in feature.Background.Steps)
-                    yield return new StepInstance<Completion>(scenarioStep, feature, featureScope, nativeSuggestionItemFactory);
+                var featureScope = CreateStepScope(specFlowDocument.SpecFlowFeature);
+                foreach (var scenarioStep in specFlowDocument.SpecFlowFeature.Background.Steps)
+                    yield return new StepInstance<Completion>(scenarioStep as SpecFlowStep, specFlowDocument, featureScope, nativeSuggestionItemFactory);
             }
 
-            if (feature.Scenarios != null)
-                foreach (var scenario in feature.Scenarios)
+            if (specFlowDocument.SpecFlowFeature.ScenarioDefinitions != null)
+            {
+                foreach (var scenario in specFlowDocument.SpecFlowFeature.ScenarioDefinitions)
                 {
                     var scenarioOutline = scenario as ScenarioOutline;
-                    var stepScope = CreateStepScope(feature, scenario);
+                    var stepScope = CreateStepScope(specFlowDocument.SpecFlowFeature, (Scenario)scenario);
                     foreach (var scenarioStep in scenario.Steps)
                     {
                         if (scenarioOutline == null || !StepInstanceTemplate<Completion>.IsTemplate(scenarioStep))
                         {
-                            yield return new StepInstance<Completion>(scenarioStep, feature, stepScope, nativeSuggestionItemFactory);
+                            yield return new StepInstance<Completion>(scenarioStep as SpecFlowStep, specFlowDocument, stepScope, nativeSuggestionItemFactory);
                         }
                         else
                         {
-                            yield return new StepInstanceTemplate<Completion>(scenarioStep, scenarioOutline, feature, stepScope, nativeSuggestionItemFactory);
+                            yield return new StepInstanceTemplate<Completion>(scenarioStep as SpecFlowStep, scenarioOutline, specFlowDocument, stepScope, nativeSuggestionItemFactory);
                         }
                     }
                 }
+            }
+
         }
 
         private void FeatureFilesTrackerOnReady()
@@ -247,7 +253,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 stepSuggestions.Clear();
             }
             
-            if (featureFileInfo.ParsedFeature != null)
+            if (featureFileInfo.ParsedDocument.SpecFlowFeature != null)
             {
                 if (stepSuggestions == null)
                 {
@@ -255,7 +261,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                     fileSuggestions.Add(featureFileInfo, stepSuggestions);
                 }
 
-                stepSuggestions.AddRange(GetStepSuggestions(featureFileInfo.ParsedFeature));
+                stepSuggestions.AddRange(GetStepSuggestions(featureFileInfo.ParsedDocument));
                 stepSuggestions.ForEach(AddStepSuggestion);
             }
         }
@@ -317,6 +323,16 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         }
 
         public IEnumerable<IHookBinding> GetHooks(HookType bindingEvent)
+        {
+            return Enumerable.Empty<IHookBinding>(); //not used in VS
+        }
+
+        public IEnumerable<IStepDefinitionBinding> GetStepDefinitions()
+        {
+            return Enumerable.Empty<IStepDefinitionBinding>();
+        }
+
+        public IEnumerable<IHookBinding> GetHooks()
         {
             return Enumerable.Empty<IHookBinding>(); //not used in VS
         }

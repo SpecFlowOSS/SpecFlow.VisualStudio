@@ -3,8 +3,10 @@ using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.Parser;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
@@ -70,43 +72,48 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 
         static private readonly Regex paramRe = new Regex(@"\<(?<param>[^\>]+)\>");
 
-        public StepInstanceTemplate(ScenarioStep scenarioStep, ScenarioOutline scenarioOutline, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
+        public StepInstanceTemplate(SpecFlowStep scenarioStep, ScenarioOutline scenarioOutline, SpecFlowDocument specFlowDocument, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
         {
             StepDefinitionType = (StepDefinitionType)scenarioStep.ScenarioBlock;
             Language = stepContext.Language;
 
             NativeSuggestionItem = nativeSuggestionItemFactory.Create(scenarioStep.Text, StepInstance<TNativeSuggestionItem>.GetInsertionText(scenarioStep), 1, StepDefinitionType.ToString().Substring(0, 1) + "-t", this);
             instances = new StepSuggestionList<TNativeSuggestionItem>(nativeSuggestionItemFactory);
-            AddInstances(scenarioStep, scenarioOutline, feature, stepContext, nativeSuggestionItemFactory);
+            AddInstances(scenarioStep, scenarioOutline, specFlowDocument, stepContext, nativeSuggestionItemFactory);
 
             var match = paramRe.Match(scenarioStep.Text);
             StepPrefix = match.Success ? scenarioStep.Text.Substring(0, match.Index) : scenarioStep.Text;
         }
 
-        private void AddInstances(ScenarioStep scenarioStep, ScenarioOutline scenarioOutline, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
+        private void AddInstances(SpecFlowStep scenarioStep, ScenarioOutline scenarioOutline, SpecFlowDocument specFlowDocument, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory)
         {
-            foreach (var exampleSet in scenarioOutline.Examples.ExampleSets)
+            foreach (var exampleSet in scenarioOutline.Examples)
             {
-                foreach (var row in exampleSet.Table.Body)
+                foreach (var row in exampleSet.TableBody)
                 {
                     var replacedText = paramRe.Replace(scenarioStep.Text,
                         match =>
                         {
                             string param = match.Groups["param"].Value;
-                            int headerIndex = Array.FindIndex(exampleSet.Table.Header.Cells, c => c.Value.Equals(param));
+                            var cells = exampleSet.TableHeader.Cells.ToArray();
+                            int headerIndex = Array.FindIndex(cells, c => c.Value.Equals(param));
                             if (headerIndex < 0)
                                 return match.Value;
-                            return row.Cells[headerIndex].Value;
+                            return cells[headerIndex].Value;
                         });
-
-                    var newStep = scenarioStep.Clone();
-                    newStep.Text = replacedText;
-                    instances.Add(new StepInstance<TNativeSuggestionItem>(newStep, feature, stepContext, nativeSuggestionItemFactory, 2) { ParentTemplate = this });
+                    
+                    var newStep = new SpecFlowStep(scenarioStep.Location, 
+                        scenarioStep.Keyword, 
+                        replacedText, 
+                        scenarioStep.Argument, 
+                        scenarioStep.StepKeyword, 
+                        scenarioStep.ScenarioBlock);
+                    instances.Add(new StepInstance<TNativeSuggestionItem>(newStep, specFlowDocument, stepContext, nativeSuggestionItemFactory, 2) { ParentTemplate = this });
                 }
             }
         }
 
-        static public bool IsTemplate(ScenarioStep scenarioStep)
+        static public bool IsTemplate(Step scenarioStep)
         {
             return paramRe.Match(scenarioStep.Text).Success;
         }

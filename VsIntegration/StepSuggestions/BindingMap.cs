@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
+using TechTalk.SpecFlow.Parser;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
@@ -53,7 +54,7 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
     {
         public string FileName { get; set; }
         public DateTime TimeStamp { get; set; }
-        public Feature Feature { get; set; }
+        public SpecFlowDocument Document { get; set; }
         public Version GeneratorVersion { get; set; }
     }
 

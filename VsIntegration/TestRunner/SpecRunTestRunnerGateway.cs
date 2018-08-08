@@ -103,13 +103,13 @@ namespace TechTalk.SpecFlow.VsIntegration.TestRunner
                 {
                     tracer.Trace("Feature file info not found.", GetType().Name);
                 }
-                else if (featureFileInfo.ParsedFeature == null)
+                else if (featureFileInfo.ParsedDocument.SpecFlowFeature == null)
                 {
                     tracer.Trace("Feature file is not yet analyzed.", GetType().Name);
                 }
                 else
                 {
-                    string path = string.Format("testpath:Feature:{0}", Escape(featureFileInfo.ParsedFeature.Title));
+                    string path = string.Format("testpath:Feature:{0}", Escape(featureFileInfo.ParsedDocument.SpecFlowFeature.Name));
                     return path;
                 }
             }

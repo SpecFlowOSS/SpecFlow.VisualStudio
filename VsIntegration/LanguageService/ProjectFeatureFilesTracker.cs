@@ -6,6 +6,7 @@ using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
+using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj;
@@ -15,7 +16,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
     public class FeatureFileInfo : FileInfo
     {
         public Version GeneratorVersion { get; set; }
-        public Feature ParsedFeature { get; set; }
+        public SpecFlowDocument ParsedDocument { get; set; }
 
         public FeatureFileInfo(ProjectItem projectItem, ProjectItem codeBehindItem)
         {
@@ -65,22 +66,22 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             var codeBehindChangeDate = AnalyzeCodeBehind(featureFileInfo, projectItem);
 
             var fileContent = VsxHelper.GetFileContent(projectItem, loadLastSaved: true);
-            featureFileInfo.ParsedFeature = ParseGherkinFile(fileContent, featureFileInfo.ProjectRelativePath, vsProjectScope.GherkinDialectServices.DefaultLanguage);
+            featureFileInfo.ParsedDocument = ParseGherkinFile(fileContent, featureFileInfo.ProjectRelativePath, vsProjectScope.GherkinDialectProvider.DefaultDialect.GetCultureInfo());
             var featureLastChangeDate = VsxHelper.GetLastChangeDate(projectItem) ?? DateTime.MinValue;
             featureFileInfo.LastChangeDate = featureLastChangeDate > codeBehindChangeDate ? featureLastChangeDate : codeBehindChangeDate;
         }
 
-        public Feature ParseGherkinFile(string fileContent, string sourceFileName, CultureInfo defaultLanguage)
+        public SpecFlowDocument ParseGherkinFile(string fileContent, string sourceFileName, CultureInfo defaultLanguage)
         {
             try
             {
-                SpecFlowLangParser specFlowLangParser = new SpecFlowLangParser(defaultLanguage);
-
+                var specFlowLangParser = new SpecFlowGherkinParser(defaultLanguage);
+                
                 StringReader featureFileReader = new StringReader(fileContent);
 
-                var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
+                var specFlowDocument = specFlowLangParser.Parse(featureFileReader, sourceFileName);
 
-                return feature;
+                return specFlowDocument;
             }
             catch (Exception)
             {
@@ -171,13 +172,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         protected override void SaveToStepMapInternal(StepMap stepMap)
         {
             stepMap.FeatureSteps = new List<FeatureSteps>();
-            foreach (var featureFileInfo in Files.Where(f => f.ParsedFeature != null))
+            foreach (var featureFileInfo in Files.Where(f => f.ParsedDocument != null))
             {
                 stepMap.FeatureSteps.Add(new FeatureSteps
                                              {
                                                  FileName = featureFileInfo.ProjectRelativePath, 
                                                  TimeStamp = featureFileInfo.LastChangeDate,
-                                                 Feature = featureFileInfo.ParsedFeature,
+                                                 Document = featureFileInfo.ParsedDocument,
                                                  GeneratorVersion = featureFileInfo.GeneratorVersion
                                              });
             }
@@ -198,7 +199,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                     if (fileInfo.IsDirty(featureSteps.TimeStamp))
                         continue;
 
-                    fileInfo.ParsedFeature = featureSteps.Feature;
+                    fileInfo.ParsedDocument = featureSteps.Document;
                     fileInfo.GeneratorVersion = featureSteps.GeneratorVersion;
 
                     FireFileUpdated(fileInfo);

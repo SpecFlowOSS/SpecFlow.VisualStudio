@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.Parser;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
     public interface ISourceFilePosition
     {
         string SourceFile { get; }
-        FilePosition FilePosition { get; }
+        Location Location { get; }
     }
 
     public class StepInstance<TNativeSuggestionItem> : StepInstance, IBoundStepSuggestion<TNativeSuggestionItem>, ISourceFilePosition
@@ -28,25 +30,28 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
         public StepInstanceTemplate<TNativeSuggestionItem> ParentTemplate { get; internal set; }
 
         public string SourceFile { get; private set; }
-        public FilePosition FilePosition { get; private set; }
 
-        public StepInstance(ScenarioStep step, Feature feature, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory, int level = 1)
+        public Location Location { get; private set; }
+
+
+        public StepInstance(SpecFlowStep step, SpecFlowDocument specFlowDocument, StepContext stepContext, INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory, int level = 1)
             : base((StepDefinitionType)step.ScenarioBlock, (StepDefinitionKeyword)step.StepKeyword, step.Keyword, step.Text, stepContext)
         {
             this.NativeSuggestionItem = nativeSuggestionItemFactory.Create(step.Text, GetInsertionText(step), level, StepDefinitionType.ToString().Substring(0, 1), this);
-            this.FilePosition = step.FilePosition;
-            this.SourceFile = feature.SourceFile;
+            this.Location = specFlowDocument.SpecFlowFeature.Location;
+            this.SourceFile = specFlowDocument.SourceFilePath;
         }
 
         private const string stepParamIndent = "         ";
 
-        static internal string GetInsertionText(ScenarioStep step)
+        internal static string GetInsertionText(SpecFlowStep step)
         {
-            if (step.TableArg == null && step.MultiLineTextArgument == null)
+            if (step.Argument == null)
                 return step.Text;
 
             StringBuilder result = new StringBuilder(step.Text);
-            if (step.MultiLineTextArgument != null)
+            var multiLineArg = step.Argument as DocString;
+            if (multiLineArg != null)
             {
                 result.AppendLine();
                 result.Append(stepParamIndent);
@@ -55,12 +60,15 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
                 result.Append(stepParamIndent);
                 result.Append("\"\"\"");
             }
-            if (step.TableArg != null)
+
+            var tableArg = step.Argument as DataTable;
+            if (tableArg != null)
             {
+                var header = tableArg.Rows.First();
                 result.AppendLine();
                 result.Append(stepParamIndent);
                 result.Append("|");
-                foreach (var cell in step.TableArg.Header.Cells)
+                foreach (var cell in header.Cells)
                 {
                     result.Append(" ");
                     result.Append(cell.Value);
@@ -69,7 +77,7 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
                 result.AppendLine();
                 result.Append(stepParamIndent);
                 result.Append("|");
-                foreach (var cell in step.TableArg.Header.Cells)
+                foreach (var cell in header.Cells)
                 {
                     result.Append(" ");
                     result.Append(' ', cell.Value.Length);

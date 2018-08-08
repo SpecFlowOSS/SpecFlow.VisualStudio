@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Utils;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
