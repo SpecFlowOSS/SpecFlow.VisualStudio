@@ -106,9 +106,13 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 
         private IEnumerable<Completion> GetKeywordCompletions()
         {
-            GherkinDialect dialect = GetDialect(languageService);
-            return dialect.GetStepKeywords().Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
-                dialect.GetBlockKeywords().Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
+            var dialect = GetDialect(languageService);
+
+            //there is no blockkeywords...
+            //return dialect.GetStepKeywords().Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
+            //    dialect.GetBlockKeywords().Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
+
+            return dialect.StepKeywords.Select(k => new Completion(k.Trim(), k.Trim(), null, null, null));
         }
 
         static private GherkinDialect GetDialect(GherkinLanguageService languageService)

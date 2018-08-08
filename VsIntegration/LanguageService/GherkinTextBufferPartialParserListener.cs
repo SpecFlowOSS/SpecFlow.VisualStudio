@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Gherkin;
 using Microsoft.VisualStudio.Text;
+using TechTalk.SpecFlow.VsIntegration.Gherkin;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    internal class PartialListeningDoneException : ScanningCancelledException
+    internal class PartialListeningDoneException : Exception
     {
         public IScenarioBlock FirstUnchangedScenario { get; private set; }
 
