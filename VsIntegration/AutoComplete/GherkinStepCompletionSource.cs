@@ -12,6 +12,7 @@ using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
@@ -113,8 +114,10 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         static private GherkinDialect GetDialect(GherkinLanguageService languageService)
         {
             var fileScope = languageService.GetFileScope(waitForResult: false);
-            return fileScope != null ? fileScope.GherkinDialect : languageService.ProjectScope.GherkinDialectServices.GetDefaultDialect();
+            return fileScope != null ? fileScope.GherkinDialect : languageService.ProjectScope.GherkinDialectProvider.DefaultDialect;
         }
+
+
 
         static internal bool IsKeywordCompletion(SnapshotPoint triggerPoint)
         {

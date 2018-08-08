@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using Gherkin;
 using Microsoft.VisualStudio.Text;
+using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 
@@ -24,12 +27,11 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         }
 
-        private GherkinDialect GetGherkinDialect(ITextSnapshot textSnapshot)
+        private IGherkinDialectProvider GetGherkinDialect(ITextSnapshot textSnapshot)
         {
             try
             {
-                return projectScope.GherkinDialectServices.GetGherkinDialect(
-                        lineNo => textSnapshot.GetLineFromLineNumber(lineNo).GetText());
+                return projectScope.GherkinDialectProvider;
             }
             catch(Exception)
             {
@@ -37,16 +39,17 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
+        //todo: equals on the dialect itself and the provider? haha, change it
         public GherkinFileScopeChange Parse(GherkinTextBufferChange change, IGherkinFileScope previousScope = null)
         {
-            var gherkinDialect = GetGherkinDialect(change.ResultTextSnapshot);
-            if (gherkinDialect == null)
+            var gherkinDialectProvider = GetGherkinDialect(change.ResultTextSnapshot);
+            if (gherkinDialectProvider == null)
                 return GetInvalidDialectScopeChange(change);
 
             bool fullParse = false;
             if (previousScope == null)
                 fullParse = true;
-            else if (!Equals(previousScope.GherkinDialect, gherkinDialect))
+            else if (!Equals(previousScope.GherkinDialect, gherkinDialectProvider))
                 fullParse = true;
             else if (partialParseCount >= PartialParseCountLimit)
                 fullParse = true;
@@ -54,7 +57,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 fullParse = true;
 
             if (fullParse)
-                return FullParse(change.ResultTextSnapshot, gherkinDialect);
+                return FullParse(change.ResultTextSnapshot, gherkinDialectProvider);
 
             return PartialParse(change, previousScope);
         }
@@ -71,7 +74,9 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             return GherkinFileScopeChange.CreateEntireScopeChange(fileScope);
         }
 
-        private GherkinFileScopeChange FullParse(ITextSnapshot textSnapshot, GherkinDialect gherkinDialect)
+        //todo: this will not do anything, anyway it will not work.
+        //need to adapt the new way of parsing a feature file
+        private GherkinFileScopeChange FullParse(ITextSnapshot textSnapshot, IGherkinDialectProvider gherkinDialectProvider)
         {
             visualStudioTracer.Trace("Start full parsing", ParserTraceCategory);
             Stopwatch stopwatch = new Stopwatch();
@@ -79,10 +84,12 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             partialParseCount = 0;
 
-            var gherkinListener = new GherkinTextBufferParserListener(gherkinDialect, textSnapshot, projectScope);
+            var gherkinListener = new GherkinTextBufferParserListener(gherkinDialectProvider.DefaultDialect, textSnapshot, projectScope);
 
-            var scanner = new GherkinScanner(gherkinDialect, textSnapshot.GetText(), 0);
-            scanner.Scan(gherkinListener);
+            var scanner = new SpecFlowGherkinParser(gherkinDialectProvider);
+            
+            //var scanner = new GherkinScanner(gherkinDialect, textSnapshot.GetText(), 0);
+            //scanner.Scan(gherkinListener);
 
             var gherkinFileScope = gherkinListener.GetResult();
 
@@ -120,12 +127,12 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 previousScope, 
                 change.EndLine, change.LineCountDelta);
 
-            var scanner = new GherkinScanner(previousScope.GherkinDialect, fileContent, firstAffectedScenario.GetStartLine());
+            //var scanner = new GherkinScanner(previousScope.GherkinDialect, fileContent, firstAffectedScenario.GetStartLine());
 
             IScenarioBlock firstUnchangedScenario = null;
             try
             {
-                scanner.Scan(gherkinListener);
+                //scanner.Scan(gherkinListener);
             }
             catch (PartialListeningDoneException partialListeningDoneException)
             {

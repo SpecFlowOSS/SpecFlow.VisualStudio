@@ -277,6 +277,7 @@
     <Compile Include="EditorCommands\GherkinEditorContext.cs" />
     <Compile Include="EditorCommands\GherkinTextViewCreationListener.cs" />
     <Compile Include="EditorCommands\ReSharperCommand.cs" />
+    <Compile Include="Gherkin\GherkinBuffer.cs" />
     <Compile Include="InstallServicesHelper.cs" />
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
@@ -323,6 +324,8 @@
     </Compile>
     <Compile Include="UI\VsContextMenuManager.cs" />
     <Compile Include="Utils\FileChangeEventsListener.cs" />
+    <Compile Include="Utils\GherkinDialectExtensions.cs" />
+    <Compile Include="Utils\RegexSampler.cs" />
     <Compile Include="Utils\SolutionEventsListener.cs" />
     <Compile Include="Utils\VsProjectFilesTracker.cs" />
     <Compile Include="Utils\VsProjectFileTrackerBase.cs" />

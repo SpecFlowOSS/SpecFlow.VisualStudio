@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
+using Gherkin;
 using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Generator.Configuration;
@@ -14,6 +15,8 @@ using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.Configuration;
+using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.Generator;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
@@ -39,7 +42,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         
         // delay initialized members
         private SpecFlowProjectConfiguration specFlowProjectConfiguration = null;
-        private GherkinDialectServices gherkinDialectServices = null;
+        private IGherkinDialectProvider gherkinDialectProvider = null;
         private VsProjectFileTracker appConfigTracker = null;
         private ProjectFeatureFilesTracker featureFilesTracker = null;
         private BindingFilesTracker bindingFilesTracker = null;
@@ -55,12 +58,12 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
-        public GherkinDialectServices GherkinDialectServices
+        public IGherkinDialectProvider GherkinDialectProvider
         {
             get
             {
                 EnsureInitialized();
-                return gherkinDialectServices;
+                return gherkinDialectProvider;
             }
         }
 
@@ -214,7 +217,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             try
             {
                 specFlowProjectConfiguration = LoadConfiguration();
-                gherkinDialectServices = new GherkinDialectServices(specFlowProjectConfiguration.GeneratorConfiguration.FeatureLanguage);
+                gherkinDialectProvider = new SpecFlowGherkinParser(specFlowProjectConfiguration.SpecFlowConfiguration.FeatureLanguage).DialectProvider;
 
                 appConfigTracker = new VsProjectFileTracker(project, "App.config", dteWithEvents, tracer);
                 appConfigTracker.FileChanged += AppConfigTrackerOnFileChanged;
@@ -311,14 +314,15 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             if (newConfig.Equals(SpecFlowProjectConfiguration)) 
                 return;
 
-            bool dialectServicesChanged = !newConfig.GeneratorConfiguration.FeatureLanguage.Equals(GherkinDialectServices.DefaultLanguage);
+            //todo
+            bool dialectServicesChanged = !newConfig.SpecFlowConfiguration.FeatureLanguage.Equals(SpecFlowProjectConfiguration.SpecFlowConfiguration.FeatureLanguage);
 
             specFlowProjectConfiguration = newConfig;
             OnSpecFlowProjectConfigurationChanged();
 
             if (dialectServicesChanged)
             {
-                gherkinDialectServices = new GherkinDialectServices(SpecFlowProjectConfiguration.GeneratorConfiguration.FeatureLanguage);
+                gherkinDialectProvider = new SpecFlowGherkinParser(SpecFlowProjectConfiguration.SpecFlowConfiguration.FeatureLanguage).DialectProvider;
                 OnGherkinDialectServicesChanged();
             }
         }
@@ -451,7 +455,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 return;
             }
 
-            var stepMap = StepMap.CreateStepMap(GherkinDialectServices.DefaultLanguage);
+            var stepMap = StepMap.CreateStepMap(GherkinDialectProvider.DefaultDialect.GetCultureInfo());
             featureFilesTracker.SaveToStepMap(stepMap);
             bindingFilesTracker.SaveToStepMap(stepMap);
 
@@ -467,7 +471,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             var stepMap = StepMap.LoadFromFile(fileName, tracer);
             if (stepMap != null)
             {
-                if (stepMap.DefaultLanguage.Equals(GherkinDialectServices.DefaultLanguage)) // if default language changed in config => ignore cache
+                if (stepMap.DefaultLanguage.Equals(GherkinDialectProvider.DefaultDialect.GetCultureInfo())) // if default language changed in config => ignore cache
                     featureFilesTracker.LoadFromStepMap(stepMap);
                 bindingFilesTracker.LoadFromStepMap(stepMap);
             }

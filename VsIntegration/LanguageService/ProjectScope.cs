@@ -1,4 +1,5 @@
 ﻿using System;
+using Gherkin;
 using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.IdeIntegration;
@@ -15,7 +16,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
     {
         GherkinTextBufferParser GherkinTextBufferParser { get; }
         GherkinScopeAnalyzer GherkinScopeAnalyzer { get; }
-        GherkinDialectServices GherkinDialectServices { get; }
+        IGherkinDialectProvider GherkinDialectProvider { get; }
         GherkinFileEditorClassifications Classifications { get; }
         GherkinProcessingScheduler GherkinProcessingScheduler { get; }
         SpecFlowProjectConfiguration SpecFlowProjectConfiguration { get; }

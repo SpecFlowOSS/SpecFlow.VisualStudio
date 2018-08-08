@@ -9,8 +9,11 @@ using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 using System.Globalization;
+using Gherkin;
+using TechTalk.SpecFlow.VsIntegration.Gherkin;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
@@ -22,7 +25,8 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         }
     }
 
-    internal abstract class GherkinTextBufferParserListenerBase : IGherkinListener
+    //todo: need to derive from the new version of the "listener" old one:IGherkinListener
+    internal abstract class GherkinTextBufferParserListenerBase 
     {
         private readonly GherkinFileEditorClassifications classifications;
         private readonly GherkinFileScope gherkinFileScope;
@@ -331,13 +335,15 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private static readonly Regex placeholderRe = new Regex(@"\<.*?\>");
 
-        public void Step(string keyword, StepKeyword stepKeyword, Parser.Gherkin.ScenarioBlock scenarioBlock, string text, GherkinBufferSpan stepSpan)
+        //TODO: this is not called, because of the Gherkin.dll version change
+        //need to adjust parameters too
+        public void Step(string keyword, StepKeyword stepKeyword, SpecFlowStep step, string text, GherkinBufferSpan stepSpan)
         {
             var editorLine = stepSpan.StartPosition.Line;
             var tags = FeatureTags.Concat(CurrentFileBlockBuilder.Tags).Distinct();
-            var stepContext = new StepContext(FeatureTitle, CurrentFileBlockBuilder.BlockType == typeof(IBackgroundBlock) ? null : CurrentFileBlockBuilder.Title, tags.ToArray(), gherkinFileScope.GherkinDialect.CultureInfo);
+            var stepContext = new StepContext(FeatureTitle, CurrentFileBlockBuilder.BlockType == typeof(IBackgroundBlock) ? null : CurrentFileBlockBuilder.Title, tags.ToArray(), gherkinFileScope.GherkinDialect.GetCultureInfo());
 
-            currentStep = new GherkinStep((StepDefinitionType)scenarioBlock, (StepDefinitionKeyword)stepKeyword, text, stepContext, keyword, editorLine - CurrentFileBlockBuilder.KeywordLine);
+            currentStep = new GherkinStep((StepDefinitionType)step.ScenarioBlock, (StepDefinitionKeyword)stepKeyword, text, stepContext, keyword, editorLine - CurrentFileBlockBuilder.KeywordLine);
             CurrentFileBlockBuilder.Steps.Add(currentStep);
 
             var bindingMatchService = projectScope.BindingMatchService;
