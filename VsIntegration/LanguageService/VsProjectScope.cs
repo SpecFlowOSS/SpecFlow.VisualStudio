@@ -335,7 +335,8 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private SpecFlowProjectConfiguration LoadConfiguration()
         {
             ISpecFlowConfigurationReader configurationReader = new VsSpecFlowConfigurationReader(project, tracer); //TODO: load through DI
-            IGeneratorConfigurationProvider configurationLoader = new GeneratorConfigurationProvider(); //TODO: load through DI
+            //todo: replace the generator stuff
+            IGeneratorConfigurationProvider configurationLoader = new GeneratorConfigurationProvider(new ConfigurationLoader()); //TODO: load through DI
 
             try
             {

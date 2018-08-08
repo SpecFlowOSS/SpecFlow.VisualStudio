@@ -31,71 +31,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
             this.configurationReader = configurationReader;
         }
 
+        //todo: replace GeneratorConfig stuff - it is from the old SpecFlow.dll
         public virtual GeneratorInfo GetGeneratorInfo()
         {
-            tracer.Trace("Discovering generator information...", "VsGeneratorInfoProvider");
-
-            GeneratorConfiguration generatorConfiguration = GenGeneratorConfig();
-
-            try
-            {
-                var generatorInfo = new GeneratorInfo
-                                        {
-                                            UsesPlugins = generatorConfiguration.UsesPlugins
-                                        };
-
-                if (DetectFromConfig(generatorInfo, generatorConfiguration))
-                    return generatorInfo;
-
-                if (!DetectFromRuntimeReference(generatorInfo))
-                    tracer.Trace("Unable to detect generator path", "VsGeneratorInfoProvider");
-                
-                return generatorInfo;
-            }
-            catch (Exception exception)
-            {
-                tracer.Trace(exception.ToString(), "VsGeneratorInfoProvider");
-                return null;
-            }
-        }
-
-        private GeneratorConfiguration GenGeneratorConfig()
-        {
-            try
-            {
-                //TODO: have a "project context" where the actual confic can be read without re-loading/parsing it.
-                var configurationHolder = configurationReader.ReadConfiguration();
-                var config = new GeneratorConfigurationProvider().LoadConfiguration(configurationHolder);
-                if (config == null)
-                    return new GeneratorConfiguration();
-
-                return config.GeneratorConfiguration;
-            }
-            catch (Exception exception)
-            {
-                tracer.Trace("Config load error: " + exception, "VsGeneratorInfoProvider");
-                return new GeneratorConfiguration();
-            }
-        }
-
-        private bool DetectFromConfig(GeneratorInfo generatorInfo, GeneratorConfiguration generatorConfiguration)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(generatorConfiguration.GeneratorPath))
-                    return false;
-
-                var generatorFolder = Path.GetFullPath(
-                    Path.Combine(VsxHelper.GetProjectFolder(project), generatorConfiguration.GeneratorPath));
-
-                tracer.Trace("Generator is configured to be at " + generatorFolder, "VsGeneratorInfoProvider");
-                return DetectFromFolder(generatorInfo, generatorFolder);
-            }
-            catch(Exception exception)
-            {
-                tracer.Trace(exception.ToString(), "VsGeneratorInfoProvider");
-                return false;
-            }
+            var generatorInfo = new GeneratorInfo();
+            return generatorInfo;
         }
 
         private bool DetectFromRuntimeReference(GeneratorInfo generatorInfo)
