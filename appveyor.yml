@@ -9,9 +9,6 @@ configuration: Release
 
 environment:
   matrix:
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-    SpecFlow_VisualStudioVersion: 2013
-    VisualStudioVersion: 12.0
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     SpecFlow_VisualStudioVersion: 2015
     VisualStudioVersion: 14.0
@@ -29,6 +26,5 @@ build:
   verbosity: minimal
   
 artifacts:
-- path: VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.2013.vsix
 - path: VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.2015.vsix
 - path: VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.2017.vsix
