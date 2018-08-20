@@ -15,10 +15,10 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
         private readonly OutOfProcessExecutor _outOfProcessExecutor;
         private readonly ProjectSettings _projectSettings;
 
-        public OutOfProcessTestGenerator(Info info, ProjectSettings projectSettings)
+        public OutOfProcessTestGenerator(Info info, ProjectSettings projectSettings, IntegrationOptions integrationOptions)
         {
             _projectSettings = projectSettings;
-            _outOfProcessExecutor = new OutOfProcessExecutor(info);
+            _outOfProcessExecutor = new OutOfProcessExecutor(info, integrationOptions);
         }
 
         public void Dispose()

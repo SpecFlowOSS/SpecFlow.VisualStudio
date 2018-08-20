@@ -7,6 +7,7 @@ using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess;
+using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Utils;
@@ -19,10 +20,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
         protected readonly Project project;
 
 
-        public VsGeneratorServices(Project project, IConfigurationReader configurationReader, IIdeTracer tracer) :
+        public VsGeneratorServices(Project project, IConfigurationReader configurationReader, IIdeTracer tracer, IIntegrationOptionsProvider integrationOptionsProvider) :
             base( //TODO: load dependencies through DI
                 new TestGeneratorFactory(),
-                new OutOfProcessTestGeneratorFactory(),
+                new OutOfProcessTestGeneratorFactory(integrationOptionsProvider.GetOptions()),
                 new VsGeneratorInfoProvider(project, tracer, configurationReader),
                 tracer, false)
         {
