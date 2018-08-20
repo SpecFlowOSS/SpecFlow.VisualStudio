@@ -45,7 +45,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
                     outputFileContent = GenerateError(testGeneratorResult, codeDomHelper);
                 }
 
-                Console.WriteLine(WriteTempFile(outputFileContent));
+                Console.WriteLine(WriteTempFile(opts, outputFileContent));
 
                 return 0;
             }
@@ -56,9 +56,9 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
             }
         }
 
-        private string WriteTempFile(string content)
+        private string WriteTempFile(GenerateTestFileParameters opts, string content)
         {
-            var fileName = Path.GetTempFileName();
+            var fileName = Path.Combine(opts.OutputDirectory, Path.GetRandomFileName());
             File.WriteAllText(fileName, content, Encoding.UTF8);
             return fileName;
         }
