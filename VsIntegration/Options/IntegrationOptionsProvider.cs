@@ -28,6 +28,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const bool DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue = false;
         public const GenerationMode GenerationModeDefaultValue = GenerationMode.OutOfProcess;
         public const string CodeBehindFileGeneratorPath = null;
+        public const string CodeBehindFileGeneratorExchangePath = null;
 
 
         private DTE dte;
@@ -65,7 +66,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                                               TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
                                               DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
                                               GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
-                                              CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath)
+                                              CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath),
+                                              CodeBehindFileGeneratorExchangePath = GetGeneralOption(dte, "CodeBehindFileGeneratorExchangePath", CodeBehindFileGeneratorExchangePath) 
             };
             cachedOptions = options;
             return options;

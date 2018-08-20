@@ -34,8 +34,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 ProjectSettingsFile = projectSettingsFile,
-                Debug = Debugger.IsAttached
-            });
+                Debug = Debugger.IsAttached,
+                
+            }, true);
 
 
             var output = FilterConfigDebugOutput(result);
@@ -52,7 +53,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 Debug = Debugger.IsAttached
-            });
+            }, false);
 
 
             if (result.ExitCode > 0)
@@ -72,7 +73,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 Debug = Debugger.IsAttached
-            });
+            },false);
 
             if (result.ExitCode > 0)
             {
