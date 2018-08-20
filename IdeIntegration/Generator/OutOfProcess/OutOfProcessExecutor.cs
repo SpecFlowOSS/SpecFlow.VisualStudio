@@ -74,24 +74,24 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
                     else
                     {
                         return new Result(1, "We could not find a data exchange file at the path " + firstLine + "" + Environment.NewLine +
-                                             Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/" +
+                                             Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/" + Environment.NewLine +
                                              "Complete output: " + Environment.NewLine +
                                              outputFileContent + Environment.NewLine+
                                              Environment.NewLine+
                                              "Command: " + _fullPathToExe + Environment.NewLine + 
-                                             "Parameters: " + commonParameters + Environment.NewLine +
+                                             "Parameters: " + commandLineParameters + Environment.NewLine +
                                              "Working Directory: " + _info.GeneratorFolder);
                     }
                 }
                 else
                 {
                     return new Result(1, "Data Exchange via file did not worked, because we didn't receive a file path to read. " + Environment.NewLine +
-                                         Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/" + 
+                                         Environment.NewLine + "Please open an issue at https://github.com/techtalk/SpecFlow/issues/" + Environment.NewLine +
                                          "Complete output: " + Environment.NewLine +
                                          outputFileContent + Environment.NewLine +
                                          Environment.NewLine +
                                          "Command: " + _fullPathToExe + Environment.NewLine +
-                                         "Parameters: " + commonParameters + Environment.NewLine +
+                                         "Parameters: " + commandLineParameters + Environment.NewLine +
                                          "Working Directory: " + _info.GeneratorFolder);
                 }
             }
