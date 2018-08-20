@@ -79,7 +79,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
                                              outputFileContent + Environment.NewLine+
                                              Environment.NewLine+
                                              "Command: " + _fullPathToExe + Environment.NewLine + 
-                                             "Parameters: " + commonParameters);
+                                             "Parameters: " + commonParameters + Environment.NewLine +
+                                             "Working Directory: " + _info.GeneratorFolder);
                     }
                 }
                 else
@@ -90,7 +91,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
                                          outputFileContent + Environment.NewLine +
                                          Environment.NewLine +
                                          "Command: " + _fullPathToExe + Environment.NewLine +
-                                         "Parameters: " + commonParameters);
+                                         "Parameters: " + commonParameters + Environment.NewLine +
+                                         "Working Directory: " + _info.GeneratorFolder);
                 }
             }
 
