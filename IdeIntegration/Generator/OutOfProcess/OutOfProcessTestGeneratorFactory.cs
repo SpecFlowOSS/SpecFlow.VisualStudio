@@ -12,10 +12,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
     {
         private readonly Info _info = new Info();
         private readonly OutOfProcessExecutor _outOfProcessExecutor;
+        private readonly IntegrationOptions _integrationOptions;
 
-        public OutOfProcessTestGeneratorFactory()
+        public OutOfProcessTestGeneratorFactory(IntegrationOptions integrationOptions)
         {
-            _outOfProcessExecutor = new OutOfProcessExecutor(_info);
+            _integrationOptions = integrationOptions;
+            _outOfProcessExecutor = new OutOfProcessExecutor(_info, integrationOptions);
         }
 
         public Version GetGeneratorVersion()
@@ -30,7 +32,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
         public ITestGenerator CreateGenerator(ProjectSettings projectSettings)
         {
-            return new OutOfProcessTestGenerator(_info, projectSettings);
+            return new OutOfProcessTestGenerator(_info, projectSettings, _integrationOptions);
         }
 
         public bool IsRunning { get; private set; }

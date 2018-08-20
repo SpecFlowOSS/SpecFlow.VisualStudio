@@ -17,12 +17,19 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
         private const string ExeName = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe";
 
 
-        public OutOfProcessExecutor(Info info)
+        public OutOfProcessExecutor(Info info, IntegrationOptions integrationOptions)
         {
             _info = info;
             _integrationOptions = integrationOptions;
             string currentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
-            _fullPathToExe = Path.Combine(currentDirectory, ExeName);
+            if (String.IsNullOrWhiteSpace(integrationOptions.CodeBehindFileGeneratorPath))
+            {
+                _fullPathToExe = Path.Combine(currentDirectory, ExeName);
+            }
+            else
+            {
+                _fullPathToExe = integrationOptions.CodeBehindFileGeneratorPath;
+            }
         }
 
         public Result Execute(CommonParameters commonParameters, bool transferViaFile)
