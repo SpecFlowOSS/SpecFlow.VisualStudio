@@ -1,3 +1,8 @@
+2017.2.7 - 2018/08/22
+
+Bugfixes:
++ hopefully fix https://github.com/techtalk/SpecFlow/issues/1234
+
 2017.2.6 - 2018/08/20
 
 Bugfixes:
