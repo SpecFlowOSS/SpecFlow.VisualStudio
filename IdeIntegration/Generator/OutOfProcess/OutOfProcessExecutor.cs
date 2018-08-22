@@ -34,10 +34,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
         public Result Execute(CommonParameters commonParameters, bool transferViaFile)
         {
-            commonParameters.OutputDirectory =
-                String.IsNullOrWhiteSpace(_integrationOptions.CodeBehindFileGeneratorExchangePath)
-                    ? Path.GetDirectoryName(Path.GetTempPath())
-                    : _integrationOptions.CodeBehindFileGeneratorExchangePath;
+            commonParameters.OutputDirectory = Path.GetDirectoryName(String.IsNullOrWhiteSpace(_integrationOptions.CodeBehindFileGeneratorExchangePath)
+                    ? Path.GetTempPath()
+                    : _integrationOptions.CodeBehindFileGeneratorExchangePath);
 
 
             string commandLineParameters = CommandLine.Parser.Default.FormatCommandLine(commonParameters);
