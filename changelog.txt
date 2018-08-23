@@ -1,3 +1,8 @@
+2017.2.8 - 2018/xx/xx
+
+Bugfixes:
++ Fix Wrong text in step in feature file italicized https://github.com/techtalk/SpecFlow/issues/483
+
 2017.2.7 - 2018/08/22
 
 Bugfixes:

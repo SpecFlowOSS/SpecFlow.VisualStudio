@@ -56,7 +56,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             this.classifications = projectScope.Classifications;
             this.projectScope = projectScope;
             this.enableStepMatchColoring = projectScope.IntegrationOptionsProvider.GetOptions().EnableStepMatchColoring;
-           
+
             gherkinFileScope = new GherkinFileScope(gherkinDialect, textSnapshot);
         }
 
@@ -90,10 +90,10 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 return;
 
             var startLine = textSnapshot.GetLineFromLineNumber(span.StartPosition.Line);
-            var endLine = span.StartPosition.Line == span.EndPosition.Line ? 
+            var endLine = span.StartPosition.Line == span.EndPosition.Line ?
                 startLine : textSnapshot.GetLineFromLineNumber(span.EndPosition.Line);
             var startIndex = startLine.Start + span.StartPosition.LinePosition;
-            var endLinePosition = span.EndPosition.LinePosition == endLine.Length ? 
+            var endLinePosition = span.EndPosition.LinePosition == endLine.Length ?
                 endLine.LengthIncludingLineBreak : span.EndPosition.LinePosition;
             var length = endLine.Start + endLinePosition - startIndex;
             AddClassification(classificationType, startIndex, length);
@@ -110,6 +110,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 textPosition.ShiftByCharacters(value.Length));
             ColorizeSpan(textSpan, classificationType);
             return textPosition.LinePosition + value.Length;
+        }
+
+        private int ColorizeLinePart(int from, int to, GherkinBufferSpan span, IClassificationType classificationType)
+        {
+            var textSpan = new GherkinBufferSpan(new GherkinBufferPosition(span.Buffer, span.StartPosition.Line, from), new GherkinBufferPosition(span.Buffer, span.StartPosition.Line, to));
+            ColorizeSpan(textSpan, classificationType);
+            return to;
         }
 
         private void RegisterKeyword(string keyword, GherkinBufferSpan headerSpan)
@@ -278,7 +285,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             RegisterKeyword(keyword, headerSpan);
             ColorizeSpan(descriptionSpan, classifications.Description);
 
-            ScenarioOutlineExampleSet exampleSet = new ScenarioOutlineExampleSet(keyword, name, 
+            ScenarioOutlineExampleSet exampleSet = new ScenarioOutlineExampleSet(keyword, name,
                 editorLine - CurrentFileBlockBuilder.KeywordLine);
             CurrentFileBlockBuilder.ExampleSets.Add(exampleSet);
             currentStep = null;
@@ -352,10 +359,23 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 if (match.Success)
                 {
                     ColorizeKeywordLine(keyword, stepSpan, classifications.StepText);
-                    int linePos = stepSpan.StartPosition.LinePosition;
-                    foreach (var stringArg in match.Arguments.OfType<string>())
+
+                    var regexMatch = match.StepBinding.Regex.Match(text);
+                    if (regexMatch.Success)
                     {
-                        linePos = ColorizeLinePart(stringArg, stepSpan, classifications.StepArgument, linePos);
+                        var textStart = KeywordAndWhitespaceLength(keyword, stepSpan, editorLine);
+                        foreach (Group matchGroup in regexMatch.Groups.Cast<Group>().Skip(1))
+                        {
+                            var captures = matchGroup.Captures;
+                            var lastCapture = captures[captures.Count - 1];
+                            var partStart = textStart + captures[0].Index;
+                            var partEnd = textStart + lastCapture.Index + lastCapture.Length;
+                            ColorizeLinePart(partStart, partEnd, stepSpan, classifications.StepArgument);
+                        }
+                    }
+                    else
+                    {
+                        // this should never happen
                     }
                 }
                 else if (CurrentFileBlockBuilder.BlockType == typeof(IScenarioOutlineBlock) && placeholderRe.Match(text).Success)
@@ -374,9 +394,24 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             if (CurrentFileBlockBuilder.BlockType == typeof(IScenarioOutlineBlock))
             {
                 var matches = placeholderRe.Matches(text);
+                var textStart = KeywordAndWhitespaceLength(keyword, stepSpan, editorLine);
                 foreach (Match match in matches)
-                    ColorizeLinePart(match.Value, stepSpan, classifications.Placeholder);
+                {
+                    var capture = match.Groups[0].Captures[0];
+                    var start = textStart + capture.Index;
+                    ColorizeLinePart(start, start + capture.Length, stepSpan, classifications.Placeholder);
+                }
             }
+        }
+
+        private static int KeywordAndWhitespaceLength(string keyword, GherkinBufferSpan stepSpan, int editorLine)
+        {
+            var content = stepSpan.Buffer.GetContentFrom(editorLine);
+            var indentLength = content.TakeWhile(Char.IsWhiteSpace).Count();
+            return
+                indentLength
+                + keyword.Length
+                + content.Skip(indentLength + keyword.Length).TakeWhile(Char.IsWhiteSpace).Count();
         }
 
         public void TableHeader(string[] cells, GherkinBufferSpan rowSpan, GherkinBufferSpan[] cellSpans)
