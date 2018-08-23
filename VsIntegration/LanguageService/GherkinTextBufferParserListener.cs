@@ -386,6 +386,16 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
+        private static int KeywordAndWhitespaceLength(string keyword, GherkinBufferSpan stepSpan, int editorLine)
+        {
+            var content = stepSpan.Buffer.GetContentFrom(editorLine);
+            var indentLength = content.TakeWhile(Char.IsWhiteSpace).Count();
+            return
+                indentLength
+                + keyword.Length
+                + content.Skip(indentLength + keyword.Length).TakeWhile(Char.IsWhiteSpace).Count();
+        }
+
         public void TableHeader(string[] cells, GherkinBufferSpan rowSpan, GherkinBufferSpan[] cellSpans)
         {
             foreach (var cellSpan in cellSpans)
