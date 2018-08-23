@@ -381,8 +381,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             if (CurrentFileBlockBuilder.BlockType == typeof(IScenarioOutlineBlock))
             {
                 var matches = placeholderRe.Matches(text);
+                var textStart = KeywordAndWhitespaceLength(keyword, stepSpan, editorLine);
                 foreach (Match match in matches)
-                    ColorizeLinePart(match.Value, stepSpan, classifications.Placeholder);
+                {
+                    var capture = match.Groups[0].Captures[0];
+                    var start = textStart + capture.Index;
+                    ColorizeLinePart(start, start + capture.Length, stepSpan, classifications.Placeholder);
+                }
             }
         }
 
