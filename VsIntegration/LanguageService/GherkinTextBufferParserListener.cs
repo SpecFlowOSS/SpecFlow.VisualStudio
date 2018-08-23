@@ -359,10 +359,23 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 if (match.Success)
                 {
                     ColorizeKeywordLine(keyword, stepSpan, classifications.StepText);
-                    int linePos = stepSpan.StartPosition.LinePosition;
-                    foreach (var stringArg in match.Arguments.OfType<string>())
+
+                    var regexMatch = match.StepBinding.Regex.Match(text);
+                    if (regexMatch.Success)
                     {
-                        linePos = ColorizeLinePart(stringArg, stepSpan, classifications.StepArgument, linePos);
+                        var textStart = KeywordAndWhitespaceLength(keyword, stepSpan, editorLine);
+                        foreach (Group matchGroup in regexMatch.Groups.Cast<Group>().Skip(1))
+                        {
+                            var captures = matchGroup.Captures;
+                            var lastCapture = captures[captures.Count - 1];
+                            var partStart = textStart + captures[0].Index;
+                            var partEnd = textStart + lastCapture.Index + lastCapture.Length;
+                            ColorizeLinePart(partStart, partEnd, stepSpan, classifications.StepArgument);
+                        }
+                    }
+                    else
+                    {
+                        // this should never happen
                     }
                 }
                 else if (CurrentFileBlockBuilder.BlockType == typeof(IScenarioOutlineBlock) && placeholderRe.Match(text).Success)
