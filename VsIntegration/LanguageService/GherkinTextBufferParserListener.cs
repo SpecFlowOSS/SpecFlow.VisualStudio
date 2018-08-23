@@ -112,6 +112,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             return textPosition.LinePosition + value.Length;
         }
 
+        private int ColorizeLinePart(int from, int to, GherkinBufferSpan span, IClassificationType classificationType)
+        {
+            var textSpan = new GherkinBufferSpan(new GherkinBufferPosition(span.Buffer, span.StartPosition.Line, from), new GherkinBufferPosition(span.Buffer, span.StartPosition.Line, to));
+            ColorizeSpan(textSpan, classificationType);
+            return to;
+        }
+
         private void RegisterKeyword(string keyword, GherkinBufferSpan headerSpan)
         {
             var keywordSpan = new GherkinBufferSpan(headerSpan.StartPosition,
