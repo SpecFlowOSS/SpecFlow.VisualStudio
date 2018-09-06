@@ -96,25 +96,31 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
 
             if (configSourceFieldInfo != null)
             {
-                if (IsConfigXml(xmlString))
-                {
-                    configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 0);
-                }
-                else
-                {
-                    if (IsConfigJson(xmlString))
-                    {
-                        configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 1);
-                    }
-                    else
-                    {
-                        configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 2);
-                    }
-                }
-                    
+                var configSourceType = DetermineConfigSourceType(xmlString); //default
+                configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, configSourceType);
             }
 
             return projectSettings;
+        }
+
+        private int DetermineConfigSourceType(string configString)
+        {
+            if (!string.IsNullOrEmpty(configString))
+            {
+                if (IsConfigXml(configString))
+                {
+                    //appconfig
+                    return 0;
+                }
+                if (IsConfigJson(configString))
+                {
+                    //json
+                    return 1;
+                }
+            }
+
+            //default
+            return 2;
         }
 
         private bool IsConfigJson(string configContent)
