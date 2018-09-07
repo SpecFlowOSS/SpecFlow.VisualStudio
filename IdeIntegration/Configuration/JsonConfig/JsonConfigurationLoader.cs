@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BoDi;
 using Newtonsoft.Json;
 using TechTalk.SpecFlow.BindingSkeletons;
-using TechTalk.SpecFlow.Configuration;
-using TechTalk.SpecFlow.IdeIntegration.Generator;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 {
@@ -26,45 +20,44 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
             StepDefinitionSkeletonStyle stepDefinitionSkeletonStyle = specFlowConfiguration.StepDefinitionSkeletonStyle;
             bool usesPlugins = false;
             string generatorPath = null;
-
-            var specFlowElement = jsonConfig.SpecFlow;
-            if (specFlowElement.Language != null)
+            
+            if (jsonConfig.Language != null)
             {
-                if (!String.IsNullOrWhiteSpace(specFlowElement.Language.Feature))
+                if (!String.IsNullOrWhiteSpace(jsonConfig.Language.Feature))
                 {
-                    featureLanguage = CultureInfo.GetCultureInfo(specFlowElement.Language.Feature);
+                    featureLanguage = CultureInfo.GetCultureInfo(jsonConfig.Language.Feature);
                 }
             }
 
-            if (specFlowElement.BindingCulture != null)
+            if (jsonConfig.BindingCulture != null)
             {
-                if (!String.IsNullOrWhiteSpace(specFlowElement.BindingCulture.Name))
+                if (!String.IsNullOrWhiteSpace(jsonConfig.BindingCulture.Name))
                 {
-                    featureLanguage = CultureInfo.GetCultureInfo(specFlowElement.BindingCulture.Name);
+                    featureLanguage = CultureInfo.GetCultureInfo(jsonConfig.BindingCulture.Name);
                 }
             }
 
-            if (specFlowElement.StepAssemblies != null)
+            if (jsonConfig.StepAssemblies != null)
             {
-                foreach (var stepAssemblyEntry in specFlowElement.StepAssemblies)
+                foreach (var stepAssemblyEntry in jsonConfig.StepAssemblies)
                 {
                     additionalStepAssemblies.Add(stepAssemblyEntry.Assembly);
                 }
             }
 
-            if (specFlowElement.Trace != null)
+            if (jsonConfig.Trace != null)
             {
-                stepDefinitionSkeletonStyle = specFlowElement.Trace.StepDefinitionSkeletonStyle;
+                stepDefinitionSkeletonStyle = jsonConfig.Trace.StepDefinitionSkeletonStyle;
             }
 
-            if (specFlowElement.Generator != null)
+            if (jsonConfig.Generator != null)
             {
-                generatorPath = specFlowElement.Generator.GeneratorPath;
-                if (specFlowElement.Generator.Dependencies != null)
+                generatorPath = jsonConfig.Generator.GeneratorPath;
+                if (jsonConfig.Generator.Dependencies != null)
                     usesPlugins = true;
             }
 
-            if(specFlowElement.UnitTestProvider != null && !string.IsNullOrEmpty(specFlowElement.UnitTestProvider.GeneratorProvider))
+            if(jsonConfig.UnitTestProvider != null && !string.IsNullOrEmpty(jsonConfig.UnitTestProvider.GeneratorProvider))
             {
                 usesPlugins = true;
             }
