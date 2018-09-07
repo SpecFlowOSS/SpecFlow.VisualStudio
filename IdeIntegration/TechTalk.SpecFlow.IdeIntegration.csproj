@@ -120,7 +120,6 @@
     <Compile Include="Configuration\JsonConfig\JsonConfig.cs" />
     <Compile Include="Configuration\JsonConfig\JsonConfigurationLoader.cs" />
     <Compile Include="Configuration\JsonConfig\LanguageElement.cs" />
-    <Compile Include="Configuration\JsonConfig\SpecFlowElement.cs" />
     <Compile Include="Configuration\JsonConfig\StepAssemblyElement.cs" />
     <Compile Include="Configuration\ConfigurationHolder.cs" />
     <Compile Include="Configuration\JsonConfig\TraceElement.cs" />
