@@ -88,36 +88,67 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <VSTemplate Include="SpecFlowFeature_English_CSharp\SpecFlowFeature_English_CSharp.vstemplate" />
-    <VSTemplate Include="SpecFlowFeature_German_CSharp\SpecFlowFeature_German_CSharp.vstemplate" />
-    <VSTemplate Include="SpecFlowFeature_French_CSharp\SpecFlowFeature_French_CSharp.vstemplate" />
-    <VSTemplate Include="SpecFlowFeature_Nederlands_CSharp\SpecFlowFeature_Nederlands_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_English_CSharp\SpecFlowFeature_English_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="SpecFlowFeature_German_CSharp\SpecFlowFeature_German_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="SpecFlowFeature_French_CSharp\SpecFlowFeature_French_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="SpecFlowFeature_Nederlands_CSharp\SpecFlowFeature_Nederlands_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_English_VB\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_English_VB\SpecFlowFeature_English_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_English_VB\SpecFlowFeature_English_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_French_VB\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_French_VB\SpecFlowFeature_French_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_French_VB\SpecFlowFeature_French_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_German_VB\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_German_VB\SpecFlowFeature_German_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_German_VB\SpecFlowFeature_German_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_Nederlands_CSharp\SpecFlowFeatureIcon.ico" />
     <Content Include="SpecFlowFeature_French_CSharp\SpecFlowFeatureIcon.ico" />
     <Content Include="SpecFlowFeature_German_CSharp\SpecFlowFeatureIcon.ico" />
     <Content Include="SpecFlowFeature_English_CSharp\SpecFlowFeatureIcon.ico" />
     <Content Include="SpecFlowFeature_Nederlands_VB\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_Nederlands_VB\SpecFlowFeature_Nederlands_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_Nederlands_VB\SpecFlowFeature_Nederlands_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_VB\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_VB\SpecFlowFeature_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_VB\SpecFlowFeature_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_CSharp\SpecFlowHooks1.cs" />
-    <VSTemplate Include="SpecFlowHooks_FSharp\SpecFlowHooks_FSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowHooks_FSharp\SpecFlowHooks_FSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_FSharp\SpecFlowHooks1.fs" />
     <Content Include="SpecFlowHooks_FSharp\SpecFlowHooksIcon.ico" />
-    <VSTemplate Include="SpecFlowHooks_VB\SpecFlowHooks_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowHooks_VB\SpecFlowHooks_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_VB\SpecFlowHooks1.vb" />
     <Content Include="SpecFlowHooks_VB\SpecFlowHooksIcon.ico" />
+    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+      <SubType>Designer</SubType>
+    </VSTemplate>
+    <Content Include="SpecFlowPlusRunner_Srprofile\SpecFlowStepDefinitionIcon.ico" />
     <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition1.cs" />
-    <VSTemplate Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition_FSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition_FSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition1.fs" />
     <Content Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinitionIcon.ico" />
-    <VSTemplate Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition_VB.vstemplate" />
+    <VSTemplate Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition1.vb" />
     <Content Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinitionIcon.ico" />
   </ItemGroup>
@@ -139,11 +170,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <VSTemplate Include="SpecFlowFeature_CSharp\SpecFlowFeature_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowFeature_CSharp\SpecFlowFeature_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowFeature_CSharp\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowHooks_CSharp\SpecFlowHooks_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowHooks_CSharp\SpecFlowHooks_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowHooks_CSharp\SpecFlowHooksIcon.ico" />
-    <VSTemplate Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition_CSharp.vstemplate" />
+    <VSTemplate Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition_CSharp.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinitionIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +194,7 @@
     <None Include="SpecFlowFeature_CSharp\SpecFlowFeature1.feature" />
     <None Include="SpecFlowFeature_Nederlands_VB\SpecFlowFeature1.feature" />
     <None Include="SpecFlowFeature_VB\SpecFlowFeature1.feature" />
+    <Content Include="SpecFlowPlusRunner_Srprofile\Default.srprofile" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

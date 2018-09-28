@@ -1,0 +1,13 @@
+<VSTemplate Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>Default.srprofile</DefaultName>
+    <Name>SpecFlow+ Runner Profile</Name>
+    <Description>A template for a SpecFlow+ Runner Profile</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>SpecFlowStepDefinitionIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.srprofile" ReplaceParameters="true">Default.srprofile</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

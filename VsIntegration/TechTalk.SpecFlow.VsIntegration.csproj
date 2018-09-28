@@ -79,7 +79,6 @@
     <DeployExtension>False</DeployExtension>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '12'">
       <ItemGroup>
@@ -192,8 +191,6 @@
       </ItemGroup>
     </Otherwise>
   </Choose>
-
-
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -228,8 +225,6 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
-
-   
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <ForceIncludeInVSIX>true</ForceIncludeInVSIX>
