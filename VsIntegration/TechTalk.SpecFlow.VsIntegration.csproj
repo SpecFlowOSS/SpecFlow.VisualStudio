@@ -315,6 +315,7 @@
     <Compile Include="EditorCommands\GherkinTextViewCreationListener.cs" />
     <Compile Include="EditorCommands\ReSharperCommand.cs" />
     <Compile Include="InstallServicesHelper.cs" />
+    <Compile Include="LanguageService\FeatureFileInfo.cs" />
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
     <Compile Include="TestRunner\AutoTestRunnerGatewayLoader.cs" />

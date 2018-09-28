@@ -353,7 +353,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             {
                 List<BindingMatch> candidatingMatches;
                 StepDefinitionAmbiguityReason ambiguityReason;
-                CultureInfo bindingCulture = projectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.BindingCulture ?? currentStep.StepContext.Language;
+                CultureInfo bindingCulture = projectScope.SpecFlowConfiguration.BindingCulture ?? currentStep.StepContext.Language;
                 var match = bindingMatchService.GetBestMatch(currentStep, bindingCulture, out ambiguityReason, out candidatingMatches);
 
                 if (match.Success)

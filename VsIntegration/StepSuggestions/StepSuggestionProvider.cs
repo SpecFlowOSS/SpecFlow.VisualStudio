@@ -138,7 +138,7 @@ namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 
         private CultureInfo GetBindingCulture(CultureInfo featureLanguage)
         {
-            return projectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.BindingCulture ?? featureLanguage;
+            return projectScope.SpecFlowConfiguration.BindingCulture ?? featureLanguage;
         }
 
         private CultureInfo GetBindingCulture(StepInstanceTemplate<TNativeSuggestionItem> stepInstanceTemplate)

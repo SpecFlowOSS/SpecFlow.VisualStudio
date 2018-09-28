@@ -20,10 +20,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Bindings.Discovery
             if (function != null)
                 return function;
 
-            var specFlowProject = projectScope.SpecFlowProjectConfiguration;
+            var specFlowProject = projectScope.SpecFlowConfiguration;
             if (specFlowProject != null)
             {
-                foreach (var assemblyName in specFlowProject.RuntimeConfiguration.AdditionalStepAssemblies)
+                foreach (var assemblyName in specFlowProject.AdditionalStepAssemblies)
                 {
                     string simpleName = assemblyName.Split(new[] { ',' }, 2)[0];
 

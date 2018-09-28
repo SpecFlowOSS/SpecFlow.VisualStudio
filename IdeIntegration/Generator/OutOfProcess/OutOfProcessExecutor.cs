@@ -119,5 +119,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
             return output.ToString();
         }
+
     }
 }
