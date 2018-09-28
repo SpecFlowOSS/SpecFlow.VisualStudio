@@ -49,7 +49,6 @@
     </Compile>
     <Compile Include="Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemoteAppDomainResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

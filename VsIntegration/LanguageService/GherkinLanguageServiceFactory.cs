@@ -35,7 +35,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         internal IGherkinBufferServiceManager GherkinBufferServiceManager = null;
 
         [Import]
-        IIntegrationOptionsProvider IntegrationOptionsProvider = null;
+        internal IIntegrationOptionsProvider IntegrationOptionsProvider = null;
 
         [Import]
         internal IBiDiContainerProvider ContainerProvider = null;

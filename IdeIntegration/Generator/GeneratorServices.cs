@@ -42,13 +42,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
             return result;
         }
-        
-        protected virtual ITestGeneratorFactory GetTestGeneratorFactoryForCreate()
-        {
-            return GetTestGeneratorFactoryOfIDE(); 
-        }
 
-        protected ITestGeneratorFactory GetTestGeneratorFactoryOfIDE()
+        protected virtual ITestGeneratorFactory GetTestGeneratorFactoryForCreate()
         {
             return testGeneratorFactory;
         }
@@ -59,11 +54,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             return testGeneratorFactoryForCreate.CreateGenerator(GetProjectSettingsCached());
         }
 
-        public ITestGenerator CreateTestGeneratorOfIDE()
-        {
-            var testGeneratorFactoryForCreate = GetTestGeneratorFactoryOfIDE();
-            return testGeneratorFactoryForCreate.CreateGenerator(GetProjectSettingsCached());
-        }
+        //public ITestGenerator CreateTestGeneratorOfIDE()
+        //{
+        //    var testGeneratorFactoryForCreate = GetTestGeneratorFactoryOfIDE();
+        //    return testGeneratorFactoryForCreate.CreateGenerator(GetProjectSettingsCached());
+        //}
 
         public virtual Version GetGeneratorVersion()
         {

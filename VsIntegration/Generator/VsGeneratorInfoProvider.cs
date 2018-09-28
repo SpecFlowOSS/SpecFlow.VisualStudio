@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.Generator.Configuration;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
+using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 
@@ -22,9 +24,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
 
         protected readonly Project project;
         protected readonly IIdeTracer tracer;
-        private readonly ISpecFlowConfigurationReader configurationReader;
+        private readonly IConfigurationReader configurationReader;
 
-        public VsGeneratorInfoProvider(Project project, IIdeTracer tracer, ISpecFlowConfigurationReader configurationReader)
+        public VsGeneratorInfoProvider(Project project, IIdeTracer tracer, IConfigurationReader configurationReader)
         {
             this.project = project;
             this.tracer = tracer;
@@ -35,22 +37,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
         {
             tracer.Trace("Discovering generator information...", "VsGeneratorInfoProvider");
 
-            GeneratorConfiguration generatorConfiguration = GenGeneratorConfig();
+            var specflowGeneratorConfig = GenSpecFlowGeneratorConfig();
 
             try
             {
-                var generatorInfo = new GeneratorInfo
-                                        {
-                                            UsesPlugins = generatorConfiguration.UsesPlugins
-                                        };
+                var specflowGeneratorInfo = new GeneratorInfo() { UsesPlugins = specflowGeneratorConfig.UsesPlugins };
+                if (DetectFromConfig(specflowGeneratorInfo, specflowGeneratorConfig))
+                    return specflowGeneratorInfo;
 
-                if (DetectFromConfig(generatorInfo, generatorConfiguration))
-                    return generatorInfo;
-
-                if (!DetectFromRuntimeReference(generatorInfo))
+                if (!DetectFromRuntimeReference(specflowGeneratorInfo))
                     tracer.Trace("Unable to detect generator path", "VsGeneratorInfoProvider");
                 
-                return generatorInfo;
+                return specflowGeneratorInfo;
             }
             catch (Exception exception)
             {
@@ -59,26 +57,42 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
             }
         }
 
-        private GeneratorConfiguration GenGeneratorConfig()
+        private SpecFlowGeneratorConfiguration GenSpecFlowGeneratorConfig()
         {
             try
             {
-                //TODO: have a "project context" where the actual confic can be read without re-loading/parsing it.
-                var configurationHolder = configurationReader.ReadConfiguration();
-                var config = new GeneratorConfigurationProvider().LoadConfiguration(configurationHolder);
-                if (config == null)
-                    return new GeneratorConfiguration();
+                var specflowGeneratorConfig = new SpecFlowGeneratorConfiguration();
 
-                return config.GeneratorConfiguration;
+                var configurationHolder = configurationReader.ReadConfiguration();
+                switch (configurationHolder.ConfigSource)
+                {
+                    case ConfigSource.AppConfig:
+                        var appConfigFormat = configurationHolder.TransformConfigurationToOldHolder();
+                        var oldGeneratorConfig = new GeneratorConfigurationProvider().LoadConfiguration(appConfigFormat).GeneratorConfiguration;
+
+                        specflowGeneratorConfig.GeneratorPath = oldGeneratorConfig.GeneratorPath;
+                        specflowGeneratorConfig.UsesPlugins = oldGeneratorConfig.UsesPlugins;
+                        break;
+                    case ConfigSource.Json:
+                        var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
+                        var specflowLoader = new ConfigurationLoader();
+                        var jsonConfig = specflowLoader.Load(defaultSpecFlowConfiguration, configurationHolder);
+
+                        specflowGeneratorConfig.GeneratorPath = jsonConfig.GeneratorPath;
+                        specflowGeneratorConfig.UsesPlugins = jsonConfig.UsesPlugins;
+                        break;
+                }
+
+                return specflowGeneratorConfig;
             }
             catch (Exception exception)
             {
                 tracer.Trace("Config load error: " + exception, "VsGeneratorInfoProvider");
-                return new GeneratorConfiguration();
+                return new SpecFlowGeneratorConfiguration();
             }
         }
 
-        private bool DetectFromConfig(GeneratorInfo generatorInfo, GeneratorConfiguration generatorConfiguration)
+        private bool DetectFromConfig(GeneratorInfo generatorInfo, SpecFlowGeneratorConfiguration generatorConfiguration)
         {
             try
             {

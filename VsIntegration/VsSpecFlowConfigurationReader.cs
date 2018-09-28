@@ -18,7 +18,8 @@ namespace TechTalk.SpecFlow.VsIntegration
 
         protected override string GetConfigFileContent()
         {
-            ProjectItem projectItem = VsxHelper.FindProjectItemByProjectRelativePath(project, "app.config");
+            var projectItem = VsxHelper.FindProjectItemByProjectRelativePath(project, "specflow.json") ?? 
+                              VsxHelper.FindProjectItemByProjectRelativePath(project, "app.config");
             if (projectItem == null)
                 return null;
 

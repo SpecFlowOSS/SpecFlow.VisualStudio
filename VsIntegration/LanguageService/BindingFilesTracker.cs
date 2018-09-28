@@ -104,7 +104,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             var bindingAssemblies = Enumerable.Empty<BindingAssemblyInfo>()
                 .Append(new BindingAssemblyInfo(mainProject))
-                .Concat(vsProjectScope.SpecFlowProjectConfiguration.RuntimeConfiguration.AdditionalStepAssemblies
+                .Concat(vsProjectScope.SpecFlowConfiguration.AdditionalStepAssemblies
                             .Select(assembly => new BindingAssemblyInfo(assembly, mainProject)).ToArray().Where(ai => ai.Project != mainProject)).ToList();
 
             filesTracker = bindingAssemblies.ToDictionary(

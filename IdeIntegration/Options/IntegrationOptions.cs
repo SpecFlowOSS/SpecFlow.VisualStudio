@@ -30,7 +30,6 @@
 
     public enum GenerationMode
     {
-        AppDomain = 0,
         OutOfProcess = 1
     }
 }

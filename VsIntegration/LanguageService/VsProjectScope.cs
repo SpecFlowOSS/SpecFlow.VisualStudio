@@ -15,6 +15,7 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.VsIntegration.Generator;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
@@ -39,7 +40,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private bool initializing = false;
         
         // delay initialized members
-        private SpecFlowProjectConfiguration specFlowProjectConfiguration = null;
+        private SpecFlowConfiguration specFlowConfiguration = null;
         private GherkinDialectServices gherkinDialectServices = null;
         private VsProjectFileTracker appConfigTracker = null;
         private ProjectFeatureFilesTracker featureFilesTracker = null;
@@ -47,12 +48,12 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private VsStepSuggestionProvider stepSuggestionProvider = null;
         private IStepDefinitionMatchService stepDefinitionMatchService = null;
 
-        public SpecFlowProjectConfiguration SpecFlowProjectConfiguration
+        public SpecFlowConfiguration SpecFlowConfiguration
         {
             get
             {
                 EnsureInitialized();
-                return specFlowProjectConfiguration;
+                return specFlowConfiguration;
             }
         }
 
@@ -110,7 +111,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get { return integrationOptionsProvider; }
         }
 
-        public event Action SpecFlowProjectConfigurationChanged;
+        public event Action SpecFlowConfigurationChanged;
         public event Action GherkinDialectServicesChanged;
 
         internal VsProjectScope(Project project, DteWithEvents dteWithEvents, GherkinFileEditorClassifications classifications, IVisualStudioTracer tracer, IIntegrationOptionsProvider integrationOptionsProvider)
@@ -214,9 +215,10 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             tracer.Trace("Initializing...", "VsProjectScope");
             try
             {
-                specFlowProjectConfiguration = LoadConfiguration();
-                gherkinDialectServices = new GherkinDialectServices(specFlowProjectConfiguration.GeneratorConfiguration.FeatureLanguage);
+                specFlowConfiguration = LoadSpecFlowConfiguration();
+                gherkinDialectServices = new GherkinDialectServices(specFlowConfiguration.FeatureLanguage);
 
+                //todo: tracker for json?
                 appConfigTracker = new VsProjectFileTracker(project, "App.config", dteWithEvents, tracer);
                 appConfigTracker.FileChanged += AppConfigTrackerOnFileChanged;
                 appConfigTracker.FileOutOfScope += AppConfigTrackerOnFileOutOfScope;
@@ -308,18 +310,18 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private void AppConfigTrackerOnFileChanged(ProjectItem appConfigItem)
         {
-            var newConfig = LoadConfiguration();
-            if (newConfig.Equals(SpecFlowProjectConfiguration)) 
+            var newConfig = LoadSpecFlowConfiguration();
+            if (newConfig.Equals(SpecFlowConfiguration))
                 return;
 
-            bool dialectServicesChanged = !newConfig.GeneratorConfiguration.FeatureLanguage.Equals(GherkinDialectServices.DefaultLanguage);
+            bool dialectServicesChanged = !newConfig.FeatureLanguage.Equals(GherkinDialectServices.DefaultLanguage);
 
-            specFlowProjectConfiguration = newConfig;
-            OnSpecFlowProjectConfigurationChanged();
+            specFlowConfiguration = newConfig;
+            OnSpecFlowConfigurationChanged();
 
             if (dialectServicesChanged)
             {
-                gherkinDialectServices = new GherkinDialectServices(SpecFlowProjectConfiguration.GeneratorConfiguration.FeatureLanguage);
+                gherkinDialectServices = new GherkinDialectServices(SpecFlowConfiguration.FeatureLanguage);
                 OnGherkinDialectServicesChanged();
             }
         }
@@ -328,28 +330,29 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             AppConfigTrackerOnFileChanged(projectItem);                
         }
-
-        private SpecFlowProjectConfiguration LoadConfiguration()
+        
+        private SpecFlowConfiguration LoadSpecFlowConfiguration()
         {
-            ISpecFlowConfigurationReader configurationReader = new VsSpecFlowConfigurationReader(project, tracer); //TODO: load through DI
-            IGeneratorConfigurationProvider configurationLoader = new GeneratorConfigurationProvider(); //TODO: load through DI
-
+            var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
             try
             {
-                return configurationLoader.LoadConfiguration(configurationReader.ReadConfiguration());
+                var reader = new VsSpecFlowConfigurationReader(project, tracer);
+                var specflowLoader = new ConfigurationLoader();
+
+                return specflowLoader.Load(defaultSpecFlowConfiguration, reader.ReadConfiguration());
             }
-            catch(Exception exception)
+            catch (Exception ex)
             {
-                tracer.Trace("Configuration loading error: " + exception, "VsProjectScope");
-                return new SpecFlowProjectConfiguration();
+                tracer.Trace("Configuration loading error: " + ex, "VsProjectScope");
+                return defaultSpecFlowConfiguration;
             }
         }
 
-        private void OnSpecFlowProjectConfigurationChanged()
+        private void OnSpecFlowConfigurationChanged()
         {
             this.tracer.Trace("SpecFlow configuration changed", "VsProjectScope");
-            if (SpecFlowProjectConfigurationChanged != null)
-                SpecFlowProjectConfigurationChanged();
+            if (SpecFlowConfigurationChanged != null)
+                SpecFlowConfigurationChanged();
 
             GeneratorServices.InvalidateSettings();
 
