@@ -43,6 +43,6 @@ jobs:
     inputs:
       PathtoPublish: ${{ parameters.artifactFileName }} 
 
-      ArtifactName: ${{ artifactName }}
+      ArtifactName: ${{ parameters.artifactName }}
 
 
