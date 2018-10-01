@@ -7,4 +7,4 @@ $pathToExtension = "$SystemArtifactsDirectory\VsIntegration\bin\Release\TechTalk
 
 $extensionFileContent = [System.IO.File]::ReadAllBytes($pathToExtension);
 
-& Invoke-WebRequest -Uri "$MyGetVsixFeed/upload" -Method 'POST' -Body $extensionFileContent -Headers @{"X-NuGet-ApiKey"="$MyGetApiKey"} 
+& Invoke-WebRequest -Uri "$MyGetVsixFeed/upload" -Method 'POST' -Body $extensionFileContent -Headers @{"X-NuGet-ApiKey"="$MyGetApiKey"}
