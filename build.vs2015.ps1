@@ -19,4 +19,4 @@ if ([Environment]::OSVersion.Platform -eq "Win32NT"){
   Write-Host $msbuildPath
 }
 
-& $msbuildPath /Restore ./.SpecFlow.VisualStudio.2015.sln /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
+& $msbuildPath /Restore ./SpecFlow.VisualStudio.2015.sln /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
