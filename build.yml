@@ -4,6 +4,7 @@ parameters:
   nugetVersion: 4.6.2
   sdkVersion: 2.1.401
   artifactFileName: ''
+  artifactName: ''
   visualStudioVersion: ''
 
 jobs:
@@ -38,10 +39,10 @@ jobs:
 
 
   - task: PublishBuildArtifacts@1
-    displayName: format('Publish Artifact: SpecFlow.VisualStudio.VS{0}.CI-BuildResult', parameters.visualStudioVersion)
+    displayName: 'Publish Artifact: SpecFlow.VisualStudio.VS{0}.CI-BuildResult'
     inputs:
       PathtoPublish: ${{ parameters.artifactFileName }} 
 
-      ArtifactName: 'SpecFlow.VisualStudio.VS${{ parameters.visualStudioVersion }}.CI-BuildResult'
+      ArtifactName: ${{ artifactName }}
 
 

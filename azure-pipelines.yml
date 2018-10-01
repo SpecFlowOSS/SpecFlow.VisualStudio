@@ -9,6 +9,7 @@ jobs:
   parameters:
     name: VS2015
     visualStudioVersion: 2015
+    artifactName: 'SpecFlow.VisualStudio.VS2015.CI-BuildResult'
     artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VS2015.zip'
     pool:
       name: 'Hosted'
@@ -17,6 +18,7 @@ jobs:
   parameters:
     name: VS2017
     visualStudioVersion: 2017
+    artifactName: 'SpecFlow.VisualStudio.VS2017.CI-BuildResult'
     artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VS2017.zip'
     pool:
       name: 'Hosted VS2017'
