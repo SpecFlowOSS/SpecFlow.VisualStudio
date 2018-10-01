@@ -4,6 +4,7 @@ parameters:
   nugetVersion: 4.6.2
   sdkVersion: 2.1.401
   artifactFileName: ''
+  visualStudioVersion: ''
 
 jobs:
 - job: ${{ parameters.name }}
