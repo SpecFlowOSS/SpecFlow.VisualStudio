@@ -21,4 +21,4 @@ $msbuildPath = "C:\Program Files (x86)\MSBuild\14.0\Bin\msbuild.exe"
 # }
 
 & nuget restore ./SpecFlow.VisualStudio.2015.sln
-& $msbuildPath /Restore ./SpecFlow.VisualStudio.2015.sln /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
+& $msbuildPath ./SpecFlow.VisualStudio.2015.sln /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
