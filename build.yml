@@ -22,7 +22,7 @@ jobs:
 
   - task: PowerShell@2
     inputs: 
-      filePath: build.vs2015.ps1
+      filePath: build.vs${{ visualStudioVersion }}.ps1
       workingDirectory: ./
       arguments: Release
 
@@ -37,10 +37,10 @@ jobs:
 
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: SpecFlow.VisualStudio.VS2015.CI-BuildResult'
+    displayName: 'Publish Artifact: SpecFlow.VisualStudio.VS${{ visualStudioVersion }}.CI-BuildResult'
     inputs:
       PathtoPublish: ${{ parameters.artifactFileName }} 
 
-      ArtifactName: 'SpecFlow.VisualStudio.VS2015.CI-BuildResult'
+      ArtifactName: 'SpecFlow.VisualStudio.VS${{ visualStudioVersion }}.CI-BuildResult'
 
 
