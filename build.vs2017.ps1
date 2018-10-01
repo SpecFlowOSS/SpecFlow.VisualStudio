@@ -19,4 +19,5 @@ if ([Environment]::OSVersion.Platform -eq "Win32NT"){
   Write-Host $msbuildPath
 }
 
+& nuget restore ./SpecFlow.VisualStudio.2017.sln
 & $msbuildPath /Restore ./SpecFlow.VisualStudio.2017.sln /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
