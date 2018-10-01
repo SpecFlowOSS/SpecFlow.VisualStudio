@@ -5,6 +5,24 @@ Visual Studio extension of SpecFlow (extracted from the main SpecFlow repo).
 For documentation, please refer to the SpecFlow website:
 [http://www.specflow.org](http://www.specflow.org)
 
+## Build status
+
+Continuous Integration: [![Build Status](https://specflow.visualstudio.com/SpecFlow/_apis/build/status/SpecFlow.VisualStudio.CI)](https://specflow.visualstudio.com/SpecFlow/_build/latest?definitionId=3)
+
+## Deployment status
+
+### Visual Studio 2015 extension
+
+Unit tests: ![Unit tests status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/8)
+
+Publish to MyGet: ![Publish to MyGet status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/9)
+
+### Visual Studio 2017 extension
+
+Unit tests: ![Unit tests status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/6)
+
+Publish to MyGet: ![Publish to MyGet status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/7)
+
 ## Build prerequisites
 
 ### VS 2015 Extension
