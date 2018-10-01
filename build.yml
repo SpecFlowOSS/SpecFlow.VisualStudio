@@ -40,7 +40,7 @@ jobs:
 
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: SpecFlow.VisualStudio.VS{0}.CI-BuildResult'
+    displayName: 'Publish Artifact: SpecFlow.VisualStudio.CI-BuildResult'
     inputs:
       PathtoPublish: ${{ parameters.artifactFileName }} 
 
