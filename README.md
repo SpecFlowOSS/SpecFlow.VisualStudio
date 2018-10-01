@@ -7,13 +7,6 @@ For documentation, please refer to the SpecFlow website:
 
 ## Build prerequisites
 
-### VS 2013 Extension
-
-- Visual Studio 2013, any edition but Express
-- Visual Studio 2013 SDK
-
-Please use SpecFlow.VisualStudio.2013.sln as Solution file.
-
 ### VS 2015 Extension
 
 - Visual Studio 2015
