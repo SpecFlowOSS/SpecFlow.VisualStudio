@@ -5,16 +5,18 @@ resources:
   clean: true
 
 jobs:
-- template: build.vs2015.yml  
+- template: build.yml  
   parameters:
     name: VS2015
+    visualStudioVersion: 2015
     artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VS2015.zip'
     pool:
-      name: 'Hosted VS2017'
+      name: 'Hosted'
 
-- template: build.vs2017.yml  
+- template: build.yml  
   parameters:
     name: VS2017
+    visualStudioVersion: 2017
     artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VS2017.zip'
     pool:
       name: 'Hosted VS2017'
