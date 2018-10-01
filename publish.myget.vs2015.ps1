@@ -3,7 +3,7 @@ $SystemArtifactsDirectory = $Env:SYSTEM_ARTIFACTSDIRECTORY;
 $MyGetApiKey = $Env:MyGetApiKey;
 $MyGetVsixFeed = $Env:MyGetVsixFeed;
 
-$pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VS2015\VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.2015.vsix";
+$pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VS2015\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.2015.vsix";
 
 $extensionFileContent = [System.IO.File]::ReadAllBytes($pathToExtension);
 
