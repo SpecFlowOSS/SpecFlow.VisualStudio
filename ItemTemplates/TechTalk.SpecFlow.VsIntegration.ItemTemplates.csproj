@@ -135,7 +135,7 @@
     </VSTemplate>
     <Content Include="SpecFlowHooks_VB\SpecFlowHooks1.vb" />
     <Content Include="SpecFlowHooks_VB\SpecFlowHooksIcon.ico" />
-    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile.vstemplate">
+    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
       <SubType>Designer</SubType>
     </VSTemplate>
@@ -152,6 +152,10 @@
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
     <Content Include="SpecFlowJson\SpecFlowStepDefinitionIcon.ico" />
+    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile_VB.vstemplate">
+      <SubType>Designer</SubType>
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <Content Include="SpecFlowPlusRunner_Srprofile\SpecFlowStepDefinitionIcon.ico" />
     <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition1.cs" />
     <VSTemplate Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition_FSharp.vstemplate">
