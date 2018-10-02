@@ -29,7 +29,7 @@ jobs:
       workingDirectory: ./
       arguments: Release
       env:
-        VisualStudioVersion: ${{ parameters.visualStudioVersion }}
+        VisualStudioVersion: $(parameters.visualStudioVersion)
 
     displayName: 'restore & build Release'
 
