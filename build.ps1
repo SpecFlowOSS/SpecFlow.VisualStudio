@@ -1,13 +1,15 @@
 param (
- [string]$Configuration = "Debug"
+ [string]$Configuration = "Debug",
+ [string]$ExtensionVisualStudioVersion = "2017"
 )
 
 $VisualStudioVersion = $Env:VisualStudioVersion;
 $msbuildPath = "msbuild"
 
-if ($Env:Msbuild -ne "")
+if ([System.String]::IsNullOrEmpty($Env:MSBuild))
 {
-  $msbuildPath = join-path $Env:Msbuild 'msbuild.exe';
+  $msbuildPath = join-path $Env:MSBuild 'msbuild.exe';
+  Write-Host "Using msbuild from environment variable";
 }
 elseif ([Environment]::OSVersion.Platform -eq "Win32NT")
 {
@@ -21,9 +23,9 @@ elseif ([Environment]::OSVersion.Platform -eq "Win32NT")
   if ($vsPath) {
     $msbuildPath = join-path $vsPath 'MSBuild\14.0\Bin\MSBuild.exe'
   }
-  
-  Write-Host $msbuildPath
 }
 
-& nuget restore ./SpecFlow.VisualStudio.2017.sln
-& $msbuildPath ./SpecFlow.VisualStudio.2017.sln /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
+Write-Host $msbuildPath
+
+& nuget restore "./SpecFlow.VisualStudio.$ExtensionVisualStudioVersion.sln"
+& $msbuildPath "./SpecFlow.VisualStudio.$ExtensionVisualStudioVersion.sln" /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
