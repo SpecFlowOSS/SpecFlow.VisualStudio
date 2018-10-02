@@ -11,6 +11,8 @@ parameters:
 jobs:
 - job: ${{ parameters.name }}
   pool: ${{ parameters.pool }}
+  variables:
+    ${{ insert }}: ${{ parameters.visualStudioVersion }}
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Use NuGet'
@@ -28,8 +30,8 @@ jobs:
     inputs: 
       filePath: ${{ parameters.buildScript }}
       workingDirectory: ./
-      arguments: Release
-      env: VISUALSTUDIOVERSION: ${{ parameters.visualStudioVersion }}
+      arguments: Release $(visualStudioVersion)
+      #env: VISUALSTUDIOVERSION ${{ parameters.visualStudioVersion }}
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
