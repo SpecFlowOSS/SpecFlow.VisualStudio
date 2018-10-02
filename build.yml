@@ -29,8 +29,7 @@ jobs:
       filePath: ${{ parameters.buildScript }}
       workingDirectory: ./
       arguments: Release
-      env:
-        VISUALSTUDIOVERSION: ${{ parameters.visualStudioVersion }}
+      env: VISUALSTUDIOVERSION: ${{ parameters.visualStudioVersion }}
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
