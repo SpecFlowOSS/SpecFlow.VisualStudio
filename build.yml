@@ -12,13 +12,12 @@ jobs:
 - job: ${{ parameters.name }}
   pool: ${{ parameters.pool }}
   variables:
-    visualStudioVersion: ${{ parameters.visualStudioVersion }}
+    specFlowVisualStudioVersion: ${{ parameters.visualStudioVersion }}
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Use NuGet'
     inputs:
       versionSpec: ${{ parameters.nugetVersion }}
-
 
   - task: DotNetCoreInstaller@0
     displayName: 'Use .NET Core'
@@ -30,8 +29,7 @@ jobs:
     inputs: 
       filePath: ${{ parameters.buildScript }}
       workingDirectory: ./
-      arguments: Release $(visualStudioVersion)
-      #env: VISUALSTUDIOVERSION ${{ parameters.visualStudioVersion }}
+      arguments: Release $(specFlowVisualStudioVersion)
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
