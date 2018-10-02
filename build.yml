@@ -24,14 +24,13 @@ jobs:
       version: ${{ parameters.sdkVersion }}
 
   - task: PowerShell@2
+    displayName: 'restore & build Release'
     inputs: 
       filePath: ${{ parameters.buildScript }}
       workingDirectory: ./
       arguments: Release
       env:
-        VisualStudioVersion: $(parameters.visualStudioVersion)
-
-    displayName: 'restore & build Release'
+        VisualStudioVersion: ${{ parameters.visualStudioVersion }}
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
