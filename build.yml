@@ -12,7 +12,7 @@ jobs:
 - job: ${{ parameters.name }}
   pool: ${{ parameters.pool }}
   variables:
-    ${{ insert }}: ${{ parameters.visualStudioVersion }}
+    visualStudioVersion: ${{ parameters.visualStudioVersion }}
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Use NuGet'
