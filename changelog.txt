@@ -1,3 +1,9 @@
+2017.3.0? - 2018/xx/xx
+
++ Remove Visual Studio 2013 support
++ Move SpecFlow item templates into their own category in "Add New Item" dialog
++ Create item template for "default.srprofile"
+
 2017.2.8 - 2018/xx/xx
 
 Bugfixes:
