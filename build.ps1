@@ -1,31 +1,33 @@
 param (
  [string]$Configuration = "Debug",
- [string]$ExtensionVisualStudioVersion = "2017"
+ [string]$ExtensionVisualStudioVersion = "2017",
+ [string]$binaryLoggerSwitch = "/binaryLogger"
 )
 
-$VisualStudioVersion = $Env:VisualStudioVersion;
 $msbuildPath = "msbuild"
 
-if ([System.String]::IsNullOrEmpty($Env:MSBuild))
+if (![System.String]::IsNullOrEmpty($Env:MSBuild))
 {
   $msbuildPath = join-path $Env:MSBuild 'msbuild.exe';
   Write-Host "Using msbuild from environment variable";
 }
-elseif ([Environment]::OSVersion.Platform -eq "Win32NT")
+elseif ($ExtensionVisualStudioVersion -eq "2017")
 {
-  $vswherePath = [System.Environment]::ExpandEnvironmentVariables("%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe")
-  $vswhereParameters = @("-latest", "-products", "*", "-requires", "Microsoft.Component.MSBuild",  "-property", "installationPath")
-
-  $vsPath = & $vswherePath $vswhereParameters
-  
-  Write-Host $path
-  
-  if ($vsPath) {
-    $msbuildPath = join-path $vsPath 'MSBuild\14.0\Bin\MSBuild.exe'
-  }
+  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe";
+  $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
+}
+elseif ($ExtensionVisualStudioVersion -eq "2015")
+{
+  $msbuildPath = "C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe";
+  $binaryLoggerSwitch = "";
+}
+else
+{
+  throw [System.NotSupportedException]::new("The Visual Studio version $ExtensionVisualStudioVersion is not supported.");
 }
 
-Write-Host $msbuildPath
+Write-Host "MSBuild path: $msbuildPath"
+
 
 & nuget restore "./SpecFlow.VisualStudio.$ExtensionVisualStudioVersion.sln"
-& $msbuildPath "./SpecFlow.VisualStudio.$ExtensionVisualStudioVersion.sln" /property:Configuration=$Configuration /binaryLogger:msbuild.$Configuration.binlog /nodeReuse:false
+& $msbuildPath "./SpecFlow.VisualStudio.$ExtensionVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration  /nodeReuse:false
