@@ -8,7 +8,9 @@ $msbuildPath = "msbuild"
 
 $VisualStudioVersion =
   if (![System.String]::IsNullOrWhiteSpace($VisualStudioVersion)) { $VisualStudioVersion }
-  else { $Env:VisualStudioVersion };
+  else { $Env:VISUALSTUDIOVERSION };
+
+Write-Host "Visual Studio version: $VisualStudioVersion";
 
 if (![System.String]::IsNullOrEmpty($Env:MSBuild))
 {

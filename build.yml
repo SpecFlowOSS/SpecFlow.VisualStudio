@@ -30,7 +30,7 @@ jobs:
       workingDirectory: ./
       arguments: Release
       env:
-        VisualStudioVersion: ${{ parameters.visualStudioVersion }}
+        VISUALSTUDIOVERSION: ${{ parameters.visualStudioVersion }}
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
