@@ -27,9 +27,9 @@ jobs:
     inputs: 
       filePath: ${{ parameters.buildScript }}
       workingDirectory: ./
-      arguments:
-        Release
-        ${{ parameters.visualStudioVersion }}
+      arguments: Release
+      env:
+        VisualStudioVersion: ${{ parameters.visualStudioVersion }}
 
     displayName: 'restore & build Release'
 
