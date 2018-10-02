@@ -4,7 +4,6 @@ parameters:
   nugetVersion: 4.6.2
   sdkVersion: 2.1.401
   artifactFileName: ''
-  buildScript: ''
   artifactName: ''
   visualStudioVersion: ''
 
@@ -27,7 +26,7 @@ jobs:
   - task: PowerShell@2
     displayName: 'restore & build Release'
     inputs: 
-      filePath: ${{ parameters.buildScript }}
+      filePath: build.ps1
       workingDirectory: ./
       arguments: Release $(specFlowVisualStudioVersion)
 
@@ -35,15 +34,10 @@ jobs:
     displayName: 'Archive $(Build.SourcesDirectory)'
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)'
-
       archiveFile: ${{ parameters.artifactFileName }} 
-
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: SpecFlow.VisualStudio.CI-BuildResult'
     inputs:
       PathtoPublish: ${{ parameters.artifactFileName }} 
-
       ArtifactName: ${{ parameters.artifactName }}
-
-
