@@ -64,11 +64,11 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             {
                 var specFlowLangParser = new SpecFlowLangParser(defaultLanguage);
 
-                var featureFileReader = new StringReader(fileContent);
-
-                var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
-
-                return feature;
+                using (var featureFileReader = new StringReader(fileContent))
+                {
+                    var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
+                    return feature;
+                }
             }
             catch (Exception)
             {
