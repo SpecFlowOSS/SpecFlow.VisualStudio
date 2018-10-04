@@ -13,46 +13,51 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
 {
     internal class VsGeneratorInfoProvider : IGeneratorInfoProvider
     {
-        private static readonly string[] probingPaths = new[]
-                                                            {
-                                                                @".",
-                                                                @"tools",
-                                                                @"..\tools",
-                                                                @"..\..\tools",
-                                                            };
-        const string generatorAssemblyName = "TechTalk.SpecFlow.Generator";
+        private const string GeneratorAssemblyName = "TechTalk.SpecFlow.Generator";
 
-        protected readonly Project project;
-        protected readonly IIdeTracer tracer;
-        private readonly IConfigurationReader configurationReader;
+        private static readonly string[] ProbingPaths = 
+        {
+            @".",
+            @"tools",
+            @"..\tools",
+            @"..\..\tools",
+        };
+
+        private readonly Project _project;
+        private readonly IIdeTracer _tracer;
+        private readonly IConfigurationReader _configurationReader;
 
         public VsGeneratorInfoProvider(Project project, IIdeTracer tracer, IConfigurationReader configurationReader)
         {
-            this.project = project;
-            this.tracer = tracer;
-            this.configurationReader = configurationReader;
+            _project = project;
+            _tracer = tracer;
+            _configurationReader = configurationReader;
         }
 
         public virtual GeneratorInfo GetGeneratorInfo()
         {
-            tracer.Trace("Discovering generator information...", "VsGeneratorInfoProvider");
+            _tracer.Trace("Discovering generator information...", "VsGeneratorInfoProvider");
 
             var specflowGeneratorConfig = GenSpecFlowGeneratorConfig();
 
             try
             {
-                var specflowGeneratorInfo = new GeneratorInfo() { UsesPlugins = specflowGeneratorConfig.UsesPlugins };
+                var specflowGeneratorInfo = new GeneratorInfo { UsesPlugins = specflowGeneratorConfig.UsesPlugins };
                 if (DetectFromConfig(specflowGeneratorInfo, specflowGeneratorConfig))
+                {
                     return specflowGeneratorInfo;
+                }
 
                 if (!DetectFromRuntimeReference(specflowGeneratorInfo))
-                    tracer.Trace("Unable to detect generator path", "VsGeneratorInfoProvider");
+                {
+                    _tracer.Trace("Unable to detect generator path", "VsGeneratorInfoProvider");
+                }
                 
                 return specflowGeneratorInfo;
             }
             catch (Exception exception)
             {
-                tracer.Trace(exception.ToString(), "VsGeneratorInfoProvider");
+                _tracer.Trace(exception.ToString(), "VsGeneratorInfoProvider");
                 return null;
             }
         }
@@ -63,7 +68,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
             {
                 var specflowGeneratorConfig = new SpecFlowGeneratorConfiguration();
 
-                var configurationHolder = configurationReader.ReadConfiguration();
+                var configurationHolder = _configurationReader.ReadConfiguration();
                 switch (configurationHolder.ConfigSource)
                 {
                     case ConfigSource.AppConfig:
@@ -87,7 +92,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
             }
             catch (Exception exception)
             {
-                tracer.Trace("Config load error: " + exception, "VsGeneratorInfoProvider");
+                _tracer.Trace("Config load error: " + exception, "VsGeneratorInfoProvider");
                 return new SpecFlowGeneratorConfiguration();
             }
         }
@@ -97,54 +102,64 @@ namespace TechTalk.SpecFlow.VsIntegration.Generator
             try
             {
                 if (string.IsNullOrWhiteSpace(generatorConfiguration.GeneratorPath))
+                {
                     return false;
+                }
 
-                var generatorFolder = Path.GetFullPath(
-                    Path.Combine(VsxHelper.GetProjectFolder(project), generatorConfiguration.GeneratorPath));
+                string generatorFolder = Path.GetFullPath(
+                    Path.Combine(VsxHelper.GetProjectFolder(_project), generatorConfiguration.GeneratorPath));
 
-                tracer.Trace("Generator is configured to be at " + generatorFolder, "VsGeneratorInfoProvider");
+                _tracer.Trace("Generator is configured to be at " + generatorFolder, "VsGeneratorInfoProvider");
                 return DetectFromFolder(generatorInfo, generatorFolder);
             }
             catch(Exception exception)
             {
-                tracer.Trace(exception.ToString(), "VsGeneratorInfoProvider");
+                _tracer.Trace(exception.ToString(), "VsGeneratorInfoProvider");
                 return false;
             }
         }
 
         private bool DetectFromRuntimeReference(GeneratorInfo generatorInfo)
         {
-            var specFlowRef = VsxHelper.GetReference(project, "TechTalk.SpecFlow");
+            var specFlowRef = VsxHelper.GetReference(_project, "TechTalk.SpecFlow");
             if (specFlowRef == null)
+            {
                 return false;
+            }
 
-            var specFlowRefPath = specFlowRef.Path;
+            string specFlowRefPath = specFlowRef.Path;
             if (string.IsNullOrWhiteSpace(specFlowRefPath))
+            {
                 return false;
+            }
 
             string runtimeFolder = Path.GetDirectoryName(specFlowRefPath);
             if (runtimeFolder == null)
+            {
                 return false;
+            }
 
-            tracer.Trace("Runtime found at " + runtimeFolder, "VsGeneratorInfoProvider");
+            _tracer.Trace("Runtime found at " + runtimeFolder, "VsGeneratorInfoProvider");
 
-            return probingPaths.Select(probingPath => Path.GetFullPath(Path.Combine(runtimeFolder, probingPath)))
+            return ProbingPaths.Select(probingPath => Path.GetFullPath(Path.Combine(runtimeFolder, probingPath)))
                 .Any(probingPath => DetectFromFolder(generatorInfo, probingPath));
         }
 
         private bool DetectFromFolder(GeneratorInfo generatorInfo, string generatorFolder)
         {
-            const string generatorAssemblyFileName = generatorAssemblyName + ".dll";
+            const string generatorAssemblyFileName = GeneratorAssemblyName + ".dll";
 
-            var generatorPath = Path.Combine(generatorFolder, generatorAssemblyFileName);
+            string generatorPath = Path.Combine(generatorFolder, generatorAssemblyFileName);
             if (!File.Exists(generatorPath))
+            {
                 return false;
+            }
 
-            tracer.Trace("Generator found at " + generatorPath, "VsGeneratorInfoProvider");
+            _tracer.Trace("Generator found at " + generatorPath, "VsGeneratorInfoProvider");
             var fileVersion = FileVersionInfo.GetVersionInfo(generatorPath);
             if (fileVersion.FileVersion == null)
             {
-                tracer.Trace("Could not detect generator version", "VsGeneratorInfoProvider");
+                _tracer.Trace("Could not detect generator version", "VsGeneratorInfoProvider");
                 return false;
             }
 

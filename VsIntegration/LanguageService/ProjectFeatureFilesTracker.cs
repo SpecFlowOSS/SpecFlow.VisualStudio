@@ -52,7 +52,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             vsProjectScope.Tracer.Trace("Analyzing feature file: " + featureFileInfo.ProjectRelativePath, "ProjectFeatureFilesTracker");
             var codeBehindChangeDate = AnalyzeCodeBehind(featureFileInfo, projectItem);
 
-            var fileContent = VsxHelper.GetFileContent(projectItem, loadLastSaved: true);
+            string fileContent = VsxHelper.GetFileContent(projectItem, loadLastSaved: true);
             featureFileInfo.ParsedFeature = ParseGherkinFile(fileContent, featureFileInfo.ProjectRelativePath, vsProjectScope.GherkinDialectServices.DefaultLanguage);
             var featureLastChangeDate = VsxHelper.GetLastChangeDate(projectItem) ?? DateTime.MinValue;
             featureFileInfo.LastChangeDate = featureLastChangeDate > codeBehindChangeDate ? featureLastChangeDate : codeBehindChangeDate;
@@ -102,7 +102,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                             GeneratedTestFileContent = codeBehindContent
                         });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // if there was an error during version detect, we skip discovering the version for this file.
                 vsProjectScope.Tracer.Trace(

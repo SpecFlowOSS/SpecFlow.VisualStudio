@@ -6,9 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
-using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Bindings.Reflection;
-using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
@@ -26,34 +24,36 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
     public class VsProjectScope : IProjectScope
     {
-        private readonly Project project;
-        private readonly DteWithEvents dteWithEvents;
-        private readonly IVisualStudioTracer tracer;
-        private readonly IIntegrationOptionsProvider integrationOptionsProvider;
-        private readonly GherkinTextBufferParser parser;
-        private readonly GherkinScopeAnalyzer analyzer = null;
+        private const string VsProjectScopeTraceCategory = "VsProjectScope";
+
+        private readonly Project _project;
+        private readonly DteWithEvents _dteWithEvents;
+        private readonly IVisualStudioTracer _tracer;
+        private readonly IIntegrationOptionsProvider _integrationOptionsProvider;
+        private readonly GherkinTextBufferParser _parser;
+        private readonly GherkinScopeAnalyzer _analyzer = null;
         public GherkinFileEditorClassifications Classifications { get; private set; }
         public GherkinProcessingScheduler GherkinProcessingScheduler { get; private set; }
         public IGeneratorServices GeneratorServices { get; private set; }
 
-        private bool initialized = false;
-        private bool initializing = false;
+        private bool _initialized;
+        private bool _initializing;
         
         // delay initialized members
-        private SpecFlowConfiguration specFlowConfiguration = null;
-        private GherkinDialectServices gherkinDialectServices = null;
-        private VsProjectFileTracker appConfigTracker = null;
-        private ProjectFeatureFilesTracker featureFilesTracker = null;
-        private BindingFilesTracker bindingFilesTracker = null;
-        private VsStepSuggestionProvider stepSuggestionProvider = null;
-        private IStepDefinitionMatchService stepDefinitionMatchService = null;
+        private SpecFlowConfiguration _specFlowConfiguration;
+        private GherkinDialectServices _gherkinDialectServices;
+        private VsProjectFileTracker _appConfigTracker;
+        private ProjectFeatureFilesTracker _featureFilesTracker;
+        private BindingFilesTracker _bindingFilesTracker;
+        private VsStepSuggestionProvider _stepSuggestionProvider;
+        private IStepDefinitionMatchService _stepDefinitionMatchService;
 
         public SpecFlowConfiguration SpecFlowConfiguration
         {
             get
             {
                 EnsureInitialized();
-                return specFlowConfiguration;
+                return _specFlowConfiguration;
             }
         }
 
@@ -62,7 +62,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get
             {
                 EnsureInitialized();
-                return gherkinDialectServices;
+                return _gherkinDialectServices;
             }
         }
 
@@ -71,7 +71,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get
             {
                 EnsureInitialized();
-                return featureFilesTracker;
+                return _featureFilesTracker;
             }
         }
 
@@ -80,7 +80,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get
             {
                 EnsureInitialized();
-                return bindingFilesTracker;
+                return _bindingFilesTracker;
             }
         }
 
@@ -89,7 +89,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get
             {
                 EnsureInitialized();
-                return stepSuggestionProvider;
+                return _stepSuggestionProvider;
             }
         }
 
@@ -98,17 +98,17 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             get
             {
                 EnsureInitialized();
-                return stepDefinitionMatchService;
+                return _stepDefinitionMatchService;
             }
         }
 
-        public Project Project { get { return project; } }
-        public IIdeTracer Tracer { get { return tracer; } }
-        internal DteWithEvents DteWithEvents { get { return dteWithEvents; } }
+        public Project Project { get { return _project; } }
+        public IIdeTracer Tracer { get { return _tracer; } }
+        internal DteWithEvents DteWithEvents { get { return _dteWithEvents; } }
 
         public IIntegrationOptionsProvider IntegrationOptionsProvider
         {
-            get { return integrationOptionsProvider; }
+            get { return _integrationOptionsProvider; }
         }
 
         public event Action SpecFlowConfigurationChanged;
@@ -117,14 +117,14 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         internal VsProjectScope(Project project, DteWithEvents dteWithEvents, GherkinFileEditorClassifications classifications, IVisualStudioTracer tracer, IIntegrationOptionsProvider integrationOptionsProvider)
         {
             Classifications = classifications;
-            this.project = project;
-            this.dteWithEvents = dteWithEvents;
-            this.tracer = tracer;
-            this.integrationOptionsProvider = integrationOptionsProvider;
+            _project = project;
+            _dteWithEvents = dteWithEvents;
+            _tracer = tracer;
+            _integrationOptionsProvider = integrationOptionsProvider;
 
             var integrationOptions = integrationOptionsProvider.GetOptions();
 
-            parser = new GherkinTextBufferParser(this, tracer);
+            _parser = new GherkinTextBufferParser(this, tracer);
 //TODO: enable when analizer is implemented
 //            if (integrationOptions.EnableAnalysis)
 //                analyzer = new GherkinScopeAnalyzer(this, visualStudioTracer);
@@ -136,26 +136,26 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private void EnsureInitialized()
         {
-            if (!initialized)
+            if (!_initialized)
             {
                 lock(this)
                 {
-                    if (!initialized)
+                    if (!_initialized)
                     {
-                        if (initializing)
+                        if (_initializing)
                         {
-                            tracer.Trace("ERROR: Nested VsProjectScope is triggered by the initialize. This is bad. Please record the following stack trace: {1}{0}", this, Environment.StackTrace, Environment.NewLine);
+                            _tracer.Trace("ERROR: Nested VsProjectScope is triggered by the initialize. This is bad. Please record the following stack trace: {1}{0}", this, Environment.StackTrace, Environment.NewLine);
                             return;
                         }
 
                         try
                         {
-                            initializing = true;
+                            _initializing = true;
                             Initialize();
                         }
                         finally
                         {
-                            initializing = false;
+                            _initializing = false;
                         }
                     }
                 }
@@ -210,118 +210,127 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
+
         private void Initialize()
         {
-            tracer.Trace("Initializing...", "VsProjectScope");
+            _tracer.Trace("Initializing...", VsProjectScopeTraceCategory);
             try
             {
-                specFlowConfiguration = LoadSpecFlowConfiguration();
-                gherkinDialectServices = new GherkinDialectServices(specFlowConfiguration.FeatureLanguage);
+                _specFlowConfiguration = LoadSpecFlowConfiguration();
+                _gherkinDialectServices = new GherkinDialectServices(_specFlowConfiguration.FeatureLanguage);
 
                 //todo: tracker for json?
-                appConfigTracker = new VsProjectFileTracker(project, "App.config", dteWithEvents, tracer);
-                appConfigTracker.FileChanged += AppConfigTrackerOnFileChanged;
-                appConfigTracker.FileOutOfScope += AppConfigTrackerOnFileOutOfScope;
+                _appConfigTracker = new VsProjectFileTracker(_project, "App.config", _dteWithEvents, _tracer);
+                _appConfigTracker.FileChanged += AppConfigTrackerOnFileChanged;
+                _appConfigTracker.FileOutOfScope += AppConfigTrackerOnFileOutOfScope;
 
-                var enableAnalysis = integrationOptionsProvider.GetOptions().EnableAnalysis;
+                bool enableAnalysis = _integrationOptionsProvider.GetOptions().EnableAnalysis;
                 if (enableAnalysis)
                 {
-                    featureFilesTracker = new ProjectFeatureFilesTracker(this);
-                    featureFilesTracker.Ready += FeatureFilesTrackerOnReady;
+                    _featureFilesTracker = new ProjectFeatureFilesTracker(this);
+                    _featureFilesTracker.Ready += FeatureFilesTrackerOnReady;
 
-                    bindingFilesTracker = new BindingFilesTracker(this);
+                    _bindingFilesTracker = new BindingFilesTracker(this);
 
-                    stepSuggestionProvider = new VsStepSuggestionProvider(this);
-                    stepSuggestionProvider.Ready += StepSuggestionProviderOnReady;
-                    stepDefinitionMatchService = new StepDefinitionMatchServiceWithOnlySimpleTypeConverter(stepSuggestionProvider);
+                    _stepSuggestionProvider = new VsStepSuggestionProvider(this);
+                    _stepSuggestionProvider.Ready += StepSuggestionProviderOnReady;
+                    _stepDefinitionMatchService = new StepDefinitionMatchServiceWithOnlySimpleTypeConverter(_stepSuggestionProvider);
                 }
-                tracer.Trace("Initialized", "VsProjectScope");
-                initialized = true;
+                _tracer.Trace("Initialized", VsProjectScopeTraceCategory);
+                _initialized = true;
 
                 if (enableAnalysis)
                 {
-                    tracer.Trace("Starting analysis services...", "VsProjectScope");
+                    _tracer.Trace("Starting analysis services...", VsProjectScopeTraceCategory);
 
-                    stepSuggestionProvider.Initialize();
-                    bindingFilesTracker.Initialize();
-                    featureFilesTracker.Initialize();
+                    _stepSuggestionProvider.Initialize();
+                    _bindingFilesTracker.Initialize();
+                    _featureFilesTracker.Initialize();
 
                     LoadStepMap();
 
-                    bindingFilesTracker.Run();
-                    featureFilesTracker.Run();
+                    _bindingFilesTracker.Run();
+                    _featureFilesTracker.Run();
 
-                    dteWithEvents.OnBuildDone += BuildEventsOnOnBuildDone;
+                    _dteWithEvents.OnBuildDone += BuildEventsOnOnBuildDone;
 
-                    tracer.Trace("Analysis services started", "VsProjectScope");
+                    _tracer.Trace("Analysis services started", VsProjectScopeTraceCategory);
                 }
                 else
                 {
-                    tracer.Trace("Analysis services disabled", "VsProjectScope");
+                    _tracer.Trace("Analysis services disabled", VsProjectScopeTraceCategory);
                 }
             }
             catch(Exception exception)
             {
-                tracer.Trace("Exception: " + exception, "VsProjectScope");
+                _tracer.Trace("Exception: " + exception, VsProjectScopeTraceCategory);
             }
         }
 
         private void FeatureFilesTrackerOnReady()
         {
             //compare generated file versions with the generator version
-            Version generatorVersion = GeneratorServices.GetGeneratorVersion(); //TODO: cache GeneratorVersion
+            var generatorVersion = GeneratorServices.GetGeneratorVersion(); //TODO: cache GeneratorVersion
             if (generatorVersion == null)
                 return;
 
             Func<FeatureFileInfo, bool> outOfDateFiles = ffi => ffi.GeneratorVersion != null && ffi.GeneratorVersion < generatorVersion;
-            if (featureFilesTracker.Files.Any(outOfDateFiles))
+            if (_featureFilesTracker.Files.Any(outOfDateFiles))
             {
                 var questionResult = MessageBox.Show(
-                    "SpecFlow detected that some of the feature files were generated with an earlier version of SpecFlow. Do you want to re-generate them now?",
-                    "SpecFlow Generator Version Change",
+                    @"SpecFlow detected that some of the feature files were generated with an earlier version of SpecFlow. Do you want to re-generate them now?",
+                    @"SpecFlow Generator Version Change",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button1);
 
                 if (questionResult != DialogResult.Yes)
+                {
                     return;
+                }
 
-                featureFilesTracker.ReGenerateAll(outOfDateFiles);
+                _featureFilesTracker.ReGenerateAll(outOfDateFiles);
             }
         }
 
         private void ConfirmReGenerateFilesOnConfigChange()
         {
-            if (integrationOptionsProvider.GetOptions().DisableRegenerateFeatureFilePopupOnConfigChange)
+            if (_integrationOptionsProvider.GetOptions().DisableRegenerateFeatureFilePopupOnConfigChange)
+            {
                 return;
+            }
 
             var questionResult = MessageBox.Show(
-                "SpecFlow detected changes in the configuration that might require re-generating the feature files. You can disable this popup in the SpecFlow Visual Studio settings (\"Tools / Options / SpecFlow\")." + Environment.NewLine + "Do you want to re-generate them now?", 
-                "SpecFlow Configuration Changes",
+                @"SpecFlow detected changes in the configuration that might require re-generating the feature files. You can disable this popup in the SpecFlow Visual Studio settings (""Tools / Options / SpecFlow"")." + Environment.NewLine + @"Do you want to re-generate them now?", 
+                @"SpecFlow Configuration Changes",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, 
+                MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button1);
 
             if (questionResult != DialogResult.Yes)
+            {
                 return;
+            }
 
-            featureFilesTracker.ReGenerateAll();
+            _featureFilesTracker.ReGenerateAll();
         }
 
         private void AppConfigTrackerOnFileChanged(ProjectItem appConfigItem)
         {
             var newConfig = LoadSpecFlowConfiguration();
             if (newConfig.Equals(SpecFlowConfiguration))
+            {
                 return;
+            }
 
             bool dialectServicesChanged = !newConfig.FeatureLanguage.Equals(GherkinDialectServices.DefaultLanguage);
 
-            specFlowConfiguration = newConfig;
+            _specFlowConfiguration = newConfig;
             OnSpecFlowConfigurationChanged();
 
             if (dialectServicesChanged)
             {
-                gherkinDialectServices = new GherkinDialectServices(SpecFlowConfiguration.FeatureLanguage);
+                _gherkinDialectServices = new GherkinDialectServices(SpecFlowConfiguration.FeatureLanguage);
                 OnGherkinDialectServicesChanged();
             }
         }
@@ -336,21 +345,21 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
             try
             {
-                var reader = new VsSpecFlowConfigurationReader(project, tracer);
+                var reader = new VsSpecFlowConfigurationReader(_project, _tracer);
                 var specflowLoader = new ConfigurationLoader();
 
                 return specflowLoader.Load(defaultSpecFlowConfiguration, reader.ReadConfiguration());
             }
             catch (Exception ex)
             {
-                tracer.Trace("Configuration loading error: " + ex, "VsProjectScope");
+                _tracer.Trace("Configuration loading error: " + ex, VsProjectScopeTraceCategory);
                 return defaultSpecFlowConfiguration;
             }
         }
 
         private void OnSpecFlowConfigurationChanged()
         {
-            this.tracer.Trace("SpecFlow configuration changed", "VsProjectScope");
+            _tracer.Trace("SpecFlow configuration changed", VsProjectScopeTraceCategory);
             if (SpecFlowConfigurationChanged != null)
                 SpecFlowConfigurationChanged();
 
@@ -361,21 +370,21 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private void OnGherkinDialectServicesChanged()
         {
-            this.tracer.Trace("default language changed", "VsProjectScope");
+            _tracer.Trace("default language changed", VsProjectScopeTraceCategory);
             if (GherkinDialectServicesChanged != null)
                 GherkinDialectServicesChanged();
         }
 
         public GherkinTextBufferParser GherkinTextBufferParser
         {
-            get { return parser; }
+            get { return _parser; }
         }
 
         public GherkinScopeAnalyzer GherkinScopeAnalyzer
         {
             get
             {
-                return analyzer;
+                return _analyzer;
             }
         }
 
@@ -386,37 +395,37 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         public void Dispose()
         {
-            dteWithEvents.OnBuildDone -= BuildEventsOnOnBuildDone;
+            _dteWithEvents.OnBuildDone -= BuildEventsOnOnBuildDone;
             SaveStepMap();
 
             GherkinProcessingScheduler.Dispose();
-            if (appConfigTracker != null)
+            if (_appConfigTracker != null)
             {
-                appConfigTracker.FileChanged -= AppConfigTrackerOnFileChanged;
-                appConfigTracker.FileOutOfScope -= AppConfigTrackerOnFileOutOfScope;
-                appConfigTracker.Dispose();
+                _appConfigTracker.FileChanged -= AppConfigTrackerOnFileChanged;
+                _appConfigTracker.FileOutOfScope -= AppConfigTrackerOnFileOutOfScope;
+                _appConfigTracker.Dispose();
             }
-            if (stepSuggestionProvider != null)
+            if (_stepSuggestionProvider != null)
             {
-                stepSuggestionProvider.Dispose();
+                _stepSuggestionProvider.Dispose();
             }
-            if (featureFilesTracker != null)
+            if (_featureFilesTracker != null)
             {
-                featureFilesTracker.Ready -= FeatureFilesTrackerOnReady;
-                featureFilesTracker.Dispose();
+                _featureFilesTracker.Ready -= FeatureFilesTrackerOnReady;
+                _featureFilesTracker.Dispose();
             }
-            if (bindingFilesTracker != null)
+            if (_bindingFilesTracker != null)
             {
-                bindingFilesTracker.Dispose();
+                _bindingFilesTracker.Dispose();
             }
         }
 
-        private string stepMapFileName;
+        private string _stepMapFileName;
 
         private string GetStepMapFileName()
         {
-            return stepMapFileName ?? (stepMapFileName = Path.Combine(Path.GetTempPath(), 
-                string.Format(@"specflow-stepmap-{1}-{2}-{0}{3}.cache", VsxHelper.GetProjectUniqueId(project), project.Name, Math.Abs(VsxHelper.GetProjectFolder(project).GetHashCode()), GetConfigurationText())));
+            return _stepMapFileName ?? (_stepMapFileName = Path.Combine(Path.GetTempPath(), 
+                string.Format(@"specflow-stepmap-{1}-{2}-{0}{3}.cache", VsxHelper.GetProjectUniqueId(_project), _project.Name, Math.Abs(VsxHelper.GetProjectFolder(_project).GetHashCode()), GetConfigurationText())));
         }
 
         private string GetConfigurationText()
@@ -425,16 +434,16 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 #if USE_CONFIG_DEPENDENT_CACHE
             try
             {
-                return "-" + project.ConfigurationManager.ActiveConfiguration.ConfigurationName + "-" +
-                       project.ConfigurationManager.ActiveConfiguration.PlatformName;
+                return "-" + _project.ConfigurationManager.ActiveConfiguration.ConfigurationName + "-" +
+                       _project.ConfigurationManager.ActiveConfiguration.PlatformName;
             }
             catch(Exception ex)
             {
-                tracer.Trace("Unable to get configuration name: " + ex, GetType().Name);
+                _tracer.Trace("Unable to get configuration name: " + ex, GetType().Name);
                 return "-na";
             }
 #else
-            return "";
+            return string.Empty;
 #endif
         }
 
@@ -445,35 +454,38 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private void SaveStepMap()
         {
-            if (featureFilesTracker == null || !featureFilesTracker.IsInitialized ||
-                bindingFilesTracker == null || !bindingFilesTracker.IsInitialized)
-                return;
-
-            if (!featureFilesTracker.IsStepMapDirty && !bindingFilesTracker.IsStepMapDirty)
+            if (_featureFilesTracker == null || !_featureFilesTracker.IsInitialized || _bindingFilesTracker == null || !_bindingFilesTracker.IsInitialized)
             {
-                tracer.Trace("Step map up-to-date", typeof(StepMap).Name);
+                return;
+            }
+
+            if (!_featureFilesTracker.IsStepMapDirty && !_bindingFilesTracker.IsStepMapDirty)
+            {
+                _tracer.Trace("Step map up-to-date", typeof(StepMap).Name);
                 return;
             }
 
             var stepMap = StepMap.CreateStepMap(GherkinDialectServices.DefaultLanguage);
-            featureFilesTracker.SaveToStepMap(stepMap);
-            bindingFilesTracker.SaveToStepMap(stepMap);
+            _featureFilesTracker.SaveToStepMap(stepMap);
+            _bindingFilesTracker.SaveToStepMap(stepMap);
 
-            stepMap.SaveToFile(GetStepMapFileName(), tracer);
+            stepMap.SaveToFile(GetStepMapFileName(), _tracer);
         }
 
         private void LoadStepMap()
         {
-            var fileName = GetStepMapFileName();
+            string fileName = GetStepMapFileName();
             if (!File.Exists(fileName))
+            {
                 return;
+            }
 
-            var stepMap = StepMap.LoadFromFile(fileName, tracer);
+            var stepMap = StepMap.LoadFromFile(fileName, _tracer);
             if (stepMap != null)
             {
                 if (stepMap.DefaultLanguage.Equals(GherkinDialectServices.DefaultLanguage)) // if default language changed in config => ignore cache
-                    featureFilesTracker.LoadFromStepMap(stepMap);
-                bindingFilesTracker.LoadFromStepMap(stepMap);
+                    _featureFilesTracker.LoadFromStepMap(stepMap);
+                _bindingFilesTracker.LoadFromStepMap(stepMap);
             }
         }
 
@@ -485,11 +497,20 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public static ProgrammingLanguage GetTargetLanguage(Project project)
         {
             if (project.FullName.EndsWith(".csproj"))
+            {
                 return ProgrammingLanguage.CSharp;
+            }
+
             if (project.FullName.EndsWith(".vbproj"))
+            {
                 return ProgrammingLanguage.VB;
+            }
+
             if (project.FullName.EndsWith(".fsproj"))
+            {
                 return ProgrammingLanguage.FSharp;
+            }
+
             return ProgrammingLanguage.Other;
         }
 
@@ -503,11 +524,20 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             string name = projectItem.Name;
             if (name.EndsWith(".cs"))
+            {
                 return ProgrammingLanguage.CSharp;
+            }
+
             if (name.EndsWith(".vb"))
+            {
                 return ProgrammingLanguage.VB;
+            }
+
             if (name.EndsWith(".fs"))
+            {
                 return ProgrammingLanguage.FSharp;
+            }
+
             return ProgrammingLanguage.Other;
         }
     }
