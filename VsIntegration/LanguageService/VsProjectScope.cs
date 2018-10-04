@@ -43,6 +43,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private SpecFlowConfiguration _specFlowConfiguration;
         private GherkinDialectServices _gherkinDialectServices;
         private VsProjectFileTracker _appConfigTracker;
+        private VsProjectFileTracker _specflowJsonTracker;
         private ProjectFeatureFilesTracker _featureFilesTracker;
         private BindingFilesTracker _bindingFilesTracker;
         private VsStepSuggestionProvider _stepSuggestionProvider;
@@ -210,6 +211,38 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
+        private void InitializeConfigTrackers()
+        {
+            _tracer.Trace("Initializing configuration file trackers ...", VsProjectScopeTraceCategory);
+
+            // TODO: dei decide whether to use which config tracker to use
+            InitializeAppConfigTracker();
+            InitializeJsonConfigTracker();
+
+            _tracer.Trace("Initialized configuration file trackers", VsProjectScopeTraceCategory);
+        }
+
+        private void InitializeAppConfigTracker()
+        {
+            _tracer.Trace("Initializing file tracker for app.config ...", VsProjectScopeTraceCategory);
+
+            _appConfigTracker = new VsProjectFileTracker(_project, "App.config", _dteWithEvents, _tracer);
+            _appConfigTracker.FileChanged += ConfigFileTrackerOnFileChanged;
+            _appConfigTracker.FileOutOfScope += ConfigFileTrackerOnFileOutOfScope;
+
+            _tracer.Trace("Initialized file tracker for app.config", VsProjectScopeTraceCategory);
+        }
+
+        private void InitializeJsonConfigTracker()
+        {
+            _tracer.Trace("Initializing file tracker for specflow.json ...", VsProjectScopeTraceCategory);
+
+            _specflowJsonTracker = new VsProjectFileTracker(_project, "specflow.json", _dteWithEvents, _tracer);
+            _specflowJsonTracker.FileChanged += ConfigFileTrackerOnFileChanged;
+            _specflowJsonTracker.FileOutOfScope += ConfigFileTrackerOnFileOutOfScope;
+
+            _tracer.Trace("Initialized file tracker for specflow.json", VsProjectScopeTraceCategory);
+        }
 
         private void Initialize()
         {
@@ -219,10 +252,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 _specFlowConfiguration = LoadSpecFlowConfiguration();
                 _gherkinDialectServices = new GherkinDialectServices(_specFlowConfiguration.FeatureLanguage);
 
-                //todo: tracker for json?
-                _appConfigTracker = new VsProjectFileTracker(_project, "App.config", _dteWithEvents, _tracer);
-                _appConfigTracker.FileChanged += AppConfigTrackerOnFileChanged;
-                _appConfigTracker.FileOutOfScope += AppConfigTrackerOnFileOutOfScope;
+                InitializeConfigTrackers();
 
                 bool enableAnalysis = _integrationOptionsProvider.GetOptions().EnableAnalysis;
                 if (enableAnalysis)
@@ -315,7 +345,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             _featureFilesTracker.ReGenerateAll();
         }
 
-        private void AppConfigTrackerOnFileChanged(ProjectItem appConfigItem)
+        private void ConfigFileTrackerOnFileChanged(ProjectItem appConfigItem)
         {
             var newConfig = LoadSpecFlowConfiguration();
             if (newConfig.Equals(SpecFlowConfiguration))
@@ -335,9 +365,9 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
         }
 
-        private void AppConfigTrackerOnFileOutOfScope(ProjectItem projectItem, string projectRelativeFileName)
+        private void ConfigFileTrackerOnFileOutOfScope(ProjectItem projectItem, string projectRelativeFileName)
         {
-            AppConfigTrackerOnFileChanged(projectItem);                
+            ConfigFileTrackerOnFileChanged(projectItem);
         }
         
         private SpecFlowConfiguration LoadSpecFlowConfiguration()
@@ -401,9 +431,15 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             GherkinProcessingScheduler.Dispose();
             if (_appConfigTracker != null)
             {
-                _appConfigTracker.FileChanged -= AppConfigTrackerOnFileChanged;
-                _appConfigTracker.FileOutOfScope -= AppConfigTrackerOnFileOutOfScope;
+                _appConfigTracker.FileChanged -= ConfigFileTrackerOnFileChanged;
+                _appConfigTracker.FileOutOfScope -= ConfigFileTrackerOnFileOutOfScope;
                 _appConfigTracker.Dispose();
+            }
+            if (_specflowJsonTracker != null)
+            {
+                _specflowJsonTracker.FileChanged -= ConfigFileTrackerOnFileChanged;
+                _specflowJsonTracker.FileOutOfScope -= ConfigFileTrackerOnFileOutOfScope;
+                _specflowJsonTracker.Dispose();
             }
             if (_stepSuggestionProvider != null)
             {
