@@ -195,7 +195,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                     {
                         // in some special cases, Type.GetType throws exception
                         // one of such case, if a Dictionary<string,string> step parameter is specified, see issue #340
-                        Type systemType = Type.GetType(typeToConvertTo.FullName, false);
+                        var systemType = Type.GetType(typeToConvertTo.FullName, false);
                         if (systemType == null)
                             return false;
                         typeToConvertTo = new RuntimeBindingType(systemType);
@@ -382,7 +382,8 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             }
             catch (Exception ex)
             {
-                _tracer.Trace("Configuration loading error: " + ex, VsProjectScopeTraceCategory);
+                string traceMessage = string.Format("Configuration loading error: {0}. Using default configuration instead.", ex);
+                _tracer.Trace(traceMessage, VsProjectScopeTraceCategory);
                 return defaultSpecFlowConfiguration;
             }
         }
@@ -520,7 +521,10 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             if (stepMap != null)
             {
                 if (stepMap.DefaultLanguage.Equals(GherkinDialectServices.DefaultLanguage)) // if default language changed in config => ignore cache
+                {
                     _featureFilesTracker.LoadFromStepMap(stepMap);
+                }
+
                 _bindingFilesTracker.LoadFromStepMap(stepMap);
             }
         }
