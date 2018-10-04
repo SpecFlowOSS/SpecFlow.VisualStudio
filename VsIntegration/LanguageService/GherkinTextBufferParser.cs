@@ -23,7 +23,6 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             this.projectScope = projectScope;
             this.visualStudioTracer = visualStudioTracer;
-
         }
 
         private GherkinDialect GetGherkinDialect(ITextSnapshot textSnapshot)
@@ -43,20 +42,32 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             var gherkinDialect = GetGherkinDialect(change.ResultTextSnapshot);
             if (gherkinDialect == null)
+            {
                 return GetInvalidDialectScopeChange(change);
+            }
 
             bool fullParse = false;
             if (previousScope == null)
+            {
                 fullParse = true;
+            }
             else if (!Equals(previousScope.GherkinDialect, gherkinDialect))
+            {
                 fullParse = true;
+            }
             else if (partialParseCount >= PartialParseCountLimit)
+            {
                 fullParse = true;
+            }
             else if (GetFirstAffectedScenario(change, previousScope) == null)
+            {
                 fullParse = true;
+            }
 
             if (fullParse)
+            {
                 return FullParse(change.ResultTextSnapshot, gherkinDialect);
+            }
 
             return PartialParse(change, previousScope);
         }
@@ -158,14 +169,14 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             Debug.Assert(partialResult.HeaderBlock == null, "Partial parse cannot re-parse header");
             Debug.Assert(partialResult.BackgroundBlock == null, "Partial parse cannot re-parse background");
 
-            List<IGherkinFileBlock> changedBlocks = new List<IGherkinFileBlock>();
-            List<IGherkinFileBlock> shiftedBlocks = new List<IGherkinFileBlock>();
+            var changedBlocks = new List<IGherkinFileBlock>();
+            var shiftedBlocks = new List<IGherkinFileBlock>();
 
-            GherkinFileScope fileScope = new GherkinFileScope(previousScope.GherkinDialect, partialResult.TextSnapshot)
-                                             {
-                                                 HeaderBlock = previousScope.HeaderBlock,
-                                                 BackgroundBlock = previousScope.BackgroundBlock
-                                             };
+            var fileScope = new GherkinFileScope(previousScope.GherkinDialect, partialResult.TextSnapshot)
+                                {
+                                    HeaderBlock = previousScope.HeaderBlock,
+                                    BackgroundBlock = previousScope.BackgroundBlock
+                                };
 
             // inserting the non-affected scenarios
             fileScope.ScenarioBlocks.AddRange(previousScope.ScenarioBlocks.TakeUntilItemExclusive(firstAffectedScenario));
@@ -183,7 +194,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             if (firstUnchangedScenario != null)
             {
-                Tracing.VisualStudioTracer.Assert(partialResult.InvalidFileEndingBlock == null, "there is an invalid file ending block");
+                VisualStudioTracer.Assert(partialResult.InvalidFileEndingBlock == null, "there is an invalid file ending block");
 
                 // inserting the non-effected scenarios at the end
                 var shiftedScenarioBlocks = previousScope.ScenarioBlocks.SkipFromItemInclusive(firstUnchangedScenario)
