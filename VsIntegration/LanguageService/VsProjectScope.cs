@@ -536,17 +536,17 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         public static ProgrammingLanguage GetTargetLanguage(Project project)
         {
-            if (project.FullName.EndsWith(".csproj"))
+            if (project.FullName.EndsWith(".csproj", StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProgrammingLanguage.CSharp;
             }
 
-            if (project.FullName.EndsWith(".vbproj"))
+            if (project.FullName.EndsWith(".vbproj", StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProgrammingLanguage.VB;
             }
 
-            if (project.FullName.EndsWith(".fsproj"))
+            if (project.FullName.EndsWith(".fsproj", StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProgrammingLanguage.FSharp;
             }
@@ -563,17 +563,17 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public static ProgrammingLanguage GetCodeFileLanguage(ProjectItem projectItem)
         {
             string name = projectItem.Name;
-            if (name.EndsWith(".cs"))
+            if (name.EndsWith(".cs", StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProgrammingLanguage.CSharp;
             }
 
-            if (name.EndsWith(".vb"))
+            if (name.EndsWith(".vb", StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProgrammingLanguage.VB;
             }
 
-            if (name.EndsWith(".fs"))
+            if (name.EndsWith(".fs", StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProgrammingLanguage.FSharp;
             }
