@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using CommandLine;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.RemoteAppDomain;
