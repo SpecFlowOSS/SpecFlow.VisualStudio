@@ -15,22 +15,21 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private const string ParserTraceCategory = "EditorParser";
         private const int PartialParseCountLimit = 30;
 
-        private int partialParseCount = 0;
-        private readonly IProjectScope projectScope;
-        private readonly IVisualStudioTracer visualStudioTracer;
+        private int _partialParseCount;
+        private readonly IProjectScope _projectScope;
+        private readonly IVisualStudioTracer _visualStudioTracer;
 
         public GherkinTextBufferParser(IProjectScope projectScope, IVisualStudioTracer visualStudioTracer)
         {
-            this.projectScope = projectScope;
-            this.visualStudioTracer = visualStudioTracer;
-
+            _projectScope = projectScope;
+            _visualStudioTracer = visualStudioTracer;
         }
 
         private GherkinDialect GetGherkinDialect(ITextSnapshot textSnapshot)
         {
             try
             {
-                return projectScope.GherkinDialectServices.GetGherkinDialect(
+                return _projectScope.GherkinDialectServices.GetGherkinDialect(
                         lineNo => textSnapshot.GetLineFromLineNumber(lineNo).GetText());
             }
             catch(Exception)
@@ -43,20 +42,32 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             var gherkinDialect = GetGherkinDialect(change.ResultTextSnapshot);
             if (gherkinDialect == null)
+            {
                 return GetInvalidDialectScopeChange(change);
+            }
 
             bool fullParse = false;
             if (previousScope == null)
+            {
                 fullParse = true;
+            }
             else if (!Equals(previousScope.GherkinDialect, gherkinDialect))
+            {
                 fullParse = true;
-            else if (partialParseCount >= PartialParseCountLimit)
+            }
+            else if (_partialParseCount >= PartialParseCountLimit)
+            {
                 fullParse = true;
+            }
             else if (GetFirstAffectedScenario(change, previousScope) == null)
+            {
                 fullParse = true;
+            }
 
             if (fullParse)
+            {
                 return FullParse(change.ResultTextSnapshot, gherkinDialect);
+            }
 
             return PartialParse(change, previousScope);
         }
@@ -75,13 +86,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private GherkinFileScopeChange FullParse(ITextSnapshot textSnapshot, GherkinDialect gherkinDialect)
         {
-            visualStudioTracer.Trace("Start full parsing", ParserTraceCategory);
-            Stopwatch stopwatch = new Stopwatch();
+            _visualStudioTracer.Trace("Start full parsing", ParserTraceCategory);
+            var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            partialParseCount = 0;
+            _partialParseCount = 0;
 
-            var gherkinListener = new GherkinTextBufferParserListener(gherkinDialect, textSnapshot, projectScope);
+            var gherkinListener = new GherkinTextBufferParserListener(gherkinDialect, textSnapshot, _projectScope);
 
             var scanner = new GherkinScanner(gherkinDialect, textSnapshot.GetText(), 0);
             scanner.Scan(gherkinListener);
@@ -102,15 +113,15 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private GherkinFileScopeChange PartialParse(GherkinTextBufferChange change, IGherkinFileScope previousScope)
         {
-            visualStudioTracer.Trace("Start incremental parsing", ParserTraceCategory);
-            Stopwatch stopwatch = new Stopwatch();
+            _visualStudioTracer.Trace("Start incremental parsing", ParserTraceCategory);
+            var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            partialParseCount++;
+            _partialParseCount++;
 
             var textSnapshot = change.ResultTextSnapshot;
 
-            IScenarioBlock firstAffectedScenario = GetFirstAffectedScenario(change, previousScope);
+            var firstAffectedScenario = GetFirstAffectedScenario(change, previousScope);
             VisualStudioTracer.Assert(firstAffectedScenario != null, "first affected scenario is null");
             int parseStartPosition = textSnapshot.GetLineFromLineNumber(firstAffectedScenario.GetStartLine()).Start;
 
@@ -118,7 +129,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             var gherkinListener = new GherkinTextBufferPartialParserListener(
                 previousScope.GherkinDialect,
-                textSnapshot, projectScope, 
+                textSnapshot, _projectScope, 
                 previousScope, 
                 change.EndLine, change.LineCountDelta);
 
@@ -145,8 +156,10 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         private IScenarioBlock GetFirstAffectedScenario(GherkinTextBufferChange change, IGherkinFileScope previousScope)
         {
             if (change.Type == GherkinTextBufferChangeType.SingleLine)
+            {
                 //single-line changes on the start cannot influence the previous scenario
                 return previousScope.ScenarioBlocks.LastOrDefault(s => s.GetStartLine() <= change.StartLine);
+            }
 
             // if multiple lines are added at the first line of a block, it can happen that these lines will belong
             // to the previous block
@@ -158,14 +171,14 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             Debug.Assert(partialResult.HeaderBlock == null, "Partial parse cannot re-parse header");
             Debug.Assert(partialResult.BackgroundBlock == null, "Partial parse cannot re-parse background");
 
-            List<IGherkinFileBlock> changedBlocks = new List<IGherkinFileBlock>();
-            List<IGherkinFileBlock> shiftedBlocks = new List<IGherkinFileBlock>();
+            var changedBlocks = new List<IGherkinFileBlock>();
+            var shiftedBlocks = new List<IGherkinFileBlock>();
 
-            GherkinFileScope fileScope = new GherkinFileScope(previousScope.GherkinDialect, partialResult.TextSnapshot)
-                                             {
-                                                 HeaderBlock = previousScope.HeaderBlock,
-                                                 BackgroundBlock = previousScope.BackgroundBlock
-                                             };
+            var fileScope = new GherkinFileScope(previousScope.GherkinDialect, partialResult.TextSnapshot)
+                                {
+                                    HeaderBlock = previousScope.HeaderBlock,
+                                    BackgroundBlock = previousScope.BackgroundBlock
+                                };
 
             // inserting the non-affected scenarios
             fileScope.ScenarioBlocks.AddRange(previousScope.ScenarioBlocks.TakeUntilItemExclusive(firstAffectedScenario));
@@ -183,7 +196,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             if (firstUnchangedScenario != null)
             {
-                Tracing.VisualStudioTracer.Assert(partialResult.InvalidFileEndingBlock == null, "there is an invalid file ending block");
+                VisualStudioTracer.Assert(partialResult.InvalidFileEndingBlock == null, "there is an invalid file ending block");
 
                 // inserting the non-effected scenarios at the end
                 var shiftedScenarioBlocks = previousScope.ScenarioBlocks.SkipFromItemInclusive(firstUnchangedScenario)
@@ -203,7 +216,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private void TraceFinishParse(Stopwatch stopwatch, string parseKind, GherkinFileScopeChange result)
         {
-            visualStudioTracer.Trace(
+            _visualStudioTracer.Trace(
                 string.Format("Finished {0} parsing in {1} ms, {2} errors", parseKind, stopwatch.ElapsedMilliseconds, result.GherkinFileScope.TotalErrorCount()), ParserTraceCategory);
         }
     }

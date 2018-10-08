@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Configuration;
-using TechTalk.SpecFlow.IdeIntegration.Generator;
-using TechTalk.SpecFlow.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig
 {
@@ -16,12 +9,16 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig
     {
         public SpecFlowConfiguration LoadAppConfig(SpecFlowConfiguration specFlowConfiguration, ConfigurationSectionHandler configSection)
         {
-            if (configSection == null) throw new ArgumentNullException("configSection");
+            if (configSection == null)
+            {
+                // TODO: dei clarify whether to upgrade to C# 6 since support for VS2013 has been dropped
+                throw new ArgumentNullException("configSection");
+            }
 
-            CultureInfo featureLanguage = specFlowConfiguration.FeatureLanguage;
-            CultureInfo bindingCulture = specFlowConfiguration.BindingCulture;
-            List<string> additionalStepAssemblies = specFlowConfiguration.AdditionalStepAssemblies;
-            StepDefinitionSkeletonStyle stepDefinitionSkeletonStyle = specFlowConfiguration.StepDefinitionSkeletonStyle;
+            var featureLanguage = specFlowConfiguration.FeatureLanguage;
+            var bindingCulture = specFlowConfiguration.BindingCulture;
+            var additionalStepAssemblies = specFlowConfiguration.AdditionalStepAssemblies;
+            var stepDefinitionSkeletonStyle = specFlowConfiguration.StepDefinitionSkeletonStyle;
             bool usesPlugins = false;
             string generatorPath = null;
 
@@ -37,7 +34,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig
 
             foreach (var element in configSection.StepAssemblies)
             {
-                var assemblyName = ((StepAssemblyConfigElement) element).Assembly;
+                string assemblyName = ((StepAssemblyConfigElement) element).Assembly;
                 additionalStepAssemblies.Add(assemblyName);
             }
 
@@ -50,7 +47,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig
             {
                 generatorPath = configSection.Generator.GeneratorPath;
                 if (IsSpecified(configSection.Generator.Dependencies))
+                {
                     usesPlugins = true;
+                }
             }
 
             if (IsSpecified(configSection.UnitTestProvider) && !string.IsNullOrEmpty(configSection.UnitTestProvider.GeneratorProvider))

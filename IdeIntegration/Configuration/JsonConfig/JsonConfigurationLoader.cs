@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
-using TechTalk.SpecFlow.BindingSkeletons;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 {
@@ -10,20 +8,24 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
     {
         public SpecFlowConfiguration LoadJson(SpecFlowConfiguration specFlowConfiguration, string jsonContent)
         {
-            if (String.IsNullOrWhiteSpace(jsonContent)) throw new ArgumentNullException("jsonContent");
+            if (string.IsNullOrWhiteSpace(jsonContent))
+            {
+                // TODO: dei clarify whether to upgrade to C# 6 since support for VS2013 has been dropped
+                throw new ArgumentNullException("jsonContent");
+            }
 
             var jsonConfig = JsonConvert.DeserializeObject<JsonConfig>(jsonContent);
 
-            CultureInfo featureLanguage = specFlowConfiguration.FeatureLanguage;
-            CultureInfo bindingCulture = specFlowConfiguration.BindingCulture;
-            List<string> additionalStepAssemblies = specFlowConfiguration.AdditionalStepAssemblies;
-            StepDefinitionSkeletonStyle stepDefinitionSkeletonStyle = specFlowConfiguration.StepDefinitionSkeletonStyle;
+            var featureLanguage = specFlowConfiguration.FeatureLanguage;
+            var bindingCulture = specFlowConfiguration.BindingCulture;
+            var additionalStepAssemblies = specFlowConfiguration.AdditionalStepAssemblies;
+            var stepDefinitionSkeletonStyle = specFlowConfiguration.StepDefinitionSkeletonStyle;
             bool usesPlugins = false;
             string generatorPath = null;
             
             if (jsonConfig.Language != null)
             {
-                if (!String.IsNullOrWhiteSpace(jsonConfig.Language.Feature))
+                if (!string.IsNullOrWhiteSpace(jsonConfig.Language.Feature))
                 {
                     featureLanguage = CultureInfo.GetCultureInfo(jsonConfig.Language.Feature);
                 }
@@ -31,7 +33,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 
             if (jsonConfig.BindingCulture != null)
             {
-                if (!String.IsNullOrWhiteSpace(jsonConfig.BindingCulture.Name))
+                if (!string.IsNullOrWhiteSpace(jsonConfig.BindingCulture.Name))
                 {
                     featureLanguage = CultureInfo.GetCultureInfo(jsonConfig.BindingCulture.Name);
                 }
@@ -54,7 +56,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
             {
                 generatorPath = jsonConfig.Generator.GeneratorPath;
                 if (jsonConfig.Generator.Dependencies != null)
+                {
                     usesPlugins = true;
+                }
             }
 
             if(jsonConfig.UnitTestProvider != null && !string.IsNullOrEmpty(jsonConfig.UnitTestProvider.GeneratorProvider))

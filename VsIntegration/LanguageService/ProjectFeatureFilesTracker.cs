@@ -52,7 +52,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             vsProjectScope.Tracer.Trace("Analyzing feature file: " + featureFileInfo.ProjectRelativePath, "ProjectFeatureFilesTracker");
             var codeBehindChangeDate = AnalyzeCodeBehind(featureFileInfo, projectItem);
 
-            var fileContent = VsxHelper.GetFileContent(projectItem, loadLastSaved: true);
+            string fileContent = VsxHelper.GetFileContent(projectItem, loadLastSaved: true);
             featureFileInfo.ParsedFeature = ParseGherkinFile(fileContent, featureFileInfo.ProjectRelativePath, vsProjectScope.GherkinDialectServices.DefaultLanguage);
             var featureLastChangeDate = VsxHelper.GetLastChangeDate(projectItem) ?? DateTime.MinValue;
             featureFileInfo.LastChangeDate = featureLastChangeDate > codeBehindChangeDate ? featureLastChangeDate : codeBehindChangeDate;
@@ -62,13 +62,13 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         {
             try
             {
-                SpecFlowLangParser specFlowLangParser = new SpecFlowLangParser(defaultLanguage);
+                var specFlowLangParser = new SpecFlowLangParser(defaultLanguage);
 
-                StringReader featureFileReader = new StringReader(fileContent);
-
-                var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
-
-                return feature;
+                using (var featureFileReader = new StringReader(fileContent))
+                {
+                    var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
+                    return feature;
+                }
             }
             catch (Exception)
             {
@@ -102,7 +102,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                             GeneratedTestFileContent = codeBehindContent
                         });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // if there was an error during version detect, we skip discovering the version for this file.
                 vsProjectScope.Tracer.Trace(
@@ -115,7 +115,9 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             try
             {
                 if (projectItem.ProjectItems == null)
+                {
                     return null;
+                }
 
                 return projectItem.ProjectItems.Cast<ProjectItem>().FirstOrDefault();
             }
@@ -131,12 +133,17 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             if (predicate == null)
             {
                 foreach (var featureFileInfo in Files)
+                {
                     ReGenerate(featureFileInfo);
+                }
+
                 return;
             }
 
             foreach (var featureFileInfo in Files.Where(predicate))
+            {
                 ReGenerate(featureFileInfo);
+            }
         }
 
         private void ReGenerate(FeatureFileInfo featureFileInfo)
@@ -144,9 +151,11 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             var projectItem = VsxHelper.FindProjectItemByProjectRelativePath(vsProjectScope.Project, featureFileInfo.ProjectRelativePath);
             if (projectItem != null)
             {
-                VSProjectItem vsProjectItem = projectItem.Object as VSProjectItem;
+                var vsProjectItem = projectItem.Object as VSProjectItem;
                 if (vsProjectItem != null)
+                {
                     vsProjectItem.RunCustomTool();
+                }
             }
         }
 
@@ -161,30 +170,38 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             stepMap.FeatureSteps = new List<FeatureSteps>();
             foreach (var featureFileInfo in Files.Where(f => f.ParsedFeature != null))
             {
-                stepMap.FeatureSteps.Add(new FeatureSteps
-                                             {
-                                                 FileName = featureFileInfo.ProjectRelativePath, 
-                                                 TimeStamp = featureFileInfo.LastChangeDate,
-                                                 Feature = featureFileInfo.ParsedFeature,
-                                                 GeneratorVersion = featureFileInfo.GeneratorVersion
-                                             });
+                stepMap.FeatureSteps.Add(
+                    new FeatureSteps
+                    {
+                        FileName = featureFileInfo.ProjectRelativePath, 
+                        TimeStamp = featureFileInfo.LastChangeDate,
+                        Feature = featureFileInfo.ParsedFeature,
+                        GeneratorVersion = featureFileInfo.GeneratorVersion
+                    });
             }
         }
 
         protected override void LoadFromStepMapInternal(StepMap stepMap)
         {
             if (stepMap.FeatureSteps == null)
+            {
                 return;
+            }
 
             foreach (var featureSteps in stepMap.FeatureSteps)
             {
-                try{
+                try
+                {
                     var fileInfo = FindFileInfo(featureSteps.FileName);
                     if (fileInfo == null)
+                    {
                         continue;
+                    }
 
                     if (fileInfo.IsDirty(featureSteps.TimeStamp))
+                    {
                         continue;
+                    }
 
                     fileInfo.ParsedFeature = featureSteps.Feature;
                     fileInfo.GeneratorVersion = featureSteps.GeneratorVersion;
@@ -193,7 +210,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                     fileInfo.IsError = false;
                     fileInfo.IsAnalyzed = true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     vsProjectScope.Tracer.Trace(string.Format("Feature steps load error for {0}: {1}", featureSteps.FileName, ex), GetType().Name);
                 }
