@@ -142,7 +142,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         private bool ShowNotification(GuidanceNotification guidanceNotification, bool isSpecRunUsed = false)
         {
             int linkid = (int)guidanceNotification + (int)IdeIntegration;
-            string url = string.Format("http://go.specflow.org/g{0}{1}{2}{3}", linkid, 2017, 1, isSpecRunUsed ? "p" : "");
+            string url = string.Format("http://go.specflow.org/g{0}{1}{2}{3}", linkid, CurrentVersion.Major, CurrentVersion.Minor, isSpecRunUsed ? "p" : "");
 
             if (IsDevBuild)
             {
