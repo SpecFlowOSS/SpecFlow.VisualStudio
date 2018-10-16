@@ -5,14 +5,17 @@ resources:
   clean: true
 
 jobs:
-- template: build.yml  
-  parameters:
-    name: VS2015
-    visualStudioVersion: '2015'
-    artifactName: 'SpecFlow.VisualStudio.VS2015.CI-BuildResult'
-    artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VS2015.zip'
-    pool:
-      name: 'Hosted'
+
+# Build on VS2015 works only after https://github.com/AArnott/Nerdbank.GitVersioning/issues/228 is fixed
+
+#- template: build.yml  
+#  parameters:
+#    name: VS2015
+#    visualStudioVersion: '2015'
+#    artifactName: 'SpecFlow.VisualStudio.VS2015.CI-BuildResult'
+#    artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VS2015.zip'
+#    pool:
+#      name: 'Hosted'
 
 - template: build.yml  
   parameters:
