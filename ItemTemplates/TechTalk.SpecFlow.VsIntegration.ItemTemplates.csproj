@@ -153,17 +153,15 @@
     </VSTemplate>
     <Content Include="SpecFlowJson\SpecFlowJsonIcon.ico" />
     <Content Include="SpecFlowPlusRunner_Srprofile\SpecFlowStepDefinitionIcon.ico" />
-    <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition1.cs" />
-    <VSTemplate Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition_FSharp.vstemplate">
+    <Content Include="SpecFlowStepDefinition\SpecFlowStepDefinition1.cs" />
+    <VSTemplate Include="SpecFlowStepDefinition\SpecFlowStepDefinition_FSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <Content Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinition1.fs" />
-    <Content Include="SpecFlowStepDefinition_FSharp\SpecFlowStepDefinitionIcon.ico" />
-    <VSTemplate Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition_VB.vstemplate">
+    <Content Include="SpecFlowStepDefinition\SpecFlowStepDefinition1.fs" />
+    <VSTemplate Include="SpecFlowStepDefinition\SpecFlowStepDefinition_VB.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <Content Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinition1.vb" />
-    <Content Include="SpecFlowStepDefinition_VB\SpecFlowStepDefinitionIcon.ico" />
+    <Content Include="SpecFlowStepDefinition\SpecFlowStepDefinition1.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -187,10 +185,10 @@
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
     <Content Include="SpecFlowFeature\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition_CSharp.vstemplate">
+    <VSTemplate Include="SpecFlowStepDefinition\SpecFlowStepDefinition_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <Content Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinitionIcon.ico" />
+    <Content Include="SpecFlowStepDefinition\SpecFlowStepDefinitionIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SpecFlowFeature_Nederlands\SpecFlowFeature1.feature" />
