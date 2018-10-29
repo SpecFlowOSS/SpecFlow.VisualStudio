@@ -1,1 +1,0 @@
-﻿Fonctionnalité: $itemname$
