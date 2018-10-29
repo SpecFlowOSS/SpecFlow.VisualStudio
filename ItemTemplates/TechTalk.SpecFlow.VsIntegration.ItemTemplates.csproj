@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="SpecFlowHooks\SpecFlowHooks1.cs" />
     <VSTemplate Include="SpecFlowFeature_English_CSharp\SpecFlowFeature_English_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
@@ -124,17 +125,17 @@
     <VSTemplate Include="SpecFlowFeature_VB\SpecFlowFeature_VB.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <Content Include="SpecFlowHooks_CSharp\SpecFlowHooks1.cs" />
-    <VSTemplate Include="SpecFlowHooks_FSharp\SpecFlowHooks_FSharp.vstemplate">
+    <Content Include="SpecFlowHooks\SpecFlowHooks1.vb" />
+    <Content Include="SpecFlowHooks\SpecFlowHooksIcon.ico" />
+    <VSTemplate Include="SpecFlowHooks\SpecFlowHooks_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <Content Include="SpecFlowHooks_FSharp\SpecFlowHooks1.fs" />
-    <Content Include="SpecFlowHooks_FSharp\SpecFlowHooksIcon.ico" />
-    <VSTemplate Include="SpecFlowHooks_VB\SpecFlowHooks_VB.vstemplate">
+    <VSTemplate Include="SpecFlowHooks\SpecFlowHooks_FSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <Content Include="SpecFlowHooks_VB\SpecFlowHooks1.vb" />
-    <Content Include="SpecFlowHooks_VB\SpecFlowHooksIcon.ico" />
+    <VSTemplate Include="SpecFlowHooks\SpecFlowHooks_VB.vstemplate">
+      <OutputSubPath>SpecFlow</OutputSubPath>
+    </VSTemplate>
     <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
       <SubType>Designer</SubType>
@@ -191,10 +192,6 @@
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
     <Content Include="SpecFlowFeature_CSharp\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowHooks_CSharp\SpecFlowHooks_CSharp.vstemplate">
-      <OutputSubPath>SpecFlow</OutputSubPath>
-    </VSTemplate>
-    <Content Include="SpecFlowHooks_CSharp\SpecFlowHooksIcon.ico" />
     <VSTemplate Include="SpecFlowStepDefinition_CSharp\SpecFlowStepDefinition_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
@@ -212,6 +209,7 @@
     <None Include="SpecFlowFeature_Nederlands_VB\SpecFlowFeature1.feature" />
     <None Include="SpecFlowFeature_VB\SpecFlowFeature1.feature" />
     <Content Include="SpecFlowPlusRunner_Srprofile\Default.srprofile" />
+    <None Include="SpecFlowHooks\SpecFlowHooks1.fs" />
     <None Include="SpecFlowJson\specflow.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
