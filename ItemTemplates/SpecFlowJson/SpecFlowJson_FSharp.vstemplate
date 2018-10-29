@@ -6,7 +6,7 @@
     <Description>A template for a SpecFlow Json configuration file</Description>
     <ProjectType>FSharp</ProjectType>
     <SortOrder>10</SortOrder>
-    <Icon>SpecFlowStepDefinitionIcon.ico</Icon>
+    <Icon>SpecFlowJsonIcon.ico</Icon>
   </TemplateData>
   <TemplateContent>
     <ProjectItem ReplaceParameters="true">specflow.json</ProjectItem>
