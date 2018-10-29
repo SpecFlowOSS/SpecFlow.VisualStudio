@@ -152,7 +152,7 @@
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
     <Content Include="SpecFlowJson\SpecFlowJsonIcon.ico" />
-    <Content Include="SpecFlowPlusRunner_Srprofile\SpecFlowStepDefinitionIcon.ico" />
+    <Content Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile.ico" />
     <Content Include="SpecFlowStepDefinition\SpecFlowStepDefinition1.cs" />
     <VSTemplate Include="SpecFlowStepDefinition\SpecFlowStepDefinition_FSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>

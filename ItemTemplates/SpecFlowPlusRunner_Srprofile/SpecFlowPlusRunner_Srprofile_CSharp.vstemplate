@@ -5,7 +5,7 @@
     <Description>A template for a SpecFlow+ Runner Profile</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
-    <Icon>SpecFlowStepDefinitionIcon.ico</Icon>
+    <Icon>SpecFlowPlusRunner_Srprofile.ico</Icon>
   </TemplateData>
   <TemplateContent>
     <ProjectItem SubType="" TargetFileName="$fileinputname$.srprofile" ReplaceParameters="true">Default.srprofile</ProjectItem>
