@@ -158,7 +158,9 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         protected virtual void InitializeInternal()
         {
-            files = GetFileProjectItems().Select(CreateFileInfo).ToList();
+            // Exclude files from shared project, fix for https://github.com/techtalk/SpecFlow/issues/611
+            files = GetFileProjectItems().Select(CreateFileInfo)
+                .Where(x => !x.ProjectRelativePath.Contains("<")).ToList();
         }
 
         protected virtual void AnalyzeInitially()
