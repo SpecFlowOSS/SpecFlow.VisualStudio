@@ -159,9 +159,9 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
             CultureInfo bindingCulture = editorContext.ProjectScope.SpecFlowConfiguration.BindingCulture ?? step.StepContext.Language;
             var match = bindingMatchService.GetBestMatch(step, bindingCulture, out ambiguityReason, out candidatingMatches);
 
-            if (!match.Success)
+            if (candidatingMatches.Count > 1 || !match.Success)
             {
-                MessageBox.Show("Multiple bindings found. Cannot rename automatically.");
+                MessageBox.Show("Cannot rename automatically. You need to have a single and unique binding for this step.");
                 return null;
             }
 
@@ -187,7 +187,7 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
             navigatePoint.Parent.Selection.MoveToPoint(navigatePoint);
 
             var stepBindingEditorContext = GherkinEditorContext.FromDocument(codeFunction.DTE.ActiveDocument, _gherkinLanguageServiceFactory);
-            var attributeLinesToUpdate = stepBindingEditorContext.TextView.TextViewLines.Where(x => x.Start.GetContainingLine().GetText().Contains(formattedOldRegex));
+            var attributeLinesToUpdate = stepBindingEditorContext.TextView.TextViewLines.Where(x => x.Start.GetContainingLine().GetText().Contains("\"" + formattedOldRegex + "\""));
 
             foreach (var attributeLineToUpdate in attributeLinesToUpdate)
             {
