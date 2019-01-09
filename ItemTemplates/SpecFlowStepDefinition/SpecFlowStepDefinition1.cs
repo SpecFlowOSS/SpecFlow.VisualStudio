@@ -20,7 +20,7 @@ namespace $rootnamespace$
             // additional string/Table parameters can be defined on the step definition
             // method. 
 
-            ScenarioContext.Current.Pending();
+            ScenarioContext.StepIsPending();
         }
 
         [When("I press add")]
@@ -28,7 +28,7 @@ namespace $rootnamespace$
         {
             //TODO: implement act (action) logic
 
-            ScenarioContext.Current.Pending();
+            ScenarioContext.StepIsPending();
         }
 
         [Then("the result should be (.*) on the screen")]
@@ -36,7 +36,7 @@ namespace $rootnamespace$
         {
             //TODO: implement assert (verification) logic
           
-            ScenarioContext.Current.Pending();
+            ScenarioContext.StepIsPending();
         }
     }
 }
