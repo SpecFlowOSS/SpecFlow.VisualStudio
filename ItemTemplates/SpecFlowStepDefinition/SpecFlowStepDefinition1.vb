@@ -19,21 +19,21 @@ Namespace $rootnamespace$
             ' additional string/Table parameters can be defined on the step definition
             ' method. 
 
-            ScenarioContext.Current.Pending()
+            ScenarioContext.StepIsPending()
         End Sub
 
         <[When]("I press add")> _
         Public Sub WhenIPressAdd()
             'TODO: implement act (action) logic
 
-            ScenarioContext.Current.Pending()
+            ScenarioContext.StepIsPending()
         End Sub
 
         <[Then]("the result should be (.*) on the screen")> _
         Public Sub ThenTheResultShouldBe(ByVal result As Integer)
             'TODO: implement assert (verification) logic
 
-            ScenarioContext.Current.Pending()
+            ScenarioContext.StepIsPending()
         End Sub
 
 
