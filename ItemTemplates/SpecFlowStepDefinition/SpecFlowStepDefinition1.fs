@@ -3,7 +3,7 @@ module $safeitemname$
 
 open TechTalk.SpecFlow
 
-// For additional details on SpecFlow step definitions see http://go.specflow.org/doc-stepdef
+// For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
 let [<Given>] ``I have entered (.*) into the calculator``(number:int) = 
     ScenarioContext.StepIsPending() //TODO: implement arrange (precondition) logic

@@ -9,18 +9,25 @@ namespace $rootnamespace$
     [Binding]
     public sealed class $safeitemname$
     {
-        // For additional details on SpecFlow step definitions see http://go.specflow.org/doc-stepdef
+        // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
+
+        private readonly ScenarioContext context;
+
+        public $safeitemname$(ScenarioContext injectedContext)
+        {
+            context = injectedContext;
+        }
 
         [Given("I have entered (.*) into the calculator")]
         public void GivenIHaveEnteredSomethingIntoTheCalculator(int number)
         {
             //TODO: implement arrange (precondition) logic
-            // For storing and retrieving scenario-specific data see http://go.specflow.org/doc-sharingdata 
+            // For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata 
             // To use the multiline text or the table argument of the scenario,
             // additional string/Table parameters can be defined on the step definition
             // method. 
 
-            ScenarioContext.StepIsPending();
+            context.Pending();
         }
 
         [When("I press add")]
@@ -28,7 +35,7 @@ namespace $rootnamespace$
         {
             //TODO: implement act (action) logic
 
-            ScenarioContext.StepIsPending();
+            context.Pending();
         }
 
         [Then("the result should be (.*) on the screen")]
@@ -36,7 +43,7 @@ namespace $rootnamespace$
         {
             //TODO: implement assert (verification) logic
           
-            ScenarioContext.StepIsPending();
+            context.Pending();
         }
     }
 }
