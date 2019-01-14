@@ -2,8 +2,10 @@
 using System.Drawing;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
 
 namespace TechTalk.SpecFlow.VsIntegration.Options
 {
@@ -108,6 +110,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
         public string CodeBehindFileGeneratorExchangePath { get; set; }
 
+
+        [Category("Legacy")]
+        [Description("Enables")]
+        [DisplayName("Enable SpecFlowSingleFileGenerator CustomTool")]
+        [DefaultValue(IntegrationOptionsProvider.LegacyEnableSpecFlowSingleFileGeneratorCustomTool)]
+        public bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool { get; set; }
+
         public OptionsPageGeneral()
         {
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
@@ -123,12 +132,25 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
             PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
             CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
+            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = IntegrationOptionsProvider.LegacyEnableSpecFlowSingleFileGeneratorCustomTool;
         }
 
         public override void SaveSettingsToStorage()
         {
             base.SaveSettingsToStorage();
             IntegrationOptionsProvider.cachedOptions = null;
+
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            var customToolSwitch = new CustomToolSwitch(dte);
+
+            if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
+            {
+                customToolSwitch.Enable();
+            }
+            else
+            {
+                customToolSwitch.Disable();
+            }
         }
     }
 }
