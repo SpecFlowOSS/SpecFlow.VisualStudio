@@ -55,12 +55,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public bool EnableOutlining { get; set; }
 
         [Category("Editor Settings")]
-        [Description("Controls whether completion lists should be displayed for the feature files.")]
-        [DisplayName(@"Enable IntelliSense")]
-        [DefaultValue(IntegrationOptionsProvider.EnableIntelliSenseDefaultValue)]
-        public bool EnableIntelliSense { get; set; }
-
-        [Category("Editor Settings")]
         [Description("Controls whether the step definition match status should be indicated with a different color in the editor. (beta)")]
         [DisplayName(@"Enable Step Match Coloring")]
         [DefaultValue(IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue)]
@@ -71,6 +65,34 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DisplayName(@"Enable Table Formatting")]
         [DefaultValue(IntegrationOptionsProvider.EnableTableAutoFormatDefaultValue)]
         public bool EnableTableAutoFormat { get; set; }
+
+
+        [Category("IntelliSense")]
+        [Description("Controls whether completion lists should be displayed for the feature files.")]
+        [DisplayName(@"Enable IntelliSense")]
+        [DefaultValue(IntegrationOptionsProvider.EnableIntelliSenseDefaultValue)]
+        public bool EnableIntelliSense { get; set; }
+
+        private string _maxStepInstancesSuggestions = String.Empty;
+        [Category("IntelliSense")]
+        [Description("Limit quantity of IntelliSense step instances suggestions for each step template.")]
+        [DisplayName(@"Max Step Instances Suggestions")]
+        [DefaultValue(IntegrationOptionsProvider.MaxStepInstancesSuggestionsDefaultValue)]
+        public string MaxStepInstancesSuggestions {
+            get { return _maxStepInstancesSuggestions; }
+            set
+            {
+                int parsedValue;
+                if (int.TryParse(value, out parsedValue) && parsedValue >= 0)
+                {
+                    _maxStepInstancesSuggestions = parsedValue.ToString();
+                }
+                else
+                {
+                    _maxStepInstancesSuggestions = string.Empty;
+                }
+            }
+        }
 
         [Category("Tracing")]
         [Description("Controls whether diagnostic trace messages should be emitted to the output window.")]
@@ -114,6 +136,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             EnableSyntaxColoring = IntegrationOptionsProvider.EnableSyntaxColoringDefaultValue;
             EnableOutlining = IntegrationOptionsProvider.EnableOutliningDefaultValue;
             EnableIntelliSense = IntegrationOptionsProvider.EnableIntelliSenseDefaultValue;
+            MaxStepInstancesSuggestions = IntegrationOptionsProvider.MaxStepInstancesSuggestionsDefaultValue;
             EnableTableAutoFormat = IntegrationOptionsProvider.EnableTableAutoFormatDefaultValue;
             EnableStepMatchColoring = IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue;
             EnableTracing = IntegrationOptionsProvider.EnableTracingDefaultValue;
