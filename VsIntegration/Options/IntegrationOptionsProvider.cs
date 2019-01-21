@@ -20,6 +20,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const bool EnableSyntaxColoringDefaultValue = true;
         public const bool EnableOutliningDefaultValue = true;
         public const bool EnableIntelliSenseDefaultValue = true;
+        public const string MaxStepInstancesSuggestionsDefaultValue = "";
         public const bool EnableAnalysisDefaultValue = true;
         public const bool EnableTableAutoFormatDefaultValue = true;
         public const bool EnableStepMatchColoringDefaultValue = true;
@@ -31,8 +32,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const string CodeBehindFileGeneratorPath = null;
         public const string CodeBehindFileGeneratorExchangePath = null;
 
+
         private DTE _dte;
-        
+
         public IntegrationOptionsProvider()
         {
         }
@@ -40,7 +42,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public IntegrationOptionsProvider(DTE dte)
         {
             _dte = dte;
-            
         }
 
         private static T GetGeneralOption<T>(DTE dte, string optionName, T defaultValue = default(T))
@@ -54,11 +55,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             if (options != null)
                 return options;
 
+            int maxStepInstancesSuggestions;
             options = new IntegrationOptions
                                           {
                                               EnableSyntaxColoring = GetGeneralOption(dte, "EnableSyntaxColoring", EnableSyntaxColoringDefaultValue),
                                               EnableOutlining = GetGeneralOption(dte, "EnableOutlining", EnableOutliningDefaultValue),
                                               EnableIntelliSense = GetGeneralOption(dte, "EnableIntelliSense", EnableIntelliSenseDefaultValue),
+                                              LimitStepInstancesSuggestions = int.TryParse(GetGeneralOption(dte, "MaxStepInstancesSuggestions", MaxStepInstancesSuggestionsDefaultValue), out maxStepInstancesSuggestions),
+                                              MaxStepInstancesSuggestions = maxStepInstancesSuggestions,
                                               EnableAnalysis = GetGeneralOption(dte, "EnableAnalysis", EnableAnalysisDefaultValue),
                                               EnableTableAutoFormat = GetGeneralOption(dte, "EnableTableAutoFormat", EnableTableAutoFormatDefaultValue),
                                               EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),

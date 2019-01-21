@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
-using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
@@ -36,18 +35,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
         {
             var bindingMethod = GetSelectedBindingMethod(activeDocument);
             return bindingMethod != null && IsStepDefinition(bindingMethod, activeDocument);
-        }
-
-        private class StepInstanceWithProjectScope
-        {
-            public StepInstance StepInstance { get; private set; }
-            public VsProjectScope ProjectScope { get; private set; }
-
-            public StepInstanceWithProjectScope(StepInstance stepInstance, VsProjectScope projectScope)
-            {
-                StepInstance = stepInstance;
-                ProjectScope = projectScope;
-            }
         }
 
         public void Invoke(Document activeDocument)
@@ -113,35 +100,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Commands
             navigatePoint.TryToShow();
             navigatePoint.Parent.Selection.MoveToPoint(navigatePoint);
         }
-
-        private class StepInstanceComparer : IEqualityComparer<StepInstance>, IComparer<StepInstance>
-        {
-            public static readonly StepInstanceComparer Instance = new StepInstanceComparer();
-
-            public bool Equals(StepInstance si1, StepInstance si2)
-            {
-                var sp1 = (ISourceFilePosition) si1;
-                var sp2 = (ISourceFilePosition) si2;
-                return sp1.SourceFile.Equals(sp2.SourceFile, StringComparison.InvariantCultureIgnoreCase) && sp1.FilePosition.Line == sp2.FilePosition.Line;
-            }
-
-            public int GetHashCode(StepInstance obj)
-            {
-                return ((ISourceFilePosition) obj).SourceFile.GetHashCode();
-            }
-
-            public int Compare(StepInstance si1, StepInstance si2)
-            {
-                var sp1 = (ISourceFilePosition) si1;
-                var sp2 = (ISourceFilePosition) si2;
-
-                int result = StringComparer.InvariantCultureIgnoreCase.Compare(sp1.SourceFile, sp2.SourceFile);
-                if (result == 0)
-                    result = sp1.FilePosition.Line.CompareTo(sp2.FilePosition.Line);
-                return result;
-            }
-        }
-
+        
         private IEnumerable<VsProjectScope> GetProjectScopes(Document activeDocument)
         {
             var projectScopes = projectScopeFactory.GetProjectScopesFromBindingProject(activeDocument.ProjectItem.ContainingProject);

@@ -209,6 +209,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.Designer.Interfaces, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -308,12 +309,14 @@
     <Compile Include="EditorCommands\FormatTableCommand.cs" />
     <Compile Include="EditorCommands\GherkinEditorContext.cs" />
     <Compile Include="EditorCommands\GherkinTextViewCreationListener.cs" />
+    <Compile Include="EditorCommands\RenameCommand.cs" />
     <Compile Include="EditorCommands\ReSharperCommand.cs" />
     <Compile Include="InstallServicesHelper.cs" />
     <Compile Include="LanguageService\FeatureFileInfo.cs" />
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
     <Compile Include="SingleFileGenerator\CustomToolSwitch.cs" />
+    <Compile Include="StepSuggestions\StepInstanceWithProjectScope.cs" />
     <Compile Include="TestRunner\AutoTestRunnerGatewayLoader.cs" />
     <Compile Include="TestRunner\ITestRunnerEngine.cs" />
     <Compile Include="TestRunner\ReSharper6GatewayLoader.cs" />
@@ -358,6 +361,7 @@
     <Compile Include="UI\VsContextMenuManager.cs" />
     <Compile Include="Utils\FileChangeEventsListener.cs" />
     <Compile Include="Utils\SolutionEventsListener.cs" />
+    <Compile Include="Utils\StepInstanceComparer.cs" />
     <Compile Include="Utils\VsProjectFilesTracker.cs" />
     <Compile Include="Utils\VsProjectFileTrackerBase.cs" />
     <Compile Include="Utils\VsProjectReferencesTracker.cs" />
