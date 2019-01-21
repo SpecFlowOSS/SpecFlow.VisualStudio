@@ -31,6 +31,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public bool DisableRegenerateFeatureFilePopupOnConfigChange { get; set; }
 
         private bool enableSyntaxColoring = true;
+        private CustomToolSwitch _customToolSwitch;
+
         [Category("Editor Settings")]
         [Description("Controls whether the different syntax elements of the feature files should be indicated in the editor.")]
         [DisplayName(@"Enable Syntax Coloring")]
@@ -114,11 +116,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [Category("Legacy")]
         [Description("Enables")]
         [DisplayName("Enable SpecFlowSingleFileGenerator CustomTool")]
-        [DefaultValue(IntegrationOptionsProvider.LegacyEnableSpecFlowSingleFileGeneratorCustomTool)]
+        [DefaultValue(false)]
         public bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool { get; set; }
 
         public OptionsPageGeneral()
         {
+            _customToolSwitch = new CustomToolSwitch(Dte);
+
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
             EnableSyntaxColoring = IntegrationOptionsProvider.EnableSyntaxColoringDefaultValue;
             EnableOutlining = IntegrationOptionsProvider.EnableOutliningDefaultValue;
@@ -132,7 +136,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
             PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
             CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
-            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = IntegrationOptionsProvider.LegacyEnableSpecFlowSingleFileGeneratorCustomTool;
+            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
+        }
+
+        public override void LoadSettingsFromStorage()
+        {
+            base.LoadSettingsFromStorage();
+            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
         }
 
         public override void SaveSettingsToStorage()
@@ -140,17 +150,19 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             base.SaveSettingsToStorage();
             IntegrationOptionsProvider.cachedOptions = null;
 
-            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-            var customToolSwitch = new CustomToolSwitch(dte);
-
             if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
             {
-                customToolSwitch.Enable();
+                _customToolSwitch.Enable();
             }
             else
             {
-                customToolSwitch.Disable();
+                _customToolSwitch.Disable();
             }
+        }
+
+        private DTE Dte
+        {
+            get { return Package.GetGlobalService(typeof(DTE)) as DTE; }
         }
     }
 }
