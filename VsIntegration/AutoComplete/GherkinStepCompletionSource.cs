@@ -32,10 +32,13 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 
         public ICompletionSource TryCreateCompletionSource(ITextBuffer textBuffer)
         {
-            if (!IntegrationOptionsProvider.GetOptions().EnableIntelliSense)
+            var options = IntegrationOptionsProvider.GetOptions();
+            if (!options.EnableIntelliSense)
                 return null;
 
-            return new GherkinStepCompletionSource(textBuffer, GherkinLanguageServiceFactory.GetLanguageService(textBuffer), Tracer);
+            bool limitStepInstancesSuggestions = options.LimitStepInstancesSuggestions;
+            int maxStepSuggestions = options.MaxStepInstancesSuggestions;
+            return new GherkinStepCompletionSource(textBuffer, GherkinLanguageServiceFactory.GetLanguageService(textBuffer), Tracer, limitStepInstancesSuggestions, maxStepSuggestions);
         }
     }
 
@@ -45,12 +48,16 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
         private readonly ITextBuffer textBuffer;
         private readonly GherkinLanguageService languageService;
         private readonly IIdeTracer tracer;
+        private readonly bool limitStepInstancesSuggestions;
+        private readonly int maxStepInstancesSuggestions;
 
-        public GherkinStepCompletionSource(ITextBuffer textBuffer, GherkinLanguageService languageService, IIdeTracer tracer)
+        public GherkinStepCompletionSource(ITextBuffer textBuffer, GherkinLanguageService languageService, IIdeTracer tracer, bool limitStepInstancesSuggestions, int maxStepInstancesSuggestions)
         {
             this.textBuffer = textBuffer;
             this.languageService = languageService;
             this.tracer = tracer;
+            this.limitStepInstancesSuggestions = limitStepInstancesSuggestions;
+            this.maxStepInstancesSuggestions = maxStepInstancesSuggestions;
         }
 
         public void AugmentCompletionSession(ICompletionSession session, IList<CompletionSet> completionSets)
@@ -95,7 +102,9 @@ namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
                     displayName, 
                     applicableTo, 
                     completions, 
-                    null);
+                    null,
+                    limitStepInstancesSuggestions,
+                    maxStepInstancesSuggestions);
 
                 if (!string.IsNullOrEmpty(statusText))
                     completionSet.StatusText = statusText;
