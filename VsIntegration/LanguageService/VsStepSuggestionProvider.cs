@@ -9,6 +9,7 @@ using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
@@ -36,6 +37,21 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             set
             {
                 base.IconSource = value;
+            }
+        }
+
+        public string InsertionTextColumnNames
+        {
+            get
+            {
+                var firstPipeIndex = InsertionText.IndexOf("|", StringComparison.Ordinal) + 1;
+                if (firstPipeIndex <= 0)
+                    return string.Empty;
+
+                var lastColumnNameCharIndex = StringLiteralHelper.LastIndexOfValidChar(InsertionText, new[] { ' ', '|', '\r', '\n' }) + 1;
+                var formattedColumnNames = InsertionText.Substring(firstPipeIndex, lastColumnNameCharIndex - firstPipeIndex);
+
+                return "(" + formattedColumnNames.Replace('|', ',').Trim() + ")";
             }
         }
     }
