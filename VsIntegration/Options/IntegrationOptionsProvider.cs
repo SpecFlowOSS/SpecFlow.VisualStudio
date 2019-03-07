@@ -56,22 +56,22 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
 
             int maxStepInstancesSuggestions;
             options = new IntegrationOptions
-                                          {
-                                              EnableSyntaxColoring = GetGeneralOption(dte, "EnableSyntaxColoring", EnableSyntaxColoringDefaultValue),
-                                              EnableOutlining = GetGeneralOption(dte, "EnableOutlining", EnableOutliningDefaultValue),
-                                              EnableIntelliSense = GetGeneralOption(dte, "EnableIntelliSense", EnableIntelliSenseDefaultValue),
-                                              LimitStepInstancesSuggestions = int.TryParse(GetGeneralOption(dte, "MaxStepInstancesSuggestions", MaxStepInstancesSuggestionsDefaultValue), out maxStepInstancesSuggestions),
-                                              MaxStepInstancesSuggestions = maxStepInstancesSuggestions,
-                                              EnableAnalysis = GetGeneralOption(dte, "EnableAnalysis", EnableAnalysisDefaultValue),
-                                              EnableTableAutoFormat = GetGeneralOption(dte, "EnableTableAutoFormat", EnableTableAutoFormatDefaultValue),
-                                              EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),
-                                              EnableTracing = GetGeneralOption(dte, "EnableTracing", EnableTracingDefaultValue),
-                                              TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
-                                              TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
-                                              DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
-                                              GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
-                                              CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath),
-                                              CodeBehindFileGeneratorExchangePath = GetGeneralOption(dte, "CodeBehindFileGeneratorExchangePath", CodeBehindFileGeneratorExchangePath) 
+            {
+                EnableSyntaxColoring = GetGeneralOption(dte, "EnableSyntaxColoring", EnableSyntaxColoringDefaultValue),
+                EnableOutlining = GetGeneralOption(dte, "EnableOutlining", EnableOutliningDefaultValue),
+                EnableIntelliSense = GetGeneralOption(dte, "EnableIntelliSense", EnableIntelliSenseDefaultValue),
+                LimitStepInstancesSuggestions = int.TryParse(GetGeneralOption(dte, "MaxStepInstancesSuggestions", MaxStepInstancesSuggestionsDefaultValue), out maxStepInstancesSuggestions),
+                MaxStepInstancesSuggestions = maxStepInstancesSuggestions,
+                EnableAnalysis = GetGeneralOption(dte, "EnableAnalysis", EnableAnalysisDefaultValue),
+                EnableTableAutoFormat = GetGeneralOption(dte, "EnableTableAutoFormat", EnableTableAutoFormatDefaultValue),
+                EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),
+                EnableTracing = GetGeneralOption(dte, "EnableTracing", EnableTracingDefaultValue),
+                TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
+                TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
+                DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
+                GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
+                CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath),
+                CodeBehindFileGeneratorExchangePath = GetGeneralOption(dte, "CodeBehindFileGeneratorExchangePath", CodeBehindFileGeneratorExchangePath)
             };
             cachedOptions = options;
             return options;
