@@ -130,6 +130,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
         public string CodeBehindFileGeneratorExchangePath { get; set; }
 
+        public const string UsageStatisticsCategory = "Usage statistics";
+
+        [Category(UsageStatisticsCategory)]
+        [Description("Disables sending error reports and other statistics transmissions.")]
+        [DisplayName("Opt-Out of Data Collection")]
+        [DefaultValue(IntegrationOptionsProvider.DefaultOptOutDataCollection)]
+        public bool OptOutDataCollection { get; set; }
+
         public OptionsPageGeneral()
         {
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
@@ -146,6 +154,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
             PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
             CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
+            OptOutDataCollection = IntegrationOptionsProvider.DefaultOptOutDataCollection;
         }
 
         public override void SaveSettingsToStorage()
