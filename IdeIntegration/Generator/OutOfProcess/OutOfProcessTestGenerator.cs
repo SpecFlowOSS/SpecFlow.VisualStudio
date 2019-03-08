@@ -14,10 +14,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
     {
         private readonly OutOfProcessExecutor _outOfProcessExecutor;
         private readonly ProjectSettings _projectSettings;
+        private readonly IntegrationOptions _integrationOptions;
 
         public OutOfProcessTestGenerator(Info info, ProjectSettings projectSettings, IntegrationOptions integrationOptions)
         {
             _projectSettings = projectSettings;
+            _integrationOptions = integrationOptions;
             _outOfProcessExecutor = new OutOfProcessExecutor(info, integrationOptions);
         }
 
@@ -46,6 +48,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
         public Version DetectGeneratedTestVersion(FeatureFileInput featureFileInput)
         {
+            if (!_integrationOptions.LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
+            {
+                return null;
+            }
+
+
             var featureFileInputFile = WriteTempFile(featureFileInput);
 
 
