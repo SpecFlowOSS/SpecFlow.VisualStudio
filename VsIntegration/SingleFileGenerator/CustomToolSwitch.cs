@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using VSLangProj80;
 
 namespace TechTalk.SpecFlow.VsIntegration.SingleFileGenerator
@@ -61,8 +62,21 @@ namespace TechTalk.SpecFlow.VsIntegration.SingleFileGenerator
 
                 using (var subkey = Registry.LocalMachine.OpenSubKey(finalRegKey, true))
                 {
-                    subkey.DeleteSubKeyTree(".feature");
-                    subkey.DeleteSubKeyTree("SpecFlowSingleFileGenerator");
+                    if (subkey == null)
+                    {
+                        continue;
+                    }
+
+                    var subKeyNames = subkey.GetSubKeyNames();
+                    if (subKeyNames.Contains(".feature"))
+                    {
+                        subkey.DeleteSubKeyTree(".feature");
+                    }
+
+                    if (subKeyNames.Contains("SpecFlowSingleFileGenerator"))
+                    {
+                        subkey.DeleteSubKeyTree("SpecFlowSingleFileGenerator");
+                    }
                 }
             }
         }
