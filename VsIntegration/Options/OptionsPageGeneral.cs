@@ -2,8 +2,10 @@
 using System.Drawing;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
 
 namespace TechTalk.SpecFlow.VsIntegration.Options
 {
@@ -29,6 +31,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public bool DisableRegenerateFeatureFilePopupOnConfigChange { get; set; }
 
         private bool enableSyntaxColoring = true;
+        private CustomToolSwitch _customToolSwitch;
+
         [Category("Editor Settings")]
         [Description("Controls whether the different syntax elements of the feature files should be indicated in the editor.")]
         [DisplayName(@"Enable Syntax Coloring")]
@@ -130,6 +134,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
         public string CodeBehindFileGeneratorExchangePath { get; set; }
 
+
+        [Category("Legacy")]
+        [Description("Enables")]
+        [DisplayName("Enable SpecFlowSingleFileGenerator CustomTool")]
+        [DefaultValue(false)]
+        public bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool { get; set; }
         public const string UsageStatisticsCategory = "Usage statistics";
 
         [Category(UsageStatisticsCategory)]
@@ -140,6 +150,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
 
         public OptionsPageGeneral()
         {
+            _customToolSwitch = new CustomToolSwitch(Dte);
+
             EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
             EnableSyntaxColoring = IntegrationOptionsProvider.EnableSyntaxColoringDefaultValue;
             EnableOutlining = IntegrationOptionsProvider.EnableOutliningDefaultValue;
@@ -155,12 +167,33 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
             CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
             OptOutDataCollection = IntegrationOptionsProvider.DefaultOptOutDataCollection;
+            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
+        }
+
+        public override void LoadSettingsFromStorage()
+        {
+            base.LoadSettingsFromStorage();
+            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
         }
 
         public override void SaveSettingsToStorage()
         {
             base.SaveSettingsToStorage();
             IntegrationOptionsProvider.cachedOptions = null;
+
+            if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
+            {
+                _customToolSwitch.Enable();
+            }
+            else
+            {
+                _customToolSwitch.Disable();
+            }
+        }
+
+        private DTE Dte
+        {
+            get { return Package.GetGlobalService(typeof(DTE)) as DTE; }
         }
     }
 }

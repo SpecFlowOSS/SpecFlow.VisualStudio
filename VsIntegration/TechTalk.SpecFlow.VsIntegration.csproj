@@ -322,6 +322,7 @@
     <Compile Include="LanguageService\FeatureFileInfo.cs" />
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
+    <Compile Include="SingleFileGenerator\CustomToolSwitch.cs" />
     <Compile Include="StepSuggestions\StepInstanceWithProjectScope.cs" />
     <Compile Include="TestRunner\AutoTestRunnerGatewayLoader.cs" />
     <Compile Include="TestRunner\ITestRunnerEngine.cs" />
@@ -491,6 +492,10 @@
     <Resource Include="Resources\autocomplete-w.png" />
     <Resource Include="Resources\autocomplete-nb.png" />
     <Content Include="Resources\specflowpackage.ico" />
+    <Content Include="specflow.pkgdef">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Tracing\OutputWindow\readme.txt" />
   </ItemGroup>
   <ItemGroup>
