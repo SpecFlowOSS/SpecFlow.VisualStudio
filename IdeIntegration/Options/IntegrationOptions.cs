@@ -17,6 +17,7 @@
         public GenerationMode GenerationMode { get; set; }
         public string CodeBehindFileGeneratorPath { get; set; }
         public string CodeBehindFileGeneratorExchangePath { get; set; }
+        public bool OptOutDataCollection { get; set; }
     }
 
     public enum TestRunnerTool
