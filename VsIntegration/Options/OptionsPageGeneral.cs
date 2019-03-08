@@ -140,6 +140,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DisplayName("Enable SpecFlowSingleFileGenerator CustomTool")]
         [DefaultValue(false)]
         public bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool { get; set; }
+        public const string UsageStatisticsCategory = "Usage statistics";
+
+        [Category(UsageStatisticsCategory)]
+        [Description("Disables sending error reports and other statistics transmissions.")]
+        [DisplayName("Opt-Out of Data Collection")]
+        [DefaultValue(IntegrationOptionsProvider.DefaultOptOutDataCollection)]
+        public bool OptOutDataCollection { get; set; }
 
         public OptionsPageGeneral()
         {
@@ -159,6 +166,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
             PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
             CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
+            OptOutDataCollection = IntegrationOptionsProvider.DefaultOptOutDataCollection;
             LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
         }
 

@@ -29,7 +29,7 @@ namespace TechTalk.SpecFlow.VsIntegration
     // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
     // a package.
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    // This attribute is used to register the informations needed to show the this package
+    // This attribute is used to register the information needed to show that this package
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", GuidList.ProductId, IconResourceID = 400)]
     [ProvideOptionPage(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 122, true)]
@@ -103,7 +103,7 @@ namespace TechTalk.SpecFlow.VsIntegration
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initilaization code that rely on services provided by VisualStudio.
+        /// where you can put all the initialization code that relies on services provided by VisualStudio.
         /// </summary>
         protected override void Initialize()
         {

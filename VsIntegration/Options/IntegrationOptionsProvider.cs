@@ -31,6 +31,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const GenerationMode GenerationModeDefaultValue = GenerationMode.OutOfProcess;
         public const string CodeBehindFileGeneratorPath = null;
         public const string CodeBehindFileGeneratorExchangePath = null;
+        public const bool DefaultOptOutDataCollection = false;
 
 
         private DTE _dte;
@@ -72,7 +73,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                                               DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
                                               GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
                                               CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath),
-                                              CodeBehindFileGeneratorExchangePath = GetGeneralOption(dte, "CodeBehindFileGeneratorExchangePath", CodeBehindFileGeneratorExchangePath)
+                                              CodeBehindFileGeneratorExchangePath = GetGeneralOption(dte, "CodeBehindFileGeneratorExchangePath", CodeBehindFileGeneratorExchangePath),
+                                              OptOutDataCollection = GetGeneralOption(dte, "OptOutDataCollection", DefaultOptOutDataCollection)
             };
             cachedOptions = options;
             return options;
@@ -89,8 +91,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         {
             set { _dte = VsxHelper.GetDte(value); }
         }
-
-        
 
 
         public IntegrationOptions GetOptions()
