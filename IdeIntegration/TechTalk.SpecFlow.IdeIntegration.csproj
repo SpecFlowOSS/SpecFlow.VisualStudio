@@ -102,6 +102,10 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Analytics\ErrorAnalyticsEvent.cs" />
+    <Compile Include="Analytics\IAnalyticsEvent.cs" />
+    <Compile Include="Analytics\IAnalyticsTransmitter.cs" />
+    <Compile Include="Analytics\LogonAnalyticsEvent.cs" />
     <Compile Include="Bindings\IdeBindingSourceProcessor.cs" />
     <Compile Include="Bindings\ILBindingRegistryBuilder.cs" />
     <Compile Include="Configuration\AppConfig\AppConfigConfigurationLoader.cs" />
