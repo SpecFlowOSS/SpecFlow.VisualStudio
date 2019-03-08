@@ -281,7 +281,10 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Analytics\AnalyticsTransmitter.cs" />
+    <Compile Include="Analytics\ConsoleAnalyticsTransmitterSink.cs" />
     <Compile Include="Analytics\EnableAnalyticsChecker.cs" />
+    <Compile Include="Analytics\IAnalyticsTransmitterSink.cs" />
     <Compile Include="Analytics\IEnableAnalyticsChecker.cs" />
     <Compile Include="Analytics\IUserUniqueIdStore.cs" />
     <Compile Include="Analytics\RegistryUserUniqueIdStore.cs" />
