@@ -6,7 +6,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
     public class RegistryUserUniqueIdStore : IUserUniqueIdStore
     {
         private const string UserUniqueIdPath = @"Software\TechTalk\SpecFlow\Vsix";
-        private const string UserUniqueId = @"UserUniqueId";
+        private const string UserUniqueIdValueName = @"UserUniqueId";
         private readonly Lazy<Guid> _lazyUniqueUserId;
 
         public RegistryUserUniqueIdStore()
@@ -30,8 +30,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
 
             using (key)
             {
-                var value = key.GetValue(UserUniqueId, null) as Guid?;
-                return value ?? CreateUniqueUserIdInRegistry();
+                string uniqueUserIdString = key.GetValue(UserUniqueIdValueName, null) as string;
+                if (uniqueUserIdString == null)
+                {
+                    return CreateUniqueUserIdInRegistry();
+                }
+
+                return Guid.ParseExact(uniqueUserIdString, "B");
             }
         }
 
@@ -46,7 +51,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
                 }
 
                 var newUserId = Guid.NewGuid();
-                key.SetValue(UserUniqueId, newUserId, RegistryValueKind.Binary);
+                key.SetValue(UserUniqueIdValueName, newUserId.ToString("B"), RegistryValueKind.String);
 
                 return newUserId;
             }
