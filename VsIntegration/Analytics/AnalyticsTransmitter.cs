@@ -16,7 +16,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
             _analyticsTransmitterSink = analyticsTransmitterSink;
         }
 
-        public void TransmitLogonEvent(string ide, string ideVersion, string extensionVersion)
+        public void TransmitExtensionLoadedEvent(string ide, string ideVersion, string extensionVersion)
         {
             if (!_enableAnalyticsChecker.IsEnabled())
             {
@@ -24,7 +24,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
             }
             
             var userUniqueId = _userUniqueIdStore.Get();
-            var logonAnalyticsEvent = new LogonAnalyticsEvent(DateTime.UtcNow, userUniqueId, ide, ideVersion, extensionVersion);
+            var logonAnalyticsEvent = new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId, ide, ideVersion, extensionVersion);
             _analyticsTransmitterSink.TransmitEvent(logonAnalyticsEvent);
         }
     }

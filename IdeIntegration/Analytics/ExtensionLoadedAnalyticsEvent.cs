@@ -2,9 +2,9 @@
 
 namespace TechTalk.SpecFlow.IdeIntegration.Analytics
 {
-    public class LogonAnalyticsEvent : IAnalyticsEvent
+    public class ExtensionLoadedAnalyticsEvent : IAnalyticsEvent
     {
-        public LogonAnalyticsEvent(DateTime utcDate, Guid userId, string ide, string ideVersion, string extensionVersion)
+        public ExtensionLoadedAnalyticsEvent(DateTime utcDate, Guid userId, string ide, string ideVersion, string extensionVersion)
         {
             UtcDate = utcDate;
             UserId = userId;
