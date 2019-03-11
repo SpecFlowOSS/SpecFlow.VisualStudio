@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Install
@@ -15,6 +16,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         private readonly IGuidanceNotificationService notificationService;
         private readonly IFileAssociationDetector fileAssociationDetector;
         private readonly IStatusAccessor statusAccessor;
+        private readonly IAnalyticsTransmitter _analyticsTransmitter;
 
         public IdeIntegration IdeIntegration { get; private set; }
         public static Version CurrentVersion
@@ -31,12 +33,13 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             get { return CurrentVersion.Equals(new Version(1, 0)); }
         }
 
-        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor)
+        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter)
         {
             this.notificationService = notificationService;
             this.tracer = tracer;
             this.fileAssociationDetector = fileAssociationDetector;
             this.statusAccessor = statusAccessor;
+            _analyticsTransmitter = analyticsTransmitter;
             IdeIntegration = IdeIntegration.Unknown;
         }
 
@@ -70,6 +73,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 //upgrading user   
                 CheckFileAssociation();
             }
+
+            _analyticsTransmitter.TransmitExtensionLoadedEvent("Microsoft Visual Studio", IdeIntegration.ToString(), CurrentVersion.ToString());
         }
 
         private void CheckFileAssociation()
