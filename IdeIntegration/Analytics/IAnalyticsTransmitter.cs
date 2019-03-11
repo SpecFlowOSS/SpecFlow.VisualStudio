@@ -2,6 +2,6 @@
 {
     public interface IAnalyticsTransmitter
     {
-        void TransmitLogonEvent(string ide, string ideVersion, string extensionVersion);
+        void TransmitExtensionLoadedEvent(string ide, string ideVersion, string extensionVersion);
     }
 }
