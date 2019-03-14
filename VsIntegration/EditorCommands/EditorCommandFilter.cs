@@ -25,17 +25,14 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
         private readonly IIdeTracer tracer;
 // ReSharper restore NotAccessedField.Local
         private readonly IGoToStepDefinitionCommand goToStepDefinitionCommand;
-        private readonly DebugScenariosCommand debugScenariosCommand;
-        private readonly RunScenariosCommand runScenariosCommand;
+
         private readonly FormatTableCommand formatTableCommand;
         private readonly CommentUncommentCommand commentUncommentCommand;
         private readonly RenameCommand renameCommand;
 
-        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, DebugScenariosCommand debugScenariosCommand, RunScenariosCommand runScenariosCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand, RenameCommand renameCommand)
+        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand, RenameCommand renameCommand)
         {
             this.goToStepDefinitionCommand = goToStepDefinitionCommand;
-            this.debugScenariosCommand = debugScenariosCommand;
-            this.runScenariosCommand = runScenariosCommand;
             this.formatTableCommand = formatTableCommand;
             this.commentUncommentCommand = commentUncommentCommand;
             this.renameCommand = renameCommand;
@@ -168,17 +165,6 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 #if TRACE_VS_COMMANDS
                 tracer.Trace("Exec/SpecFlowCmdSet:{0}", this, specFlowCmdSet);
 #endif
-                switch (specFlowCmdSet)
-                {
-                    case SpecFlowCmdSet.RunScenarios:
-                        if (runScenariosCommand.InvokeFromEditor(editorContext, null))
-                            return true;
-                        break;
-                    case SpecFlowCmdSet.DebugScenarios:
-                        if (debugScenariosCommand.InvokeFromEditor(editorContext, null))
-                            return true;
-                        break;
-                }
             }
             else if(pguidCmdGroup == ReSharperCommandGroups.CommandGroup)
             {
@@ -194,14 +180,6 @@ namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
                         break;
                     case ReSharperCommand.LineComment:
                         if (commentUncommentCommand.CommentOrUncommentSelection(editorContext, CommentUncommentAction.Toggle))
-                            return true;
-                        break;
-                    case ReSharperCommand.UnitTestRunContext:
-                        if (runScenariosCommand.InvokeFromEditor(editorContext, TestRunnerTool.ReSharper))
-                            return true;
-                        break;
-                    case ReSharperCommand.UnitTestDebugContext:
-                        if (debugScenariosCommand.InvokeFromEditor(editorContext, TestRunnerTool.ReSharper))
                             return true;
                         break;
                 }

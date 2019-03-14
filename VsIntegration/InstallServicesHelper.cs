@@ -37,12 +37,18 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             try
             {
-                return SpecRunGatewayLoader.IsSpecRunProject(project);
+                return IsSpecRunProject(project);
             }
             catch (Exception)
             {
                 return false;
             }
+        }
+
+        public static bool IsSpecRunProject(Project project)
+        {
+            return VsxHelper.GetReference(project, "TechTalk.SpecRun") != null ||
+                   VsxHelper.GetReference(project, "SpecFlow.Plus.Runner") != null;
         }
     }
 }
