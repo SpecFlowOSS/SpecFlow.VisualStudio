@@ -8,7 +8,7 @@ $pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VS$VisualStu
 
 if (![System.IO.File]::Exists($pathToExtension))
 {
-    $pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VisualStudioIntegration\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VisualStudioIntegration.vsix";
+    $pathToExtension = "$SystemArtifactsDirectory\TechTalk.SpecFlow.VisualStudioIntegration\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VisualStudioIntegration.vsix";
 }
 
 $extensionFileContent = [System.IO.File]::ReadAllBytes("$pathToExtension");
