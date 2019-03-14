@@ -23,6 +23,11 @@ elseif ($SpecFlowVisualStudioVersion -eq "2015")
   $msbuildPath = "C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe";
   $binaryLoggerSwitch = "";
 }
+elseif ($SpecFlowVisualStudioVersion -eq "2019")
+{
+  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MSBuild.exe";
+  $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
+}
 else
 {
   throw [System.NotSupportedException]::new("The Visual Studio version $SpecFlowVisualStudioVersion is not supported.");

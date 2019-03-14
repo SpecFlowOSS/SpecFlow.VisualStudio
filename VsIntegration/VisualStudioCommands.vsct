@@ -79,28 +79,6 @@
           <ToolTipText>Jumps between the step definition and the matchig step(s)</ToolTipText>
         </Strings>
       </Button>
-      <Button guid="guidSpecFlowCmdSet" id="cmdidRunScenarios" priority="0x0110" type="Button">
-        <Parent guid="guidSpecFlowCmdSet" id="CodeWindowContextMenuGroup" />
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Run SpecFlow Scenarios</ButtonText>
-          <CommandName>SpecFlow - Run SpecFlow Scenarios</CommandName>
-          <CanonicalName>SpecFlow.RunSpecFlowScenarios</CanonicalName>
-          <LocCanonicalName>SpecFlow.RunSpecFlowScenarios</LocCanonicalName>
-          <ToolTipText>Executes the current scenario(s) with the configured runner</ToolTipText>
-        </Strings>
-      </Button>
-      <Button guid="guidSpecFlowCmdSet" id="cmdidDebugScenarios" priority="0x0111" type="Button">
-        <Parent guid="guidSpecFlowCmdSet" id="CodeWindowContextMenuGroup" />
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Debug SpecFlow Scenarios</ButtonText>
-          <CommandName>SpecFlow - Debug SpecFlow Scenarios</CommandName>
-          <CanonicalName>SpecFlow.DebugSpecFlowScenarios</CanonicalName>
-          <LocCanonicalName>SpecFlow.DebugSpecFlowScenarios</LocCanonicalName>
-          <ToolTipText>Debugs the current scenario(s) with the configured runner</ToolTipText>
-        </Strings>
-      </Button>
     </Buttons>
 
   </Commands>
