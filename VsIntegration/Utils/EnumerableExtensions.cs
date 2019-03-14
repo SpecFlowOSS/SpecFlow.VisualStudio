@@ -24,6 +24,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Utils
             return items.Append(item);
         }
 
+
+#if !NET472
         public static IEnumerable<T> Append<T>(this IEnumerable<T> items, T item) where T : class
         {
             if (items == null) throw new ArgumentNullException("items");
@@ -31,7 +33,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Utils
 
             return items.Concat(item.AsSingleItemEnumerable());
         }
-
+#endif
         public static IEnumerable<TItem> TakeUntilItemExclusive<TItem>(this IEnumerable<TItem> list, TItem item)
         {
             return list.TakeWhile(it => !it.Equals(item));

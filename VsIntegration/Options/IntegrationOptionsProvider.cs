@@ -25,7 +25,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public const bool EnableStepMatchColoringDefaultValue = true;
         public const bool EnableTracingDefaultValue = false;
         public const string TracingCategoriesDefaultValue = "all";
-        public const TestRunnerTool TestRunnerToolDefaultValue = TestRunnerTool.Auto;
         public const bool DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue = false;
         public const GenerationMode GenerationModeDefaultValue = GenerationMode.OutOfProcess;
         public const string CodeBehindFileGeneratorPath = null;
@@ -68,7 +67,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                 EnableStepMatchColoring = GetGeneralOption(dte, "EnableStepMatchColoring", EnableStepMatchColoringDefaultValue),
                 EnableTracing = GetGeneralOption(dte, "EnableTracing", EnableTracingDefaultValue),
                 TracingCategories = GetGeneralOption(dte, "TracingCategories", TracingCategoriesDefaultValue),
-                TestRunnerTool = GetGeneralOption(dte, "TestRunnerTool", TestRunnerToolDefaultValue),
                 DisableRegenerateFeatureFilePopupOnConfigChange = GetGeneralOption(dte, "DisableRegenerateFeatureFilePopupOnConfigChange", DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue),
                 GenerationMode = GetGeneralOption(dte, "GenerationMode", GenerationModeDefaultValue),
                 CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", CodeBehindFileGeneratorPath),

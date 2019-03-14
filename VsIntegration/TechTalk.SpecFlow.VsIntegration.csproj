@@ -51,15 +51,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '16'">
     <AssemblyName>TechTalk.SpecFlow.VisualStudioIntegration</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio\2019\Preview\Common7\IDE\devenv.exe</StartProgram>
+    <DefineConstants>$(DefineConstants);NET472</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DeployExtension>True</DeployExtension>
@@ -73,7 +74,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DeployExtension>False</DeployExtension>
@@ -299,10 +300,8 @@
     <Compile Include="Bindings\Discovery\VsBindingRegistryBuilder.cs" />
     <Compile Include="Commands\IEditorCommand.cs" />
     <Compile Include="Commands\ReGenerateAllCommand.cs" />
-    <Compile Include="Commands\DebugScenariosCommand.cs" />
     <Compile Include="Commands\DelegateMenuCommandHandler.cs" />
     <Compile Include="Commands\RegisterCommands.cs" />
-    <Compile Include="Commands\RunScenariosCommand.cs" />
     <Compile Include="Commands\SpecFlowProjectSingleSelectionCommand.cs" />
     <Compile Include="EditorCommands\CommentUncommentCommand.cs" />
     <Compile Include="EditorCommands\EditorCommandFilter.cs" />
@@ -316,16 +315,7 @@
     <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
     <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
     <Compile Include="StepSuggestions\StepInstanceWithProjectScope.cs" />
-    <Compile Include="TestRunner\AutoTestRunnerGatewayLoader.cs" />
-    <Compile Include="TestRunner\ITestRunnerEngine.cs" />
-    <Compile Include="TestRunner\ReSharper6GatewayLoader.cs" />
     <Compile Include="TestRunner\SpecRunConstants.cs" />
-    <Compile Include="TestRunner\SpecRunGatewayLoader.cs" />
-    <Compile Include="TestRunner\SpecRunTestRunnerGatewayLoader.cs" />
-    <Compile Include="TestRunner\SpecRunWithVsTestExplorerGatewayLoader.cs" />
-    <Compile Include="TestRunner\TestRunnerGatewayProvider.cs" />
-    <Compile Include="TestRunner\VsTestExplorerGateway.cs" />
-    <Compile Include="TestRunner\VsTestExplorerGatewayLoader.cs" />
     <Compile Include="UI\ContextMenuBuilder.cs" />
     <Compile Include="Generator\VsGeneratorInfoProvider.cs" />
     <Compile Include="Install\VsBrowserGuidanceNotificationService.cs" />
@@ -343,13 +333,6 @@
     <Compile Include="SingleFileGenerator\SingleFileGeneratorBase.cs" />
     <Compile Include="StepSuggestions\BindingMap.cs" />
     <Compile Include="StepSuggestions\StepMapSetializer.cs" />
-    <Compile Include="TestRunner\AutoTestRunnerGateway.cs" />
-    <Compile Include="TestRunner\CommandBasedTestRunnerGateway.cs" />
-    <Compile Include="TestRunner\ITestRunnerGateway.cs" />
-    <Compile Include="TestRunner\ITestRunnerGatewayProvider.cs" />
-    <Compile Include="TestRunner\ReSharper6TestRunnerGateway.cs" />
-    <Compile Include="TestRunner\SpecRunTestRunnerGateway.cs" />
-    <Compile Include="TestRunner\TestRunnerEngine.cs" />
     <Compile Include="UI\GenerateStepDefinitionSkeletonForm.cs">
       <SubType>Form</SubType>
     </Compile>

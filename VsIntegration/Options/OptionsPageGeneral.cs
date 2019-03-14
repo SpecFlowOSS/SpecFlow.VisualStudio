@@ -106,11 +106,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [DefaultValue(IntegrationOptionsProvider.TracingCategoriesDefaultValue)]
         public string TracingCategories { get; set; }
 
-        [Category("Test Execution")]
-        [Description("Specifies the test runner tool to be used to execute the SpecFlow scenarios.")]
-        [DisplayName(@"Test Runner Tool")]
-        [DefaultValue(IntegrationOptionsProvider.TestRunnerToolDefaultValue)]
-        public TestRunnerTool TestRunnerTool { get; set; }
 
         [Category("Code Behind File Generation")]
         [Description("Specifies the mode how the code behind file is generated")]
@@ -149,7 +144,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
             EnableStepMatchColoring = IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue;
             EnableTracing = IntegrationOptionsProvider.EnableTracingDefaultValue;
             TracingCategories = IntegrationOptionsProvider.TracingCategoriesDefaultValue;
-            TestRunnerTool = IntegrationOptionsProvider.TestRunnerToolDefaultValue;
             DisableRegenerateFeatureFilePopupOnConfigChange = IntegrationOptionsProvider.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue;
             GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
             PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
