@@ -25,7 +25,7 @@ elseif ($SpecFlowVisualStudioVersion -eq "2015")
 }
 elseif ($SpecFlowVisualStudioVersion -eq "2019")
 {
-  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\15.0\Bin\MSBuild.exe";
+  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MSBuild.exe";
   $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
 }
 else
