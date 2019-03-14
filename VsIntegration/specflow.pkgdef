@@ -1,0 +1,7 @@
+﻿; Visual Basic
+[$RootKey$\Projects\{F184B08F-C81C-45f6-A57F-5ABD9991F28F}\FileExtensions\.feature]
+"DefaultBuildAction"="SpecFlowFeatureFiles"
+
+; C#
+[$RootKey$\Projects\{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\FileExtensions\.feature]
+"DefaultBuildAction"="SpecFlowFeatureFiles"

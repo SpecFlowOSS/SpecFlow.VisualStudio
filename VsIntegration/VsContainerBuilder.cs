@@ -9,8 +9,10 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.BindingSkeletons;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Options;
@@ -68,6 +70,11 @@ namespace TechTalk.SpecFlow.VsIntegration
             container.RegisterTypeAs<StepDefinitionSkeletonProvider, IStepDefinitionSkeletonProvider>();
             container.RegisterTypeAs<DefaultSkeletonTemplateProvider, ISkeletonTemplateProvider>();
             container.RegisterTypeAs<StepTextAnalyzer, IStepTextAnalyzer>();
+
+            container.RegisterTypeAs<ConsoleAnalyticsTransmitterSink, IAnalyticsTransmitterSink>();
+            container.RegisterTypeAs<AnalyticsTransmitter, IAnalyticsTransmitter>();
+            container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
+            container.RegisterTypeAs<RegistryUserUniqueIdStore, IUserUniqueIdStore>();
 
             RegisterCommands(container);
         }
