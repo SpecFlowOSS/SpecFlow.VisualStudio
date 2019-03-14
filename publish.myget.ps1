@@ -6,7 +6,7 @@ $VisualStudioVersion = $Env:VisualStudioVersion;
 
 $pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VS$VisualStudioVersion\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.$VisualStudioVersion.vsix";
 
-if (![System.File]::Exists($pathToExtension))
+if (![System.IO.File]::Exists($pathToExtension))
 {
     $pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VS$VisualStudioVersion\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VisualStudioIntegration.vsix";
 }
