@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using BoDi;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -13,6 +14,7 @@ using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Commands;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Utils;
+using Task = System.Threading.Tasks.Task;
 
 namespace TechTalk.SpecFlow.VsIntegration
 {
@@ -28,7 +30,7 @@ namespace TechTalk.SpecFlow.VsIntegration
     /// </summary>
     // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
     // a package.
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     // This attribute is used to register the information needed to show that this package
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", GuidList.ProductId, IconResourceID = 400)]
@@ -37,7 +39,7 @@ namespace TechTalk.SpecFlow.VsIntegration
     [Guid(GuidList.guidSpecFlowPkgString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]
-    public sealed class SpecFlowPackagePackage : Package
+    public sealed class SpecFlowPackagePackage : AsyncPackage
     {
         public IObjectContainer Container { get; private set; }
 
@@ -101,11 +103,7 @@ namespace TechTalk.SpecFlow.VsIntegration
             }
         }
 
-        /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that relies on services provided by VisualStudio.
-        /// </summary>
-        protected override void Initialize()
+        protected override Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
@@ -127,6 +125,8 @@ namespace TechTalk.SpecFlow.VsIntegration
                     menuCommandHandler.Value.RegisterTo(menuCommandService, menuCommandHandler.Key);
                 }
             }
+
+            return base.InitializeAsync(cancellationToken, progress);
         }
     }
 }
