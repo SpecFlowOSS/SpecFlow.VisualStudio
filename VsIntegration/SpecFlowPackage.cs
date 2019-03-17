@@ -38,7 +38,6 @@ namespace TechTalk.SpecFlow.VsIntegration
     [ProvideProfile(typeof(OptionsPageGeneral), IntegrationOptionsProvider.SPECFLOW_OPTIONS_CATEGORY, IntegrationOptionsProvider.SPECFLOW_GENERAL_OPTIONS_PAGE, 121, 123, true, DescriptionResourceID = 121)]
     [Guid(GuidList.guidSpecFlowPkgString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string)]
     public sealed class SpecFlowPackagePackage : AsyncPackage
     {
         public IObjectContainer Container { get; private set; }
@@ -103,7 +102,7 @@ namespace TechTalk.SpecFlow.VsIntegration
             }
         }
 
-        protected override Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
@@ -117,7 +116,7 @@ namespace TechTalk.SpecFlow.VsIntegration
                 installServices.OnPackageLoad(currentIdeIntegration.Value);
             }
 
-            OleMenuCommandService menuCommandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            OleMenuCommandService menuCommandService = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (menuCommandService != null)
             {
                 foreach (var menuCommandHandler in Container.Resolve<IDictionary<SpecFlowCmdSet, MenuCommandHandler>>())
@@ -126,7 +125,7 @@ namespace TechTalk.SpecFlow.VsIntegration
                 }
             }
 
-            return base.InitializeAsync(cancellationToken, progress);
+            await base.InitializeAsync(cancellationToken, progress);
         }
     }
 }
