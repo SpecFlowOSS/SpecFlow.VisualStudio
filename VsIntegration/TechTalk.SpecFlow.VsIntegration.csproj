@@ -287,8 +287,10 @@
     <Compile Include="Analytics\EnableAnalyticsChecker.cs" />
     <Compile Include="Analytics\IAnalyticsTransmitterSink.cs" />
     <Compile Include="Analytics\IEnableAnalyticsChecker.cs" />
+    <Compile Include="Analytics\IIdeInformationStore.cs" />
     <Compile Include="Analytics\IUserUniqueIdStore.cs" />
     <Compile Include="Analytics\RegistryUserUniqueIdStore.cs" />
+    <Compile Include="Analytics\VisualStudioIdeInformationStore.cs" />
     <Compile Include="AutoComplete\CompletionCommandFilter.cs" />
     <Compile Include="AutoComplete\CustomCompletionSet.cs" />
     <Compile Include="AutoComplete\GherkinCompletionCommandFilter.cs" />
