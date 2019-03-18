@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
+using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Analytics
 {
@@ -23,9 +21,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
             var dte = _serviceProvider.GetService<DTE>();
             var nonGenericProjects = dte.Solution.Projects;
             var projects = nonGenericProjects.Cast<Project>();
-            var targetFrameworks = projects.Select(p => p.Properties.Item("TargetFramework"))
-                                           .Select(p => p.Value)
-                                           .Cast<string>();
+
+            var targetFrameworks = projects.Where(p => p != null)
+                                           .Where(p => p.Properties != null)
+                                           .Select(
+                                               p =>
+                                               {
+                                                   string tfm;
+                                                   bool success = VsxHelper.TryGetProperty(p.Properties, "TargetFrameworkMonikers", out tfm);
+                                                   return new { success, tfm };
+                                               })
+                                           .Where(r => r.success)
+                                           .Select(r => r.tfm);
             return targetFrameworks;
         }
     }
