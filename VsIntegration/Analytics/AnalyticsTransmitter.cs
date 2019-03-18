@@ -9,13 +9,15 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
         private readonly IEnableAnalyticsChecker _enableAnalyticsChecker;
         private readonly IAnalyticsTransmitterSink _analyticsTransmitterSink;
         private readonly IIdeInformationStore _ideInformationStore;
+        private readonly IProjectTargetFrameworksProvider _projectTargetFrameworksProvider;
 
-        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore)
+        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore, IProjectTargetFrameworksProvider projectTargetFrameworksProvider)
         {
             _userUniqueIdStore = userUniqueIdStore;
             _enableAnalyticsChecker = enableAnalyticsChecker;
             _analyticsTransmitterSink = analyticsTransmitterSink;
             _ideInformationStore = ideInformationStore;
+            _projectTargetFrameworksProvider = projectTargetFrameworksProvider;
         }
 
         public void TransmitExtensionLoadedEvent(string extensionVersion)
@@ -30,7 +32,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
                 var userUniqueId = _userUniqueIdStore.Get();
                 string ideName = _ideInformationStore.GetName();
                 string ideVersion = _ideInformationStore.GetVersion();
-                var extensionLoadedAnalyticsEvent = new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId, ideName, ideVersion, extensionVersion);
+                var targetFrameworks = _projectTargetFrameworksProvider.GetProjectTargetFrameworks();
+                var extensionLoadedAnalyticsEvent = new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId, ideName, ideVersion, extensionVersion, targetFrameworks);
                 _analyticsTransmitterSink.TransmitExtensionLoadedEvent(extensionLoadedAnalyticsEvent);
             }
             catch (Exception)

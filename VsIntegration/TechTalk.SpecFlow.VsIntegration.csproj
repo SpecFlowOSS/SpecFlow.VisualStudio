@@ -308,6 +308,7 @@
     <Compile Include="Analytics\RegistryUserUniqueIdStore.cs" />
     <Compile Include="Analytics\TelemetryClientWrapper.cs" />
     <Compile Include="Analytics\VisualStudioIdeInformationStore.cs" />
+    <Compile Include="Analytics\VisualStudioProjectTargetFrameworksProvider.cs" />
     <Compile Include="AutoComplete\CompletionCommandFilter.cs" />
     <Compile Include="AutoComplete\CustomCompletionSet.cs" />
     <Compile Include="AutoComplete\GherkinCompletionCommandFilter.cs" />

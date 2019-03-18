@@ -14,9 +14,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
                 {
                     { "UserId", analyticsEvent.UserId.ToString("B") },
                     { "UtcDate", analyticsEvent.UtcDate.ToString("O") },
-                    {"ExtensionVersion", analyticsEvent.ExtensionVersion },
+                    { "ExtensionVersion", analyticsEvent.ExtensionVersion },
                     { "Ide", analyticsEvent.Ide },
-                    { "IdeVersion", analyticsEvent.IdeVersion }
+                    { "IdeVersion", analyticsEvent.IdeVersion },
+                    { "ProjectTargetFramework", string.Join(";", analyticsEvent.ProjectTargetFrameworks) }
                 }
             };
         }
