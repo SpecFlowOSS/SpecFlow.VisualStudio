@@ -30,7 +30,7 @@ jobs:
     inputs: 
       filePath: build.ps1
       workingDirectory: ./
-      arguments: Release $(specFlowVisualStudioVersion) $(instrumentationKey)
+      arguments: Release $(specFlowVisualStudioVersion) -appInsightsInstrumentationKey $(instrumentationKey)
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
