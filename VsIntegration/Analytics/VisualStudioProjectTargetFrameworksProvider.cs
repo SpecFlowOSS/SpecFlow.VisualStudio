@@ -18,7 +18,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
 
         public IEnumerable<string> GetProjectTargetFrameworks()
         {
-            var dte = _serviceProvider.GetService<DTE>();
+            var dte = (DTE)_serviceProvider.GetService(typeof(DTE));
             var nonGenericProjects = dte.Solution.Projects;
             var projects = nonGenericProjects.Cast<Project>();
 
