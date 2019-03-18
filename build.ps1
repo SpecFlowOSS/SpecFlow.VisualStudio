@@ -1,7 +1,8 @@
 param (
  [string]$Configuration = "Debug",
  [string]$SpecFlowVisualStudioVersion = "",
- [string]$binaryLoggerSwitch = "/binaryLogger"
+ [string]$binaryLoggerSwitch = "/binaryLogger",
+ [string]$appInsightsInstrumentationKey
 )
 
 $msbuildPath = "msbuild"
@@ -35,6 +36,5 @@ else
 
 Write-Host "MSBuild path: $msbuildPath"
 
-
 & nuget restore "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln"
-& $msbuildPath "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration  /nodeReuse:false
+& $msbuildPath "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration /nodeReuse:false /property:AppInsightsInstrumentationKey="$appInsightsInstrumentationKey"

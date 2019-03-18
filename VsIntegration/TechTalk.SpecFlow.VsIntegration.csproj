@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.targets" />
+  <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
+    <!-- This is only the testing instance's instrumentation key -->
+    <AppInsightsInstrumentationKey>88c7861a-5106-4d48-b545-b26ee23e1f21</AppInsightsInstrumentationKey>
+  </PropertyGroup>
   <PropertyGroup>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -285,6 +289,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".build\*" />
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
@@ -555,6 +560,7 @@
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.Build.targets" />
   <Import Project="..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" />
+  <Import Project="$(MSBuildThisFileDirectory)\.build\build.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

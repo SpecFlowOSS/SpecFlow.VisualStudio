@@ -26,3 +26,6 @@ packages/*
 SpecFlow.VisualStudio.v2.ncrunchsolution
 VsIntegration/source.extension.vsixmanifest
 /.vs/
+
+AppInsightsInstrumentationKey.cs
+*.binlog
