@@ -12,7 +12,7 @@ jobs:
   pool: ${{ parameters.pool }}
   variables:
     specFlowVisualStudioVersion: ${{ parameters.visualStudioVersion }}
-    instrumentationKey: ${{ parameters.appInsightsInstrumentationKey }}
+    instrumentationKey: ${{ parameters.instrumentationKey }}
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Use NuGet'
@@ -29,7 +29,7 @@ jobs:
     inputs: 
       filePath: build.ps1
       workingDirectory: ./
-      arguments: Release $(specFlowVisualStudioVersion) $(instrumentationKey)
+      arguments: Release $(specFlowVisualStudioVersion) $(AppInsightsInstrumentationKey)
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
