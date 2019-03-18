@@ -289,13 +289,19 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Analytics\AnalyticsTransmitter.cs" />
+    <Compile Include="Analytics\AppInsightsAnalyticsTransmitterSink.cs" />
+    <Compile Include="Analytics\AppInsightsExtensionLoadedDataTransformer.cs" />
+    <None Include="Analytics\AppInsightsInstrumentationKey.template.cs" />
+    <Compile Include="Analytics\AppInsightsInstrumentationKey.cs" />
     <Compile Include="Analytics\ConsoleAnalyticsTransmitterSink.cs" />
     <Compile Include="Analytics\EnableAnalyticsChecker.cs" />
     <Compile Include="Analytics\IAnalyticsTransmitterSink.cs" />
+    <Compile Include="Analytics\IAppInsightsEventConverter.cs" />
     <Compile Include="Analytics\IEnableAnalyticsChecker.cs" />
     <Compile Include="Analytics\IIdeInformationStore.cs" />
     <Compile Include="Analytics\IUserUniqueIdStore.cs" />
     <Compile Include="Analytics\RegistryUserUniqueIdStore.cs" />
+    <Compile Include="Analytics\TelemetryClientWrapper.cs" />
     <Compile Include="Analytics\VisualStudioIdeInformationStore.cs" />
     <Compile Include="AutoComplete\CompletionCommandFilter.cs" />
     <Compile Include="AutoComplete\CustomCompletionSet.cs" />

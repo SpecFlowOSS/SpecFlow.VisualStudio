@@ -74,7 +74,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 CheckFileAssociation();
             }
 
-            _analyticsTransmitter.TransmitExtensionLoadedEvent("Microsoft Visual Studio", IdeIntegration.ToString(), CurrentVersion.ToString());
+            _analyticsTransmitter.TransmitExtensionLoadedEvent(CurrentVersion.ToString());
         }
 
         private void CheckFileAssociation()

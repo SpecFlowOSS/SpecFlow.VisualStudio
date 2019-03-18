@@ -8,15 +8,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
         private readonly IUserUniqueIdStore _userUniqueIdStore;
         private readonly IEnableAnalyticsChecker _enableAnalyticsChecker;
         private readonly IAnalyticsTransmitterSink _analyticsTransmitterSink;
+        private readonly IIdeInformationStore _ideInformationStore;
 
-        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink)
+        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore)
         {
             _userUniqueIdStore = userUniqueIdStore;
             _enableAnalyticsChecker = enableAnalyticsChecker;
             _analyticsTransmitterSink = analyticsTransmitterSink;
+            _ideInformationStore = ideInformationStore;
         }
 
-        public void TransmitExtensionLoadedEvent(string ide, string ideVersion, string extensionVersion)
+        public void TransmitExtensionLoadedEvent(string extensionVersion)
         {
             try
             {
@@ -26,8 +28,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
                 }
 
                 var userUniqueId = _userUniqueIdStore.Get();
-                var logonAnalyticsEvent = new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId, ide, ideVersion, extensionVersion);
-                _analyticsTransmitterSink.TransmitEvent(logonAnalyticsEvent);
+                string ideName = _ideInformationStore.GetName();
+                string ideVersion = _ideInformationStore.GetVersion();
+                var extensionLoadedAnalyticsEvent = new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId, ideName, ideVersion, extensionVersion);
+                _analyticsTransmitterSink.TransmitExtensionLoadedEvent(extensionLoadedAnalyticsEvent);
             }
             catch (Exception)
             {
