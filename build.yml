@@ -6,13 +6,14 @@ parameters:
   artifactFileName: ''
   artifactName: ''
   visualStudioVersion: ''
+  appInsightsInstrumentationKey: ''
 
 jobs:
 - job: ${{ parameters.name }}
   pool: ${{ parameters.pool }}
   variables:
     specFlowVisualStudioVersion: ${{ parameters.visualStudioVersion }}
-    instrumentationKey: ${{ parameters.instrumentationKey }}
+    instrumentationKey: ${{ parameters.appInsightsInstrumentationKey }}
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Use NuGet'
@@ -29,7 +30,7 @@ jobs:
     inputs: 
       filePath: build.ps1
       workingDirectory: ./
-      arguments: Release $(specFlowVisualStudioVersion) $(AppInsightsInstrumentationKey)
+      arguments: Release $(specFlowVisualStudioVersion) $(instrumentationKey)
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
