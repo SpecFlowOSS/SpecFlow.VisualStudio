@@ -87,7 +87,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="SpecFlowHooks\SpecFlowHooks1.cs" />
     <VSTemplate Include="SpecFlowFeature_English\SpecFlowFeature_English_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
@@ -200,6 +199,9 @@
     <Content Include="SpecFlowPlusRunner_Srprofile\Default.srprofile" />
     <None Include="SpecFlowHooks\SpecFlowHooks1.fs" />
     <None Include="SpecFlowJson\specflow.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
