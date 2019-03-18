@@ -74,6 +74,7 @@ namespace TechTalk.SpecFlow.VsIntegration
             container.RegisterTypeAs<TelemetryClientWrapper, TelemetryClientWrapper>();
             container.RegisterTypeAs<AppInsightsExtensionLoadedDataTransformer, IAppInsightsEventConverter<ExtensionLoadedAnalyticsEvent>>();
             container.RegisterTypeAs<AppInsightsAnalyticsTransmitterSink, IAnalyticsTransmitterSink>();
+            container.RegisterTypeAs<VisualStudioProjectTargetFrameworksProvider, IProjectTargetFrameworksProvider>();
             container.RegisterTypeAs<VisualStudioIdeInformationStore, IIdeInformationStore>();
             container.RegisterTypeAs<AnalyticsTransmitter, IAnalyticsTransmitter>();
             container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
