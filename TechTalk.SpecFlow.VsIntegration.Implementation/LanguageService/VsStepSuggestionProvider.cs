@@ -27,7 +27,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 if (base.IconSource == null && IconDescriptor != null)
                 {
                     base.IconSource = new BitmapImage(
-                        new Uri(string.Format("pack://application:,,,/{1};component/Resources/autocomplete-{0}.png", 
+                        new Uri(string.Format("pack://application:,,,/{1};component/autocomplete-{0}.png", 
                             IconDescriptor.ToLowerInvariant(), SpecFlowPackagePackage.AssemblyName)));
                 }
 
