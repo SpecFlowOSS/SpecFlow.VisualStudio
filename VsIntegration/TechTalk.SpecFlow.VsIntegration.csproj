@@ -2,6 +2,8 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.targets" />
   <PropertyGroup>
+    <SignAssembly>$(SpecFlow_SignAssembly)</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -89,7 +91,6 @@
       <Version>16.0.102</Version>
     </PackageReference>
     <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
-     
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -103,150 +104,9 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Analytics\AnalyticsTransmitter.cs" />
-    <Compile Include="Analytics\ConsoleAnalyticsTransmitterSink.cs" />
-    <Compile Include="Analytics\EnableAnalyticsChecker.cs" />
-    <Compile Include="Analytics\IAnalyticsTransmitterSink.cs" />
-    <Compile Include="Analytics\IEnableAnalyticsChecker.cs" />
-    <Compile Include="Analytics\IUserUniqueIdStore.cs" />
-    <Compile Include="Analytics\RegistryUserUniqueIdStore.cs" />
-    <Compile Include="AutoComplete\CompletionCommandFilter.cs" />
-    <Compile Include="AutoComplete\CustomCompletionSet.cs" />
-    <Compile Include="AutoComplete\GherkinCompletionCommandFilter.cs" />
-    <Compile Include="AutoComplete\GherkinStepCompletionSource.cs" />
-    <Compile Include="AutoComplete\HierarchicalCompletionSet.cs" />
-    <Compile Include="AutoComplete\IntellisensePresenter\Text2Visibility.cs" />
-    <Compile Include="AutoComplete\IntellisensePresenter\CompletionSessionPresenter.cs" />
-    <Compile Include="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml.cs">
-      <DependentUpon>CompletionSessionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AutoComplete\IntellisensePresenter\IntellisensePresenterProvider.cs" />
-    <Compile Include="Commands\ContextDependentNavigationCommand.cs" />
-    <Compile Include="Commands\GenerateStepDefinitionSkeletonCommand.cs" />
-    <Compile Include="Commands\GoToStepDefinitionCommand.cs" />
-    <Compile Include="Commands\GoToStepsCommand.cs" />
-    <Compile Include="Bindings\Discovery\VsBindingRegistryBuilder.cs" />
-    <Compile Include="Commands\IEditorCommand.cs" />
-    <Compile Include="Commands\ReGenerateAllCommand.cs" />
-    <Compile Include="Commands\DelegateMenuCommandHandler.cs" />
-    <Compile Include="Commands\RegisterCommands.cs" />
-    <Compile Include="Commands\SpecFlowProjectSingleSelectionCommand.cs" />
-    <Compile Include="EditorCommands\CommentUncommentCommand.cs" />
-    <Compile Include="EditorCommands\EditorCommandFilter.cs" />
-    <Compile Include="EditorCommands\FormatTableCommand.cs" />
-    <Compile Include="EditorCommands\GherkinEditorContext.cs" />
-    <Compile Include="EditorCommands\GherkinTextViewCreationListener.cs" />
-    <Compile Include="EditorCommands\RenameCommand.cs" />
-    <Compile Include="EditorCommands\ReSharperCommand.cs" />
-    <Compile Include="InstallServicesHelper.cs" />
-    <Compile Include="LanguageService\FeatureFileInfo.cs" />
-    <Compile Include="LanguageService\IdleTaskProcessingQueue.cs" />
-    <Compile Include="LanguageService\IGherkinProcessingTask.cs" />
-    <Compile Include="SingleFileGenerator\CustomToolSwitch.cs" />
-    <Compile Include="StepSuggestions\StepInstanceWithProjectScope.cs" />
-    <Compile Include="TestRunner\SpecRunConstants.cs" />
-    <Compile Include="UI\ContextMenuBuilder.cs" />
-    <Compile Include="Generator\VsGeneratorInfoProvider.cs" />
-    <Compile Include="Install\VsBrowserGuidanceNotificationService.cs" />
-    <Compile Include="LanguageService\BindingFilesTracker.cs" />
-    <Compile Include="Bindings\Discovery\VsBindingMethodLocator.cs" />
-    <Compile Include="LanguageService\ProjectFeatureFilesTracker.cs" />
-    <Compile Include="LanguageService\ProjectFilesTracker.cs" />
-    <Compile Include="LanguageService\VsBindingReflectionFactory.cs" />
-    <Compile Include="LanguageService\VsStepSuggestionProvider.cs" />
-    <Compile Include="Commands\MenuCommandHandler.cs" />
-    <Compile Include="SingleFileGenerator\CodeGeneratorRegistrationWithFileExtensionAttribute.cs" />
-    <Compile Include="SingleFileGenerator\SingleFileGeneratorSupportRegistrationAttribute.cs" />
-    <Compile Include="SingleFileGenerator\SpecFlowSingleFileGenerator.cs" />
-    <Compile Include="SingleFileGenerator\SpecFlowSingleFileGeneratorBase.cs" />
-    <Compile Include="SingleFileGenerator\SingleFileGeneratorBase.cs" />
-    <Compile Include="StepSuggestions\BindingMap.cs" />
-    <Compile Include="StepSuggestions\StepMapSetializer.cs" />
-    <Compile Include="UI\GenerateStepDefinitionSkeletonForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\GenerateStepDefinitionSkeletonForm.Designer.cs">
-      <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\VsContextMenuManager.cs" />
-    <Compile Include="Utils\FileChangeEventsListener.cs" />
-    <Compile Include="Utils\SolutionEventsListener.cs" />
-    <Compile Include="Utils\StepInstanceComparer.cs" />
-    <Compile Include="Utils\VsProjectFilesTracker.cs" />
-    <Compile Include="Utils\VsProjectFileTrackerBase.cs" />
-    <Compile Include="Utils\VsProjectReferencesTracker.cs" />
-    <Compile Include="Utils\VSVersion.cs" />
-    <Compile Include="VsContainerBuilder.cs" />
-    <Compile Include="VsSpecFlowConfigurationReader.cs" />
-    <Compile Include="Guids.cs" />
-    <Compile Include="LanguageService\GherkinBufferServiceManager.cs" />
-    <Compile Include="LanguageService\NoProjectScope.cs" />
-    <Compile Include="LanguageService\VsProjectScope.cs" />
-    <Compile Include="Generator\VsGeneratorServices.cs" />
-    <Compile Include="StepSuggestions\BoundStepSuggestions.cs" />
-    <Compile Include="StepSuggestions\INativeSuggestionItemFactory.cs" />
-    <Compile Include="StepSuggestions\IStepSuggestion.cs" />
-    <Compile Include="StepSuggestions\StepInstance.cs" />
-    <Compile Include="StepSuggestions\StepInstanceTemplate.cs" />
-    <Compile Include="StepSuggestions\StepSuggestionList.cs" />
-    <Compile Include="StepSuggestions\StepSuggestionProvider.cs" />
-    <Compile Include="Utils\RegexDictionary.cs" />
-    <Compile Include="Utils\StringLiteralHelper.cs" />
-    <Compile Include="Utils\VsProjectFileTracker.cs" />
-    <Compile Include="Utils\DteWithEvents.cs" />
-    <Compile Include="Utils\EnumerableExtensions.cs" />
-    <Compile Include="LanguageService\GherkinFileBlockBuilder.cs" />
-    <Compile Include="LanguageService\GherkinFileScope.cs" />
-    <Compile Include="LanguageService\GherkinFileScopeChange.cs" />
-    <Compile Include="LanguageService\GherkinFileScopeExtensions.cs" />
-    <Compile Include="LanguageService\GherkinLanguageService.cs" />
-    <Compile Include="LanguageService\GherkinLanguageServiceFactory.cs" />
-    <Compile Include="LanguageService\GherkinScopeAnalyzer.cs" />
-    <Compile Include="LanguageService\GherkinTextBufferChange.cs" />
-    <Compile Include="LanguageService\GherkinTextBufferParser.cs" />
-    <Compile Include="LanguageService\GherkinTextBufferParserListener.cs" />
-    <Compile Include="LanguageService\GherkinTextBufferPartialParserListener.cs" />
-    <Compile Include="LanguageService\IGherkinFileScope.cs" />
-    <Compile Include="LanguageService\GherkinProcessingScheduler.cs" />
-    <Compile Include="LanguageService\ProjectScope.cs" />
-    <Compile Include="LanguageService\ProjectScopeFactory.cs" />
-    <Compile Include="LanguageService\ShiftedGherkinFileBlock.cs" />
-    <Compile Include="Utils\SynchronizationHelper.cs" />
-    <Compile Include="Options\OptionsPageGeneral.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\IntegrationOptionsProvider.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SpecFlowPackage.cs" />
-    <Compile Include="Tracing\IVisualStudioTracer.cs" />
-    <Compile Include="Tracing\OutputWindow\IOutputWindowDefinitionMetadata.cs" />
-    <Compile Include="Tracing\OutputWindow\IOutputWindowPane.cs" />
-    <Compile Include="Tracing\OutputWindow\IOutputWindowService.cs" />
-    <Compile Include="Tracing\OutputWindow\OutputWindowDefinition.cs" />
-    <Compile Include="Tracing\OutputWindow\OutputWindowService.cs" />
-    <Compile Include="Tracing\OutputWindow\PredefinedOutputWindowPanes.cs" />
-    <Compile Include="Tracing\OutputWindow\ServiceProviderExtensions.cs" />
-    <Compile Include="Tracing\OutputWindowDefinitions.cs" />
-    <Compile Include="Tracing\OutputWindow\VsOutputWindowPaneAdapter.cs" />
-    <Compile Include="Tracing\VisualStudioTracer.cs" />
-    <Compile Include="Utils\VsxHelper.cs" />
-    <Compile Include="GherkinFileEditor\GherkinFileClassifierFormats.cs" />
-    <Compile Include="GherkinFileEditor\GherkinFileClassificationDefinition.cs" />
-    <Compile Include="GherkinFileEditor\GherkinFileClassifier.cs" />
-    <Compile Include="GherkinFileEditor\GherkinFileEditorClassifications.cs" />
-    <Compile Include="GherkinFileEditor\GherkinFileOutliningTagger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Resources\AutoCompleteIcons.psd" />
     <None Include="$(VisualStudioVersion).source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -255,23 +115,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\changelog.txt">
-      <Link>changelog.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="..\LICENSE.txt">
       <Link>LICENSE.txt</Link>
-      <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="..\Resources\gherkin.ico">
       <Link>gherkin.ico</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="..\Resources\specflowsetup.ico">
-      <Link>specflowsetup.ico</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -280,26 +130,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <VSCTCompile Include="VisualStudioCommands.vsct">
-      <ResourceName>Menus.ctmenu</ResourceName>
-      <SubType>Designer</SubType>
-    </VSCTCompile>
-    <Resource Include="Resources\autocomplete-g-b.png" />
-    <Resource Include="Resources\autocomplete-g-t.png" />
-    <Resource Include="Resources\autocomplete-g.png" />
-    <Resource Include="Resources\autocomplete-t-b.png" />
-    <Resource Include="Resources\autocomplete-t-t.png" />
-    <Resource Include="Resources\autocomplete-t.png" />
-    <Resource Include="Resources\autocomplete-w-b.png" />
-    <Resource Include="Resources\autocomplete-w-t.png" />
-    <Resource Include="Resources\autocomplete-w.png" />
-    <Resource Include="Resources\autocomplete-nb.png" />
-    <Content Include="Resources\specflowpackage.ico" />
-    <Content Include="specflow.pkgdef">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Tracing\OutputWindow\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj">
@@ -322,33 +152,9 @@
       <Name>TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\GenerateStepDefinitionSkeletonForm.resx">
-      <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <LogicalName>VSPackage.resources</LogicalName>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
-      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>
-  <ItemGroup>
-    <Page Include="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
@@ -356,6 +162,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <Import Project="..\TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems" Label="Shared" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.Build.targets" />
