@@ -180,15 +180,18 @@
     <None Include="$(MSBuildThisFileDirectory)VisualStudioCommands.vsct" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-g-b.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-g-t.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-g.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-nb.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-t-b.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-t-t.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-t.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-w-b.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-w-t.png" />
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-w.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-g-b.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-g-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-g.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-nb.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-t-b.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-t-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-w-b.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-w-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\resources\autocomplete-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Resources\resources\" />
   </ItemGroup>
 </Project>
