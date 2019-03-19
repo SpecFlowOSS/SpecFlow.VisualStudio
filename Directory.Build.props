@@ -23,7 +23,7 @@
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(SpecFlow_EnableStrongNameSigning)' == 'true'">
-        <SpecFlow_KeyFile>$(SolutionDir)\specflow.snk</SpecFlow_KeyFile>
+        <SpecFlow_KeyFile>$(SolutionDir)\sp ecflow.snk</SpecFlow_KeyFile>
         <SpecFlow_SignAssembly>true</SpecFlow_SignAssembly>
         <DefineConstants>$(DefineConstants);SPECFLOW_ENABLE_STRONG_NAME_SIGNING</DefineConstants>
     </PropertyGroup>
