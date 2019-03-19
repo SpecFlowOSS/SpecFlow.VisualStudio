@@ -38,4 +38,4 @@ else
 Write-Host "MSBuild path: $msbuildPath"
 
 & nuget restore "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln"
-& $msbuildPath "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration /nodeReuse:false "/property:AppInsightsInstrumentationKey='$appInsightsInstrumentationKey'" /verbosity:diag
+& $msbuildPath "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration /nodeReuse:false "/property:AppInsightsInstrumentationKey='$appInsightsInstrumentationKey'" /verbosity:detailed
