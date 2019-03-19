@@ -105,6 +105,7 @@
     <Compile Include="Analytics\IAnalyticsEvent.cs" />
     <Compile Include="Analytics\IAnalyticsTransmitter.cs" />
     <Compile Include="Analytics\ExtensionLoadedAnalyticsEvent.cs" />
+    <Compile Include="Analytics\IProjectTargetFrameworksProvider.cs" />
     <Compile Include="Bindings\IdeBindingSourceProcessor.cs" />
     <Compile Include="Bindings\ILBindingRegistryBuilder.cs" />
     <Compile Include="Configuration\AppConfig\AppConfigConfigurationLoader.cs" />

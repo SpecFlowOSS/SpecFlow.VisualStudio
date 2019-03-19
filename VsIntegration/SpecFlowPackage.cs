@@ -7,9 +7,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using BoDi;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
+using TechTalk.SpecFlow.VsIntegration.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Commands;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Utils;
@@ -111,6 +113,7 @@ namespace TechTalk.SpecFlow.VsIntegration
             base.Initialize();
 
             Container = VsContainerBuilder.CreateContainer(this);
+            TelemetryConfiguration.Active.InstrumentationKey = AppInsightsInstrumentationKey.Key;
 
             var currentIdeIntegration = CurrentIdeIntegration;
             if (currentIdeIntegration != null)

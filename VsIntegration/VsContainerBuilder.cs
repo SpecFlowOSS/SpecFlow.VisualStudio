@@ -6,6 +6,7 @@ using System.Text;
 using BoDi;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.ApplicationInsights;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.BindingSkeletons;
@@ -66,12 +67,15 @@ namespace TechTalk.SpecFlow.VsIntegration
             container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));
 
-            
             container.RegisterTypeAs<StepDefinitionSkeletonProvider, IStepDefinitionSkeletonProvider>();
             container.RegisterTypeAs<DefaultSkeletonTemplateProvider, ISkeletonTemplateProvider>();
             container.RegisterTypeAs<StepTextAnalyzer, IStepTextAnalyzer>();
 
-            container.RegisterTypeAs<ConsoleAnalyticsTransmitterSink, IAnalyticsTransmitterSink>();
+            container.RegisterTypeAs<TelemetryClientWrapper, TelemetryClientWrapper>();
+            container.RegisterTypeAs<AppInsightsExtensionLoadedDataTransformer, IAppInsightsEventConverter<ExtensionLoadedAnalyticsEvent>>();
+            container.RegisterTypeAs<AppInsightsAnalyticsTransmitterSink, IAnalyticsTransmitterSink>();
+            container.RegisterTypeAs<VisualStudioProjectTargetFrameworksProvider, IProjectTargetFrameworksProvider>();
+            container.RegisterTypeAs<VisualStudioIdeInformationStore, IIdeInformationStore>();
             container.RegisterTypeAs<AnalyticsTransmitter, IAnalyticsTransmitter>();
             container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
             container.RegisterTypeAs<RegistryUserUniqueIdStore, IUserUniqueIdStore>();
