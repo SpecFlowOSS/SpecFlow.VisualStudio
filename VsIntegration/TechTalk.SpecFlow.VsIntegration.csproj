@@ -99,6 +99,12 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/Gherkin.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Core.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Security.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Text.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Util.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.Runtime.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">

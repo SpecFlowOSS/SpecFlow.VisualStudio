@@ -78,6 +78,8 @@ namespace TechTalk.SpecFlow.VsIntegration
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2015;
                     case 15:
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2017;
+                    case 16:
+                        return IdeIntegration.Install.IdeIntegration.VisualStudio2019;
                     
                 }
                 return IdeIntegration.Install.IdeIntegration.Unknown;
@@ -96,6 +98,8 @@ namespace TechTalk.SpecFlow.VsIntegration
                         return "TechTalk.SpecFlow.VsIntegration.2015";
                     case IdeIntegration.Install.IdeIntegration.VisualStudio2017:
                         return "TechTalk.SpecFlow.VsIntegration.2017";
+                    case IdeIntegration.Install.IdeIntegration.VisualStudio2019:
+                        return "TechTalk.SpecFlow.VisualStudioIntegration";
                     default:
                         return "TechTalk.SpecFlow.VsIntegration";
                 }
