@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <Import Project="..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.props" Condition="Exists('..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.props')" />
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.targets" />
   <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
     <!-- This is only the testing instance's instrumentation key -->
@@ -561,13 +562,22 @@
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.Build.targets" />
   <Import Project="..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" />
-  <Import Project="$(MSBuildThisFileDirectory)\.build\build.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.214\build\MSBuildTasks.targets'))" />
     <Error Condition="!Exists('..\packages\Nerdbank.GitVersioning.2.1.84\build\Nerdbank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Nerdbank.GitVersioning.2.1.84\build\Nerdbank.GitVersioning.targets'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.props'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.targets'))" />
   </Target>
   <Import Project="..\packages\Nerdbank.GitVersioning.2.1.84\build\Nerdbank.GitVersioning.targets" Condition="Exists('..\packages\Nerdbank.GitVersioning.2.1.84\build\Nerdbank.GitVersioning.targets')" />
+  <Import Project="..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.targets" Condition="Exists('..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.targets')" />
+  <Target Name="RunTokenReplace" AfterTargets="GetBuildVersion" BeforeTargets="BeforeCompile" Condition="$(DesignTimeBuild) != 'true' OR '$(BuildingProject)' == 'true'">
+    <ReplaceTextInFileTask InputFile="$(ProjectDir)\\Analytics\\AppInsightsInstrumentationKey.template.cs" OutputFile="$(ProjectDir)\\Analytics\\AppInsightsInstrumentationKey.cs" TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
+    <ItemGroup>
+      <Compile Remove="$(ProjectDir)\\Analytics\\AppInsightsInstrumentationKey.template.cs" />
+      <Compile Include="$(ProjectDir)\\Analytics\\AppInsightsInstrumentationKey.cs" />
+    </ItemGroup>
+  </Target>
 </Project>
