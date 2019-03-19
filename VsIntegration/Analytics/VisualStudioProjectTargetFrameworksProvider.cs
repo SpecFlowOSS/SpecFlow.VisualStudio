@@ -28,12 +28,34 @@ namespace TechTalk.SpecFlow.VsIntegration.Analytics
                                                p =>
                                                {
                                                    string tfm;
-                                                   bool success = VsxHelper.TryGetProperty(p.Properties, "TargetFrameworkMonikers", out tfm);
+                                                   bool success = TryGetTargetFrameworkMonikers(p.Properties, out tfm);
                                                    return new { success, tfm };
                                                })
                                            .Where(r => r.success)
                                            .Select(r => r.tfm);
             return targetFrameworks;
+        }
+
+        public bool TryGetTargetFrameworkMonikers(Properties properties, out string tfm)
+        {
+            bool successSdkTfm = TryGetTargetFrameworksForSdkStyleProj(properties, out tfm);
+            if (successSdkTfm)
+            {
+                return true;
+            }
+
+            bool successOldProjTfm = TryGetTargetFrameworkForOldProj(properties, out tfm);
+            return successOldProjTfm;
+        }
+
+        public bool TryGetTargetFrameworksForSdkStyleProj(Properties properties, out string tfm)
+        {
+            return VsxHelper.TryGetProperty(properties, "TargetFrameworkMonikers", out tfm);
+        }
+
+        public bool TryGetTargetFrameworkForOldProj(Properties properties, out string tfm)
+        {
+            return VsxHelper.TryGetProperty(properties, "TargetFrameworkMoniker", out tfm);
         }
     }
 }
