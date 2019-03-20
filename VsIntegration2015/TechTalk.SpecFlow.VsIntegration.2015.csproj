@@ -117,6 +117,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="..\Resources\specflowsetup.ico">
+      <Link>specflowsetup.ico</Link>
+    </Resource>
     <Content Include="..\Resources\specflow_preview.png">
       <Link>specflow_preview.png</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
