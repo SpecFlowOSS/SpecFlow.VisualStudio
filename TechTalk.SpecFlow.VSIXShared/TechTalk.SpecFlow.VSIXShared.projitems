@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpecFlowSingleFileGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VsContainerBuilder.cs" />
   </ItemGroup>
 </Project>

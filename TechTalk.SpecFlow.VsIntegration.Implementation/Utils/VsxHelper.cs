@@ -20,7 +20,7 @@ using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace TechTalk.SpecFlow.VsIntegration.Utils
 {
-    internal static class VsxHelper
+    public static class VsxHelper
     {
         public const string CSharpLanguage = "{B5E9BD34-6D3E-4B5D-925E-8A43B79820B4}";
         public const string VBLanguage = "{B5E9BD33-6D3E-4B5D-925E-8A43B79820B4}";
