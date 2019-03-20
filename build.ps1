@@ -12,13 +12,13 @@ if ($IsWindows){
   
   $vsPath = & $vswherePath $vswhereParameters
   
-  Write-Host $path
+  Write-Host $vsPath
   
   if ($vsPath) {
     $msbuildPath = join-path $vsPath 'MSBuild\Current\Bin\MSBuild.exe'
   }
-  
-  Write-Host $msbuildPath
 }
+
+Write-Host $msbuildPath
 
 & $msbuildPath -restore ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false
