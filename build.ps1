@@ -1,41 +1,31 @@
 param (
  [string]$Configuration = "Debug",
- [string]$SpecFlowVisualStudioVersion = "",
- [string]$binaryLoggerSwitch = "/binaryLogger",
  [string]$appInsightsInstrumentationKey = ""
 )
 
 $msbuildPath = "msbuild"
 
+Write-Host $IsWindows
 Write-Host "Visual Studio version: $SpecFlowVisualStudioVersion";
 Write-Host ($appInsightsInstrumentationKey -eq "")
 
-if (![System.String]::IsNullOrEmpty($Env:MSBuild))
-{
-  $msbuildPath = join-path $Env:MSBuild 'msbuild.exe';
-  Write-Host "Using msbuild from environment variable";
-}
-elseif ($SpecFlowVisualStudioVersion -eq "2017")
-{
-  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe";
-  $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
-}
-elseif ($SpecFlowVisualStudioVersion -eq "2015")
-{
-  $msbuildPath = "C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe";
-  $binaryLoggerSwitch = "";
-}
-elseif ($SpecFlowVisualStudioVersion -eq "2019")
-{
-  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MSBuild.exe";
-  $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
-}
-else
-{
-  throw [System.NotSupportedException]::new("The Visual Studio version $SpecFlowVisualStudioVersion is not supported.");
+if ($IsWindows){
+  $vswherePath = [System.Environment]::ExpandEnvironmentVariables("%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe")
+  $vswhereParameters = @("-latest", "-products", "*", "-requires", "Microsoft.Component.MSBuild",  "-property", "installationPath", "-prerelease")
+  
+  Write-Host $vswherePath
+  Write-Host $vswhereParameters
+
+  $vsPath = & $vswherePath $vswhereParameters
+  
+  Write-Host $vsPath
+  
+  if ($vsPath) {
+    $msbuildPath = join-path $vsPath 'MSBuild\Current\Bin\MSBuild.exe'
+  }
 }
 
-Write-Host "MSBuild path: $msbuildPath"
+Write-Host $msbuildPath
 
-& nuget restore "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln"
-& $msbuildPath "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration /nodeReuse:false "/property:AppInsightsInstrumentationKey='$appInsightsInstrumentationKey'" /verbosity:detailed
+& nuget restore "./SpecFlow.VisualStudio.sln"
+& $msbuildPath ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false "-property:AppInsightsInstrumentationKey='$appInsightsInstrumentationKey'"
