@@ -28,7 +28,7 @@ jobs:
     inputs: 
       filePath: build.ps1
       workingDirectory: ./
-      arguments: Release $(specFlowVisualStudioVersion)
+      arguments: Release
       pwsh: true
 
   - task: ArchiveFiles@2
