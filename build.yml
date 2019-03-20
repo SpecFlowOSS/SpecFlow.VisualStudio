@@ -29,6 +29,7 @@ jobs:
       filePath: build.ps1
       workingDirectory: ./
       arguments: Release $(specFlowVisualStudioVersion)
+      pwsh: true
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
