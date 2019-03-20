@@ -1,10 +1,13 @@
 param (
- [string]$Configuration = "Debug"
+ [string]$Configuration = "Debug",
+ [string]$appInsightsInstrumentationKey = ""
 )
 
 $msbuildPath = "msbuild"
 
 Write-Host $IsWindows
+Write-Host "Visual Studio version: $SpecFlowVisualStudioVersion";
+Write-Host ($appInsightsInstrumentationKey -eq "")
 
 if ($IsWindows){
   $vswherePath = [System.Environment]::ExpandEnvironmentVariables("%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe")
@@ -25,4 +28,4 @@ if ($IsWindows){
 Write-Host $msbuildPath
 
 & nuget restore "./SpecFlow.VisualStudio.sln"
-& $msbuildPath ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false
+& $msbuildPath ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false "-property:AppInsightsInstrumentationKey='$appInsightsInstrumentationKey'"

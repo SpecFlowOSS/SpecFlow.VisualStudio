@@ -12,6 +12,7 @@ jobs:
     visualStudioVersion: '2019'
     artifactName: 'SpecFlow.VisualStudio.VS2019.CI-BuildResult'
     artifactFileName: '$(Build.ArtifactStagingDirectory)/SpecFlow.VisualStudio.VisualStudioIntegration.zip'
+    appInsightsInstrumentationKey: $(AppInsightsInstrumentationKey)
     pool:
       name: 'Hosted Windows 2019 with VS2019'
 

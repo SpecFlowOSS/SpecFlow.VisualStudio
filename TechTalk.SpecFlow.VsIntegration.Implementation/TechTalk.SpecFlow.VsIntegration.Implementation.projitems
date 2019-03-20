@@ -10,12 +10,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\AnalyticsTransmitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\AppInsightsAnalyticsTransmitterSink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\AppInsightsExtensionLoadedDataTransformer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\ConsoleAnalyticsTransmitterSink.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\EnableAnalyticsChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\IAnalyticsTransmitterSink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\IAppInsightsEventConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\IEnableAnalyticsChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\IIdeInformationStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\IUserUniqueIdStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Analytics\RegistryUserUniqueIdStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\TelemetryClientWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\VisualStudioIdeInformationStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\VisualStudioProjectTargetFrameworksProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\CompletionCommandFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\CustomCompletionSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinCompletionCommandFilter.cs" />
@@ -176,6 +183,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Analytics\AppInsightsInstrumentationKey.template.cs" />
     <None Include="$(MSBuildThisFileDirectory)Resources\AutoCompleteIcons.psd" />
     <None Include="$(MSBuildThisFileDirectory)VisualStudioCommands.vsct" />
   </ItemGroup>

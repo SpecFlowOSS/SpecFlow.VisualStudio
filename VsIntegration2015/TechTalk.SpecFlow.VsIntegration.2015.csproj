@@ -70,6 +70,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />
     <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
     <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
       <Version>15.8.36</Version>

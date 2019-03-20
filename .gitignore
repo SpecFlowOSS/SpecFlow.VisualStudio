@@ -25,4 +25,6 @@ packages/*
 *.ncrunchproject
 SpecFlow.VisualStudio.v2.ncrunchsolution
 /.vs/
+
+AppInsightsInstrumentationKey.cs
 *.binlog
