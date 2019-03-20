@@ -1,31 +1,22 @@
 param (
- [string]$Configuration = "Debug",
- [string]$SpecFlowVisualStudioVersion = "",
- [string]$binaryLoggerSwitch = "/binaryLogger"
+ [string]$Configuration = "Debug"
 )
 
 $msbuildPath = "msbuild"
 
-Write-Host "Visual Studio version: $SpecFlowVisualStudioVersion";
-
-if (![System.String]::IsNullOrEmpty($Env:MSBuild))
-{
-  $msbuildPath = join-path $Env:MSBuild 'msbuild.exe';
-  Write-Host "Using msbuild from environment variable";
-}
-elseif ($SpecFlowVisualStudioVersion -eq "2019")
-{
-  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe";
-  $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
-}
-else
-{
-  throw [System.NotSupportedException]::new("The Visual Studio version $SpecFlowVisualStudioVersion is not supported.");
+if ($IsWindows){
+  $vswherePath = [System.Environment]::ExpandEnvironmentVariables("%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe")
+  $vswhereParameters = @("-latest", "-products", "*", "-requires", "Microsoft.Component.MSBuild",  "-property", "installationPath")
+  
+  $vsPath = & $vswherePath $vswhereParameters
+  
+  Write-Host $path
+  
+  if ($vsPath) {
+    $msbuildPath = join-path $vsPath 'MSBuild\Current\Bin\MSBuild.exe'
+  }
+  
+  Write-Host $msbuildPath
 }
 
-Write-Host "MSBuild path: $msbuildPath"
-
-
-
-# & nuget restore "./SpecFlow.VisualStudio.sln"
-& $msbuildPath "./SpecFlow.VisualStudio.sln" -restore $binaryLoggerSwitch /property:Configuration=$Configuration  /nodeReuse:false
+& $msbuildPath -restore ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false
