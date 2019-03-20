@@ -14,7 +14,7 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Generator
 {
-    internal class VsGeneratorServices : RemoteGeneratorServices
+    public class VsGeneratorServices : RemoteGeneratorServices
     {
         private readonly IConfigurationReader _configurationReader;
         protected readonly Project project;

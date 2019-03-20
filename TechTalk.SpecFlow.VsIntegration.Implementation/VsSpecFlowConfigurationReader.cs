@@ -5,7 +5,7 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration
 {
-    internal class VsSpecFlowConfigurationReader : FileBasedSpecFlowConfigurationReader
+    public class VsSpecFlowConfigurationReader : FileBasedSpecFlowConfigurationReader
     {
         private readonly Project _project;
 
