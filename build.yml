@@ -30,7 +30,8 @@ jobs:
     inputs: 
       filePath: build.ps1
       workingDirectory: ./
-      arguments: Release $(specFlowVisualStudioVersion) -appInsightsInstrumentationKey $(instrumentationKey)
+      arguments: Release -appInsightsInstrumentationKey $(instrumentationKey)
+      pwsh: true
 
   - task: ArchiveFiles@2
     displayName: 'Archive $(Build.SourcesDirectory)'
@@ -43,3 +44,21 @@ jobs:
     inputs:
       PathtoPublish: ${{ parameters.artifactFileName }} 
       ArtifactName: ${{ parameters.artifactName }}
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: VS2019 Extension'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration/bin/Release/TechTalk.SpecFlow.VisualStudioIntegration.vsix'
+      ArtifactName: VS2019
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: VS2017 Extension'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2017/bin/Release/TechTalk.SpecFlow.VsIntegration.2017.vsix'
+      ArtifactName: VS2017
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: VS2015 Extension'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2015/bin/Release/TechTalk.SpecFlow.VsIntegration.2015.vsix'
+      ArtifactName: VS2015

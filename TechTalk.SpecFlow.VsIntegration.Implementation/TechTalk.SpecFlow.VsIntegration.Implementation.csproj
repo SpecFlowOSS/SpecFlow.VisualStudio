@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Analytics\AppInsightsInstrumentationKey.template.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Analytics\AppInsightsInstrumentationKey.template.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
+    <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
+      <Version>15.8.36</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <Version>16.0.102</Version>
+    </PackageReference>
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />
+    <ProjectReference Include="..\IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/Gherkin.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Core.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Security.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Text.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Util.dll" />
+    <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.Runtime.dll" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
+    <!-- This is only the testing instance's instrumentation key -->
+    <AppInsightsInstrumentationKey>88c7861a-5106-4d48-b545-b26ee23e1f21</AppInsightsInstrumentationKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\CompletionSessionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Resource Include="Resources\autocomplete-g-b.png" />
+    <Resource Include="Resources\autocomplete-g-t.png" />
+    <Resource Include="Resources\autocomplete-g.png" />
+    <Resource Include="Resources\autocomplete-nb.png" />
+    <Resource Include="Resources\autocomplete-t-b.png" />
+    <Resource Include="Resources\autocomplete-t-t.png" />
+    <Resource Include="Resources\autocomplete-t.png" />
+    <Resource Include="Resources\autocomplete-w-b.png" />
+    <Resource Include="Resources\autocomplete-w-t.png" />
+    <Resource Include="Resources\autocomplete-w.png" />
+    <Content Update="$(MSBuildThisFileDirectory)specflow.pkgdef">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Update="$(MSBuildThisFileDirectory)Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.resx">
+      <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="$(MSBuildThisFileDirectory)VSPackage.resx">
+      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.resources</LogicalName>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Update="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.Designer.cs">
+      <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="$(MSBuildThisFileDirectory)Options\OptionsPageGeneral.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <Target Name="RunTokenReplace" AfterTargets="GetBuildVersion" BeforeTargets="BeforeCompile" Condition="$(DesignTimeBuild) != 'true' OR '$(BuildingProject)' == 'true'">
+    <ReplaceTextInFileTask InputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" OutputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
+    <ItemGroup>
+      <Compile Remove="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" />
+      <Compile Include="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" />
+    </ItemGroup>
+  </Target>
+</Project>
