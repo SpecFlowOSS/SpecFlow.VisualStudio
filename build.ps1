@@ -10,6 +10,9 @@ if ($IsWindows){
   $vswherePath = [System.Environment]::ExpandEnvironmentVariables("%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe")
   $vswhereParameters = @("-latest", "-products", "*", "-requires", "Microsoft.Component.MSBuild",  "-property", "installationPath")
   
+  Write-Host $vswherePath
+  Write-Host $vswhereParameters
+
   $vsPath = & $vswherePath $vswhereParameters
   
   Write-Host $vsPath
