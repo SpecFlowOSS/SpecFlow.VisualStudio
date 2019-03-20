@@ -2,15 +2,13 @@
 $SystemArtifactsDirectory = $Env:SYSTEM_ARTIFACTSDIRECTORY;
 $MyGetApiKey = $Env:MyGetApiKey;
 $MyGetVsixFeed = $Env:MyGetVsixFeed;
-$VisualStudioVersion = $Env:VisualStudioVersion;
 
-$pathToExtension = "$SystemArtifactsDirectory\SpecFlow.VisualStudio.VS$VisualStudioVersion\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VsIntegration.$VisualStudioVersion.vsix";
+Get-ChildItem -Path $SystemArtifactsDirectory -Filter *.vsix | 
+ForEach-Object {
+    $filename = Get-Content $_.FullName
 
-if (![System.IO.File]::Exists($pathToExtension))
-{
-    $pathToExtension = "$SystemArtifactsDirectory\TechTalk.SpecFlow.VisualStudioIntegration\s\VsIntegration\bin\Release\TechTalk.SpecFlow.VisualStudioIntegration.vsix";
+    $extensionFileContent = [System.IO.File]::ReadAllBytes("$filename");
+
+    & Invoke-WebRequest -Uri "$MyGetVsixFeed/upload" -Method 'POST' -Body $extensionFileContent -Headers @{"X-NuGet-ApiKey"="$MyGetApiKey"}
 }
 
-$extensionFileContent = [System.IO.File]::ReadAllBytes("$pathToExtension");
-
-& Invoke-WebRequest -Uri "$MyGetVsixFeed/upload" -Method 'POST' -Body $extensionFileContent -Headers @{"X-NuGet-ApiKey"="$MyGetApiKey"}
