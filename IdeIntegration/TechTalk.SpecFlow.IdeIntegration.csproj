@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45</TargetFrameworks>
+    <TargetFramework>net45</TargetFramework>
     <SignAssembly>$(SpecFlow_SignAssembly)</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
     <LangVersion>5</LangVersion>
