@@ -24,4 +24,5 @@ if ($IsWindows){
 
 Write-Host $msbuildPath
 
-& $msbuildPath -restore ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false
+& nuget restore "./SpecFlow.VisualStudio.sln"
+& $msbuildPath ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false
