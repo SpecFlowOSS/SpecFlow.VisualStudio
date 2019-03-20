@@ -46,16 +46,16 @@ jobs:
     displayName: 'Publish Artifact: VS2019 Extension'
     inputs:
       PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration/bin/Release/TechTalk.SpecFlow.VisualStudioIntegration.vsix'
-      ArtifactName: ${{ VS2019 }}
+      ArtifactName: VS2019
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: VS2017 Extension'
     inputs:
       PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2017/bin/Release/TechTalk.SpecFlow.VsIntegration.2017.vsix'
-      ArtifactName: ${{ VS2017 }}
+      ArtifactName: VS2017
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: VS2015 Extension'
     inputs:
       PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2015/bin/Release/TechTalk.SpecFlow.VsIntegration.2015.vsix'
-      ArtifactName: ${{ VS2015 }}      
+      ArtifactName: VS2015
