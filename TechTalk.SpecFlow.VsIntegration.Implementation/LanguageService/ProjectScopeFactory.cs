@@ -10,6 +10,7 @@ using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using Thread = System.Threading.Thread;

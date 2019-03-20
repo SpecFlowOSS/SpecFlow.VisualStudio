@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VsIntegration.Implementation", "TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.shproj", "{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VsIntegration.Implementation", "TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.csproj", "{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2017", "VsIntegration2017\TechTalk.SpecFlow.VsIntegration.2017.csproj", "{F3EFE63B-77C7-449E-B118-E16F445873C3}"
 EndProject
@@ -63,12 +63,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeBehindGeneration", "Cod
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5A165F38-88BA-4FED-BB14-6621B83F8B58}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VSIXShared", "TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.shproj", "{7A62BBFA-3212-420A-AC20-63401A35F534}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{10934720-f5ac-49e7-9d4f-b4a4d206c4aa}*SharedItemsImports = 13
-		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
-		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{cbd78521-0f02-4a43-abed-001d2560675b}*SharedItemsImports = 4
-		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{f3efe63b-77c7-449e-b118-e16f445873c3}*SharedItemsImports = 4
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{cbd78521-0f02-4a43-abed-001d2560675b}*SharedItemsImports = 4
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{f3efe63b-77c7-449e-b118-e16f445873c3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +102,10 @@ Global
 		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -118,6 +125,7 @@ Global
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623} = {62BA7DEF-D976-4B64-8EFE-368AD625DD96}
 		{5351E241-2B8B-4D04-8999-5E3A79E8DD64} = {62BA7DEF-D976-4B64-8EFE-368AD625DD96}
 		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+		{7A62BBFA-3212-420A-AC20-63401A35F534} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE82DEDC-FB35-4666-A342-E4BF059F1137}

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TechTalk.SpecFlow.VsIntegration
 {
-    static class GuidList
+    public static class GuidList
     {
         public const string vsContextGuidSilverlightProject = "{CB22EE0E-4072-4ae7-96E2-90FCCF879544}";
 
@@ -17,7 +17,7 @@ namespace TechTalk.SpecFlow.VsIntegration
         public static readonly Guid guidSpecFlowCmdSet = new Guid(guidSpecFlowCmdSetString);
     };
 
-    internal static class PkgCmdIDList
+    public static class PkgCmdIDList
     {
         public const uint FileContextMenuGroup = 0x1020;
         public const uint ProjectContextMenuGroup = 0x1021;

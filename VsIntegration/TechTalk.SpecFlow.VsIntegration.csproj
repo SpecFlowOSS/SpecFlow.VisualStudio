@@ -2,10 +2,6 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.props" Condition="Exists('..\packages\MSBuild.AdditionalTasks.0.1.20\build\MSBuild.AdditionalTasks.props')" />
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.targets" />
-  <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
-    <!-- This is only the testing instance's instrumentation key -->
-    <AppInsightsInstrumentationKey>88c7861a-5106-4d48-b545-b26ee23e1f21</AppInsightsInstrumentationKey>
-  </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>$(SpecFlow_SignAssembly)</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
@@ -153,6 +149,10 @@
       <Project>{5351e241-2b8b-4d04-8999-5e3a79e8dd64}</Project>
       <Name>TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.csproj">
+      <Project>{10934720-f5ac-49e7-9d4f-b4a4d206c4aa}</Project>
+      <Name>TechTalk.SpecFlow.VsIntegration.Implementation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
@@ -164,19 +164,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <Import Project="..\TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems" Label="Shared" />
+  <Import Project="..\TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="..\TechTalk.SpecFlow.VsIntegration.Common.Build.targets" />
-  <Target Name="RunTokenReplace" AfterTargets="GetBuildVersion" BeforeTargets="BeforeCompile" Condition="$(DesignTimeBuild) != 'true' OR '$(BuildingProject)' == 'true'">
-    <ReplaceTextInFileTask 
-      InputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" 
-      OutputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" 
-      TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" 
-      TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
-    <ItemGroup>
-      <Compile Remove="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" />
-      <Compile Include="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" />
-    </ItemGroup>
-  </Target>
 </Project>

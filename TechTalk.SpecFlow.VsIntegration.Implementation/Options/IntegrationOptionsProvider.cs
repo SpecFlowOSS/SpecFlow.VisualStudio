@@ -9,7 +9,7 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 namespace TechTalk.SpecFlow.VsIntegration.Options
 {
     [Export(typeof(IIntegrationOptionsProvider))]
-    internal class IntegrationOptionsProvider : IIntegrationOptionsProvider
+    public class IntegrationOptionsProvider : IIntegrationOptionsProvider
     {
         internal static IntegrationOptions cachedOptions = null;
 

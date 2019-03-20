@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using BoDi;
+using TechTalk.SpecFlow.VsIntegration;
 using TechTalk.SpecFlow.VsIntegration.Commands;
 
-namespace TechTalk.SpecFlow.VsIntegration
+namespace TechTalk.SpecFlow.VsIntegration.Implementation
 {
-    partial class DefaultDependencyProvider
+    public partial class DefaultDependencyProvider
     {
         static partial void RegisterCommands(IObjectContainer container)
         {
