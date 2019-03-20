@@ -9,10 +9,6 @@
     <PropertyGroup>
       <VersionNumber>$(GitVersion_Major).$(GitVersion_Minor).$(GitVersion_Patch)</VersionNumber>
     </PropertyGroup>
-
-    <Copy SourceFiles="$(VisualStudioVersion).source.extension.vsixmanifest" DestinationFiles="source.extension.vsixmanifest" />
-
-    <!--<XmlPoke Condition="'$(VersionNumber)' != ''" XmlInputPath="source.extension.vsixmanifest" Namespaces="&lt;Namespace Prefix='d' Uri='http://schemas.microsoft.com/developer/vsx-schema-design/2011' /&gt;&lt;Namespace Prefix='x' Uri='http://schemas.microsoft.com/developer/vsx-schema/2011' /&gt;" Query="//x:PackageManifest/x:Metadata/x:Identity/@Version" Value="$(VersionNumber)" />-->
   </Target>
 	
 </Project>
