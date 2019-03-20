@@ -15,7 +15,7 @@ if (![System.String]::IsNullOrEmpty($Env:MSBuild))
 }
 elseif ($SpecFlowVisualStudioVersion -eq "2019")
 {
-  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\MSBuild\Current\Bin\MSBuild.exe";
+  $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe";
   $binaryLoggerSwitch = "/binaryLogger:msbuild.$Configuration.binlog";
 }
 else
@@ -26,5 +26,6 @@ else
 Write-Host "MSBuild path: $msbuildPath"
 
 
-& nuget restore "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln"
-& $msbuildPath "./SpecFlow.VisualStudio.$SpecFlowVisualStudioVersion.sln" $binaryLoggerSwitch /property:Configuration=$Configuration  /nodeReuse:false
+
+# & nuget restore "./SpecFlow.VisualStudio.sln"
+& $msbuildPath "./SpecFlow.VisualStudio.sln" -restore $binaryLoggerSwitch /property:Configuration=$Configuration  /nodeReuse:false
