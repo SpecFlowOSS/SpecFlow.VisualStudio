@@ -1,9 +1,12 @@
+param (
+    [string] $folderToSearch
+)
 
-$SystemArtifactsDirectory = $Env:SYSTEM_ARTIFACTSDIRECTORY;
+
 $MyGetApiKey = $Env:MyGetApiKey;
 $MyGetVsixFeed = $Env:MyGetVsixFeed;
 
-Get-ChildItem -Path $SystemArtifactsDirectory -Filter *.vsix -Recurse | 
+Get-ChildItem -Path $folderToSearch -Filter *.vsix -Recurse | 
 ForEach-Object {
     $filename = $_.FullName
     $filecontent = Get-Content $_.FullName
