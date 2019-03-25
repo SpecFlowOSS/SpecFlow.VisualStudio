@@ -8,13 +8,13 @@ using Microsoft.VisualStudio.Text.Adornments;
 
 namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
 {
-    internal class CompletionSessionPresenter : IPopupIntellisensePresenter, IIntellisenseCommandTarget
+    public class CompletionSessionPresenter : IPopupIntellisensePresenter, IIntellisenseCommandTarget
     {
         private readonly CompletionSessionView view;
         private readonly ICompletionSession session;
         private readonly IServiceProvider serviceProvider;
 
-        internal CompletionSessionPresenter(IServiceProvider serviceProvider, ICompletionSession session)
+        public CompletionSessionPresenter(IServiceProvider serviceProvider, ICompletionSession session)
         {
             this.session = session;
             this.session.SelectedCompletionSet.SelectionStatusChanged += OnSelectedCompletionSetSelectionStatusChanged;

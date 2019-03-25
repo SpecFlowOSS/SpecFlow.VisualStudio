@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow
 {
-    internal sealed class VsOutputWindowPaneAdapter : IOutputWindowPane
+    public sealed class VsOutputWindowPaneAdapter : IOutputWindowPane
     {
         private IVsOutputWindowPane pane;
 

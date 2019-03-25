@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
-    internal class CommentUncommentCommand
+    public class CommentUncommentCommand
     {
         internal static bool IsComment(string text)
         {

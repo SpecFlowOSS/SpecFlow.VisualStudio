@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.Text;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
@@ -33,7 +34,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         public static GherkinTextBufferChange Merge(GherkinTextBufferChange change1, GherkinTextBufferChange change2)
         {
-            VisualStudioTracer.Assert(change1.ResultTextSnapshot.Version.VersionNumber <= change2.ResultTextSnapshot.Version.VersionNumber, "different snapshot version numbers for merging");
+            Asserter.Assert(change1.ResultTextSnapshot.Version.VersionNumber <= change2.ResultTextSnapshot.Version.VersionNumber, "different snapshot version numbers for merging");
             if (change1.Type == GherkinTextBufferChangeType.EntireFile || change2.Type == GherkinTextBufferChangeType.EntireFile)
                 return CreateEntireBufferChange(change2.ResultTextSnapshot);
 

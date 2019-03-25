@@ -1,6 +1,6 @@
 ﻿namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
-    internal enum CommentUncommentAction
+    public enum CommentUncommentAction
     {
         Comment,
         Uncomment,

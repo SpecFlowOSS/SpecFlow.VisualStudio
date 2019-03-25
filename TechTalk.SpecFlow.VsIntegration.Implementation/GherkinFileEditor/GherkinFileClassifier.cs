@@ -13,7 +13,7 @@ namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
 
     #endregion //provider def
 
-    internal class GherkinFileClassifier : IClassifier, IDisposable
+    public class GherkinFileClassifier : IClassifier, IDisposable
     {
         private readonly GherkinLanguageService gherkinLanguageService;
 

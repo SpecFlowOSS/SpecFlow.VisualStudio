@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
 using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
 
 namespace TechTalk.SpecFlow.VsIntegration.Options
@@ -21,13 +22,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [Category("Analysis Settings")]
         [Description("Controls whether SpecFlow should collect binding information and step suggestions from the feature files. (restart required)")]
         [DisplayName(@"Enable project-wide analysis")]
-        [DefaultValue(IntegrationOptionsProvider.EnableAnalysisDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableAnalysisDefaultValue)]
         public bool EnableAnalysis { get; set; }
 
         [Category("Analysis Settings")]
         [Description("Controls whether SpecFlow Visual Studio integration should offer re-generating the feature files on configuration change.")]
         [DisplayName(@"Disable re-generate feature file popup")]
-        [DefaultValue(IntegrationOptionsProvider.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue)]
+        [DefaultValue(OptionDefaultValues.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue)]
         public bool DisableRegenerateFeatureFilePopupOnConfigChange { get; set; }
 
         private bool enableSyntaxColoring = true;
@@ -36,7 +37,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [Category("Editor Settings")]
         [Description("Controls whether the different syntax elements of the feature files should be indicated in the editor.")]
         [DisplayName(@"Enable Syntax Coloring")]
-        [DefaultValue(IntegrationOptionsProvider.EnableSyntaxColoringDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableSyntaxColoringDefaultValue)]
         [RefreshProperties(RefreshProperties.All)]
         public bool EnableSyntaxColoring
         {
@@ -55,33 +56,33 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [Category("Editor Settings")]
         [Description("Controls whether the scenario blocks of the feature files should be outlined in the editor.")]
         [DisplayName(@"Enable Outlining")]
-        [DefaultValue(IntegrationOptionsProvider.EnableOutliningDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableOutliningDefaultValue)]
         public bool EnableOutlining { get; set; }
 
         [Category("Editor Settings")]
         [Description("Controls whether the step definition match status should be indicated with a different color in the editor. (beta)")]
         [DisplayName(@"Enable Step Match Coloring")]
-        [DefaultValue(IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableStepMatchColoringDefaultValue)]
         public bool EnableStepMatchColoring { get; set; }
 
         [Category("Editor Settings")]
         [Description("Controls whether the tables should be formatted automatically when you type \"|\" character.")]
         [DisplayName(@"Enable Table Formatting")]
-        [DefaultValue(IntegrationOptionsProvider.EnableTableAutoFormatDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableTableAutoFormatDefaultValue)]
         public bool EnableTableAutoFormat { get; set; }
 
 
         [Category("IntelliSense")]
         [Description("Controls whether completion lists should be displayed for the feature files.")]
         [DisplayName(@"Enable IntelliSense")]
-        [DefaultValue(IntegrationOptionsProvider.EnableIntelliSenseDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableIntelliSenseDefaultValue)]
         public bool EnableIntelliSense { get; set; }
 
         private string _maxStepInstancesSuggestions = String.Empty;
         [Category("IntelliSense")]
         [Description("Limit quantity of IntelliSense step instances suggestions for each step template.")]
         [DisplayName(@"Max Step Instances Suggestions")]
-        [DefaultValue(IntegrationOptionsProvider.MaxStepInstancesSuggestionsDefaultValue)]
+        [DefaultValue(OptionDefaultValues.MaxStepInstancesSuggestionsDefaultValue)]
         public string MaxStepInstancesSuggestions {
             get { return _maxStepInstancesSuggestions; }
             set
@@ -101,32 +102,32 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [Category("Tracing")]
         [Description("Controls whether diagnostic trace messages should be emitted to the output window.")]
         [DisplayName(@"Enable Tracing")]
-        [DefaultValue(IntegrationOptionsProvider.EnableTracingDefaultValue)]
+        [DefaultValue(OptionDefaultValues.EnableTracingDefaultValue)]
         public bool EnableTracing { get; set; }
 
         [Category("Tracing")]
         [Description("Specifies the enabled the tracing categories in a comma-seperated list. Use \"all\" to trace all categories.")]
         [DisplayName(@"Tracing Categories")]
-        [DefaultValue(IntegrationOptionsProvider.TracingCategoriesDefaultValue)]
+        [DefaultValue(OptionDefaultValues.TracingCategoriesDefaultValue)]
         public string TracingCategories { get; set; }
 
 
         [Category("Code Behind File Generation")]
         [Description("Specifies the mode how the code behind file is generated")]
         [DisplayName("Generation Mode")]
-        [DefaultValue(IntegrationOptionsProvider.GenerationModeDefaultValue)]
+        [DefaultValue(OptionDefaultValues.GenerationModeDefaultValue)]
         public GenerationMode GenerationMode { get; set; }
 
         [Category("Code Behind File Generation")]
         [Description("Specifies the path to TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe")]
         [DisplayName("Path to cmd tool")]
-        [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
+        [DefaultValue(OptionDefaultValues.CodeBehindFileGeneratorPath)]
         public string PathToCodeBehindGeneratorExe { get; set; }
 
         [Category("Code Behind File Generation")]
         [Description("Specifies the path where to save data exchange files (Default: %TEMP%)")]
         [DisplayName("Data Exchange Path")]
-        [DefaultValue(IntegrationOptionsProvider.CodeBehindFileGeneratorPath)]
+        [DefaultValue(OptionDefaultValues.CodeBehindFileGeneratorPath)]
         public string CodeBehindFileGeneratorExchangePath { get; set; }
 
 
@@ -140,27 +141,27 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         [Category(UsageStatisticsCategory)]
         [Description("Disables sending error reports and other statistics transmissions.")]
         [DisplayName("Opt-Out of Data Collection")]
-        [DefaultValue(IntegrationOptionsProvider.DefaultOptOutDataCollection)]
+        [DefaultValue(OptionDefaultValues.DefaultOptOutDataCollection)]
         public bool OptOutDataCollection { get; set; }
 
         public OptionsPageGeneral()
         {
             _customToolSwitch = new CustomToolSwitch(Dte);
 
-            EnableAnalysis = IntegrationOptionsProvider.EnableAnalysisDefaultValue;
-            EnableSyntaxColoring = IntegrationOptionsProvider.EnableSyntaxColoringDefaultValue;
-            EnableOutlining = IntegrationOptionsProvider.EnableOutliningDefaultValue;
-            EnableIntelliSense = IntegrationOptionsProvider.EnableIntelliSenseDefaultValue;
-            MaxStepInstancesSuggestions = IntegrationOptionsProvider.MaxStepInstancesSuggestionsDefaultValue;
-            EnableTableAutoFormat = IntegrationOptionsProvider.EnableTableAutoFormatDefaultValue;
-            EnableStepMatchColoring = IntegrationOptionsProvider.EnableStepMatchColoringDefaultValue;
-            EnableTracing = IntegrationOptionsProvider.EnableTracingDefaultValue;
-            TracingCategories = IntegrationOptionsProvider.TracingCategoriesDefaultValue;
-            DisableRegenerateFeatureFilePopupOnConfigChange = IntegrationOptionsProvider.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue;
-            GenerationMode = IntegrationOptionsProvider.GenerationModeDefaultValue;
-            PathToCodeBehindGeneratorExe = IntegrationOptionsProvider.CodeBehindFileGeneratorPath;
-            CodeBehindFileGeneratorExchangePath = IntegrationOptionsProvider.CodeBehindFileGeneratorExchangePath;
-            OptOutDataCollection = IntegrationOptionsProvider.DefaultOptOutDataCollection;
+            EnableAnalysis = OptionDefaultValues.EnableAnalysisDefaultValue;
+            EnableSyntaxColoring = OptionDefaultValues.EnableSyntaxColoringDefaultValue;
+            EnableOutlining = OptionDefaultValues.EnableOutliningDefaultValue;
+            EnableIntelliSense = OptionDefaultValues.EnableIntelliSenseDefaultValue;
+            MaxStepInstancesSuggestions = OptionDefaultValues.MaxStepInstancesSuggestionsDefaultValue;
+            EnableTableAutoFormat = OptionDefaultValues.EnableTableAutoFormatDefaultValue;
+            EnableStepMatchColoring = OptionDefaultValues.EnableStepMatchColoringDefaultValue;
+            EnableTracing = OptionDefaultValues.EnableTracingDefaultValue;
+            TracingCategories = OptionDefaultValues.TracingCategoriesDefaultValue;
+            DisableRegenerateFeatureFilePopupOnConfigChange = OptionDefaultValues.DisableRegenerateFeatureFilePopupOnConfigChangeDefaultValue;
+            GenerationMode = OptionDefaultValues.GenerationModeDefaultValue;
+            PathToCodeBehindGeneratorExe = OptionDefaultValues.CodeBehindFileGeneratorPath;
+            CodeBehindFileGeneratorExchangePath = OptionDefaultValues.CodeBehindFileGeneratorExchangePath;
+            OptOutDataCollection = OptionDefaultValues.DefaultOptOutDataCollection;
             LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
         }
 
@@ -173,8 +174,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         public override void SaveSettingsToStorage()
         {
             base.SaveSettingsToStorage();
-            IntegrationOptionsProvider.cachedOptions = null;
-
+            
             if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
             {
                 _customToolSwitch.Enable();

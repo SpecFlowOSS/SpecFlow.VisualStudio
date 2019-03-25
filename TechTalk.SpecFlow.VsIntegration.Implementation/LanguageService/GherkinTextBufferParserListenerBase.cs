@@ -11,6 +11,7 @@ using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
 using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
@@ -238,7 +239,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             gherkinBuffer = buffer;
 
             InitializeFirstBlock(gherkinBuffer.GetLineStartPosition(gherkinBuffer.LineOffset));
-            VisualStudioTracer.Assert(currentFileBlockBuilder != null, "no current file block builder");
+            Asserter.Assert(currentFileBlockBuilder != null, "no current file block builder");
         }
 
         protected virtual void InitializeFirstBlock(GherkinBufferPosition startPosition)

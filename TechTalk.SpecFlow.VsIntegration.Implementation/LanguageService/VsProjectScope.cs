@@ -115,7 +115,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
         public event Action SpecFlowConfigurationChanged;
         public event Action GherkinDialectServicesChanged;
 
-        internal VsProjectScope(Project project, DteWithEvents dteWithEvents, GherkinFileEditorClassifications classifications, IVisualStudioTracer tracer, IIntegrationOptionsProvider integrationOptionsProvider)
+        public VsProjectScope(Project project, DteWithEvents dteWithEvents, GherkinFileEditorClassifications classifications, IVisualStudioTracer tracer, IIntegrationOptionsProvider integrationOptionsProvider)
         {
             Classifications = classifications;
             _project = project;

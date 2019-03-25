@@ -8,7 +8,7 @@ using TechTalk.SpecFlow.VsIntegration.Commands;
 
 namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
-    internal class EditorCommandFilter
+    public class EditorCommandFilter
     {
 // ReSharper disable NotAccessedField.Local
         private readonly IIdeTracer tracer;

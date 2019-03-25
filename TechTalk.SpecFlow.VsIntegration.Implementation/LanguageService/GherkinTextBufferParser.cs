@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
 using TechTalk.SpecFlow.VsIntegration.Utils;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 
@@ -122,7 +123,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             var textSnapshot = change.ResultTextSnapshot;
 
             var firstAffectedScenario = GetFirstAffectedScenario(change, previousScope);
-            VisualStudioTracer.Assert(firstAffectedScenario != null, "first affected scenario is null");
+            Asserter.Assert(firstAffectedScenario != null, "first affected scenario is null");
             int parseStartPosition = textSnapshot.GetLineFromLineNumber(firstAffectedScenario.GetStartLine()).Start;
 
             string fileContent = textSnapshot.GetText(parseStartPosition, textSnapshot.Length - parseStartPosition);
@@ -188,7 +189,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
             changedBlocks.AddRange(partialResult.ScenarioBlocks);
             if (partialResult.InvalidFileEndingBlock != null)
             {
-                VisualStudioTracer.Assert(firstUnchangedScenario == null, "first affected scenario is not null");
+                Asserter.Assert(firstUnchangedScenario == null, "first affected scenario is not null");
                 // the last scenario was changed, but it became invalid
                 fileScope.InvalidFileEndingBlock = partialResult.InvalidFileEndingBlock;
                 changedBlocks.Add(fileScope.InvalidFileEndingBlock);
@@ -196,7 +197,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             if (firstUnchangedScenario != null)
             {
-                VisualStudioTracer.Assert(partialResult.InvalidFileEndingBlock == null, "there is an invalid file ending block");
+                Asserter.Assert(partialResult.InvalidFileEndingBlock == null, "there is an invalid file ending block");
 
                 // inserting the non-effected scenarios at the end
                 var shiftedScenarioBlocks = previousScope.ScenarioBlocks.SkipFromItemInclusive(firstUnchangedScenario)

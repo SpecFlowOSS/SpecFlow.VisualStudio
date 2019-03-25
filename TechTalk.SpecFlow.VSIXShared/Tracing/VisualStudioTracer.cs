@@ -147,12 +147,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Tracing
             return true;
         }
 
-        [Conditional("DEBUG")]
-        static public void Assert(bool condition, string message)
-        {
-            if (!condition)
-                throw new InvalidOperationException("Assertion fauiled: " + message);
-        }
+       
     }
 
 }

@@ -9,7 +9,7 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
-    internal abstract class CompletionCommandFilter : IOleCommandTarget
+    public abstract class CompletionCommandFilter : IOleCommandTarget
     {
         private readonly IIdeTracer tracer;
         private ICompletionSession currentAutoCompleteSession = null;

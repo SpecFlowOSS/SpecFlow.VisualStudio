@@ -60,7 +60,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         private GherkinTextBufferChange GetTextBufferChange(TextContentChangedEventArgs textContentChangedEventArgs)
         {
-            Tracing.VisualStudioTracer.Assert(textContentChangedEventArgs.Changes.Count > 0, "There are no text changes");
+            Asserter.Assert(textContentChangedEventArgs.Changes.Count > 0, "There are no text changes");
 
             var startLine = int.MaxValue;
             var endLine = 0;

@@ -10,7 +10,7 @@ using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
 {
-    internal class GherkinCompletionCommandFilter : CompletionCommandFilter
+    public class GherkinCompletionCommandFilter : CompletionCommandFilter
     {
         private readonly GherkinLanguageService languageService;
 

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
-    internal class FormatTableCommand
+    public class FormatTableCommand
     {
         public bool FormatTable(GherkinEditorContext editorContext)
         {

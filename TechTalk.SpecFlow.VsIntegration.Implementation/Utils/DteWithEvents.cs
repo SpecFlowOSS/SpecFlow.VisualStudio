@@ -9,7 +9,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Utils
     /// This class is ncecessary because of COM interop. If the .NET wrapper of the event sources are 
     /// not referecned, the subscriptions might get lost.
     /// </summary>
-    internal class DteWithEvents
+    public class DteWithEvents
     {
         public event _dispBuildEvents_OnBuildDoneEventHandler OnBuildDone
         {

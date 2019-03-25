@@ -15,7 +15,7 @@ using TechTalk.SpecFlow.VsIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    internal class NoProjectScope : IProjectScope
+    public class NoProjectScope : IProjectScope
     {
         public GherkinTextBufferParser GherkinTextBufferParser { get; private set; }
         public GherkinFileEditorClassifications Classifications { get; private set; }

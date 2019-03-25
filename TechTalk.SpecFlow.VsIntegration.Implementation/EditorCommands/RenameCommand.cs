@@ -18,7 +18,7 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
-    internal class RenameCommand
+    public class RenameCommand
     {
         private readonly IGherkinLanguageServiceFactory _gherkinLanguageServiceFactory;
         private readonly IProjectScopeFactory _projectScopeFactory;
