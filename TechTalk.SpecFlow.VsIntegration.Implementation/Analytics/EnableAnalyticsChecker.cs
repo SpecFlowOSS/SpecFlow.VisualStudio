@@ -1,6 +1,6 @@
 ﻿using TechTalk.SpecFlow.IdeIntegration.Options;
 
-namespace TechTalk.SpecFlow.VsIntegration.Analytics
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class EnableAnalyticsChecker : IEnableAnalyticsChecker
     {

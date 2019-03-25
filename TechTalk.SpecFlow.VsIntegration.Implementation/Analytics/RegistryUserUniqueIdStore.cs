@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Win32;
 
-namespace TechTalk.SpecFlow.VsIntegration.Analytics
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class RegistryUserUniqueIdStore : IUserUniqueIdStore
     {

@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
-using TechTalk.SpecFlow.VsIntegration.UI;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Bindings.Discovery;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.UI;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TextSelection = EnvDTE.TextSelection;
 
-namespace TechTalk.SpecFlow.VsIntegration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
 {
-    public interface IGoToStepsCommand : IEditorCommand
-    {
-    }
-
     public class GoToStepsCommand : IGoToStepsCommand
     {
         private readonly DTE dte;

@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow
+﻿namespace TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow
 {
     public static class PredefinedOutputWindowPanes
     {

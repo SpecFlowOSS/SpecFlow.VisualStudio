@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
 {
     public class ReGenerateAllCommand : SpecFlowProjectSingleSelectionCommand
     {

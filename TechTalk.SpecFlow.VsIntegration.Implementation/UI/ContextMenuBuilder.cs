@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace TechTalk.SpecFlow.VsIntegration.UI
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.UI
 {
     internal class ContextMenuBuilder
 	{

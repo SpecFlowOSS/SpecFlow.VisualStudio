@@ -6,7 +6,7 @@ using EnvDTE;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 
-namespace TechTalk.SpecFlow.VsIntegration.SingleFileGenerator
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
 {
     [ComVisible(true)]
     [Guid("7E4C9708-765C-46C8-8041-9ABD9927E0BC")]

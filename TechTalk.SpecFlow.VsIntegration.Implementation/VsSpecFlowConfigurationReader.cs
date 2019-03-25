@@ -1,9 +1,9 @@
 ﻿using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration
+namespace TechTalk.SpecFlow.VsIntegration.Implementation
 {
     public class VsSpecFlowConfigurationReader : FileBasedSpecFlowConfigurationReader
     {

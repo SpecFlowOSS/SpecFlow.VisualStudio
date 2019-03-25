@@ -9,8 +9,34 @@
     <Import_RootNamespace>TechTalk.SpecFlow.VSIXShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinStepCompletionSourceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinTextViewCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\IntellisensePresenterProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BiDiContainerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\GherkinTextViewCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinCommentClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFeatureTitleClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassificationDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassifierProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinKeywordClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinMultilineTextClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinPlaceholderClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinScenarioTitleClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinStepArgumentClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinStepTextClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinTableCellClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinTableHeaderClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinTagClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinUnboundStepTextClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinBufferServiceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinLanguageServiceFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ProjectScopeFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\IntegrationOptionsProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowSingleFileGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindowDefinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\OutputWindowService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\VisualStudioTracer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VsContainerBuilder.cs" />
   </ItemGroup>
 </Project>

@@ -1,40 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
-using Microsoft.VisualStudio.Utilities;
-using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor
 {
     #region Provider definition
-    [Export(typeof(ITaggerProvider))]
-    [TagType(typeof(IOutliningRegionTag))]
-    [ContentType("gherkin")]
-    internal sealed class OutliningTaggerProvider : ITaggerProvider
-    {
-        [Import]
-        internal IIntegrationOptionsProvider IntegrationOptionsProvider = null;
 
-        [Import]
-        internal IGherkinLanguageServiceFactory GherkinLanguageServiceFactory = null;
-
-        [Import]
-        internal IGherkinBufferServiceManager GherkinBufferServiceManager = null;
-
-        public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
-        {
-            if (!IntegrationOptionsProvider.GetOptions().EnableOutlining)
-                return null;
-
-            return (ITagger<T>)GherkinBufferServiceManager.GetOrCreate(buffer, () =>
-                new GherkinFileOutliningTagger(GherkinLanguageServiceFactory.GetLanguageService(buffer)));
-        }
-    }
     #endregion
 
     internal class GherkinFileOutliningTagger : ITagger<IOutliningRegionTag>, IDisposable

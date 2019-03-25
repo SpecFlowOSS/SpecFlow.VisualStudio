@@ -11,20 +11,19 @@ using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Analytics;
-using TechTalk.SpecFlow.VsIntegration.Install;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
-using TechTalk.SpecFlow.VsIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Install;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation
 {
-    public partial class DefaultDependencyProvider
+    public class DefaultDependencyProvider
     {
-        static partial void RegisterCommands(IObjectContainer container);
-
+        
         public virtual void RegisterDefaults(IObjectContainer container)
         {
             var serviceProvider = container.Resolve<IServiceProvider>();
@@ -36,7 +35,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<WindowsFileAssociationDetector, IFileAssociationDetector>();
             container.RegisterTypeAs<RegistryStatusAccessor, IStatusAccessor>();
 
-            container.RegisterTypeAs<IntegrationOptionsProvider, IIntegrationOptionsProvider>();
+            
             container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));
 
@@ -67,6 +66,19 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
 
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IOutputWindowService>(serviceProvider));
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IGherkinLanguageServiceFactory>(serviceProvider));
+            container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IIntegrationOptionsProvider>(serviceProvider));
+            
+        }
+
+        private void RegisterCommands(IObjectContainer container)
+        {
+            container.RegisterTypeAs<ReGenerateAllCommand, MenuCommandHandler>(SpecFlowCmdSet.ReGenerateAll.ToString());
+            container.RegisterTypeAs<ContextDependentNavigationCommand, MenuCommandHandler>(SpecFlowCmdSet.ContextDependentNavigation.ToString());
+            container.RegisterTypeAs<GenerateStepDefinitionSkeletonCommand, MenuCommandHandler>(SpecFlowCmdSet.GenerateStepDefinitionSkeleton.ToString());
+
+            // internal commands
+            container.RegisterTypeAs<GoToStepsCommand, IGoToStepsCommand>();
+            container.RegisterTypeAs<GoToStepDefinitionCommand, IGoToStepDefinitionCommand>();
         }
     }
 }

@@ -2,24 +2,12 @@
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
-using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
-    internal static class VS2012CommandGroups
-    {
-        public static readonly Guid CommandGroup = new Guid("1e198c22-5980-4e7e-92f3-f73168d1fb63");
-    }
-
-    internal enum VS2012Command
-    {
-        TestExplorerRunAllTestsInContext = 885,
-        TestExplorerDebugAllTestsInContext = 89600
-    }
-
-    internal class EditorCommandFilter
+    public class EditorCommandFilter
     {
 // ReSharper disable NotAccessedField.Local
         private readonly IIdeTracer tracer;

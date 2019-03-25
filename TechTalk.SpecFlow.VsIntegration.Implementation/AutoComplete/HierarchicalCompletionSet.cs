@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 
-namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
 {
     internal class HierarchicalCompletionSet : CustomCompletionSet
     {

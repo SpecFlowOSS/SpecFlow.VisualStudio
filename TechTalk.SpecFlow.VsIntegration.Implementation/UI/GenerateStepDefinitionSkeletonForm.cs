@@ -4,14 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
-using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.Commands;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.UI
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.UI
 {
     public partial class GenerateStepDefinitionSkeletonForm : Form
     {

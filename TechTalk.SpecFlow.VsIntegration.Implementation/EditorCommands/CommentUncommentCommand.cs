@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
-using System.Linq;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
-    internal enum CommentUncommentAction
-    {
-        Comment,
-        Uncomment,
-        Toggle
-    }
-
-    internal class CommentUncommentCommand
+    public class CommentUncommentCommand
     {
         internal static bool IsComment(string text)
         {

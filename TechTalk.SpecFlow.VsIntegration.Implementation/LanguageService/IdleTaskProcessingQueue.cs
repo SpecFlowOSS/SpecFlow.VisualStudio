@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class IdleTaskProcessingQueue : IDisposable
     {
@@ -157,15 +157,6 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
                 Debug.WriteLine(ex, "IdleQueue.Dispose");
             }
             itemsAvailableEvent.Dispose();
-        }
-    }
-
-    internal static class ConcurrentQueueExtensions
-    {
-        public static bool Dequeue<T>(this ConcurrentQueue<T> queue)
-        {
-            T dummy;
-            return queue.TryDequeue(out dummy);
         }
     }
 }
