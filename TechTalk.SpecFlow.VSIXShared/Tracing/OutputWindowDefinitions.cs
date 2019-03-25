@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Utilities;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow;
 using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
 
 namespace TechTalk.SpecFlow.VsIntegration.Tracing

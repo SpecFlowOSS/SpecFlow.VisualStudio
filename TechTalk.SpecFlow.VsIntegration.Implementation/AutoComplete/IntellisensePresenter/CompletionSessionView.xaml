@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     
     xmlns:intellisensePresenter="clr-namespace:TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete.IntellisensePresenter"
-    x:Class="TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter.CompletionSessionView"
+    x:Class="TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete.IntellisensePresenter.CompletionSessionView"
     mc:Ignorable="d" MinWidth="400" MinHeight="20" MaxHeight="350" MaxWidth="800" d:DesignHeight="200" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="ItemDataTemplate">

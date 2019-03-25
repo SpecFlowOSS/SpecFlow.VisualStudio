@@ -5,15 +5,15 @@ using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio.Text;
-using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
+using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
-using TechTalk.SpecFlow.VsIntegration.EditorCommands;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Bindings.Discovery;
+using TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
 {
     public class GoToStepDefinitionCommand : IGoToStepDefinitionCommand
     {

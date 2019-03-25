@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.Language.Intellisense;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal class CompletionWithImage : Completion
     {

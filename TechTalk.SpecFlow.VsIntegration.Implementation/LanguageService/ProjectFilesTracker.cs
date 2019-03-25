@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Windows.Threading;
 using EnvDTE;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TracerExtensions = TechTalk.SpecFlow.IdeIntegration.Tracing.TracerExtensions;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal abstract class ProjectFilesTracker<TFileInfo> where TFileInfo : FileInfo 
     {

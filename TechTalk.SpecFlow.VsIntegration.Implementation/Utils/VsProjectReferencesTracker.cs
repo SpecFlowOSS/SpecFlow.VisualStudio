@@ -7,7 +7,7 @@ using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using VSLangProj;
 
-namespace TechTalk.SpecFlow.VsIntegration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
     internal class VsProjectReferencesTracker : IDisposable
     {

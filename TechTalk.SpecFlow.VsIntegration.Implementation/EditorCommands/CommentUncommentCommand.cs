@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
-using System.Linq;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public class CommentUncommentCommand
     {

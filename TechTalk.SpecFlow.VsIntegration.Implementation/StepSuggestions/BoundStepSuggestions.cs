@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Utils;
-using TechTalk.SpecFlow.Bindings;
 
-namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {
     public class BoundStepSuggestions<TNativeSuggestionItem> : IStepSuggestion<TNativeSuggestionItem>, IStepSuggestionGroup<TNativeSuggestionItem>
     {

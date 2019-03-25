@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.Language.Intellisense;
+using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
-using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class VsStepSuggestionProvider : StepSuggestionProvider<Completion>, IDisposable, IBindingRegistry
     {

@@ -13,15 +13,12 @@ using TechTalk.SpecFlow.BindingSkeletons;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
-using TechTalk.SpecFlow.VsIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.TestRunner;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+
 
 namespace TechTalk.SpecFlow.VsIntegration
 {

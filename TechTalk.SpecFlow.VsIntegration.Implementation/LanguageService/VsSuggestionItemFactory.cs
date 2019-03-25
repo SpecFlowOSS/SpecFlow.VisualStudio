@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.Language.Intellisense;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class VsSuggestionItemFactory : INativeSuggestionItemFactory<Completion>
     {

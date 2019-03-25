@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Drawing;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
-using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
+using TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator;
 
-namespace TechTalk.SpecFlow.VsIntegration.Options
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
 {
     /// <summary>
     // Extends a standard dialog functionality for implementing ToolsOptions pages, 

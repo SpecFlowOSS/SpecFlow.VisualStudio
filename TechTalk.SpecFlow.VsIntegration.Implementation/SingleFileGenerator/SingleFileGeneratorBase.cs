@@ -1,6 +1,5 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using EnvDTE;
@@ -10,7 +9,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using VSOLE = Microsoft.VisualStudio.OLE.Interop;
 
-namespace TechTalk.SpecFlow.VsIntegration.SingleFileGenerator
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
 {
     [ComVisible(true)]
     [Guid("9AEFA7A0-BC60-447E-B434-0DE2FD75693A")]

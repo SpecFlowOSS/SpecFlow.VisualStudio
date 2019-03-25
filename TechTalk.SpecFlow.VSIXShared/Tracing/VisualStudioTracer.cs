@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow;
 

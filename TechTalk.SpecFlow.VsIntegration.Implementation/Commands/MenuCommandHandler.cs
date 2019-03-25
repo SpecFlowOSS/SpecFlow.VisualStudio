@@ -3,7 +3,7 @@ using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
-namespace TechTalk.SpecFlow.VsIntegration.Commands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
 {
     public abstract class MenuCommandHandler
     {

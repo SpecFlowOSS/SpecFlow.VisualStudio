@@ -2,11 +2,10 @@
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
-using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public class EditorCommandFilter
     {

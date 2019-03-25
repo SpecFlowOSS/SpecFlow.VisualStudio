@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
+using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
-using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.AutoComplete
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
 {
     public class GherkinStepCompletionSource : ICompletionSource
     {

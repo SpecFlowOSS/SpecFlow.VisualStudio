@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow;
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
 namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow

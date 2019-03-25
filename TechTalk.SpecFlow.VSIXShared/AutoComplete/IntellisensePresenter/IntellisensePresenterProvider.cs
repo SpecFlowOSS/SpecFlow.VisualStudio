@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Utilities;
 using Microsoft.VisualStudio.Shell;
+using TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete.IntellisensePresenter;
 
 namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
 {

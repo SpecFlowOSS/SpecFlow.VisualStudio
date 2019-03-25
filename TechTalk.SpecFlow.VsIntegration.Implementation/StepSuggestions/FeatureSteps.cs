@@ -1,7 +1,7 @@
 ﻿using System;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
 
-namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {
     public class FeatureSteps
     {

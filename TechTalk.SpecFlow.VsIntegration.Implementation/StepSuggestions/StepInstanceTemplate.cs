@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
-using TechTalk.SpecFlow.Bindings;
 
-namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {
     public class StepInstanceTemplate<TNativeSuggestionItem> : IStepSuggestion<TNativeSuggestionItem>
     {

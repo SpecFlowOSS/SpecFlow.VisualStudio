@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text.Editor;
 
-namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete.IntellisensePresenter
 {
     public partial class CompletionSessionView
     {

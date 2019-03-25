@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.VsIntegration.Commands
+﻿namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
 {
     public interface IGoToStepsCommand : IEditorCommand
     {

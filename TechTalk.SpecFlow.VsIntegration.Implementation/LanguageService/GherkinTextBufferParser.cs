@@ -5,11 +5,10 @@ using System.Linq;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
-using TechTalk.SpecFlow.VsIntegration.Implementation;
-using TechTalk.SpecFlow.VsIntegration.Utils;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class GherkinTextBufferParser
     {

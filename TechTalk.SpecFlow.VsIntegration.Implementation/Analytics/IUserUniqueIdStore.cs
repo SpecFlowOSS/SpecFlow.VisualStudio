@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechTalk.SpecFlow.VsIntegration.Analytics
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public interface IUserUniqueIdStore
     {

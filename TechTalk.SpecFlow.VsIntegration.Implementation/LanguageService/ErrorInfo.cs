@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class ErrorInfo
     {

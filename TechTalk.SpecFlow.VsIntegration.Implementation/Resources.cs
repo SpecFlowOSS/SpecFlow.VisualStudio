@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TechTalk.SpecFlow.VsIntegration {
-    using System;
-    
-    
+namespace TechTalk.SpecFlow.VsIntegration.Implementation {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

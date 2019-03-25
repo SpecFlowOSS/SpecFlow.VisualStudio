@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor

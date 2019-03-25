@@ -1,9 +1,9 @@
 ﻿using System;
 using EnvDTE;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class FeatureFileInfo : FileInfo
     {

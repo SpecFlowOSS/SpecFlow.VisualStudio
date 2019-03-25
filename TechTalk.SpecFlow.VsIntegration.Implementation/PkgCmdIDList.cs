@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.VsIntegration
+﻿namespace TechTalk.SpecFlow.VsIntegration.Implementation
 {
     public static class PkgCmdIDList
     {

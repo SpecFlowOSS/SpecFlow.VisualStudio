@@ -2,7 +2,7 @@
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 
-namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {
     public class StepDefinitionBindingItem
     {

@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+﻿namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal class ScenarioOutlineExampleSet : KeywordLine, IScenarioOutlineExampleSet
     {

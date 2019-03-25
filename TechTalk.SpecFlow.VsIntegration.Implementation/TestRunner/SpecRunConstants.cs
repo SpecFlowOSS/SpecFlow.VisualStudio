@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechTalk.SpecFlow.VsIntegration.TestRunner
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.TestRunner
 {
     public static class SpecRunConstants
     {

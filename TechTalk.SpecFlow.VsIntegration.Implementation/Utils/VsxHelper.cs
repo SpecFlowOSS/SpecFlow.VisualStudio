@@ -18,7 +18,7 @@ using VSLangProj;
 using DefGuidList = Microsoft.VisualStudio.Editor.DefGuidList;
 using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 
-namespace TechTalk.SpecFlow.VsIntegration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
     public static class VsxHelper
     {

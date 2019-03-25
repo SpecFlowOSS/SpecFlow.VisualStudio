@@ -1,6 +1,6 @@
 ﻿using TechTalk.SpecFlow.Parser.Gherkin;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal class PartialListeningDoneException : ScanningCancelledException
     {

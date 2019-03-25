@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TechTalk.SpecFlow.VsIntegration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
     public class SynchInitializedInstance<T> where T : class
     {

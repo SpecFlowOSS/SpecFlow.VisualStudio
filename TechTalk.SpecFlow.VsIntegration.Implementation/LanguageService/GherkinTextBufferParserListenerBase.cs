@@ -10,11 +10,9 @@ using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
-using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
-using TechTalk.SpecFlow.VsIntegration.Implementation;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal abstract class GherkinTextBufferParserListenerBase : IGherkinListener
     {

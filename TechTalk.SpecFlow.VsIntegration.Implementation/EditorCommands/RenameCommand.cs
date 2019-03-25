@@ -11,12 +11,12 @@ using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Bindings.Discovery;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public class RenameCommand
     {

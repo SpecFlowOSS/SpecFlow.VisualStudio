@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.Analytics
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class VisualStudioProjectTargetFrameworksProvider : IProjectTargetFrameworksProvider
     {

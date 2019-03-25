@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.Text;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public interface IGherkinLanguageServiceFactory
     {

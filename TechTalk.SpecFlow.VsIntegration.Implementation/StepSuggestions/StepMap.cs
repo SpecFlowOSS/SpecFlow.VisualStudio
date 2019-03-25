@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {
     public class StepMap
     {

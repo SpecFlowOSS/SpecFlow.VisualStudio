@@ -8,6 +8,8 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
+using TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.EditorCommands

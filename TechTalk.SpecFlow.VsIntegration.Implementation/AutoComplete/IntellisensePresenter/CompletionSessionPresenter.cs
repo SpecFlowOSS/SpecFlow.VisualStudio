@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.Language.Intellisense;
-using Microsoft.VisualStudio.Text;
 using System.Windows;
 using EnvDTE;
+using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
 
-namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete.IntellisensePresenter
 {
     public class CompletionSessionPresenter : IPopupIntellisensePresenter, IIntellisenseCommandTarget
     {

@@ -5,12 +5,12 @@ using System.Linq;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Bindings.Discovery;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Bindings.Discovery;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using VSLangProj;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal class BindingFilesTracker : ProjectFilesTracker<BindingFileInfo>, IDisposable
     {

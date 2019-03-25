@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
-using TechTalk.SpecFlow.VsIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor
 {
     #region Provider definition
 

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BoDi;
 using EnvDTE;
 using TechTalk.SpecFlow.IdeIntegration.Install;
-using TechTalk.SpecFlow.VsIntegration.TestRunner;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration
+namespace TechTalk.SpecFlow.VsIntegration.Implementation
 {
     public class InstallServicesHelper
     {

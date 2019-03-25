@@ -1,7 +1,6 @@
-﻿using System;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
+﻿using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class GherkinScopeAnalyzer
     {

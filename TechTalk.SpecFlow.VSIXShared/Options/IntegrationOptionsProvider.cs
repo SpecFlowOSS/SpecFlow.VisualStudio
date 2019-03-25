@@ -5,7 +5,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Options
 {

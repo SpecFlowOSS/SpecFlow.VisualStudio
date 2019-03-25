@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Parser;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public interface IGherkinFileScope
     {

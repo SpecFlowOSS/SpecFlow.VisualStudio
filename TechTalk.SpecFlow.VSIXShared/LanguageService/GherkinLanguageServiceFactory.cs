@@ -7,8 +7,10 @@ using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {

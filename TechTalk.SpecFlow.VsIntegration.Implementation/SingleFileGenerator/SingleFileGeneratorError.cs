@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.VsIntegration.SingleFileGenerator
+﻿namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
 {
     public class SingleFileGeneratorError
     {

@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace TechTalk.SpecFlow.VsIntegration.Tracing.OutputWindow
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow
 {
     public sealed class VsOutputWindowPaneAdapter : IOutputWindowPane
     {

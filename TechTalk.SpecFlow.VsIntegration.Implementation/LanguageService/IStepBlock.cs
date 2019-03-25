@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public interface IStepBlock : IGherkinFileBlock
     {

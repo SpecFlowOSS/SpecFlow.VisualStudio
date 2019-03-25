@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Utilities;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {

@@ -1,19 +1,14 @@
 ﻿using System;
-using TechTalk.SpecFlow.BindingSkeletons;
-using TechTalk.SpecFlow.Generator.Configuration;
-using TechTalk.SpecFlow.IdeIntegration;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.IdeIntegration.Configuration;
-using TechTalk.SpecFlow.VsIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class NoProjectScope : IProjectScope
     {

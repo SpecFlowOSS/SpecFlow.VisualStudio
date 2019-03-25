@@ -1,6 +1,6 @@
-﻿using TechTalk.SpecFlow.VsIntegration.Utils;
+﻿using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.Analytics
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class VisualStudioIdeInformationStore : IIdeInformationStore
     {

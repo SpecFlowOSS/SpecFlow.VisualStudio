@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.VisualStudio.Text;
-using TechTalk.SpecFlow.VsIntegration.Implementation;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class GherkinTextBufferChange
     {

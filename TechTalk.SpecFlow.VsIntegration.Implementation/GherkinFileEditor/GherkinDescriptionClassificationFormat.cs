@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
-namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor
 {
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = "gherkin.description")]

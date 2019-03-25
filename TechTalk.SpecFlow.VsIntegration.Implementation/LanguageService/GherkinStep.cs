@@ -1,6 +1,6 @@
 ﻿using TechTalk.SpecFlow.Bindings;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class GherkinStep : StepInstance, IKeywordLine
     {

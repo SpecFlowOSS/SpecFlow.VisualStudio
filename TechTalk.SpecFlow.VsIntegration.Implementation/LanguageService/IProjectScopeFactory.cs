@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using EnvDTE;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public interface IProjectScopeFactory
     {

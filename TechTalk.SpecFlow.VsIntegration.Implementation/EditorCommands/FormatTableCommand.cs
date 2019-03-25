@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.Text;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
-using System.Linq;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public class FormatTableCommand
     {

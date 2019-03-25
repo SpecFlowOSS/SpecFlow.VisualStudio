@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using EnvDTE;
 using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using VSLangProj;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class BindingFileInfo : FileInfo
     {

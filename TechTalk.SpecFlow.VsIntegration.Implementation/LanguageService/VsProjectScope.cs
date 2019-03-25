@@ -6,21 +6,21 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
+using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
+using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.IdeIntegration.Configuration;
-using TechTalk.SpecFlow.VsIntegration.Generator;
-using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
-using TechTalk.SpecFlow.VsIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Generator;
+using TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public class VsProjectScope : IProjectScope
     {

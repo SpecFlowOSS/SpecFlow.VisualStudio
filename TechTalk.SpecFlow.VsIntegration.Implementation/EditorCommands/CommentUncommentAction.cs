@@ -1,4 +1,4 @@
-﻿namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+﻿namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public enum CommentUncommentAction
     {
