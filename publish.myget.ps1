@@ -9,7 +9,7 @@ $MyGetVsixFeed = $Env:MyGetVsixFeed;
 Get-ChildItem -Path $folderToSearch -Filter *.vsix -Recurse | 
 ForEach-Object {
     $filename = $_.FullName
-    $filecontent = Get-Content $_.FullName
+    $filecontent = [System.IO.File]::ReadAllBytes("$filename")
 
 	Write-Host "Uploading file $filename"
 
