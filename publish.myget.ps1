@@ -3,7 +3,7 @@ $SystemArtifactsDirectory = $Env:SYSTEM_ARTIFACTSDIRECTORY;
 $MyGetApiKey = $Env:MyGetApiKey;
 $MyGetVsixFeed = $Env:MyGetVsixFeed;
 
-Get-ChildItem -Path $SystemArtifactsDirectory -Filter *.vsix | 
+Get-ChildItem -Path $SystemArtifactsDirectory -Filter *.vsix -Recurse | 
 ForEach-Object {
     $filename = Get-Content $_.FullName
 
