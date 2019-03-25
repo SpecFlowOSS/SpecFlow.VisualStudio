@@ -9,6 +9,7 @@
     <Import_RootNamespace>TechTalk.SpecFlow.VSIXShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinStepCompletionSourceProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowSingleFileGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VsContainerBuilder.cs" />

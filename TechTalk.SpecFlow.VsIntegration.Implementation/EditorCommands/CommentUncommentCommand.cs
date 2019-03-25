@@ -6,13 +6,6 @@ using System.Linq;
 
 namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
 {
-    internal enum CommentUncommentAction
-    {
-        Comment,
-        Uncomment,
-        Toggle
-    }
-
     internal class CommentUncommentCommand
     {
         internal static bool IsComment(string text)

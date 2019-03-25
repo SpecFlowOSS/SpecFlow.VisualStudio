@@ -12,11 +12,6 @@ using TechTalk.SpecFlow.VsIntegration.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    public interface IGherkinLanguageServiceFactory
-    {
-        GherkinLanguageService GetLanguageService(ITextBuffer textBuffer);
-    }
-
     [Export(typeof(IGherkinLanguageServiceFactory))]
     internal class GherkinLanguageServiceFactory : IGherkinLanguageServiceFactory
     {

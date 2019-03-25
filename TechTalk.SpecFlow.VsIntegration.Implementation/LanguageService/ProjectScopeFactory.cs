@@ -17,12 +17,6 @@ using Thread = System.Threading.Thread;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    public interface IProjectScopeFactory
-    {
-        IProjectScope GetProjectScope(Project project);
-        IEnumerable<IProjectScope> GetProjectScopesFromBindingProject(Project bindingProject);
-    }
-
     [Export(typeof(IProjectScopeFactory))]
     public class ProjectScopeFactory : IDisposable, IProjectScopeFactory
     {

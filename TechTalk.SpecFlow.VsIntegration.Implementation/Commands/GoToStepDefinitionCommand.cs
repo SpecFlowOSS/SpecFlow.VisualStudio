@@ -15,12 +15,6 @@ using TechTalk.SpecFlow.VsIntegration.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
-    public interface IGoToStepDefinitionCommand : IEditorCommand
-    {
-        bool CanGoToDefinition(GherkinEditorContext editorContext);
-        bool GoToDefinition(GherkinEditorContext editorContext);
-    }
-
     public class GoToStepDefinitionCommand : IGoToStepDefinitionCommand
     {
         private readonly IGherkinLanguageServiceFactory gherkinLanguageServiceFactory;

@@ -7,16 +7,6 @@ using TechTalk.SpecFlow.VsIntegration.GherkinFileEditor;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    internal class PartialListeningDoneException : ScanningCancelledException
-    {
-        public IScenarioBlock FirstUnchangedScenario { get; private set; }
-
-        public PartialListeningDoneException(IScenarioBlock firstUnchangedScenario)
-        {
-            FirstUnchangedScenario = firstUnchangedScenario;
-        }
-    }
-
     internal class GherkinTextBufferPartialParserListener : GherkinTextBufferParserListenerBase
     {
         private readonly IGherkinFileScope previousScope;

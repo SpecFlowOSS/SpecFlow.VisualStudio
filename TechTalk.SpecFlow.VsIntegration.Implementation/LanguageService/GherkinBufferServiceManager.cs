@@ -8,12 +8,6 @@ using Microsoft.VisualStudio.Utilities;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    internal interface IGherkinBufferServiceManager
-    {
-        TService GetOrCreate<TService>(ITextBuffer textBuffer, Func<TService> creator)
-            where TService : class, IDisposable;
-    }
-
     [Export(typeof(IGherkinBufferServiceManager))]
     [Export(typeof(IWpfTextViewConnectionListener))]
     [ContentType("gherkin")]

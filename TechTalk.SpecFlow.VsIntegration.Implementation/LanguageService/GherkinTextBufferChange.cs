@@ -5,13 +5,6 @@ using TechTalk.SpecFlow.VsIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    public enum GherkinTextBufferChangeType
-    {
-        EntireFile,
-        SingleLine,
-        MultiLine
-    }
-
     public class GherkinTextBufferChange
     {
         public GherkinTextBufferChangeType Type { get; private set; }

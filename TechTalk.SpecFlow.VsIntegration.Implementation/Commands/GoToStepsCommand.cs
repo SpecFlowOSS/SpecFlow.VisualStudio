@@ -14,10 +14,6 @@ using TextSelection = EnvDTE.TextSelection;
 
 namespace TechTalk.SpecFlow.VsIntegration.Commands
 {
-    public interface IGoToStepsCommand : IEditorCommand
-    {
-    }
-
     public class GoToStepsCommand : IGoToStepsCommand
     {
         private readonly DTE dte;

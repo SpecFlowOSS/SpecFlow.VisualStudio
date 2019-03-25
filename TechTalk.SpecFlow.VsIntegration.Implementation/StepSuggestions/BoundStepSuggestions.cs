@@ -7,11 +7,6 @@ using TechTalk.SpecFlow.Bindings;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
-    public interface IStepSuggestionGroup<TNativeSuggestionItem>
-    {
-        IEnumerable<IBoundStepSuggestion<TNativeSuggestionItem>> Suggestions { get; }
-    }
-
     public class BoundStepSuggestions<TNativeSuggestionItem> : IStepSuggestion<TNativeSuggestionItem>, IStepSuggestionGroup<TNativeSuggestionItem>
     {
         private readonly StepSuggestionList<TNativeSuggestionItem> suggestions;

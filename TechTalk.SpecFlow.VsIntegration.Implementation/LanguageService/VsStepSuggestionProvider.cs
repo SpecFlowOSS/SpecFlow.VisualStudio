@@ -2,8 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.Language.Intellisense;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Parser.SyntaxElements;
@@ -12,66 +10,6 @@ using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
 
 namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 {
-    internal class CompletionWithImage : Completion
-    {
-        public CompletionWithImage(string displayText, string insertionText, string description, ImageSource iconSource, string iconAutomationText) : base(displayText, insertionText, description, iconSource, iconAutomationText)
-        {
-        }
-
-        public string IconDescriptor { get; set; }
-
-        public override ImageSource IconSource
-        {
-            get
-            {
-                if (base.IconSource == null && IconDescriptor != null)
-                {
-                    base.IconSource = new BitmapImage(
-                        new Uri(string.Format("pack://application:,,,/{1};component/resources/autocomplete-{0}.png", 
-                            IconDescriptor.ToLowerInvariant(), "TechTalk.SpecFlow.VsIntegration.Implementation")));
-                }
-
-                return base.IconSource;
-            }
-            set
-            {
-                base.IconSource = value;
-            }
-        }
-    }
-
-    public class VsSuggestionItemFactory : INativeSuggestionItemFactory<Completion>
-    {
-        static public readonly VsSuggestionItemFactory Instance = new VsSuggestionItemFactory();
-
-        public Completion Create(string displayText, string insertionText, int level, string iconDescriptor, object parentObject)
-        {
-            var result = new CompletionWithImage(new string(' ', level*2) + displayText, insertionText, null, null, null) {IconDescriptor = iconDescriptor};
-            if (parentObject != null)
-                result.Properties.AddProperty("parentObject", parentObject);
-
-            result.Properties.AddProperty("level", level);
-            return result;
-        }
-
-        public Completion CloneTo(Completion nativeSuggestionItem, object parentObject)
-        {
-            return Create(nativeSuggestionItem.DisplayText.TrimStart(), nativeSuggestionItem.InsertionText,
-                          GetLevel(nativeSuggestionItem), ((CompletionWithImage) nativeSuggestionItem).IconDescriptor,
-                          parentObject);
-        }
-
-        public string GetInsertionText(Completion nativeSuggestionItem)
-        {
-            return nativeSuggestionItem.InsertionText;
-        }
-
-        public int GetLevel(Completion nativeSuggestionItem)
-        {
-            return nativeSuggestionItem.Properties.GetProperty<int>("level");
-        }
-    }
-
     public class VsStepSuggestionProvider : StepSuggestionProvider<Completion>, IDisposable, IBindingRegistry
     {
         private bool featureFilesPopulated = false;

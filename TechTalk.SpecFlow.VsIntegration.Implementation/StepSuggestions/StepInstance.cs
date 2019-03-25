@@ -9,12 +9,6 @@ using TechTalk.SpecFlow.Bindings;
 
 namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
 {
-    public interface ISourceFilePosition
-    {
-        string SourceFile { get; }
-        FilePosition FilePosition { get; }
-    }
-
     public class StepInstance<TNativeSuggestionItem> : StepInstance, IBoundStepSuggestion<TNativeSuggestionItem>, ISourceFilePosition
     {
         private readonly List<BoundStepSuggestions<TNativeSuggestionItem>> matchGroups = new List<BoundStepSuggestions<TNativeSuggestionItem>>(1);
