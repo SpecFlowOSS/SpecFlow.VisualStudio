@@ -1,33 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Windows.Threading;
 using EnvDTE;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TracerExtensions = TechTalk.SpecFlow.IdeIntegration.Tracing.TracerExtensions;
 
-namespace TechTalk.SpecFlow.VsIntegration.LanguageService
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
-    public abstract class FileInfo
-    {
-        public bool IsAnalyzed { get; set; }
-        public bool IsError { get; set; }
-        public DateTime LastChangeDate { get; set; }
-        public string ProjectRelativePath { get; set; }
-
-        public virtual void Rename(string newProjectRelativePath)
-        {
-            ProjectRelativePath = newProjectRelativePath;
-        }
-
-        public bool IsDirty(DateTime timeStamp)
-        {
-            return LastChangeDate > timeStamp.AddMilliseconds(0.5);
-        }
-    }
-
     internal abstract class ProjectFilesTracker<TFileInfo> where TFileInfo : FileInfo 
     {
         protected readonly VsProjectScope vsProjectScope;

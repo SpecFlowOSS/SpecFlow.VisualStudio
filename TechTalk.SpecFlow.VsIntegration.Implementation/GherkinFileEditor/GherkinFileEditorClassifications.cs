@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.Text.Classification;
 
-namespace TechTalk.SpecFlow.VsIntegration.GherkinFileEditor
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor
 {
     public class GherkinFileEditorClassifications
     {

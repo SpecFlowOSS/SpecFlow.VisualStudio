@@ -5,10 +5,12 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.Generator;
-using TechTalk.SpecFlow.VsIntegration.SingleFileGenerator;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Generator;
+using TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TechTalk.SpecFlow.VsIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Utils;
 using VSLangProj80;
 
 namespace TechTalk.SpecFlow.VsIntegration

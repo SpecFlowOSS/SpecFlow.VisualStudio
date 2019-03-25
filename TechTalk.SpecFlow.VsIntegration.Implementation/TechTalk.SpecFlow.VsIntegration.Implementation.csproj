@@ -2,21 +2,20 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
+    <!-- This is only the testing instance's instrumentation key -->
+    <AppInsightsInstrumentationKey>88c7861a-5106-4d48-b545-b26ee23e1f21</AppInsightsInstrumentationKey>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Analytics\AppInsightsInstrumentationKey.template.cs" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Remove="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml" />
     <None Include="Analytics\AppInsightsInstrumentationKey.template.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
     <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
-    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
-      <Version>15.8.36</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
-      <Version>16.0.102</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers" Version="15.8.36" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
     <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
@@ -35,15 +34,11 @@
     <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.OpenJDK.Util.dll" />
     <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.Runtime.dll" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
-    <!-- This is only the testing instance's instrumentation key -->
-    <AppInsightsInstrumentationKey>88c7861a-5106-4d48-b545-b26ee23e1f21</AppInsightsInstrumentationKey>
-  </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\CompletionSessionView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
     <Resource Include="Resources\autocomplete-g-b.png" />
     <Resource Include="Resources\autocomplete-g-t.png" />
     <Resource Include="Resources\autocomplete-g.png" />

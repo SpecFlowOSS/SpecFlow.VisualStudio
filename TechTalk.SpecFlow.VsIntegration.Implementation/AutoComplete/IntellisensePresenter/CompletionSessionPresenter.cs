@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.Language.Intellisense;
-using Microsoft.VisualStudio.Text;
 using System.Windows;
 using EnvDTE;
+using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Adornments;
 
-namespace TechTalk.SpecFlow.VsIntegration.AutoComplete.IntellisensePresenter
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete.IntellisensePresenter
 {
-    internal class CompletionSessionPresenter : IPopupIntellisensePresenter, IIntellisenseCommandTarget
+    public class CompletionSessionPresenter : IPopupIntellisensePresenter, IIntellisenseCommandTarget
     {
         private readonly CompletionSessionView view;
         private readonly ICompletionSession session;
         private readonly IServiceProvider serviceProvider;
 
-        internal CompletionSessionPresenter(IServiceProvider serviceProvider, ICompletionSession session)
+        public CompletionSessionPresenter(IServiceProvider serviceProvider, ICompletionSession session)
         {
             this.session = session;
             this.session.SelectedCompletionSet.SelectionStatusChanged += OnSelectedCompletionSetSelectionStatusChanged;

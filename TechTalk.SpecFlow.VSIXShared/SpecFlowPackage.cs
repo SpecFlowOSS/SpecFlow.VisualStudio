@@ -13,9 +13,12 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Analytics;
-using TechTalk.SpecFlow.VsIntegration.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TechTalk.SpecFlow.VsIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.Utils;
 using Task = System.Threading.Tasks.Task;
 
 namespace TechTalk.SpecFlow.VsIntegration

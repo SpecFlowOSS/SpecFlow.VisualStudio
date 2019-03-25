@@ -7,9 +7,9 @@ using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
-using TechTalk.SpecFlow.VsIntegration.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
-namespace TechTalk.SpecFlow.VsIntegration.Generator
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Generator
 {
     internal class VsGeneratorInfoProvider : IGeneratorInfoProvider
     {

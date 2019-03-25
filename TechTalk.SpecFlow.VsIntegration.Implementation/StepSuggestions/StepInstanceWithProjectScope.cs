@@ -1,7 +1,7 @@
 ﻿using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.StepSuggestions
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {
     internal class StepInstanceWithProjectScope
     {

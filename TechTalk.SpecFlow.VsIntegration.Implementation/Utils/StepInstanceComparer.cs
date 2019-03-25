@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TechTalk.SpecFlow.Bindings;
-using TechTalk.SpecFlow.VsIntegration.StepSuggestions;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 
-namespace TechTalk.SpecFlow.VsIntegration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
     internal class StepInstanceComparer : IEqualityComparer<StepInstance>, IComparer<StepInstance>
     {

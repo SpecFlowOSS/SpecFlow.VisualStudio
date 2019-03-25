@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 
-namespace TechTalk.SpecFlow.VsIntegration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
     // ==================================================================================
     /// <summary>

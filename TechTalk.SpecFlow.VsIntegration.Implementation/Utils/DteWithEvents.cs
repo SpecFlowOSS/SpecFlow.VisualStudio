@@ -3,13 +3,13 @@ using EnvDTE;
 using EnvDTE80;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
-namespace TechTalk.SpecFlow.VsIntegration.Utils
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
     /// <summary>
     /// This class is ncecessary because of COM interop. If the .NET wrapper of the event sources are 
     /// not referecned, the subscriptions might get lost.
     /// </summary>
-    internal class DteWithEvents
+    public class DteWithEvents
     {
         public event _dispBuildEvents_OnBuildDoneEventHandler OnBuildDone
         {

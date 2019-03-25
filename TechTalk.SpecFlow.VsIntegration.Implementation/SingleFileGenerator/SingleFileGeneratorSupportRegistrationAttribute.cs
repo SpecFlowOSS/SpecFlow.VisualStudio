@@ -11,8 +11,9 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 using System;
 using System.Globalization;
+using Microsoft.VisualStudio.Shell;
 
-namespace Microsoft.VisualStudio.Shell
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
 {
 	/// <summary>
 	/// This attribute adds a custom file generator registry entry for specific file 
