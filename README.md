@@ -11,38 +11,20 @@ Continuous Integration: [![Build Status](https://specflow.visualstudio.com/SpecF
 
 ## Deployment status
 
-### Visual Studio 2015 extension
+Unit tests: ![Unit tests status](https://vsrm.dev.azure.com/specflow/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/25)
 
-Unit tests: ![Unit tests status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/8)
+Publish to MyGet: ![Publish to MyGet status](https://vsrm.dev.azure.com/specflow/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/26)
 
-Publish to MyGet: ![Publish to MyGet status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/9)
-
-### Visual Studio 2017 extension
-
-Unit tests: ![Unit tests status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/6)
-
-Publish to MyGet: ![Publish to MyGet status](https://specflow.vsrm.visualstudio.com/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/7)
 
 ## Build prerequisites
 
-### VS 2015 Extension
+ - VS 2019
+ - VS SDK
 
-- Visual Studio 2015
-- Visual Studio 2015 SDK
-
-Please use SpecFlow.VisualStudio.2015.sln as Solution file.
-
-### VS 2017 Extension
-
-- Visual Studio 2017
-- Visual Studio 2017 SDK
-
-Please use SpecFlow.VisualStudio.2017.sln as Solution file.
 
 ## Developing
 
-For general fixes & features you can choose the Visual Studio version of your choice.
-Currently there are only differences in the TechTalk.SpecFlow.VsIntegration.*.csproj. If you change one, please update the other two as well.
+Use SpecFlow.VisualStudio.sln.
 
 ## Debugging
 
