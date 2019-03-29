@@ -69,6 +69,18 @@
     <DeployExtension>False</DeployExtension>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+
+  <PropertyGroup>
+      <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
+  </PropertyGroup>
+
+  <Target Name="IncludeNuGetResolvedAssets" DependsOnTargets="ResolveNuGetPackageAssets">
+    <ItemGroup>
+	  	<VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'"  />
+    </ItemGroup>
+  </Target>
+
+
   <ItemGroup>
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />
@@ -78,6 +90,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
       <Version>16.0.102</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>9.0.1</Version>
     </PackageReference>
     <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
     <Reference Include="System.Windows.Forms" />
