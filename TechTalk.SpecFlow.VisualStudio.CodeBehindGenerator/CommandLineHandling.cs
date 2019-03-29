@@ -22,7 +22,14 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
             var assemblies = Directory.GetFiles(Environment.CurrentDirectory, "*.dll");
             foreach (string assembly in assemblies)
             {
-                Assembly.LoadFile(assembly);
+                try
+                {
+                    Assembly.LoadFile(assembly);
+                }
+                catch (Exception e)
+                {
+                
+                }
             }
         }
 
