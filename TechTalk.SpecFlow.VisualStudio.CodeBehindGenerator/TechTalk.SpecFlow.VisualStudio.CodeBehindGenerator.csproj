@@ -3,6 +3,7 @@
     <TargetFramework>net45</TargetFramework>
     <SignAssembly>$(SpecFlow_SignAssembly)</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
