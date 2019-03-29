@@ -97,7 +97,7 @@
     <VSTemplate Include="SpecFlowFeature_French\SpecFlowFeature_French_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <VSTemplate Include="SpecFlowFeature_Nederlands\SpecFlowFeature_Nederlands_CSharp.vstemplate">
+    <VSTemplate Include="SpecFlowFeature_Nederlands\Feature_Nederlands_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
     <VSTemplate Include="SpecFlowFeature_English\SpecFlowFeature_English_VB.vstemplate">
@@ -113,7 +113,7 @@
     <Content Include="SpecFlowFeature_French\SpecFlowFeatureIcon.ico" />
     <Content Include="SpecFlowFeature_German\SpecFlowFeatureIcon.ico" />
     <Content Include="SpecFlowFeature_English\SpecFlowFeatureIcon.ico" />
-    <VSTemplate Include="SpecFlowFeature_Nederlands\SpecFlowFeature_Nederlands_VB.vstemplate">
+    <VSTemplate Include="SpecFlowFeature_Nederlands\Feature_Nederlands_VB.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
     <VSTemplate Include="SpecFlowFeature\SpecFlowFeature_VB.vstemplate">
@@ -130,7 +130,7 @@
     <VSTemplate Include="SpecFlowHooks\SpecFlowHooks_VB.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile_CSharp.vstemplate">
+    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\Runner_Srprofile_CSharp.vstemplate">
       <OutputSubPath>SpecFlow</OutputSubPath>
       <SubType>Designer</SubType>
     </VSTemplate>
@@ -146,7 +146,7 @@
       <SubType>Designer</SubType>
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
-    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\SpecFlowPlusRunner_Srprofile_VB.vstemplate">
+    <VSTemplate Include="SpecFlowPlusRunner_Srprofile\Runner_Srprofile_VB.vstemplate">
       <SubType>Designer</SubType>
       <OutputSubPath>SpecFlow</OutputSubPath>
     </VSTemplate>
