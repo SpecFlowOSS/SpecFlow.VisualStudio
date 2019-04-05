@@ -32,7 +32,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                                                    return new { success, tfm };
                                                })
                                            .Where(r => r.success)
-                                           .Select(r => r.tfm);
+                                           .SelectMany(r => r.tfm.Split(';'))
+                                           .Distinct();
             return targetFrameworks;
         }
 
