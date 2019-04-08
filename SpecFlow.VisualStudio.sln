@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{DD083D
 		build.yml = build.yml
 		changelog.txt = changelog.txt
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		Directory.Build.props = Directory.Build.props
 		GitVersion.yml = GitVersion.yml
 		LICENSE.txt = LICENSE.txt
 		publish.myget.ps1 = publish.myget.ps1
