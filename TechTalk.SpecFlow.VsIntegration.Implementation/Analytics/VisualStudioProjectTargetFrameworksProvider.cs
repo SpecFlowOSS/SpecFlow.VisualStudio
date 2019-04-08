@@ -27,12 +27,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                                            .Select(
                                                p =>
                                                {
-                                                   string tfm;
-                                                   bool success = TryGetTargetFrameworkMonikers(p.Properties, out tfm);
+                                                   bool success = TryGetTargetFrameworkMonikers(p.Properties, out string tfm);
                                                    return new { success, tfm };
                                                })
                                            .Where(r => r.success)
                                            .SelectMany(r => r.tfm.Split(';'))
+                                           .Select(tfm => tfm.Trim())
                                            .Distinct();
             return targetFrameworks;
         }
