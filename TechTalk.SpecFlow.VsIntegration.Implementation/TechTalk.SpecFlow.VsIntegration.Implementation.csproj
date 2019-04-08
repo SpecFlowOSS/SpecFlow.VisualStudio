@@ -79,7 +79,6 @@
   <Target Name="RunTokenReplace" AfterTargets="GetBuildVersion" BeforeTargets="BeforeCompile" Condition="$(DesignTimeBuild) != 'true' OR '$(BuildingProject)' == 'true'">
     <ReplaceTextInFileTask InputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" OutputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
     <ItemGroup>
-      <Compile Remove="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" />
       <Compile Include="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" />
     </ItemGroup>
   </Target>
