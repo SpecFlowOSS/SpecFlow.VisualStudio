@@ -54,7 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VsIntegration.Implementation", "TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.csproj", "{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VsIntegration.Implementation", "TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.csproj", "{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2017", "VsIntegration2017\TechTalk.SpecFlow.VsIntegration.2017.csproj", "{F3EFE63B-77C7-449E-B118-E16F445873C3}"
 EndProject
