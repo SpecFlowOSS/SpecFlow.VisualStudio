@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Text;
+using System.Linq;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
 {
@@ -194,6 +195,32 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
                 throw new ArgumentException("Invalid char literal");
 
             return result[0];
+        }
+
+        // --------------------------------------------------------------------------------
+        /// <summary>
+        /// Searches in text for the last index of a char not contained in the invalidChars array.
+        /// </summary>
+        /// <param name="text">Text in which we want to search for a char index.</param>
+        /// <param name="invalidChars">Characters we want to exclude from the index search</param>
+        /// <returns>
+        /// Zero-based index of the last char found. -1 if text or invalidChars is null, or if no char found.
+        /// </returns>
+        // --------------------------------------------------------------------------------
+        public static int LastIndexOfValidChar(string text, char[] invalidChars)
+        {
+            var lastIndex = -1;
+
+            if (string.IsNullOrEmpty(text) || invalidChars == null)
+                return lastIndex;
+
+            for (var i = 0; i < text.Length; i++)
+            {
+                if (!invalidChars.Contains(text[i]))
+                    lastIndex = i;
+            }
+
+            return lastIndex;
         }
     }
 }
