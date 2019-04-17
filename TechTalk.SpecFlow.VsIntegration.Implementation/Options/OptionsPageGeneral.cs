@@ -130,7 +130,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
 
 
         [Category("Legacy")]
-        [Description("Enables code-behind file generation via CustomTool. Turn off for .NET Core projects")]
+        [Description("Enables code-behind file generation via CustomTool. Turn off when you use the MSBuild integration.")]
         [DisplayName("Enable SpecFlowSingleFileGenerator CustomTool")]
         [DefaultValue(false)]
         public bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool { get; set; }
