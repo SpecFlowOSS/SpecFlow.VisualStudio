@@ -1,4 +1,4 @@
-name: SpecFlow.VisualStudio.CI 
+name: $(GitAssemblyInformationalVersion)
 
 resources:
 - repo: self
