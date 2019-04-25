@@ -9,6 +9,13 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 {
     public class IdeSingleFileGenerator
     {
+        private readonly ProjectInfo _projectInfo;
+
+        public IdeSingleFileGenerator(ProjectInfo projectInfo)
+        {
+            _projectInfo = projectInfo;
+        }
+
         public event Action<TestGenerationError> GenerationError;
         public event Action<Exception> OtherError;
 
@@ -27,6 +34,24 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 generatorServices = generatorServicesProvider();
                 projectSettings = generatorServices.GetProjectSettings();
                 codeDomHelper = GenerationTargetLanguage.CreateCodeDomHelper(projectSettings.ProjectPlatformSettings.Language);
+
+                if (outputFilePath == null)
+                {
+                    outputFilePath = inputFilePath + GenerationTargetLanguage.GetExtension(projectSettings.ProjectPlatformSettings.Language);
+                }
+
+                var generatorVersion = generatorServices.GetGeneratorVersion();
+
+                if (generatorVersion.Major != _projectInfo.ReferencedSpecFlowVersion.Major
+                    || generatorVersion.Minor != _projectInfo.ReferencedSpecFlowVersion.Minor)
+                {
+                    string errorMessage = $@"SpecFlow Visual Studio extension attempted to use SpecFlow Generator {generatorVersion.ToString(2)} while project '{_projectInfo.ProjectName}' references SpecFlow {_projectInfo.ReferencedSpecFlowVersion.ToString(2)}. We recommend to migrate to MSBuild code-behind generation to resolve this issue.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
+                    var exception = new InvalidOperationException(errorMessage);
+                    string errorText = GenerateError(exception, codeDomHelper);
+                    outputFileContentWriter(outputFilePath, errorText);
+                    return outputFilePath;
+                }
             }
             catch (Exception ex)
             {
@@ -49,9 +74,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
             try
             {
-                if (outputFilePath == null)
-                    outputFilePath = inputFilePath + GenerationTargetLanguage.GetExtension(projectSettings.ProjectPlatformSettings.Language);
-
                 outputFileContentWriter(outputFilePath, outputFileContent);
 
                 return outputFilePath;
