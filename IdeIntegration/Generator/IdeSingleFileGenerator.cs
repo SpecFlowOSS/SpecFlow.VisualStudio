@@ -45,7 +45,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 if (generatorVersion.Major != _projectInfo.ReferencedSpecFlowVersion.Major
                     || generatorVersion.Minor != _projectInfo.ReferencedSpecFlowVersion.Minor)
                 {
-                    string errorMessage = $@"SpecFlow Visual Studio extension attempted to use SpecFlow Generator {generatorVersion.ToString(2)} while project '{_projectInfo.ProjectName}' references SpecFlow {_projectInfo.ReferencedSpecFlowVersion.ToString(2)}. We recommend to migrate to MSBuild code-behind generation to resolve this issue.
+                    string errorMessage = $@"Version conflict - SpecFlow Visual Studio extension attempted to use SpecFlow code-behind generator {generatorVersion.ToString(2)}, but project '{_projectInfo.ProjectName}' references SpecFlow {_projectInfo.ReferencedSpecFlowVersion.ToString(2)}.
+We recommend migrating to MSBuild code-behind generation to resolve this issue.
 For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
                     var exception = new InvalidOperationException(errorMessage);
                     string errorText = GenerateError(exception, codeDomHelper);

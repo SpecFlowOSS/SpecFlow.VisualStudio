@@ -43,9 +43,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
 
             if (specFlowReference == null)
             {
-                // TODO: dei message is just placeholder, needs to be updated
                 // TODO: dei set generatedContent
-                string errorMessage = $"Could not find reference to SpecFlow in project '{project.Name}'. Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of SpecFlowSingleFileGenerator.";
+                string errorMessage = $@"Could not find a reference to SpecFlow in project '{project.Name}'.
+Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of using SpecFlowSingleFileGenerator.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
                 throw new InvalidOperationException(errorMessage);
             }
 
