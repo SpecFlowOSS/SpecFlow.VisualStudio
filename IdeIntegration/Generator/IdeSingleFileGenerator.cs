@@ -104,7 +104,7 @@ For more information see https://specflow.org/documentation/Generate-Tests-from-
             string outputFileContent;
             try
             {
-                TestGeneratorResult generationResult = GenerateCode(inputFilePath, inputFileContent, generatorServices, projectSettings);
+                var generationResult = GenerateCode(inputFilePath, inputFileContent, generatorServices, projectSettings);
 
                 if (generationResult.Success)
                     outputFileContent = generationResult.GeneratedTestCode;
@@ -123,8 +123,8 @@ For more information see https://specflow.org/documentation/Generate-Tests-from-
         {
             using (var testGenerator = generatorServices.CreateTestGenerator())
             {
-                var fullPath = Path.GetFullPath(Path.Combine(projectSettings.ProjectFolder, inputFilePath));
-                FeatureFileInput featureFileInput =
+                string fullPath = Path.GetFullPath(Path.Combine(projectSettings.ProjectFolder, inputFilePath));
+                var featureFileInput =
                     new FeatureFileInput(FileSystemHelper.GetRelativePath(fullPath, projectSettings.ProjectFolder))
                     {
                         FeatureFileContent = inputFileContent
@@ -147,15 +147,15 @@ For more information see https://specflow.org/documentation/Generate-Tests-from-
 
         private string GenerateError(Exception ex, CodeDomHelper codeDomHelper)
         {
-            TestGenerationError testGenerationError = new TestGenerationError(ex);
+            var testGenerationError = new TestGenerationError(ex);
             OnGenerationError(testGenerationError);
 
-            var exceptionText =  ex.Message + Environment.NewLine +
+            string exceptionText =  ex.Message + Environment.NewLine +
                                               Environment.NewLine +
                                 ex.Source + Environment.NewLine + 
                                 ex.StackTrace;
 
-            var errorMessage = string.Join(Environment.NewLine, exceptionText
+            string errorMessage = string.Join(Environment.NewLine, exceptionText
                 .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(codeDomHelper.GetErrorStatementString));
 

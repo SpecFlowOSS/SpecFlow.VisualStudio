@@ -6,7 +6,6 @@ using System.Text;
 using EnvDTE;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
-using TechTalk.SpecFlow.Utils;
 using VSLangProj80;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
@@ -31,7 +30,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
         {
             if (IsSharePointFeature(inputFileContent))
             {
-                StringBuilder sharePointFeatureComment = new StringBuilder();
+                var sharePointFeatureComment = new StringBuilder();
                 sharePointFeatureComment.AppendFormat("/*SpecFlow tried to generate a test class file, but {0} appears to be a SharePoint feature.", Path.GetFileName(inputFilePath));
                 sharePointFeatureComment.AppendLine("  The SpecFlow test class was not be generated in order to avoid errors in the SharePoint proejct*/");
                 generatedContent = sharePointFeatureComment.ToString();
