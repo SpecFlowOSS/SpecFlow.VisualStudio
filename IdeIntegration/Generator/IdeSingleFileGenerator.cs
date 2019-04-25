@@ -49,7 +49,7 @@ For more information see https://specflow.org/documentation/Generate-Tests-from-
                     var exception = new InvalidOperationException(errorMessage);
                     string errorText = GenerateError(exception, codeDomHelper);
                     outputFileContentWriter(outputFilePath, errorText);
-                    return errorText;
+                    return outputFilePath;
                 }
 
                 var generatorVersion = generatorServices.GetGeneratorVersion();
