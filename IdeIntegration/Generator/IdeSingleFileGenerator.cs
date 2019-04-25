@@ -9,6 +9,13 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 {
     public class IdeSingleFileGenerator
     {
+        private readonly ProjectInfo _projectInfo;
+
+        public IdeSingleFileGenerator(ProjectInfo projectInfo)
+        {
+            _projectInfo = projectInfo;
+        }
+
         public event Action<TestGenerationError> GenerationError;
         public event Action<Exception> OtherError;
 
@@ -27,6 +34,24 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                 generatorServices = generatorServicesProvider();
                 projectSettings = generatorServices.GetProjectSettings();
                 codeDomHelper = GenerationTargetLanguage.CreateCodeDomHelper(projectSettings.ProjectPlatformSettings.Language);
+
+                if (outputFilePath == null)
+                {
+                    outputFilePath = inputFilePath + GenerationTargetLanguage.GetExtension(projectSettings.ProjectPlatformSettings.Language);
+                }
+
+                if (_projectInfo.ReferencedSpecFlowVersion == null)
+                {
+                    return WriteNoSpecFlowVersionReferencedError(outputFilePath, outputFileContentWriter, codeDomHelper);
+                }
+
+                var generatorVersion = generatorServices.GetGeneratorVersion();
+
+                if (generatorVersion.Major != _projectInfo.ReferencedSpecFlowVersion.Major
+                    || generatorVersion.Minor != _projectInfo.ReferencedSpecFlowVersion.Minor)
+                {
+                    return WriteSpecFlowVersionConflictError(outputFilePath, outputFileContentWriter, generatorVersion, codeDomHelper);
+                }
             }
             catch (Exception ex)
             {
@@ -49,9 +74,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
             try
             {
-                if (outputFilePath == null)
-                    outputFilePath = inputFilePath + GenerationTargetLanguage.GetExtension(projectSettings.ProjectPlatformSettings.Language);
-
                 outputFileContentWriter(outputFilePath, outputFileContent);
 
                 return outputFilePath;
@@ -63,13 +85,41 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             }
         }
 
+        private string WriteSpecFlowVersionConflictError(string outputFilePath, Action<string, string> outputFileContentWriter, Version generatorVersion, CodeDomHelper codeDomHelper)
+        {
+            string errorMessage =
+                $@"Version conflict - SpecFlow Visual Studio extension attempted to use SpecFlow code-behind generator {generatorVersion.ToString(2)}, but project '{_projectInfo.ProjectName}' references SpecFlow {_projectInfo.ReferencedSpecFlowVersion.ToString(2)}.
+We recommend migrating to MSBuild code-behind generation to resolve this issue.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
+
+            WriteErrorMessageToFile(outputFilePath, outputFileContentWriter, codeDomHelper, errorMessage);
+            return outputFilePath;
+        }
+
+        private string WriteNoSpecFlowVersionReferencedError(string outputFilePath, Action<string, string> outputFileContentWriter, CodeDomHelper codeDomHelper)
+        {
+            string errorMessage = $@"Could not find a reference to SpecFlow in project '{_projectInfo.ProjectName}'.
+Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of using SpecFlowSingleFileGenerator.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
+
+            WriteErrorMessageToFile(outputFilePath, outputFileContentWriter, codeDomHelper, errorMessage);
+            return outputFilePath;
+        }
+
+        private void WriteErrorMessageToFile(string outputFilePath, Action<string, string> outputFileContentWriter, CodeDomHelper codeDomHelper, string errorMessage)
+        {
+            var exception = new InvalidOperationException(errorMessage);
+            string errorText = GenerateError(exception, codeDomHelper);
+            outputFileContentWriter(outputFilePath, errorText);
+        }
+
         private string Generate(string inputFilePath, string inputFileContent, GeneratorServices generatorServices, CodeDomHelper codeDomHelper,
             ProjectSettings projectSettings)
         {
             string outputFileContent;
             try
             {
-                TestGeneratorResult generationResult = GenerateCode(inputFilePath, inputFileContent, generatorServices, projectSettings);
+                var generationResult = GenerateCode(inputFilePath, inputFileContent, generatorServices, projectSettings);
 
                 if (generationResult.Success)
                     outputFileContent = generationResult.GeneratedTestCode;
@@ -88,8 +138,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         {
             using (var testGenerator = generatorServices.CreateTestGenerator())
             {
-                var fullPath = Path.GetFullPath(Path.Combine(projectSettings.ProjectFolder, inputFilePath));
-                FeatureFileInput featureFileInput =
+                string fullPath = Path.GetFullPath(Path.Combine(projectSettings.ProjectFolder, inputFilePath));
+                var featureFileInput =
                     new FeatureFileInput(FileSystemHelper.GetRelativePath(fullPath, projectSettings.ProjectFolder))
                     {
                         FeatureFileContent = inputFileContent
@@ -112,15 +162,15 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
         private string GenerateError(Exception ex, CodeDomHelper codeDomHelper)
         {
-            TestGenerationError testGenerationError = new TestGenerationError(ex);
+            var testGenerationError = new TestGenerationError(ex);
             OnGenerationError(testGenerationError);
 
-            var exceptionText =  ex.Message + Environment.NewLine +
+            string exceptionText =  ex.Message + Environment.NewLine +
                                               Environment.NewLine +
                                 ex.Source + Environment.NewLine + 
                                 ex.StackTrace;
 
-            var errorMessage = string.Join(Environment.NewLine, exceptionText
+            string errorMessage = string.Join(Environment.NewLine, exceptionText
                 .Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(codeDomHelper.GetErrorStatementString));
 
