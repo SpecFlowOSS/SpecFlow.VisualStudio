@@ -37,11 +37,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
                 return true;
             }
 
-            var vsProject = project.Object as VSProject2;
-            var references = vsProject?.References.Cast<Reference3>() ?? Enumerable.Empty<Reference3>();
-            var specFlowReference = references.FirstOrDefault(r => r.Name == "TechTalk.SpecFlow");
-            var referencedSpecFlowVersion = specFlowReference is Reference3 reference ? Version.Parse(reference.Version) : null;
-            var projectInfo = new ProjectInfo(project.Name, referencedSpecFlowVersion);
+            var projectInfo = GetProjectInfoForProject(project);
 
             var ideSingleFileGenerator = new IdeSingleFileGenerator(projectInfo);
 
@@ -62,6 +58,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
             generatedContent = outputContent;
 
             return outputFilePath != null;
+        }
+
+        protected ProjectInfo GetProjectInfoForProject(Project project)
+        {
+            var vsProject = project.Object as VSProject2;
+            var references = vsProject?.References.Cast<Reference3>() ?? Enumerable.Empty<Reference3>();
+            var specFlowReference = references.FirstOrDefault(r => r.Name == "TechTalk.SpecFlow");
+            var referencedSpecFlowVersion = specFlowReference is Reference3 reference ? Version.Parse(reference.Version) : null;
+            var projectInfo = new ProjectInfo(project.Name, referencedSpecFlowVersion);
+            return projectInfo;
         }
 
         protected abstract Func<GeneratorServices> GeneratorServicesProvider(Project project);
