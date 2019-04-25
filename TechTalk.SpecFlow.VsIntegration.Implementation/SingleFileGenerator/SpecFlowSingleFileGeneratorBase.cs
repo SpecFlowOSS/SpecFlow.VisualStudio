@@ -1,10 +1,12 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using EnvDTE;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
+using VSLangProj80;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
 {
@@ -28,14 +30,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
         {
             if (IsSharePointFeature(inputFileContent))
             {
-                StringBuilder sharePointFeatureComment = new StringBuilder();
+                var sharePointFeatureComment = new StringBuilder();
                 sharePointFeatureComment.AppendFormat("/*SpecFlow tried to generate a test class file, but {0} appears to be a SharePoint feature.", Path.GetFileName(inputFilePath));
                 sharePointFeatureComment.AppendLine("  The SpecFlow test class was not be generated in order to avoid errors in the SharePoint proejct*/");
                 generatedContent = sharePointFeatureComment.ToString();
                 return true;
             }
 
-            var ideSingleFileGenerator = new IdeSingleFileGenerator();
+            var projectInfo = GetProjectInfoForProject(project);
+
+            var ideSingleFileGenerator = new IdeSingleFileGenerator(projectInfo);
 
             ideSingleFileGenerator.GenerationError +=
                 delegate(TestGenerationError error)
@@ -54,6 +58,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
             generatedContent = outputContent;
 
             return outputFilePath != null;
+        }
+
+        protected ProjectInfo GetProjectInfoForProject(Project project)
+        {
+            var vsProject = project.Object as VSProject2;
+            var references = vsProject?.References.Cast<Reference3>() ?? Enumerable.Empty<Reference3>();
+            var specFlowReference = references.FirstOrDefault(r => r.Name == "TechTalk.SpecFlow");
+            var referencedSpecFlowVersion = specFlowReference is Reference3 reference ? Version.Parse(reference.Version) : null;
+            var projectInfo = new ProjectInfo(project.Name, referencedSpecFlowVersion);
+            return projectInfo;
         }
 
         protected abstract Func<GeneratorServices> GeneratorServicesProvider(Project project);
