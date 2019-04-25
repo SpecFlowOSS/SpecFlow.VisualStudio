@@ -42,14 +42,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
 
                 if (_projectInfo.ReferencedSpecFlowVersion == null)
                 {
-                    string errorMessage = $@"Could not find a reference to SpecFlow in project '{_projectInfo.ProjectName}'.
-Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of using SpecFlowSingleFileGenerator.
-For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
-
-                    var exception = new InvalidOperationException(errorMessage);
-                    string errorText = GenerateError(exception, codeDomHelper);
-                    outputFileContentWriter(outputFilePath, errorText);
-                    return outputFilePath;
+                    return WriteNoSpecFlowVersionReferencedError(outputFilePath, outputFileContentWriter, codeDomHelper);
                 }
 
                 var generatorVersion = generatorServices.GetGeneratorVersion();
@@ -57,13 +50,7 @@ For more information see https://specflow.org/documentation/Generate-Tests-from-
                 if (generatorVersion.Major != _projectInfo.ReferencedSpecFlowVersion.Major
                     || generatorVersion.Minor != _projectInfo.ReferencedSpecFlowVersion.Minor)
                 {
-                    string errorMessage = $@"Version conflict - SpecFlow Visual Studio extension attempted to use SpecFlow code-behind generator {generatorVersion.ToString(2)}, but project '{_projectInfo.ProjectName}' references SpecFlow {_projectInfo.ReferencedSpecFlowVersion.ToString(2)}.
-We recommend migrating to MSBuild code-behind generation to resolve this issue.
-For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
-                    var exception = new InvalidOperationException(errorMessage);
-                    string errorText = GenerateError(exception, codeDomHelper);
-                    outputFileContentWriter(outputFilePath, errorText);
-                    return outputFilePath;
+                    return WriteSpecFlowVersionConflictError(outputFilePath, outputFileContentWriter, generatorVersion, codeDomHelper);
                 }
             }
             catch (Exception ex)
@@ -96,6 +83,34 @@ For more information see https://specflow.org/documentation/Generate-Tests-from-
                 OnOtherError(ex);
                 return null;
             }
+        }
+
+        private string WriteSpecFlowVersionConflictError(string outputFilePath, Action<string, string> outputFileContentWriter, Version generatorVersion, CodeDomHelper codeDomHelper)
+        {
+            string errorMessage =
+                $@"Version conflict - SpecFlow Visual Studio extension attempted to use SpecFlow code-behind generator {generatorVersion.ToString(2)}, but project '{_projectInfo.ProjectName}' references SpecFlow {_projectInfo.ReferencedSpecFlowVersion.ToString(2)}.
+We recommend migrating to MSBuild code-behind generation to resolve this issue.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
+
+            WriteErrorMessageToFile(outputFilePath, outputFileContentWriter, codeDomHelper, errorMessage);
+            return outputFilePath;
+        }
+
+        private string WriteNoSpecFlowVersionReferencedError(string outputFilePath, Action<string, string> outputFileContentWriter, CodeDomHelper codeDomHelper)
+        {
+            string errorMessage = $@"Could not find a reference to SpecFlow in project '{_projectInfo.ProjectName}'.
+Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of using SpecFlowSingleFileGenerator.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
+
+            WriteErrorMessageToFile(outputFilePath, outputFileContentWriter, codeDomHelper, errorMessage);
+            return outputFilePath;
+        }
+
+        private void WriteErrorMessageToFile(string outputFilePath, Action<string, string> outputFileContentWriter, CodeDomHelper codeDomHelper, string errorMessage)
+        {
+            var exception = new InvalidOperationException(errorMessage);
+            string errorText = GenerateError(exception, codeDomHelper);
+            outputFileContentWriter(outputFilePath, errorText);
         }
 
         private string Generate(string inputFilePath, string inputFileContent, GeneratorServices generatorServices, CodeDomHelper codeDomHelper,
