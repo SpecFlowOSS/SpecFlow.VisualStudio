@@ -40,6 +40,18 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                     outputFilePath = inputFilePath + GenerationTargetLanguage.GetExtension(projectSettings.ProjectPlatformSettings.Language);
                 }
 
+                if (_projectInfo.ReferencedSpecFlowVersion == null)
+                {
+                    string errorMessage = $@"Could not find a reference to SpecFlow in project '{_projectInfo.ProjectName}'.
+Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of using SpecFlowSingleFileGenerator.
+For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
+
+                    var exception = new InvalidOperationException(errorMessage);
+                    string errorText = GenerateError(exception, codeDomHelper);
+                    outputFileContentWriter(outputFilePath, errorText);
+                    return errorText;
+                }
+
                 var generatorVersion = generatorServices.GetGeneratorVersion();
 
                 if (generatorVersion.Major != _projectInfo.ReferencedSpecFlowVersion.Major

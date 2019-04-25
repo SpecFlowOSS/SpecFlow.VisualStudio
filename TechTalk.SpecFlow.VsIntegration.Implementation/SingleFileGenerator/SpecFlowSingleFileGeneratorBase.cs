@@ -6,6 +6,7 @@ using System.Text;
 using EnvDTE;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
+using TechTalk.SpecFlow.Utils;
 using VSLangProj80;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
@@ -40,17 +41,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator
             var vsProject = project.Object as VSProject2;
             var references = vsProject?.References.Cast<Reference3>() ?? Enumerable.Empty<Reference3>();
             var specFlowReference = references.FirstOrDefault(r => r.Name == "TechTalk.SpecFlow");
-
-            if (specFlowReference == null)
-            {
-                // TODO: dei set generatedContent
-                string errorMessage = $@"Could not find a reference to SpecFlow in project '{project.Name}'.
-Please add the 'TechTalk.SpecFlow' package to the project and use MSBuild generation instead of using SpecFlowSingleFileGenerator.
-For more information see https://specflow.org/documentation/Generate-Tests-from-MsBuild/";
-                throw new InvalidOperationException(errorMessage);
-            }
-
-            var referencedSpecFlowVersion = Version.Parse(specFlowReference.Version);
+            var referencedSpecFlowVersion = specFlowReference is Reference3 reference ? Version.Parse(reference.Version) : null;
             var projectInfo = new ProjectInfo(project.Name, referencedSpecFlowVersion);
 
             var ideSingleFileGenerator = new IdeSingleFileGenerator(projectInfo);
