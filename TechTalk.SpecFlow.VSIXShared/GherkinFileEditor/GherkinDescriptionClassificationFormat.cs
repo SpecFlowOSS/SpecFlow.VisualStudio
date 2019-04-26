@@ -9,7 +9,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor
     [Name("gherkin.description")]
     [UserVisible(true)] //this should be visible to the end user
     [Order(Before = Priority.Default)] //set the priority to be after the default classifiers
-    internal sealed class GherkinDescriptionClassificationFormat : ClassificationFormatDefinition
+    public sealed class GherkinDescriptionClassificationFormat : ClassificationFormatDefinition
     {
         public GherkinDescriptionClassificationFormat()
         {
