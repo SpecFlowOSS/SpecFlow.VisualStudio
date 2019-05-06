@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.VsIntegration.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
-namespace TechTalk.SpecFlow.VsIntegration.EditorCommands
+namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     internal class FormatDocumentCommand
     {
