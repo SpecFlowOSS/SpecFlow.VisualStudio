@@ -53,7 +53,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             return trimmedLine.StartsWith("|");
         }
 
-        private string FormatTableString(string oldTable)
+        internal static string FormatTableString(string oldTable)
         {
             const string escapedPipeString = "\\\0";
             oldTable = oldTable.Replace("\\|", escapedPipeString);
@@ -114,7 +114,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             return stringBuilder.ToString().Replace(escapedPipeString, "\\|");
         }
 
-        private string[] GetCells(string line)
+        private static string[] GetCells(string line)
         {
             line = line.Trim();
             if (line.StartsWith("|"))
