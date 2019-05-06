@@ -9,12 +9,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public class FormatDocumentCommand
     {
-        private const string FeatureIndent = "";
-        private const string ScenarioIndent = "";
-        private const string StepIndent = "\t";
-        private const string TableIndent = "\t\t";
-        private const string MultilineIndent = "\t\t";
-        private const string ExampleIndent = "\t";
+        private string _featureIndent;
+        private string _scenarioIndent;
+        private string _stepIndent;
+        private string _tableIndent;
+        private string _multilineIndent;
+        private string _exampleIndent;
 
         private const string CommentSymbol = "#";
         private const string TableSeparator = "|";
@@ -22,10 +22,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         private const string MultilineArgumentDelimeter = "\"\"\"";
 
         private bool _normalizeLineBreaks;
-        private int _lineBreaksBeforeStep;
+        private const int _lineBreaksBeforeStep = 0;
         private int _lineBreaksBeforeScenario;
         private int _lineBreaksBeforeExamples;
-        private int _lineBreaksBeforeFeature;
+        private const int _lineBreaksBeforeFeature = 0;
 
 
         public bool FormatDocument(GherkinEditorContext editorContext)
@@ -49,10 +49,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         {
             var options = editorContext.LanguageService.ProjectScope.IntegrationOptionsProvider.GetOptions();
             _normalizeLineBreaks = options.NormalizeLineBreaks;
-            _lineBreaksBeforeStep = options.LineBreaksBeforeStep;
             _lineBreaksBeforeScenario = options.LineBreaksBeforeScenario;
             _lineBreaksBeforeExamples = options.LineBreaksBeforeExamples;
-            _lineBreaksBeforeFeature = options.LineBreaksBeforeFeature;
+
+            var indentType = options.UseTabsForIndent ? '\t' : ' ';
+            _featureIndent = new string(indentType, options.FeatureIndent);
+            _scenarioIndent = new string(indentType, options.ScenarioIndent);
+            _stepIndent = new string(indentType, options.StepIndent);
+            _tableIndent = new string(indentType, options.TableIndent);
+            _multilineIndent = new string(indentType, options.MultilineIndent);
+            _exampleIndent = new string(indentType, options.ExampleIndent);
         }
 
         private void ReplaceText(ITextSnapshot textSnapshot, List<string> newTextLines)
@@ -63,13 +69,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 var currentLines = textSnapshot.Lines.ToList();
 
                 int i, k;
-                //Replace line-by-line
+                //Replace line-by-line to preserve scroll and cursor position
                 for (i = 0, k = 0; i < currentLines.Count && k < newTextLines.Count; i++, k++)
                 {
-                    var currentLine = currentLines[k];
+                    var currentLine = currentLines[i];
                     var currentLineText = currentLine.GetText();
                     if (currentLine.GetText() != newTextLines[k])
                     {
+                        // if existing text has excessive (or missing) lines - remove (or add them),
+                        // and adjust index.
+                        // Needed to avoid "jumping" cursor position
                         if (string.IsNullOrWhiteSpace(currentLineText)
                             && !string.IsNullOrWhiteSpace(newTextLines[k]))
                         {
@@ -115,11 +124,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             {
                 string trimmedLine = textLines[i].Trim();
 
-                if (string.IsNullOrWhiteSpace(textLines[i]) && !_normalizeLineBreaks)
+                if (string.IsNullOrWhiteSpace(textLines[i]))
                 {
-                    formattedTextLines.AddRange(stringsToInsertBefore);
-                    stringsToInsertBefore.Clear();
-                    formattedTextLines.Add(string.Empty);
+                    if (!_normalizeLineBreaks)
+                    {
+                        formattedTextLines.AddRange(stringsToInsertBefore);
+                        stringsToInsertBefore.Clear();
+                        formattedTextLines.Add(string.Empty);
+                    }
                 }
                 else if (IsCommentLine(trimmedLine) || IsTagLine(trimmedLine))
                 {
@@ -129,12 +141,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 }
                 else if (IsTableLine(trimmedLine))
                 {
-                    formattedTextLines.AddRange(stringsToInsertBefore.Select(str => TableIndent + str));
+                    formattedTextLines.AddRange(stringsToInsertBefore.Select(str => _tableIndent + str));
                     stringsToInsertBefore.Clear();
 
                     //Find whole table, and format it using FormatTableCommand.FormatTableString
                     var tableLines = new List<string>();
-                    tableLines.Add(TableIndent + trimmedLine);
+                    tableLines.Add(_tableIndent + trimmedLine);
                     while (i + 1 < textLines.Count && IsTableLine(textLines[i + 1]))
                     {
                         i++;
@@ -156,10 +168,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 }
                 else if (IsMultilineDelimeterLine(trimmedLine))
                 {
-                    formattedTextLines.AddRange(stringsToInsertBefore.Select(str => MultilineIndent + str));
+                    formattedTextLines.AddRange(stringsToInsertBefore.Select(str => _multilineIndent + str));
                     stringsToInsertBefore.Clear();
 
-                    formattedTextLines.Add(MultilineIndent + trimmedLine);
+                    formattedTextLines.Add(_multilineIndent + trimmedLine);
 
                     //Find original indent of multi-line argument
                     int whitespaces = 0;
@@ -175,7 +187,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         if (textLines[i].StartsWith(originalIndent))
                         {
                             //replace original indent with MultilineIndent
-                            formattedLine = MultilineIndent + textLines[i].Substring(originalIndent.Length);
+                            formattedLine = _multilineIndent + textLines[i].Substring(originalIndent.Length);
                         }
                         else
                         {
@@ -185,7 +197,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         formattedTextLines.Add(formattedLine);
                     }
 
-                    formattedTextLines.Add(MultilineIndent + textLines[i].Trim());
+                    formattedTextLines.Add(_multilineIndent + textLines[i].Trim());
                 }
                 else if (IsBlockLine(trimmedLine, dialect) || IsStepLine(trimmedLine, dialect))
                 {
@@ -229,13 +241,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                     case GherkinBlockKeyword.Scenario:
                     case GherkinBlockKeyword.ScenarioOutline:
                     case GherkinBlockKeyword.Background:
-                        return ScenarioIndent;
+                        return _scenarioIndent;
 
                     case GherkinBlockKeyword.Examples:
-                        return ExampleIndent;
+                        return _exampleIndent;
 
                     case GherkinBlockKeyword.Feature:
-                        return FeatureIndent;
+                        return _featureIndent;
                 }
             }
             else if (IsStepLine(line, dialect))
@@ -244,7 +256,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             }
             else if (IsTableLine(line))
             {
-                return TableIndent;
+                return _tableIndent;
             }
 
             return string.Empty;
@@ -262,7 +274,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 }
             }
 
-            return str + StepIndent;
+            return str + _stepIndent;
         }
 
         private int GetPreceedingLineBreaks(string line, GherkinDialect dialect)
