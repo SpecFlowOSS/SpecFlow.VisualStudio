@@ -7,7 +7,7 @@ using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
-    internal class FormatDocumentCommand
+    public class FormatDocumentCommand
     {
         private const string FeatureIndent = "";
         private const string ScenarioIndent = "";
@@ -62,20 +62,37 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             {
                 var currentLines = textSnapshot.Lines.ToList();
 
-                int k;
+                int i, k;
                 //Replace line-by-line
-                for (k = 0; k < currentLines.Count && k < newTextLines.Count; k++)
+                for (i = 0, k = 0; i < currentLines.Count && k < newTextLines.Count; i++, k++)
                 {
-                    var line = currentLines[k];
-                    if (line.GetText() != newTextLines[k])
+                    var currentLine = currentLines[k];
+                    var currentLineText = currentLine.GetText();
+                    if (currentLine.GetText() != newTextLines[k])
                     {
-                        var span = new SnapshotSpan(line.Start, line.End);
-                        edit.Replace(span, newTextLines[k]);
+                        if (string.IsNullOrWhiteSpace(currentLineText)
+                            && !string.IsNullOrWhiteSpace(newTextLines[k]))
+                        {
+                            k--;
+                            var span = new SnapshotSpan(currentLine.Start, currentLine.EndIncludingLineBreak);
+                            edit.Delete(span);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(currentLineText)
+                            && string.IsNullOrWhiteSpace(newTextLines[k]))
+                        {
+                            i--;
+                            edit.Insert(currentLine.Start, newTextLines[k] + Environment.NewLine);
+                        }
+                        else
+                        {
+                            var span = new SnapshotSpan(currentLine.Start, currentLine.End);
+                            edit.Replace(span, newTextLines[k]);
+                        }
                     }
                 }
 
                 //Replace anything left
-                var lastLine = currentLines[k - 1];
+                var lastLine = currentLines[i - 1];
                 var endSpan = new SnapshotSpan(lastLine.End, currentLines.Last().EndIncludingLineBreak);
                 string remainingText = newTextLines.Count > k
                     ? Environment.NewLine + string.Join(Environment.NewLine, newTextLines.Skip(k))
@@ -98,18 +115,15 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             {
                 string trimmedLine = textLines[i].Trim();
 
-                if (string.IsNullOrWhiteSpace(textLines[i]))
+                if (string.IsNullOrWhiteSpace(textLines[i]) && !_normalizeLineBreaks)
                 {
-                    if (!_normalizeLineBreaks)
-                    {
-                        formattedTextLines.AddRange(stringsToInsertBefore);
-                        stringsToInsertBefore.Clear();
-                        formattedTextLines.Add(string.Empty);
-                    }
+                    formattedTextLines.AddRange(stringsToInsertBefore);
+                    stringsToInsertBefore.Clear();
+                    formattedTextLines.Add(string.Empty);
                 }
                 else if (IsCommentLine(trimmedLine) || IsTagLine(trimmedLine))
                 {
-                    // Commment or tag lines should have same indent as following line,
+                    // Comment or tag lines should have same indent as following line,
                     // that's why we put them to temporary collection
                     stringsToInsertBefore.Add(trimmedLine);
                 }
@@ -128,8 +142,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                     }
                     var formattedTable =
                         FormatTableCommand.FormatTableString(string.Join(Environment.NewLine, tableLines));
-                    formattedTextLines.AddRange(formattedTable.Split(new[] { Environment.NewLine },
-                        StringSplitOptions.None));
+
+                    if (formattedTable != null)
+                    {
+                        formattedTextLines.AddRange(formattedTable.Split(new[] { Environment.NewLine },
+                            StringSplitOptions.None));
+                    }
+                    else
+                    {
+                        //if table fails to format - leave it as it is
+                        formattedTextLines.AddRange(tableLines);
+                    }
                 }
                 else if (IsMultilineDelimeterLine(trimmedLine))
                 {
@@ -138,7 +161,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 
                     formattedTextLines.Add(MultilineIndent + trimmedLine);
 
-                    //Find original indent of multiline argument
+                    //Find original indent of multi-line argument
                     int whitespaces = 0;
                     while (char.IsWhiteSpace(textLines[i][whitespaces]))
                     {
@@ -152,7 +175,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         if (textLines[i].StartsWith(originalIndent))
                         {
                             //replace original indent with MultilineIndent
-                            formattedLine = MultilineIndent + textLines[i].Substring(originalIndent.Length).TrimEnd();
+                            formattedLine = MultilineIndent + textLines[i].Substring(originalIndent.Length);
                         }
                         else
                         {
