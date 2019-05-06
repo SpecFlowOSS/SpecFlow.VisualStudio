@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using TechTalk.SpecFlow.Generator.Interfaces;
+using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.RemoteAppDomain;
 using TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Parameters;
 
@@ -13,11 +14,13 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
     {
         private readonly OutOfProcessExecutor _outOfProcessExecutor;
         private readonly ProjectSettings _projectSettings;
+        private readonly IntegrationOptions _integrationOptions;
 
-        public OutOfProcessTestGenerator(Info info, ProjectSettings projectSettings)
+        public OutOfProcessTestGenerator(Info info, ProjectSettings projectSettings, IntegrationOptions integrationOptions)
         {
             _projectSettings = projectSettings;
-            _outOfProcessExecutor = new OutOfProcessExecutor(info);
+            _integrationOptions = integrationOptions;
+            _outOfProcessExecutor = new OutOfProcessExecutor(info, integrationOptions);
         }
 
         public void Dispose()
@@ -33,8 +36,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 ProjectSettingsFile = projectSettingsFile,
-                Debug = Debugger.IsAttached
-            });
+                Debug = Debugger.IsAttached,
+                
+            }, true);
 
 
             var output = FilterConfigDebugOutput(result);
@@ -44,6 +48,12 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
         public Version DetectGeneratedTestVersion(FeatureFileInput featureFileInput)
         {
+            if (!_integrationOptions.LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
+            {
+                return null;
+            }
+
+
             var featureFileInputFile = WriteTempFile(featureFileInput);
 
 
@@ -51,7 +61,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 Debug = Debugger.IsAttached
-            });
+            }, false);
 
 
             if (result.ExitCode > 0)
@@ -71,7 +81,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             {
                 FeatureFile = featureFileInputFile,
                 Debug = Debugger.IsAttached
-            });
+            },false);
 
             if (result.ExitCode > 0)
             {
@@ -83,7 +93,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
         private StringBuilder FilterConfigDebugOutput(Result result)
         {
-            var lines = result.Output.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+            var lines = result.Output.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
             var output = new StringBuilder();
 
             foreach (string line in lines)

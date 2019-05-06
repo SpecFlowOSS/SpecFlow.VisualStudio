@@ -1,0 +1,134 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28711.60
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E30EEB3E-0274-45EE-8FCE-4069823E670F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.IdeIntegration", "IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj", "{44D52C1B-0ABC-44B6-8EB8-0F754E264226}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.IdeIntegration.UnitTests", "UnitTests\IdeIntegration.UnitTests\TechTalk.SpecFlow.IdeIntegration.UnitTests.csproj", "{69505BAC-12B9-4443-BB3B-A94E51EA5922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.ItemTemplates", "ItemTemplates\TechTalk.SpecFlow.VsIntegration.ItemTemplates.csproj", "{662A06B2-A852-47C4-A258-D84FE81D4A80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration", "VsIntegration\TechTalk.SpecFlow.VsIntegration.csproj", "{96294E6F-8875-4D12-8577-4EC83E60BD6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Build", ".Build", "{DD083D4C-C52C-444C-8FEB-51FEFC77AEC1}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		build.ps1 = build.ps1
+		build.yml = build.yml
+		changelog.txt = changelog.txt
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		Directory.Build.props = Directory.Build.props
+		GitVersion.yml = GitVersion.yml
+		LICENSE.txt = LICENSE.txt
+		publish.myget.ps1 = publish.myget.ps1
+		README.md = README.md
+		TechTalk.SpecFlow.VsIntegration.Common.Build.targets = TechTalk.SpecFlow.VsIntegration.Common.Build.targets
+		TechTalk.SpecFlow.VsIntegration.Common.targets = TechTalk.SpecFlow.VsIntegration.Common.targets
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.RemoteAppDomain", "TechTalk.SpecFlow.RemoteAppDomain\TechTalk.SpecFlow.RemoteAppDomain.csproj", "{8B5402B9-7580-4AA3-9525-6C4563EF0623}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator", "TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.csproj", "{5351E241-2B8B-4D04-8999-5E3A79E8DD64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93B345A8-B526-4B75-BF9A-930712FFC76E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		build.ps1 = build.ps1
+		build.yml = build.yml
+		changelog.txt = changelog.txt
+		Directory.Build.props = Directory.Build.props
+		GitVersion.yml = GitVersion.yml
+		LICENSE.txt = LICENSE.txt
+		NuGet.config = NuGet.config
+		publish.myget.ps1 = publish.myget.ps1
+		README.md = README.md
+		specflow.snk = specflow.snk
+		version.json = version.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VsIntegration.Implementation", "TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.csproj", "{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2017", "VsIntegration2017\TechTalk.SpecFlow.VsIntegration.2017.csproj", "{F3EFE63B-77C7-449E-B118-E16F445873C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2015", "VsIntegration2015\TechTalk.SpecFlow.VsIntegration.2015.csproj", "{CBD78521-0F02-4A43-ABED-001D2560675B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeBehindGeneration", "CodeBehindGeneration", "{62BA7DEF-D976-4B64-8EFE-368AD625DD96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5A165F38-88BA-4FED-BB14-6621B83F8B58}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VSIXShared", "TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.shproj", "{7A62BBFA-3212-420A-AC20-63401A35F534}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{10934720-f5ac-49e7-9d4f-b4a4d206c4aa}*SharedItemsImports = 13
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{cbd78521-0f02-4a43-abed-001d2560675b}*SharedItemsImports = 4
+		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{f3efe63b-77c7-449e-b118-e16f445873c3}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662A06B2-A852-47C4-A258-D84FE81D4A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96294E6F-8875-4D12-8577-4EC83E60BD6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBD78521-0F02-4A43-ABED-001D2560675B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD78521-0F02-4A43-ABED-001D2560675B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD78521-0F02-4A43-ABED-001D2560675B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD78521-0F02-4A43-ABED-001D2560675B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44D52C1B-0ABC-44B6-8EB8-0F754E264226} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+		{69505BAC-12B9-4443-BB3B-A94E51EA5922} = {E30EEB3E-0274-45EE-8FCE-4069823E670F}
+		{662A06B2-A852-47C4-A258-D84FE81D4A80} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+		{8B5402B9-7580-4AA3-9525-6C4563EF0623} = {62BA7DEF-D976-4B64-8EFE-368AD625DD96}
+		{5351E241-2B8B-4D04-8999-5E3A79E8DD64} = {62BA7DEF-D976-4B64-8EFE-368AD625DD96}
+		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+		{7A62BBFA-3212-420A-AC20-63401A35F534} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE82DEDC-FB35-4666-A342-E4BF059F1137}
+	EndGlobalSection
+EndGlobal

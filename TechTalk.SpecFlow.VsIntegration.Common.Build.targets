@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
 
-  
-  
-  
-
   <Target Name="BeforeBuild">
-    <CallTarget Targets="GetVersion" />
     <CallTarget Targets="UpdateVSIXManifest" />
 	</Target>
-
 
   <Target Name="UpdateVSIXManifest">
     <PropertyGroup>
       <VersionNumber>$(GitVersion_Major).$(GitVersion_Minor).$(GitVersion_Patch)</VersionNumber>
     </PropertyGroup>
-
-
-    <Copy SourceFiles="$(VisualStudioVersion).source.extension.vsixmanifest" DestinationFiles="source.extension.vsixmanifest" />
-
-    <XmlPoke Condition="'$(VersionNumber)' != ''" XmlInputPath="source.extension.vsixmanifest" Namespaces="&lt;Namespace Prefix='d' Uri='http://schemas.microsoft.com/developer/vsx-schema-design/2011' /&gt;&lt;Namespace Prefix='x' Uri='http://schemas.microsoft.com/developer/vsx-schema/2011' /&gt;" Query="//x:PackageManifest/x:Metadata/x:Identity/@Version" Value="$(VersionNumber)" />
   </Target>
 	
 </Project>

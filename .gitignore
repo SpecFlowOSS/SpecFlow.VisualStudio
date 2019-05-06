@@ -24,5 +24,7 @@ Tests/TechTalk.SpecFlow.Specs.Silverlight4.Web/ClientBin/*
 packages/*
 *.ncrunchproject
 SpecFlow.VisualStudio.v2.ncrunchsolution
-VsIntegration/source.extension.vsixmanifest
 /.vs/
+
+AppInsightsInstrumentationKey.cs
+*.binlog

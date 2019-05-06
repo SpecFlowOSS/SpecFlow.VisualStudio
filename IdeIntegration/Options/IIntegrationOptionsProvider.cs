@@ -3,5 +3,6 @@
     public interface IIntegrationOptionsProvider
     {
         IntegrationOptions GetOptions();
+        void ClearCache();
     }
 }

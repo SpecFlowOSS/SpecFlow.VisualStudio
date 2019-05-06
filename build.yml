@@ -1,0 +1,64 @@
+parameters:
+  name: ''
+  pool: ''
+  nugetVersion: 4.6.2
+  sdkVersion: 2.1.401
+  artifactFileName: ''
+  artifactName: ''
+  visualStudioVersion: ''
+  appInsightsInstrumentationKey: ''
+
+jobs:
+- job: ${{ parameters.name }}
+  pool: ${{ parameters.pool }}
+  variables:
+    specFlowVisualStudioVersion: ${{ parameters.visualStudioVersion }}
+    instrumentationKey: ${{ parameters.appInsightsInstrumentationKey }}
+  steps:
+  - task: NuGetToolInstaller@0
+    displayName: 'Use NuGet'
+    inputs:
+      versionSpec: ${{ parameters.nugetVersion }}
+
+  - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core'
+    inputs:
+      version: ${{ parameters.sdkVersion }}
+
+  - task: PowerShell@2
+    displayName: 'restore & build Release'
+    inputs: 
+      filePath: build.ps1
+      workingDirectory: ./
+      arguments: Release -appInsightsInstrumentationKey $(instrumentationKey)
+      pwsh: true
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(Build.SourcesDirectory)'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)'
+      archiveFile: ${{ parameters.artifactFileName }} 
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: SpecFlow.VisualStudio.CI-BuildResult'
+    inputs:
+      PathtoPublish: ${{ parameters.artifactFileName }} 
+      ArtifactName: ${{ parameters.artifactName }}
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: VS2019 Extension'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration/bin/Release/TechTalk.SpecFlow.VisualStudioIntegration.vsix'
+      ArtifactName: VS2019
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: VS2017 Extension'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2017/bin/Release/TechTalk.SpecFlow.VsIntegration.2017.vsix'
+      ArtifactName: VS2017
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: VS2015 Extension'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2015/bin/Release/TechTalk.SpecFlow.VsIntegration.2015.vsix'
+      ArtifactName: VS2015

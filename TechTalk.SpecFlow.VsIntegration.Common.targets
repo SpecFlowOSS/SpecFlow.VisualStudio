@@ -8,6 +8,8 @@
 		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
 		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
 		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Professional\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2017\Professional\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '16.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2019\Preview\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2019\Preview\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
+		<VSCommonExtensionsPath Condition="'$(VisualStudioVersion)' == '16.0' and exists('$(MSBuildProgramFiles32)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions')">$(MSBuildProgramFiles32)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions</VSCommonExtensionsPath>
 	</PropertyGroup>
 	
 </Project>

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TechTalk.SpecFlow.Generator;
@@ -44,7 +45,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
                     outputFileContent = GenerateError(testGeneratorResult, codeDomHelper);
                 }
 
-                Console.WriteLine(outputFileContent);
+                Console.WriteLine(WriteTempFile(opts, outputFileContent));
 
                 return 0;
             }
@@ -53,6 +54,13 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
                 Console.WriteLine(e);
                 return 1;
             }
+        }
+
+        private string WriteTempFile(GenerateTestFileParameters opts, string content)
+        {
+            var fileName = Path.Combine(opts.OutputDirectory, Path.GetRandomFileName());
+            File.WriteAllText(fileName, content, Encoding.UTF8);
+            return fileName;
         }
 
         private CodeDomHelper GetCodeDomHelper(ProjectSettings projectSettings)
@@ -88,10 +96,41 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
 
             if (configSourceFieldInfo != null)
             {
-                configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, 0);
+                var configSourceType = DetermineConfigSourceType(xmlString); //default
+                configSourceFieldInfo.SetValue(projectSettings.ConfigurationHolder, configSourceType);
             }
 
             return projectSettings;
+        }
+
+        private int DetermineConfigSourceType(string configString)
+        {
+            if (!string.IsNullOrEmpty(configString))
+            {
+                if (IsConfigXml(configString))
+                {
+                    //appconfig
+                    return 0;
+                }
+                if (IsConfigJson(configString))
+                {
+                    //json
+                    return 1;
+                }
+            }
+
+            //default
+            return 2;
+        }
+
+        private bool IsConfigJson(string configContent)
+        {
+            return configContent.StartsWith("{") || configContent.StartsWith("[");
+        }
+
+        private bool IsConfigXml(string configContent)
+        {
+            return configContent.StartsWith("<");
         }
 
         private string GenerateError(TestGeneratorResult generationResult, CodeDomHelper codeDomHelper)

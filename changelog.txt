@@ -1,4 +1,44 @@
-2017.2.1 - 2018/05/??
+2019.0 - 2019-04-25
+
++ Add error message to generated code-behind when SpecFlow is not installed in the project
++ Improved error message when the SpecFlow version of generated code does not match the installed SpecFlow version
+
+2017.3.0?- 2018/xx/xx
+
++ Remove Visual Studio 2013 support
++ Move SpecFlow item templates into their own category in "Add New Item" dialog
++ Create item template for "default.srprofile"
+
+2017.2.8 - 2018/xx/xx
+
+Bugfixes:
++ Fix Wrong text in step in feature file italicized https://github.com/techtalk/SpecFlow/issues/483
+
+2017.2.7 - 2018/08/22
+
+Bugfixes:
++ hopefully fix https://github.com/techtalk/SpecFlow/issues/1234
+
+2017.2.6 - 2018/08/20
+
+Bugfixes:
++ update CommandLineParser dependency
+
+2017.2.5 - 2018/08/20
+
+Bugfixes:
++ enhancment to error logging
+
+2017.2.2 - 2018/07/25
+
+New Features:
++ possibility to specific path to TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.exe
+
+Bugfix:
++ fix encoding problems with special chars https://github.com/techtalk/SpecFlow/issues/1205
++ Add Newtonsoft.Json to VSIX
+
+2017.2.1 - 2018/07/10
 
 Changed behaviour:
 + Set out of process as default generation mode
