@@ -81,7 +81,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         [Description("Limit quantity of IntelliSense step instances suggestions for each step template.")]
         [DisplayName(@"Max Step Instances Suggestions")]
         [DefaultValue(OptionDefaultValues.MaxStepInstancesSuggestionsDefaultValue)]
-        public string MaxStepInstancesSuggestions {
+        public string MaxStepInstancesSuggestions
+        {
             get { return _maxStepInstancesSuggestions; }
             set
             {
@@ -142,6 +143,68 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         [DefaultValue(OptionDefaultValues.DefaultOptOutDataCollection)]
         public bool OptOutDataCollection { get; set; }
 
+        private const string FormattingOptions = "Formatting Options";
+
+        [Category(FormattingOptions)]
+        [Description("Enable removing excessive line breaks during formatting")]
+        [DisplayName("Normalize line breaks")]
+        [DefaultValue(OptionDefaultValues.NormalizeLineBreaksDefaultValue)]
+        public bool NormalizeLineBreaks { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set the amount of line breaks before each scenario during formatting")]
+        [DisplayName("Line breaks before scenario")]
+        [DefaultValue(OptionDefaultValues.DefaultLineBreaksBeforeScenario)]
+        public int LineBreaksBeforeScenario { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set the amount of line breaks before each examples block during formatting")]
+        [DisplayName("Line breaks before examples")]
+        [DefaultValue(OptionDefaultValues.DefaultLineBreaksBeforeExamples)]
+        public int LineBreaksBeforeExamples { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Use tabs instead of spaces for indents during formatting")]
+        [DisplayName("Use tabs for indent")]
+        [DefaultValue(OptionDefaultValues.UseTabsForIndentDefaultValue)]
+        public bool UseTabsForIndent { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set indent size before feature keyword")]
+        [DisplayName("Indent size for feature")]
+        [DefaultValue(OptionDefaultValues.DefaultFeatureIndent)]
+        public int FeatureIndent { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set indent size before scenario keyword")]
+        [DisplayName("Indent size for scenario")]
+        [DefaultValue(OptionDefaultValues.DefaultScenarioIndent)]
+        public int ScenarioIndent { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set indent size before each step")]
+        [DisplayName("Indent size for step")]
+        [DefaultValue(OptionDefaultValues.DefaultStepIndent)]
+        public int StepIndent { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set indent size before each table line")]
+        [DisplayName("Indent size for table")]
+        [DefaultValue(OptionDefaultValues.DefaultTableIndent)]
+        public int TableIndent { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set indent size before each line of multi-line string argument")]
+        [DisplayName("Indent size for multi-line string argument")]
+        [DefaultValue(OptionDefaultValues.DefaultMultilineIndent)]
+        public int MultilineIndent { get; set; }
+
+        [Category(FormattingOptions)]
+        [Description("Set indent size before example keyword")]
+        [DisplayName("Indent size for example")]
+        [DefaultValue(OptionDefaultValues.DefaultExampleIndent)]
+        public int ExampleIndent { get; set; }
+
         public OptionsPageGeneral()
         {
             _customToolSwitch = new CustomToolSwitch(Dte);
@@ -161,6 +224,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
             CodeBehindFileGeneratorExchangePath = OptionDefaultValues.CodeBehindFileGeneratorExchangePath;
             OptOutDataCollection = OptionDefaultValues.DefaultOptOutDataCollection;
             LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
+            NormalizeLineBreaks = OptionDefaultValues.NormalizeLineBreaksDefaultValue;
+            LineBreaksBeforeScenario = OptionDefaultValues.DefaultLineBreaksBeforeScenario;
+            LineBreaksBeforeExamples = OptionDefaultValues.DefaultLineBreaksBeforeExamples;
+            UseTabsForIndent = OptionDefaultValues.UseTabsForIndentDefaultValue;
+            FeatureIndent = OptionDefaultValues.DefaultFeatureIndent;
+            ScenarioIndent = OptionDefaultValues.DefaultScenarioIndent;
+            StepIndent = OptionDefaultValues.DefaultStepIndent;
+            TableIndent = OptionDefaultValues.DefaultTableIndent;
+            MultilineIndent = OptionDefaultValues.DefaultMultilineIndent;
+            ExampleIndent = OptionDefaultValues.DefaultExampleIndent;
         }
 
         public override void LoadSettingsFromStorage()
@@ -172,7 +245,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         public override void SaveSettingsToStorage()
         {
             base.SaveSettingsToStorage();
-            
+
             if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
             {
                 _customToolSwitch.Enable();

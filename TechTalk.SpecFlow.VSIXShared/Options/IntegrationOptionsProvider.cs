@@ -57,7 +57,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                 GenerationMode = GetGeneralOption(dte, "GenerationMode", OptionDefaultValues.GenerationModeDefaultValue),
                 CodeBehindFileGeneratorPath = GetGeneralOption(dte, "PathToCodeBehindGeneratorExe", OptionDefaultValues.CodeBehindFileGeneratorPath),
                 CodeBehindFileGeneratorExchangePath = GetGeneralOption(dte, "CodeBehindFileGeneratorExchangePath", OptionDefaultValues.CodeBehindFileGeneratorExchangePath),
-                OptOutDataCollection = GetGeneralOption(dte, "OptOutDataCollection", OptionDefaultValues.DefaultOptOutDataCollection)
+                OptOutDataCollection = GetGeneralOption(dte, "OptOutDataCollection", OptionDefaultValues.DefaultOptOutDataCollection),
+                NormalizeLineBreaks = GetGeneralOption(dte, "NormalizeLineBreaks", OptionDefaultValues.NormalizeLineBreaksDefaultValue),
+                LineBreaksBeforeScenario = GetGeneralOption(dte, "LineBreaksBeforeScenario", OptionDefaultValues.DefaultLineBreaksBeforeScenario),
+                LineBreaksBeforeExamples = GetGeneralOption(dte, "LineBreaksBeforeExamples", OptionDefaultValues.DefaultLineBreaksBeforeExamples),
+                UseTabsForIndent = GetGeneralOption(dte, "UseTabsForIndent", OptionDefaultValues.UseTabsForIndentDefaultValue),
+                FeatureIndent = GetGeneralOption(dte, "FeatureIndent", OptionDefaultValues.DefaultFeatureIndent),
+                ScenarioIndent = GetGeneralOption(dte, "ScenarioIndent", OptionDefaultValues.DefaultScenarioIndent),
+                StepIndent = GetGeneralOption(dte, "StepIndent", OptionDefaultValues.DefaultStepIndent),
+                TableIndent = GetGeneralOption(dte, "TableIndent", OptionDefaultValues.DefaultTableIndent),
+                MultilineIndent = GetGeneralOption(dte, "MultilineIndent", OptionDefaultValues.DefaultMultilineIndent),
+                ExampleIndent = GetGeneralOption(dte, "ExampleIndent", OptionDefaultValues.DefaultExampleIndent)
             };
             cachedOptions = options;
             return options;
