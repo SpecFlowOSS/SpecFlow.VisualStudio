@@ -68,43 +68,43 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             {
                 var currentLines = textSnapshot.Lines.ToList();
 
-                int i, k;
+                int currentLineIndex, newLineIndex;
                 //Replace line-by-line to preserve scroll and cursor position
-                for (i = 0, k = 0; i < currentLines.Count && k < newTextLines.Count; i++, k++)
+                for (currentLineIndex = 0, newLineIndex = 0; currentLineIndex < currentLines.Count && newLineIndex < newTextLines.Count; currentLineIndex++, newLineIndex++)
                 {
-                    var currentLine = currentLines[i];
+                    var currentLine = currentLines[currentLineIndex];
                     var currentLineText = currentLine.GetText();
-                    if (currentLine.GetText() != newTextLines[k])
+                    if (currentLine.GetText() != newTextLines[newLineIndex])
                     {
                         // if existing text has excessive (or missing) lines - remove (or add them),
                         // and adjust index.
                         // Needed to avoid "jumping" cursor position
                         if (string.IsNullOrWhiteSpace(currentLineText)
-                            && !string.IsNullOrWhiteSpace(newTextLines[k]))
+                            && !string.IsNullOrWhiteSpace(newTextLines[newLineIndex]))
                         {
-                            k--;
+                            newLineIndex--;
                             var span = new SnapshotSpan(currentLine.Start, currentLine.EndIncludingLineBreak);
                             edit.Delete(span);
                         }
                         else if (!string.IsNullOrWhiteSpace(currentLineText)
-                            && string.IsNullOrWhiteSpace(newTextLines[k]))
+                            && string.IsNullOrWhiteSpace(newTextLines[newLineIndex]))
                         {
-                            i--;
-                            edit.Insert(currentLine.Start, newTextLines[k] + Environment.NewLine);
+                            currentLineIndex--;
+                            edit.Insert(currentLine.Start, newTextLines[newLineIndex] + Environment.NewLine);
                         }
                         else
                         {
                             var span = new SnapshotSpan(currentLine.Start, currentLine.End);
-                            edit.Replace(span, newTextLines[k]);
+                            edit.Replace(span, newTextLines[newLineIndex]);
                         }
                     }
                 }
 
                 //Replace anything left
-                var lastLine = currentLines[i - 1];
+                var lastLine = currentLines[currentLineIndex - 1];
                 var endSpan = new SnapshotSpan(lastLine.End, currentLines.Last().EndIncludingLineBreak);
-                string remainingText = newTextLines.Count > k
-                    ? Environment.NewLine + string.Join(Environment.NewLine, newTextLines.Skip(k))
+                string remainingText = newTextLines.Count > newLineIndex
+                    ? Environment.NewLine + string.Join(Environment.NewLine, newTextLines.Skip(newLineIndex))
                     : string.Empty;
                 if (endSpan.GetText() != remainingText)
                 {
