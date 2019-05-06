@@ -9,9 +9,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 {
     public class EditorCommandFilter
     {
-// ReSharper disable NotAccessedField.Local
+        // ReSharper disable NotAccessedField.Local
         private readonly IIdeTracer tracer;
-// ReSharper restore NotAccessedField.Local
+        // ReSharper restore NotAccessedField.Local
         private readonly IGoToStepDefinitionCommand goToStepDefinitionCommand;
 
         private readonly FormatTableCommand formatTableCommand;
@@ -19,13 +19,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         private readonly FormatDocumentCommand formatDocumentCommand;
         private readonly RenameCommand renameCommand;
 
-        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, DebugScenariosCommand debugScenariosCommand, RunScenariosCommand runScenariosCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand, FormatDocumentCommand formatDocumentCommand, RenameCommand renameCommand)
+        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, FormatTableCommand formatTableCommand, FormatDocumentCommand formatDocumentCommand, CommentUncommentCommand commentUncommentCommand, RenameCommand renameCommand)
         {
             this.goToStepDefinitionCommand = goToStepDefinitionCommand;
             this.formatTableCommand = formatTableCommand;
             this.commentUncommentCommand = commentUncommentCommand;
-            this.formatDocumentCommand = formatDocumentCommand;
             this.renameCommand = renameCommand;
+            this.formatDocumentCommand = formatDocumentCommand;
             this.tracer = tracer;
         }
 
@@ -80,7 +80,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         return true;
                 }
             }
-            else if(pguidCmdGroup == ReSharperCommandGroups.CommandGroup)
+            else if (pguidCmdGroup == ReSharperCommandGroups.CommandGroup)
             {
                 var reSharperCmd = (ReSharperCommand)prgCmd.cmdID;
 #if TRACE_VS_COMMANDS
@@ -161,7 +161,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 tracer.Trace("Exec/SpecFlowCmdSet:{0}", this, specFlowCmdSet);
 #endif
             }
-            else if(pguidCmdGroup == ReSharperCommandGroups.CommandGroup)
+            else if (pguidCmdGroup == ReSharperCommandGroups.CommandGroup)
             {
                 var reSharperCmd = (ReSharperCommand)nCmdID;
 #if TRACE_VS_COMMANDS
@@ -193,7 +193,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         {
             if (pguidCmdGroup == VSConstants.VSStd2K)
             {
-                switch ((VSConstants.VSStd2KCmdID) nCmdID)
+                switch ((VSConstants.VSStd2KCmdID)nCmdID)
                 {
                     case VSConstants.VSStd2KCmdID.TYPECHAR:
                         var ch = GetTypeChar(pvaIn);
@@ -202,13 +202,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         break;
                 }
             }
-//uncomment this to add further command handlers
-//                if (pguidCmdGroup == VSConstants.GUID_VSStandardCommandSet97)
-//                {
-//                    switch ((VSConstants.VSStd97CmdID)nCmdID)
-//                    {
-//                    }
-//                }
+            //uncomment this to add further command handlers
+            //                if (pguidCmdGroup == VSConstants.GUID_VSStandardCommandSet97)
+            //                {
+            //                    switch ((VSConstants.VSStd97CmdID)nCmdID)
+            //                    {
+            //                    }
+            //                }
         }
     }
 
