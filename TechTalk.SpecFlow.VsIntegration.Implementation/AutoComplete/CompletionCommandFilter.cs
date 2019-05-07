@@ -123,6 +123,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             currentAutoCompleteSession.Start();
             currentAutoCompleteSession.Dismissed += (sender, args) => currentAutoCompleteSession = null;
 
+            if (currentAutoCompleteSession.SelectedCompletionSet == null)
+                return false;
+
             currentAutoCompleteSession.SelectedCompletionSet.Filter();
             currentAutoCompleteSession.SelectedCompletionSet.SelectBestMatch();
             currentAutoCompleteSession.SelectedCompletionSet.Recalculate();

@@ -2,6 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.Language.Intellisense;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
@@ -29,6 +30,21 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             set
             {
                 base.IconSource = value;
+            }
+        }
+
+        public string InsertionTextColumnNames
+        {
+            get
+            {
+                var firstPipeIndex = InsertionText.IndexOf("|", StringComparison.Ordinal) + 1;
+                if (firstPipeIndex <= 0)
+                    return string.Empty;
+
+                var lastColumnNameCharIndex = StringLiteralHelper.LastIndexOfValidChar(InsertionText, new[] { ' ', '|', '\r', '\n' }) + 1;
+                var formattedColumnNames = InsertionText.Substring(firstPipeIndex, lastColumnNameCharIndex - firstPipeIndex);
+
+                return "(" + formattedColumnNames.Replace('|', ',').Trim() + ")";
             }
         }
     }

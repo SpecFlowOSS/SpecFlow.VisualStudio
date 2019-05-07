@@ -13,9 +13,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20" />
                     <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Image Source="{Binding Path=IconSource}" Height="16" Width="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBlock Grid.Column="1" Text="{Binding Path=DisplayText, Mode=Default}" Padding="5,0,5,0" />
+                <TextBlock Grid.Column="2" Text="{Binding Path=InsertionTextColumnNames, Mode=Default}" Padding="5,0,5,0" />
             </Grid>
         </DataTemplate>
         <intellisensePresenter:Text2Visibility x:Key="text2Visibility" />
