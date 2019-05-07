@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BiDiContainerProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\GherkinTextViewCreationListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinCommentClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinDescriptionClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFeatureTitleClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassificationDefinition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassifierProvider.cs" />
@@ -28,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinTableHeaderClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinTagClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinUnboundStepTextClassificationFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\OutliningTaggerProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinBufferServiceManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinLanguageServiceFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ProjectScopeFactory.cs" />

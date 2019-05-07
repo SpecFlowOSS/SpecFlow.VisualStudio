@@ -10,7 +10,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.GherkinFileEditor
 
     #endregion
 
-    internal class GherkinFileOutliningTagger : ITagger<IOutliningRegionTag>, IDisposable
+    public class GherkinFileOutliningTagger : ITagger<IOutliningRegionTag>, IDisposable
     {
         private readonly GherkinLanguageService gherkinLanguageService;
 
