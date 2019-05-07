@@ -17,13 +17,15 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         private readonly FormatTableCommand formatTableCommand;
         private readonly CommentUncommentCommand commentUncommentCommand;
         private readonly RenameCommand renameCommand;
+        private readonly FormatDocumentCommand formatDocumentCommand;
 
-        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand, RenameCommand renameCommand)
+        public EditorCommandFilter(IIdeTracer tracer, IGoToStepDefinitionCommand goToStepDefinitionCommand, FormatTableCommand formatTableCommand, CommentUncommentCommand commentUncommentCommand, RenameCommand renameCommand, FormatDocumentCommand formatDocumentCommand)
         {
             this.goToStepDefinitionCommand = goToStepDefinitionCommand;
             this.formatTableCommand = formatTableCommand;
             this.commentUncommentCommand = commentUncommentCommand;
             this.renameCommand = renameCommand;
+            this.formatDocumentCommand = formatDocumentCommand;
             this.tracer = tracer;
         }
 
@@ -61,6 +63,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                     case VSConstants.VSStd2KCmdID.UNCOMMENT_BLOCK:
                     case VSConstants.VSStd2KCmdID.UNCOMMENTBLOCK:
                     case VSConstants.VSStd2KCmdID.RENAME:
+                    case VSConstants.VSStd2KCmdID.FORMATDOCUMENT:
                         return true;
                 }
             }
@@ -143,6 +146,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         break;
                     case VSConstants.VSStd2KCmdID.RENAME:
                         if (renameCommand.Rename(editorContext))
+                            return true;
+                        break;
+                    case VSConstants.VSStd2KCmdID.FORMATDOCUMENT:
+                        if (formatDocumentCommand.FormatDocument(editorContext))
                             return true;
                         break;
                 }
