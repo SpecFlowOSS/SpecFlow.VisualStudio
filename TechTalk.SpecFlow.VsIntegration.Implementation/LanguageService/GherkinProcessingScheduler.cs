@@ -18,12 +18,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             this.tracer = tracer;
 
             parserQueue = new IdleTaskProcessingQueue(parsingDelay, true, tracer, DoTask);
-            parserQueue.Start();
+            parserQueue.Start("ParserQueue");
 
             if (enableAnalysis)
             {
                 analyzerQueue = new IdleTaskProcessingQueue(analyzingDelay, false, tracer, DoTask);
-                analyzerQueue.Start();
+                analyzerQueue.Start("AnalyzerQueue");
             }
         }
 

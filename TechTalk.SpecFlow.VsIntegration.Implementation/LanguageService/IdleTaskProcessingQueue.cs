@@ -26,7 +26,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             IdleTime = idleTime;
         }
 
-        public void Start()
+        public void Start(string name)
         {
             thread = new Thread(() =>
                 {
@@ -42,6 +42,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                     IsBackground = true,
                     Priority = ThreadPriority.BelowNormal
                 };
+            thread.Name = $"SpecFlow {name}";
             thread.Start();            
         }
 
@@ -53,7 +54,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             while (!cancellationToken.IsCancellationRequested)
             {
                 // wait for an event
-                itemsAvailableEvent.WaitOne();
+                if (!itemsAvailableEvent.WaitOne(TimeSpan.FromSeconds(10)))
+                {
+                    // No signal received, so go back to start just in case we're suppose to cancel
+                    continue;
+                }
+
                 itemsAvailableEvent.Reset();
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -149,7 +155,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             itemsAvailableEvent.Set();
             try
             {
-                thread.Join();
+                thread.Join(TimeSpan.FromSeconds(15));
                 thread = null;
             }
             catch (Exception ex)
