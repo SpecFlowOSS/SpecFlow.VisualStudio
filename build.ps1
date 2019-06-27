@@ -28,4 +28,9 @@ if ($IsWindows){
 Write-Host $msbuildPath
 
 & nuget restore "./SpecFlow.VisualStudio.sln"
-& $msbuildPath ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false "-property:AppInsightsInstrumentationKey=$appInsightsInstrumentationKey"
+
+if ($appInsightsInstrumentationKey) {
+  $extraArgs = "-property:AppInsightsInstrumentationKey=$appInsightsInstrumentationKey"
+}
+
+& $msbuildPath ./SpecFlow.VisualStudio.sln -property:Configuration=$Configuration -binaryLogger:msbuild.$Configuration.binlog -nodeReuse:false $extraArgs
