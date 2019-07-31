@@ -71,7 +71,7 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             foreach (ITextBuffer subjectBuffer in subjectBuffers)
             {
-                if (isInlineDiffView && subjectBuffer != textView.TextDataModel.DocumentBuffer)
+                if (subjectBuffer != textView.TextDataModel.DocumentBuffer)
                 {
                     // If the subjectBuffer does not equal the text data model's document buffer, we can dispose it
                     textBuffers.Add(subjectBuffer);
