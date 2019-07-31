@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition;
-using System.Linq;
+﻿using System.ComponentModel.Composition;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Options;
@@ -16,7 +14,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
 
         public const string SPECFLOW_OPTIONS_CATEGORY = "SpecFlow";
         public const string SPECFLOW_GENERAL_OPTIONS_PAGE = "General";
-
 
         private DTE dte;
 
@@ -67,7 +64,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
                 StepIndent = GetGeneralOption(dte, "StepIndent", OptionDefaultValues.DefaultStepIndent),
                 TableIndent = GetGeneralOption(dte, "TableIndent", OptionDefaultValues.DefaultTableIndent),
                 MultilineIndent = GetGeneralOption(dte, "MultilineIndent", OptionDefaultValues.DefaultMultilineIndent),
-                ExampleIndent = GetGeneralOption(dte, "ExampleIndent", OptionDefaultValues.DefaultExampleIndent)
+                ExampleIndent = GetGeneralOption(dte, "ExampleIndent", OptionDefaultValues.DefaultExampleIndent),
+                LegacyEnableSpecFlowSingleFileGeneratorCustomTool = GetGeneralOption(dte, "LegacyEnableSpecFlowSingleFileGeneratorCustomTool", OptionDefaultValues.LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
             };
             cachedOptions = options;
             return options;
@@ -78,7 +76,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Options
         {
             set { dte = VsxHelper.GetDte(value); }
         }
-
 
         public IntegrationOptions GetOptions()
         {

@@ -28,5 +28,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         public const int DefaultTableIndent = 2;
         public const int DefaultMultilineIndent = 2;
         public const int DefaultExampleIndent = 1;
+        public const bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool = false;
     }
 }

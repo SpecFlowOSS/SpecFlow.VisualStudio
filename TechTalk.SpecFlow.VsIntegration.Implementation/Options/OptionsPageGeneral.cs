@@ -9,8 +9,8 @@ using TechTalk.SpecFlow.VsIntegration.Implementation.SingleFileGenerator;
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
 {
     /// <summary>
-    // Extends a standard dialog functionality for implementing ToolsOptions pages, 
-    // with support for the Visual Studio automation model, Windows Forms, and state 
+    // Extends a standard dialog functionality for implementing ToolsOptions pages,
+    // with support for the Visual Studio automation model, Windows Forms, and state
     // persistence through the Visual Studio settings mechanism.
     /// </summary>
     [Guid("D41B81C9-8501-4124-B75F-0F194E37178C")]
@@ -69,7 +69,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         [DefaultValue(OptionDefaultValues.EnableTableAutoFormatDefaultValue)]
         public bool EnableTableAutoFormat { get; set; }
 
-
         [Category("IntelliSense")]
         [Description("Controls whether completion lists should be displayed for the feature files.")]
         [DisplayName(@"Enable IntelliSense")]
@@ -77,6 +76,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         public bool EnableIntelliSense { get; set; }
 
         private string _maxStepInstancesSuggestions = String.Empty;
+
         [Category("IntelliSense")]
         [Description("Limit quantity of IntelliSense step instances suggestions for each step template.")]
         [DisplayName(@"Max Step Instances Suggestions")]
@@ -110,7 +110,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         [DefaultValue(OptionDefaultValues.TracingCategoriesDefaultValue)]
         public string TracingCategories { get; set; }
 
-
         [Category("Code Behind File Generation")]
         [Description("Specifies the mode how the code behind file is generated")]
         [DisplayName("Generation Mode")]
@@ -129,12 +128,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         [DefaultValue(OptionDefaultValues.CodeBehindFileGeneratorPath)]
         public string CodeBehindFileGeneratorExchangePath { get; set; }
 
-
         [Category("Legacy")]
         [Description("Enables code-behind file generation via CustomTool. Turn off when you use the MSBuild integration.")]
         [DisplayName("Enable SpecFlowSingleFileGenerator CustomTool")]
         [DefaultValue(false)]
         public bool LegacyEnableSpecFlowSingleFileGeneratorCustomTool { get; set; }
+
         public const string UsageStatisticsCategory = "Usage statistics";
 
         [Category(UsageStatisticsCategory)]
@@ -223,7 +222,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
             PathToCodeBehindGeneratorExe = OptionDefaultValues.CodeBehindFileGeneratorPath;
             CodeBehindFileGeneratorExchangePath = OptionDefaultValues.CodeBehindFileGeneratorExchangePath;
             OptOutDataCollection = OptionDefaultValues.DefaultOptOutDataCollection;
-            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
+            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = OptionDefaultValues.LegacyEnableSpecFlowSingleFileGeneratorCustomTool;
             NormalizeLineBreaks = OptionDefaultValues.NormalizeLineBreaksDefaultValue;
             LineBreaksBeforeScenario = OptionDefaultValues.DefaultLineBreaksBeforeScenario;
             LineBreaksBeforeExamples = OptionDefaultValues.DefaultLineBreaksBeforeExamples;
@@ -239,18 +238,23 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Options
         public override void LoadSettingsFromStorage()
         {
             base.LoadSettingsFromStorage();
-            LegacyEnableSpecFlowSingleFileGeneratorCustomTool = _customToolSwitch.IsEnabled();
+            ToggleCustomToolSwitch();
         }
 
         public override void SaveSettingsToStorage()
         {
             base.SaveSettingsToStorage();
+            ToggleCustomToolSwitch();
+        }
 
-            if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool)
+        private void ToggleCustomToolSwitch()
+        {
+            var isCustomToolSwitchEnabled = _customToolSwitch.IsEnabled();
+            if (LegacyEnableSpecFlowSingleFileGeneratorCustomTool && !isCustomToolSwitchEnabled)
             {
                 _customToolSwitch.Enable();
             }
-            else
+            else if (!LegacyEnableSpecFlowSingleFileGeneratorCustomTool && isCustomToolSwitchEnabled)
             {
                 _customToolSwitch.Disable();
             }
