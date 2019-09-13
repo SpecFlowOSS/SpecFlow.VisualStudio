@@ -62,3 +62,8 @@ jobs:
     inputs:
       PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2015/bin/Release/TechTalk.SpecFlow.VsIntegration.2015.vsix'
       ArtifactName: VS2015
+
+  - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
+    displayName: 'WhiteSource Bolt'
+    inputs:
+      advance: true       
