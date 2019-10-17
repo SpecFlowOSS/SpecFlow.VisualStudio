@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BoDi;
 using EnvDTE;
 using EnvDTE80;
@@ -50,7 +46,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<VisualStudioIdeInformationStore, IIdeInformationStore>();
             container.RegisterTypeAs<AnalyticsTransmitter, IAnalyticsTransmitter>();
             container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
-            container.RegisterTypeAs<RegistryUserUniqueIdStore, IUserUniqueIdStore>();
+            container.RegisterTypeAs<FileUserIdStore, IUserUniqueIdStore>();
 
             RegisterCommands(container);
         }
