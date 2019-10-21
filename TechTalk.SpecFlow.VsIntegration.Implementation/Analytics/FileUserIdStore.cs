@@ -1,20 +1,23 @@
-﻿using Microsoft.Win32;
-using System;
-using System.IO;
+﻿using System;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Services;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class FileUserIdStore : IUserUniqueIdStore
     {
-
         private const string UserIdRegistryPath = @"Software\TechTalk\SpecFlow\Vsix";
         private const string UserIdRegistryValueName = @"UserUniqueId";
         private static readonly string UserIdFilePath = Environment.ExpandEnvironmentVariables(@"%APPDATA%\SpecFlow\userid");
         private readonly Lazy<Guid> _lazyUniqueUserId;
+        private readonly IWindowsRegistry _windowsRegistry;
+        private readonly IFileService _fileService;
+        private readonly IDirectoryService _directoryService;
 
-        public FileUserIdStore()
+        public FileUserIdStore(IWindowsRegistry windowsRegistry, IFileService fileService, IDirectoryService directoryService)
         {
-     
+            _windowsRegistry = windowsRegistry;
+            _fileService = fileService;
+            _directoryService = directoryService;
             _lazyUniqueUserId = new Lazy<Guid>(FetchAndPersistUserId);
         }
 
@@ -25,25 +28,19 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 
         public Guid? TryFetchUserIdFromRegistry()
         {
-            var rootKey = Registry.CurrentUser;
-            var key = rootKey.OpenSubKey(UserIdRegistryPath);
-
-            using (key)
+            if (!(_windowsRegistry.GetValueForCurrentUser(UserIdRegistryPath, UserIdRegistryValueName, null) is string
+                uniqueUserIdString))
             {
-                if (key == null || !(key.GetValue(UserIdRegistryValueName, null) is string uniqueUserIdString))
-                {
-                    return null;
-                }
-
-                return Guid.ParseExact(uniqueUserIdString, "B");
+                return null;
             }
+            return Guid.ParseExact(uniqueUserIdString, "B");
         }
 
         public Guid FetchAndPersistUserId()
         {
-            if (File.Exists(UserIdFilePath))
+            if (_fileService.Exists(UserIdFilePath))
             {
-                var userIdStringFromFile = File.ReadAllText(UserIdFilePath);
+                var userIdStringFromFile = _fileService.ReadAllText(UserIdFilePath);
                 if (Guid.TryParse(userIdStringFromFile, out var userIdFromFile))
                 {
                     return userIdFromFile;
@@ -66,13 +63,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         {
             var userIdStringFromRegistry = userId.ToString("B");
 
-            var directoryName = Path.GetDirectoryName(UserIdFilePath);
-            if (!Directory.Exists(directoryName))
+            var directoryName = _directoryService.GetDirectoryName(UserIdFilePath);
+            if (!_directoryService.Exists(directoryName))
             {
-                Directory.CreateDirectory(directoryName);
+                _directoryService.CreateDirectory(directoryName);
             }
 
-            File.WriteAllText(UserIdFilePath, userIdStringFromRegistry);
+            _fileService.WriteAllText(UserIdFilePath, userIdStringFromRegistry);
         }
 
         public Guid GenerateAndPersistUserId()
