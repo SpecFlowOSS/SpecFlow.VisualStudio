@@ -5,9 +5,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class FileUserIdStore : IUserUniqueIdStore
     {
-        private const string UserIdRegistryPath = @"Software\TechTalk\SpecFlow\Vsix";
-        private const string UserIdRegistryValueName = @"UserUniqueId";
-        private static readonly string UserIdFilePath = Environment.ExpandEnvironmentVariables(@"%APPDATA%\SpecFlow\userid");
+        public const string UserIdRegistryPath = @"Software\TechTalk\SpecFlow\Vsix";
+        public const string UserIdRegistryValueName = @"UserUniqueId";
+        public static readonly string UserIdFilePath = Environment.ExpandEnvironmentVariables(@"%APPDATA%\SpecFlow\userid");
         private readonly Lazy<Guid> _lazyUniqueUserId;
         private readonly IWindowsRegistry _windowsRegistry;
         private readonly IFileService _fileService;
@@ -26,7 +26,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             return _lazyUniqueUserId.Value;
         }
 
-        public Guid? TryFetchUserIdFromRegistry()
+        private Guid? TryFetchUserIdFromRegistry()
         {
             if (!(_windowsRegistry.GetValueForCurrentUser(UserIdRegistryPath, UserIdRegistryValueName, null) is string
                 uniqueUserIdString))
@@ -36,7 +36,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             return Guid.ParseExact(uniqueUserIdString, "B");
         }
 
-        public Guid FetchAndPersistUserId()
+        private Guid FetchAndPersistUserId()
         {
             if (_fileService.Exists(UserIdFilePath))
             {
@@ -59,7 +59,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 
         }
 
-        public void PersistUserId(Guid userId)
+        private void PersistUserId(Guid userId)
         {
             var userIdStringFromRegistry = userId.ToString("B");
 
@@ -72,7 +72,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             _fileService.WriteAllText(UserIdFilePath, userIdStringFromRegistry);
         }
 
-        public Guid GenerateAndPersistUserId()
+        private Guid GenerateAndPersistUserId()
         {
             var newUserId = Guid.NewGuid();
 
