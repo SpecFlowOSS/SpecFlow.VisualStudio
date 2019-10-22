@@ -14,8 +14,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 {
                     User =
                     {
-                        Id = userUniqueId.ToString(),
-                        AccountId = userUniqueId.ToString()
+                        Id = userUniqueId,
+                        AccountId = userUniqueId
                     },
                 },
             };

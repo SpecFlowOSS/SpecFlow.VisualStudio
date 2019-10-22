@@ -12,7 +12,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 Timestamp = analyticsEvent.UtcDate,
                 Properties =
                 {
-                    { "UserId", analyticsEvent.UserId.ToString("B") },
+                    { "UserId", analyticsEvent.UserId }, //For grouppings in AppInsights
                     { "UtcDate", analyticsEvent.UtcDate.ToString("O") },
                     { "ExtensionVersion", analyticsEvent.ExtensionVersion },
                     { "Ide", analyticsEvent.Ide },

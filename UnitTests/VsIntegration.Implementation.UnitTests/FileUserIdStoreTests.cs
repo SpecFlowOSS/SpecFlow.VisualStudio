@@ -10,6 +10,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
     [TestFixture]
     public class FileUserIdStoreTests
     {
+        private const string UserId = "491ed5c0-9f25-4c27-941a-19b17cc81c87";
+        private const string UserIdInRegistry = "{491ed5c0-9f25-4c27-941a-19b17cc81c87}";
         Mock<IWindowsRegistry> windowsRegistryStub;
         Mock<IFileService> fileServiceStub;
         Mock<IDirectoryService> directoryServiceStub;
@@ -54,69 +56,88 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         [Test]
         public void Should_GetUserIdFromFile_WhenFileExists()
         {
-            const string userIdString = "{491ed5c0-9f25-4c27-941a-19b17cc81c87}";
             GivenFileExists(true);
-            GivenUserIdStringInFile(userIdString);
+            GivenUserIdStringInFile(UserId);
 
-            Guid userId = sut.Get();
+            string userId = sut.Get();
 
             fileServiceStub.Verify(fileService => fileService.ReadAllText(FileUserIdStore.UserIdFilePath));
             windowsRegistryStub.Verify(windowsRegistry =>
                 windowsRegistry.GetValueForCurrentUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Never());
-            userId.ToString("B").Should().Be(userIdString);
+            userId.Should().Be(UserId);
         }
 
         [Test]
         public void Should_GetUserIdFromRegistry_WhenFileDoesNotExist()
         {
-            const string userIdString = "{491ed5c0-9f25-4c27-941a-19b17cc81c87}";
             GivenFileExists(false);
-            GivenUserIdStringInRegistry(userIdString);
+            GivenUserIdStringInRegistry(UserIdInRegistry);
 
-            Guid userId = sut.Get();
+            string userId = sut.Get();
 
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
             windowsRegistryStub.Verify(windowsRegistry =>
                 windowsRegistry.GetValueForCurrentUser(FileUserIdStore.UserIdRegistryPath, FileUserIdStore.UserIdRegistryValueName, null));
-            userId.ToString("B").Should().Be(userIdString);
+            userId.Should().Be(UserId);
         }
 
         [Test]
         public void Should_MigrateExistingUserIdFromRegistryToFile_WhenFileDoesNotExist()
         {
-            const string userIdString = "{491ed5c0-9f25-4c27-941a-19b17cc81c87}";
             GivenFileExists(false);
-            GivenUserIdStringInRegistry(userIdString);
+            GivenUserIdStringInRegistry(UserIdInRegistry);
 
-            Guid userId = sut.Get();
+            string userId = sut.Get();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
-            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, userIdString));
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, UserId), Times.Once());
             fileServiceStub.VerifyNoOtherCalls();
             windowsRegistryStub.Verify(windowsRegistry =>
                 windowsRegistry.GetValueForCurrentUser(FileUserIdStore.UserIdRegistryPath, FileUserIdStore.UserIdRegistryValueName, null));
             windowsRegistryStub.VerifyNoOtherCalls();
-            userId.ToString("B").Should().Be(userIdString);
+            userId.Should().Be(UserId);
+        }
+
+        [Test]
+        public void Should_NotMigrateNotValidUserIdFromRegistryToFile()
+        {
+            var notValidGuid = "not valid guid";
+
+            GivenFileExists(false);
+            GivenUserIdStringInRegistry(notValidGuid);
+
+            string userId = sut.Get();
+            fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
+            fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
+
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, notValidGuid), Times.Never());
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, userId), Times.Once());
+            fileServiceStub.VerifyNoOtherCalls();
+
+            windowsRegistryStub.Verify(windowsRegistry =>
+                windowsRegistry.GetValueForCurrentUser(FileUserIdStore.UserIdRegistryPath, FileUserIdStore.UserIdRegistryValueName, null));
+            windowsRegistryStub.VerifyNoOtherCalls();
+
+            userId.Should().NotBe(notValidGuid);
         }
 
         [Test]
         public void Should_NotMigrateExistingUserIdFromRegistryToFile_WhenFileExists()
         {
-            const string userIdString = "{491ed5c0-9f25-4c27-941a-19b17cc81c87}";
             GivenFileExists(true);
-            GivenUserIdStringInFile(userIdString);
+            GivenUserIdStringInFile(UserId);
 
-            Guid userId = sut.Get();
+            string userId = sut.Get();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(FileUserIdStore.UserIdFilePath));
-            fileServiceStub.Verify(fileService => fileService.WriteAllText(It.IsAny<string>(), userIdString), Times.Never);
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fileServiceStub.VerifyNoOtherCalls();
             windowsRegistryStub.Verify(windowsRegistry =>
                 windowsRegistry.GetValueForCurrentUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Never);
             windowsRegistryStub.VerifyNoOtherCalls();
-            userId.ToString("B").Should().Be(userIdString);
+            userId.Should().Be(UserId);
         }
 
         [Test]
@@ -125,7 +146,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(null);
 
-            Guid userId = sut.Get();
+            string userId = sut.Get();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
@@ -141,11 +162,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(null);
 
-            Guid userId = sut.Get();
+            string userId = sut.Get();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
-            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, userId.ToString("B")));
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, userId), Times.Once());
             fileServiceStub.VerifyNoOtherCalls();
             windowsRegistryStub.Verify(windowsRegistry =>
                 windowsRegistry.GetValueForCurrentUser(FileUserIdStore.UserIdRegistryPath, FileUserIdStore.UserIdRegistryValueName, null));
@@ -156,7 +177,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         public void Should_CreateSpecFlowDirectoryBeforePersistingUserId_WhenNeeded()
         {
             GivenFileExists(false);
-            GivenUserIdStringInRegistry("{491ed5c0-9f25-4c27-941a-19b17cc81c87}");
+            GivenUserIdStringInRegistry(UserIdInRegistry);
             const string directoryName = @"c:\foo\bar";
             GivenDirectoryName(directoryName);
             GivenDirectoryExists(false);
