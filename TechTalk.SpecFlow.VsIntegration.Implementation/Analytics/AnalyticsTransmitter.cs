@@ -29,7 +29,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return;
                 }
 
-                var userUniqueId = _userUniqueIdStore.Get();
+                var userUniqueId = _userUniqueIdStore.GetUserId();
                 string ideName = _ideInformationStore.GetName();
                 string ideVersion = _ideInformationStore.GetVersion();
                 var targetFrameworks = _projectTargetFrameworksProvider.GetProjectTargetFrameworks();

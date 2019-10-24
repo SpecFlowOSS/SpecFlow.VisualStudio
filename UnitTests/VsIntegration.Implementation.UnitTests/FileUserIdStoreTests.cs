@@ -59,7 +59,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(true);
             GivenUserIdStringInFile(UserId);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
 
             fileServiceStub.Verify(fileService => fileService.ReadAllText(FileUserIdStore.UserIdFilePath));
             windowsRegistryStub.Verify(windowsRegistry =>
@@ -73,7 +73,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(UserIdInRegistry);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
 
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
             windowsRegistryStub.Verify(windowsRegistry =>
@@ -87,7 +87,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(UserIdInRegistry);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
@@ -107,7 +107,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(notValidGuid);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
 
@@ -128,7 +128,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(true);
             GivenUserIdStringInFile(UserId);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(FileUserIdStore.UserIdFilePath));
@@ -146,7 +146,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(null);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
@@ -162,7 +162,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenFileExists(false);
             GivenUserIdStringInRegistry(null);
 
-            string userId = sut.Get();
+            string userId = sut.GetUserId();
 
             fileServiceStub.Verify(fileService => fileService.Exists(It.IsAny<string>()));
             fileServiceStub.Verify(fileService => fileService.ReadAllText(It.IsAny<string>()), Times.Never());
@@ -182,7 +182,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             GivenDirectoryName(directoryName);
             GivenDirectoryExists(false);
             
-            sut.Get();
+            sut.GetUserId();
 
             directoryServiceStub.Verify(directoryService => directoryService.GetDirectoryName(FileUserIdStore.UserIdFilePath));
             directoryServiceStub.Verify(directoryService => directoryService.CreateDirectory(directoryName));

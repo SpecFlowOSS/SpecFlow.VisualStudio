@@ -21,7 +21,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             _lazyUniqueUserId = new Lazy<string>(FetchAndPersistUserId);
         }
 
-        public string Get()
+        public string GetUserId()
         {
             return _lazyUniqueUserId.Value;
         }

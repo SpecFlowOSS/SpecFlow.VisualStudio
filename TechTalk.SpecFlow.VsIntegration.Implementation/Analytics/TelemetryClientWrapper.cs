@@ -7,7 +7,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
     {
         public TelemetryClientWrapper(IUserUniqueIdStore userUniqueIdStore)
         {
-            var userUniqueId = userUniqueIdStore.Get();
+            var userUniqueId = userUniqueIdStore.GetUserId();
             TelemetryClient = new TelemetryClient
             {
                 Context =
