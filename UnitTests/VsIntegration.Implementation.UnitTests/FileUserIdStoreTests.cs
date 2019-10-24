@@ -14,6 +14,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         private const string UserIdInRegistry = "{491ed5c0-9f25-4c27-941a-19b17cc81c87}";
         Mock<IWindowsRegistry> windowsRegistryStub;
         Mock<IFileService> fileServiceStub;
+        Mock<IDirectoryService> directoryServiceStub;
         FileUserIdStore sut;
 
         private void GivenUserIdStringInRegistry(string userIdString)
@@ -21,6 +22,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             windowsRegistryStub.Setup(windowsRegistry =>
                     windowsRegistry.GetValueForCurrentUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(userIdString);
+        }
+
+        private void GivenNoUserIdStringInRegistry()
+        {
+            windowsRegistryStub.Setup(windowsRegistry =>
+                    windowsRegistry.GetValueForCurrentUser(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
+                .Returns(null);
         }
 
         private void GivenUserIdStringInFile(string userIdString)
@@ -43,7 +51,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         {
             windowsRegistryStub = new Mock<IWindowsRegistry>();
             fileServiceStub = new Mock<IFileService>();
-            sut = new FileUserIdStore(windowsRegistryStub.Object, fileServiceStub.Object);
+            directoryServiceStub = new Mock<IDirectoryService>();
+            sut = new FileUserIdStore(windowsRegistryStub.Object, fileServiceStub.Object, directoryServiceStub.Object);
         }
 
         [Test]
@@ -107,11 +116,33 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         public void Should_GenerateNewUserId_WhenNoUserIdExists()
         {
             GivenFileDoesNotExists();
-            GivenUserIdStringInRegistry(null);
+            GivenNoUserIdStringInRegistry();
 
             string userId = sut.GetUserId();
 
             userId.Should().NotBeEmpty();
+        }
+
+        [Test]
+        public void Should_PersistUserId_WhenUserIdExistsInRegistry()
+        {
+            GivenFileDoesNotExists();
+            GivenUserIdStringInRegistry(UserIdInRegistry);
+
+            string userId = sut.GetUserId();
+
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, userId), Times.Once());
+        }
+
+        [Test]
+        public void Should_PersistNewlyGeneratedUserId_WhenNoUserIdExists()
+        {
+            GivenFileDoesNotExists();
+            GivenNoUserIdStringInRegistry();
+
+            string userId = sut.GetUserId();
+            
+            fileServiceStub.Verify(fileService => fileService.WriteAllText(FileUserIdStore.UserIdFilePath, userId), Times.Once());
         }
     }
 }

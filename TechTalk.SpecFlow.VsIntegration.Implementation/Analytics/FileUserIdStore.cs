@@ -13,11 +13,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         private readonly Lazy<string> _lazyUniqueUserId;
         private readonly IWindowsRegistry _windowsRegistry;
         private readonly IFileService _fileService;
+        private readonly IDirectoryService _directoryService;
 
-        public FileUserIdStore(IWindowsRegistry windowsRegistry, IFileService fileService)
+        public FileUserIdStore(IWindowsRegistry windowsRegistry, IFileService fileService, IDirectoryService directoryService)
         {
             _windowsRegistry = windowsRegistry;
             _fileService = fileService;
+            _directoryService = directoryService;
             _lazyUniqueUserId = new Lazy<string>(FetchAndPersistUserId);
         }
 
@@ -64,9 +66,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         private void PersistUserId(string userId)
         {
             var directoryName = Path.GetDirectoryName(UserIdFilePath);
-            if (!Directory.Exists(directoryName))
+            if (!_directoryService.Exists(directoryName))
             {
-                Directory.CreateDirectory(directoryName);
+                _directoryService.CreateDirectory(directoryName);
             }
 
             _fileService.WriteAllText(UserIdFilePath, userId);
