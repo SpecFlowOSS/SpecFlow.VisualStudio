@@ -59,6 +59,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             oldTable = oldTable.Replace("\\|", escapedPipeString);
 
             string[] lines = oldTable.Replace("\r\n", "\n").Split('\n');
+            if (lines.All(l => l.StartsWith("#")))
+                return null;
+
             if (lines.Length < 2)
                 return null;
 
