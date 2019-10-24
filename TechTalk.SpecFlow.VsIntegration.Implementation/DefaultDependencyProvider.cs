@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BoDi;
 using EnvDTE;
 using EnvDTE80;
@@ -15,6 +11,7 @@ using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Install;
 using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Services;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
@@ -35,7 +32,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<WindowsFileAssociationDetector, IFileAssociationDetector>();
             container.RegisterTypeAs<RegistryStatusAccessor, IStatusAccessor>();
 
-            
+            container.RegisterTypeAs<WindowsRegistry, IWindowsRegistry>();
+            container.RegisterTypeAs<FileService, IFileService>();
+            container.RegisterTypeAs<DirectoryService, IDirectoryService>();
+
             container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));
 
@@ -50,7 +50,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<VisualStudioIdeInformationStore, IIdeInformationStore>();
             container.RegisterTypeAs<AnalyticsTransmitter, IAnalyticsTransmitter>();
             container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
-            container.RegisterTypeAs<RegistryUserUniqueIdStore, IUserUniqueIdStore>();
+            container.RegisterTypeAs<FileUserIdStore, IUserUniqueIdStore>();
 
             RegisterCommands(container);
         }
