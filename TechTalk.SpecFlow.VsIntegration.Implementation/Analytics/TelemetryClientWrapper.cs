@@ -1,14 +1,24 @@
-﻿using Microsoft.ApplicationInsights;
+﻿using System;
+using Microsoft.ApplicationInsights;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     // this class serves only to prevent triggering BoDi's constructor policy to take the one with the most parameters.
     public class TelemetryClientWrapper
     {
+        private readonly Lazy<TelemetryClient> _telemetryClient;
+
         public TelemetryClientWrapper(IUserUniqueIdStore userUniqueIdStore)
         {
+            _telemetryClient = new Lazy<TelemetryClient>(() => GetTelemetryClient(userUniqueIdStore));
+        }
+
+        public TelemetryClient TelemetryClient => _telemetryClient.Value;
+
+        private TelemetryClient GetTelemetryClient(IUserUniqueIdStore userUniqueIdStore)
+        {
             var userUniqueId = userUniqueIdStore.GetUserId();
-            TelemetryClient = new TelemetryClient
+            return new TelemetryClient
             {
                 Context =
                 {
@@ -20,7 +30,5 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 },
             };
         }
-
-        public TelemetryClient TelemetryClient { get; private set; }
     }
 }
