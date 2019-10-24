@@ -1,5 +1,6 @@
 ﻿using System;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
+using TechTalk.SpecFlow.IdeIntegration.Analytics.Events;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
