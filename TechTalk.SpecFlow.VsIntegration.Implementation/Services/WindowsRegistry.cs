@@ -9,7 +9,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Services
             var rootKey = Registry.CurrentUser;
             var key = rootKey.OpenSubKey(registryPath);
 
-            if (key == null)
+            if (key is null)
             {
                 return null;
             }
