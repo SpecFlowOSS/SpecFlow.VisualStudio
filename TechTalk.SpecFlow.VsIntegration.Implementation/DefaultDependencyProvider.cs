@@ -34,7 +34,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
 
             container.RegisterTypeAs<WindowsRegistry, IWindowsRegistry>();
             container.RegisterTypeAs<FileService, IFileService>();
-            container.RegisterTypeAs<DirectoryService, IDirectoryService>();
 
             container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));

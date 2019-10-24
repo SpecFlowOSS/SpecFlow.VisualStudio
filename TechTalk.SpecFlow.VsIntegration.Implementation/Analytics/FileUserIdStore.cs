@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Services;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
@@ -8,16 +9,15 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         public const string UserIdRegistryPath = @"Software\TechTalk\SpecFlow\Vsix";
         public const string UserIdRegistryValueName = @"UserUniqueId";
         public static readonly string UserIdFilePath = Environment.ExpandEnvironmentVariables(@"%APPDATA%\SpecFlow\userid");
+        
         private readonly Lazy<string> _lazyUniqueUserId;
         private readonly IWindowsRegistry _windowsRegistry;
         private readonly IFileService _fileService;
-        private readonly IDirectoryService _directoryService;
 
-        public FileUserIdStore(IWindowsRegistry windowsRegistry, IFileService fileService, IDirectoryService directoryService)
+        public FileUserIdStore(IWindowsRegistry windowsRegistry, IFileService fileService)
         {
             _windowsRegistry = windowsRegistry;
             _fileService = fileService;
-            _directoryService = directoryService;
             _lazyUniqueUserId = new Lazy<string>(FetchAndPersistUserId);
         }
 
@@ -63,10 +63,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 
         private void PersistUserId(string userId)
         {
-            var directoryName = _directoryService.GetDirectoryName(UserIdFilePath);
-            if (!_directoryService.Exists(directoryName))
+            var directoryName = Path.GetDirectoryName(UserIdFilePath);
+            if (!Directory.Exists(directoryName))
             {
-                _directoryService.CreateDirectory(directoryName);
+                Directory.CreateDirectory(directoryName);
             }
 
             _fileService.WriteAllText(UserIdFilePath, userId);
