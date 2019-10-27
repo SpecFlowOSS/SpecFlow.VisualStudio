@@ -4,6 +4,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public interface IAnalyticsTransmitterSink
     {
-        void TransmitExtensionLoadedEvent(ExtensionLoadedAnalyticsEvent extensionLoadedAnalyticsEvent);
+        void TransmitEvent(IAnalyticsEvent analyticsEvent);
     }
 }

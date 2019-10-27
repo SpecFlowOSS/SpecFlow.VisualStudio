@@ -3,8 +3,8 @@ using TechTalk.SpecFlow.IdeIntegration.Analytics;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
-    public interface IAppInsightsEventConverter<TEvent> where TEvent : IAnalyticsEvent
+    public interface IAppInsightsEventConverter
     {
-        EventTelemetry ConvertToAppInsightsEvent(TEvent analyticsEvent);
+        EventTelemetry ConvertToAppInsightsEvent(IAnalyticsEvent analyticsEvent);
     }
 }

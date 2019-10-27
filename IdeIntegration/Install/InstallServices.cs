@@ -8,9 +8,9 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
 {
     public class InstallServices
     {
-        private const int AFTER_RAMP_UP_DAYS = 10;
-        private const int EXPERIENCED_DAYS = 100;
-        private const int VETERAN_DAYS = 200;
+        public const int AFTER_RAMP_UP_DAYS = 10;
+        public const int EXPERIENCED_DAYS = 100;
+        public const int VETERAN_DAYS = 200;
 
         private readonly IIdeTracer tracer;
         private readonly IGuidanceNotificationService notificationService;
@@ -60,6 +60,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 // new user
                 if (ShowNotification(GuidanceNotification.AfterInstall))
                 {
+                    _analyticsTransmitter.TransmitExtensionIstallatedEvent();
+
                     status.InstallDate = today;
                     status.InstalledVersion = CurrentVersion;
                     status.LastUsedDate = today;
@@ -74,7 +76,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 CheckFileAssociation();
             }
 
-            _analyticsTransmitter.TransmitExtensionLoadedEvent(CurrentVersion.ToString());
+            _analyticsTransmitter.TransmitExtensionLoadedEvent();
         }
 
         private void CheckFileAssociation()
@@ -112,6 +114,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 //upgrading user   
                 if (ShowNotification(GuidanceNotification.Upgrade, isSpecRunUsed))
                 {
+                    _analyticsTransmitter.TransmitExtensionUpgradedEvent(status.InstalledVersion.ToString());
+
                     status.InstallDate = today;
                     status.InstalledVersion = CurrentVersion;
 
@@ -122,6 +126,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             {
                 if (ShowNotification(GuidanceNotification.AfterRampUp, isSpecRunUsed))
                 {
+                    _analyticsTransmitter.TransmitExtensionUsage(AFTER_RAMP_UP_DAYS);
+
                     status.UserLevel = (int)GuidanceNotification.AfterRampUp;
                     UpdateStatus(status);
                 }
@@ -130,6 +136,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             {
                 if (ShowNotification(GuidanceNotification.Experienced, isSpecRunUsed))
                 {
+                    _analyticsTransmitter.TransmitExtensionUsage(EXPERIENCED_DAYS);
+
                     status.UserLevel = (int)GuidanceNotification.Experienced;
                     UpdateStatus(status);
                 }
@@ -138,6 +146,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             {
                 if (ShowNotification(GuidanceNotification.Veteran, isSpecRunUsed))
                 {
+                    _analyticsTransmitter.TransmitExtensionUsage(VETERAN_DAYS);
+
                     status.UserLevel = (int)GuidanceNotification.Veteran;
                     UpdateStatus(status);
                 }

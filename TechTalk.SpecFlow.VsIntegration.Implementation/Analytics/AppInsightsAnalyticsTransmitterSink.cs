@@ -1,6 +1,5 @@
 ﻿using System;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
-using TechTalk.SpecFlow.IdeIntegration.Analytics.Events;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
@@ -8,24 +7,23 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
     {
         private readonly TelemetryClientWrapper _telemetryClientWrapper;
         private readonly IEnableAnalyticsChecker _enableAnalyticsChecker;
-        private readonly IAppInsightsEventConverter<ExtensionLoadedAnalyticsEvent> _appInsightsEventConverter;
+        private readonly IAppInsightsEventConverter _appInsightsEventConverter;
 
-        public AppInsightsAnalyticsTransmitterSink(TelemetryClientWrapper telemetryClientWrapper, IEnableAnalyticsChecker enableAnalyticsChecker, IAppInsightsEventConverter<ExtensionLoadedAnalyticsEvent> appInsightsEventConverter)
+        public AppInsightsAnalyticsTransmitterSink(TelemetryClientWrapper telemetryClientWrapper, IEnableAnalyticsChecker enableAnalyticsChecker, IAppInsightsEventConverter appInsightsEventConverter)
         {
             _telemetryClientWrapper = telemetryClientWrapper;
             _enableAnalyticsChecker = enableAnalyticsChecker;
             _appInsightsEventConverter = appInsightsEventConverter;
         }
 
-        public void TransmitExtensionLoadedEvent(ExtensionLoadedAnalyticsEvent extensionLoadedAnalyticsEvent)
+        public void TransmitEvent(IAnalyticsEvent analyticsEvent)
         {
             if (!_enableAnalyticsChecker.IsEnabled())
             {
                 throw new InvalidOperationException("This method should not be called because analytics transmission is disabled.");
             }
 
-            var appInsightsEvent = _appInsightsEventConverter.ConvertToAppInsightsEvent(extensionLoadedAnalyticsEvent);
-
+            var appInsightsEvent = _appInsightsEventConverter.ConvertToAppInsightsEvent(analyticsEvent);
             var telemetryClient = _telemetryClientWrapper.TelemetryClient;
             telemetryClient.TrackEvent(appInsightsEvent);
             telemetryClient.Flush();
