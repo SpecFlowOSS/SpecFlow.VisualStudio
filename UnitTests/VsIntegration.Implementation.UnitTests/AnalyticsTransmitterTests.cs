@@ -1,7 +1,9 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Analytics.Events;
+using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
@@ -14,6 +16,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         Mock<IAnalyticsTransmitterSink> analyticsTransmitterSink;
         Mock<IIdeInformationStore> ideInformationStore;
         Mock<IProjectTargetFrameworksProvider> projectTargetFrameworksProvider;
+        Mock<ICurrentExtensionVersionProvider> currentExtensionVersionProviderStub;
         AnalyticsTransmitter sut;
 
         [SetUp]
@@ -24,8 +27,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             analyticsTransmitterSink = new Mock<IAnalyticsTransmitterSink>();
             ideInformationStore = new Mock<IIdeInformationStore>();
             projectTargetFrameworksProvider = new Mock<IProjectTargetFrameworksProvider>();
+            currentExtensionVersionProviderStub = new Mock<ICurrentExtensionVersionProvider>();
             sut = new AnalyticsTransmitter(userUniqueIdStoreStub.Object, enableAnalyticsCheckerStub.Object, 
-                analyticsTransmitterSink.Object, ideInformationStore.Object, projectTargetFrameworksProvider.Object);
+                analyticsTransmitterSink.Object, ideInformationStore.Object, projectTargetFrameworksProvider.Object,
+                currentExtensionVersionProviderStub.Object);
+
+            currentExtensionVersionProviderStub.Setup(ce => ce.GetCurrentExtensionVersion())
+                .Returns(new Version("2019.0"));
         }
 
         private void GivenAnalyticsEnabled()
