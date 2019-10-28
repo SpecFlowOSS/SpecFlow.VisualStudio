@@ -18,7 +18,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         {
             var options = _integrationOptionsProvider.GetOptions();
             var isSpecFlowTelemetryEnabled = _environmentSpecFlowTelemetryChecker.IsSpecFlowTelemetryEnabled();
-            return options.OptOutDataCollection && isSpecFlowTelemetryEnabled;
+            return !options.OptOutDataCollection && isSpecFlowTelemetryEnabled;
         }
     }
 }

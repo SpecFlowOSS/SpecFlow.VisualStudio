@@ -23,13 +23,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
 
         [TestCase(false, false, false)]
         [TestCase(true, false, false)]
-        [TestCase(false, true, false)]
-        [TestCase(true, true, true)]
-        public void Should_SendAnalytics_BasedOnOptionsAndEnvironment(bool optionsEnabled, bool environmentEnabled, bool expectedAnalyticsEnabled)
+        [TestCase(false, true, true)]
+        [TestCase(true, true, false)]
+        public void Should_SendAnalytics_BasedOnOptionsAndEnvironment(bool visualStudioAnalyticsOption, bool environmentEnabled, bool expectedAnalyticsEnabled)
         {
             integrationOptionsProviderStub.Setup(st => st.GetOptions()).Returns(new IntegrationOptions()
             {
-                OptOutDataCollection = optionsEnabled
+                OptOutDataCollection = visualStudioAnalyticsOption
             });
             environmentSpecFlowTelemetryCheckerStub.Setup(st => st.IsSpecFlowTelemetryEnabled()).Returns(environmentEnabled);
 
