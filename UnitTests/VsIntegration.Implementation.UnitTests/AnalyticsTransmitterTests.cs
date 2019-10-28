@@ -28,12 +28,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             ideInformationStore = new Mock<IIdeInformationStore>();
             projectTargetFrameworksProvider = new Mock<IProjectTargetFrameworksProvider>();
             currentExtensionVersionProviderStub = new Mock<ICurrentExtensionVersionProvider>();
+            
+            currentExtensionVersionProviderStub.Setup(ce => ce.GetCurrentExtensionVersion())
+                .Returns(new Version("2019.0"));
+
             sut = new AnalyticsTransmitter(userUniqueIdStoreStub.Object, enableAnalyticsCheckerStub.Object, 
                 analyticsTransmitterSink.Object, ideInformationStore.Object, projectTargetFrameworksProvider.Object,
                 currentExtensionVersionProviderStub.Object);
-
-            currentExtensionVersionProviderStub.Setup(ce => ce.GetCurrentExtensionVersion())
-                .Returns(new Version("2019.0"));
         }
 
         private void GivenAnalyticsEnabled()

@@ -8,45 +8,43 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class AnalyticsTransmitter : IAnalyticsTransmitter
     {
-        private readonly IUserUniqueIdStore _userUniqueIdStore;
         private readonly IEnableAnalyticsChecker _enableAnalyticsChecker;
         private readonly IAnalyticsTransmitterSink _analyticsTransmitterSink;
-        private readonly IIdeInformationStore _ideInformationStore;
-        private readonly IProjectTargetFrameworksProvider _projectTargetFrameworksProvider;
-        private readonly ICurrentExtensionVersionProvider _currentExtensionVersionProvider;
+
+        private readonly Lazy<string> _userUniqueId;
+        private readonly Lazy<string> _ideName;
+        private readonly Lazy<string> _ideVersion;
+        private readonly Lazy<IEnumerable<string>> _targetFrameworks;
+        private readonly Lazy<string> _extensionVersion;
 
         public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore, IProjectTargetFrameworksProvider projectTargetFrameworksProvider, ICurrentExtensionVersionProvider currentExtensionVersionProvider)
         {
-            _userUniqueIdStore = userUniqueIdStore;
             _enableAnalyticsChecker = enableAnalyticsChecker;
             _analyticsTransmitterSink = analyticsTransmitterSink;
-            _ideInformationStore = ideInformationStore;
-            _projectTargetFrameworksProvider = projectTargetFrameworksProvider;
-            _currentExtensionVersionProvider = currentExtensionVersionProvider;
+
+            _userUniqueId = new Lazy<string>(userUniqueIdStore.GetUserId);
+            _ideName = new Lazy<string>(ideInformationStore.GetName);
+            _ideVersion = new Lazy<string>(ideInformationStore.GetVersion);
+            _targetFrameworks = new Lazy<IEnumerable<string>>(projectTargetFrameworksProvider.GetProjectTargetFrameworks);
+            _extensionVersion = new Lazy<string>(() => currentExtensionVersionProvider.GetCurrentExtensionVersion().ToString());
         }
 
         private IAnalyticsEvent CreateAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null)
         {
-            var userUniqueId = new Lazy<string>(_userUniqueIdStore.GetUserId);
-            var ideName = new Lazy<string>(_ideInformationStore.GetName);
-            var ideVersion = new Lazy<string>(_ideInformationStore.GetVersion);
-            var targetFrameworks = new Lazy<IEnumerable<string>>(_projectTargetFrameworksProvider.GetProjectTargetFrameworks);
-            var extensionVersion = new Lazy<string>(_currentExtensionVersionProvider.GetCurrentExtensionVersion().ToString);
-
             switch (analyticsEventType)
             {
                 case AnalyticsEventType.ExtensionLoaded:
-                    return new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId.Value, ideName.Value, ideVersion.Value, extensionVersion.Value, targetFrameworks.Value);
+                    return new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideName.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value);
                 case AnalyticsEventType.ExtensionInstalled:
-                    return new ExtensionInstalledAnalyticsEvent(DateTime.UtcNow, userUniqueId.Value, ideVersion.Value, extensionVersion.Value);
+                    return new ExtensionInstalledAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value);
                 case AnalyticsEventType.ExtensionUpgraded:
-                    return new ExtensionUpgradedAnalyticsEvent(DateTime.UtcNow, userUniqueId.Value, oldExtensionVersion, extensionVersion.Value);
+                    return new ExtensionUpgradedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value);
                 case AnalyticsEventType.ExtensionTenDayUsage:
-                    return new ExtensionTenDayUsageAnalyticsEvent(DateTime.UtcNow, userUniqueId.Value);
+                    return new ExtensionTenDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionOneHundredDayUsage:
-                    return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, userUniqueId.Value);
+                    return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionTwoHundredDayUsage:
-                    return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, userUniqueId.Value);
+                    return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(analyticsEventType), analyticsEventType, null);
             }
