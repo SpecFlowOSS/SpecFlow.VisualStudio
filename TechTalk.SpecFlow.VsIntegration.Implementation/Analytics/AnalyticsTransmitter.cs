@@ -76,7 +76,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             TransmitAnalyticsEvent(AnalyticsEventType.ExtensionLoaded);
         }
 
-        public void TransmitExtensionIstallatedEvent()
+        public void TransmitExtensionInstallatedEvent()
         {
             TransmitAnalyticsEvent(AnalyticsEventType.ExtensionInstalled);
         }

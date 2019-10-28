@@ -54,7 +54,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                 // new user
                 if (ShowNotification(GuidanceNotification.AfterInstall))
                 {
-                    _analyticsTransmitter.TransmitExtensionIstallatedEvent();
+                    _analyticsTransmitter.TransmitExtensionInstallatedEvent();
 
                     status.InstallDate = today;
                     status.InstalledVersion = CurrentVersion;

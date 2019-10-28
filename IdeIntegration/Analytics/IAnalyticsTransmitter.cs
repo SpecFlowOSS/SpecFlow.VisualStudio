@@ -3,7 +3,7 @@
     public interface IAnalyticsTransmitter
     {
         void TransmitExtensionLoadedEvent();
-        void TransmitExtensionIstallatedEvent();
+        void TransmitExtensionInstallatedEvent();
         void TransmitExtensionUpgradedEvent(string oldExtensionVersion);
         void TransmitExtensionUsage(int daysOfUsage);
     }

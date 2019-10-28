@@ -97,7 +97,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
 
             sut.OnPackageLoad(ideIntegration);
 
-            analyticsTransmitterStub.Verify(at => at.TransmitExtensionIstallatedEvent(), Times.Never);
+            analyticsTransmitterStub.Verify(at => at.TransmitExtensionInstallatedEvent(), Times.Never);
         }
 
         [TestCase(IdeIntegration.Install.IdeIntegration.VisualStudio2015)]
@@ -110,7 +110,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
 
             sut.OnPackageLoad(ideIntegration);
 
-            analyticsTransmitterStub.Verify(at => at.TransmitExtensionIstallatedEvent(), Times.Once);
+            analyticsTransmitterStub.Verify(at => at.TransmitExtensionInstallatedEvent(), Times.Once);
             analyticsTransmitterStub.Verify(at => at.TransmitExtensionLoadedEvent(), Times.Once);
         }
         
@@ -124,7 +124,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
 
             sut.OnPackageLoad(ideIntegration);
 
-            analyticsTransmitterStub.Verify(at => at.TransmitExtensionIstallatedEvent(), Times.Never);
+            analyticsTransmitterStub.Verify(at => at.TransmitExtensionInstallatedEvent(), Times.Never);
         }
 
         [TestCase(IdeIntegration.Install.IdeIntegration.VisualStudio2015)]
