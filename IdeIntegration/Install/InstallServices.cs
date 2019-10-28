@@ -17,29 +17,23 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         private readonly IFileAssociationDetector fileAssociationDetector;
         private readonly IStatusAccessor statusAccessor;
         private readonly IAnalyticsTransmitter _analyticsTransmitter;
+        private readonly ICurrentExtensionVersionProvider _currentExtensionVersionProvider;
+        private readonly IDevBuildChecker _devBuildChecker;
 
         public IdeIntegration IdeIntegration { get; private set; }
-        public static Version CurrentVersion
-        {
-            get
-            {
-                var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
-                return new Version(assemblyVersion.Major, assemblyVersion.Minor);
-            }
-        }
+        private Version CurrentVersion => _currentExtensionVersionProvider.GetCurrentExtensionVersion();
 
-        internal static bool IsDevBuild
-        {
-            get { return CurrentVersion.Equals(new Version(1, 0)); }
-        }
+        private bool IsDevBuild => _devBuildChecker.IsDevBuild();
 
-        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter)
+        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter, ICurrentExtensionVersionProvider currentExtensionVersionProvider, IDevBuildChecker devBuildChecker)
         {
             this.notificationService = notificationService;
             this.tracer = tracer;
             this.fileAssociationDetector = fileAssociationDetector;
             this.statusAccessor = statusAccessor;
             _analyticsTransmitter = analyticsTransmitter;
+            _currentExtensionVersionProvider = currentExtensionVersionProvider;
+            _devBuildChecker = devBuildChecker;
             IdeIntegration = IdeIntegration.Unknown;
         }
 

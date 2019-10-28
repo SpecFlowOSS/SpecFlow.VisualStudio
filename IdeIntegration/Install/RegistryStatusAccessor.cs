@@ -9,18 +9,20 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         private const string REG_PATH = @"Software\TechTalk\SpecFlow";
 
         private readonly IIdeTracer tracer;
+        private readonly IDevBuildChecker _devBuildChecker;
 
-        public RegistryStatusAccessor(IIdeTracer tracer)
+        public RegistryStatusAccessor(IIdeTracer tracer, IDevBuildChecker devBuildChecker)
         {
             this.tracer = tracer;
+            _devBuildChecker = devBuildChecker;
         }
 
-        private static string RegPath
+        private string RegPath
         {
             get
             {
                 var regPath = REG_PATH;
-                if (InstallServices.IsDevBuild)
+                if (_devBuildChecker.IsDevBuild())
                     regPath += "Dev";
                 return regPath;
             }

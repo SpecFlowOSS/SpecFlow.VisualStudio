@@ -13,14 +13,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         private readonly IAnalyticsTransmitterSink _analyticsTransmitterSink;
         private readonly IIdeInformationStore _ideInformationStore;
         private readonly IProjectTargetFrameworksProvider _projectTargetFrameworksProvider;
+        private readonly ICurrentExtensionVersionProvider _currentExtensionVersionProvider;
 
-        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore, IProjectTargetFrameworksProvider projectTargetFrameworksProvider)
+        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore, IProjectTargetFrameworksProvider projectTargetFrameworksProvider, ICurrentExtensionVersionProvider currentExtensionVersionProvider)
         {
             _userUniqueIdStore = userUniqueIdStore;
             _enableAnalyticsChecker = enableAnalyticsChecker;
             _analyticsTransmitterSink = analyticsTransmitterSink;
             _ideInformationStore = ideInformationStore;
             _projectTargetFrameworksProvider = projectTargetFrameworksProvider;
+            _currentExtensionVersionProvider = currentExtensionVersionProvider;
         }
 
         private IAnalyticsEvent CreateAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null)
@@ -29,7 +31,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             var ideName = new Lazy<string>(_ideInformationStore.GetName);
             var ideVersion = new Lazy<string>(_ideInformationStore.GetVersion);
             var targetFrameworks = new Lazy<IEnumerable<string>>(_projectTargetFrameworksProvider.GetProjectTargetFrameworks);
-            var extensionVersion = new Lazy<string>(InstallServices.CurrentVersion.ToString);
+            var extensionVersion = new Lazy<string>(_currentExtensionVersionProvider.GetCurrentExtensionVersion().ToString);
 
             switch (analyticsEventType)
             {

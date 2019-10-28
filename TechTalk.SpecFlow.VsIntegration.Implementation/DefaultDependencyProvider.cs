@@ -52,6 +52,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
             container.RegisterTypeAs<FileUserIdStore, IUserUniqueIdStore>();
             container.RegisterTypeAs<EnvironmentSpecFlowTelemetryChecker, IEnvironmentSpecFlowTelemetryChecker>();
+            container.RegisterTypeAs<CurrentExtensionVersionProvider, ICurrentExtensionVersionProvider>();
+            container.RegisterTypeAs<DevBuildChecker, IDevBuildChecker>();
 
             RegisterCommands(container);
         }
