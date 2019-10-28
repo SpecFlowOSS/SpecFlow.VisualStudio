@@ -83,7 +83,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         {
             GivenAnalyticsEnabled();
 
-            sut.TransmitExtensionInstallatedEvent();
+            sut.TransmitExtensionInstalledEvent();
 
             analyticsTransmitterSink.Verify(sink => sink.TransmitEvent(It.IsAny<ExtensionInstalledAnalyticsEvent>()), Times.Once);
         }
