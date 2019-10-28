@@ -12,14 +12,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             _enableAnalyticsChecker = enableAnalyticsChecker;
         }
 
-        public void TransmitExtensionLoadedEvent(ExtensionLoadedAnalyticsEvent extensionLoadedAnalyticsEvent)
+        public void TransmitEvent(IAnalyticsEvent analyticsEvent)
         {
             if (!_enableAnalyticsChecker.IsEnabled())
             {
                 throw new InvalidOperationException("This method should not be called because analytics transmission is disabled.");
             }
 
-            Console.WriteLine(extensionLoadedAnalyticsEvent.ToString());
+            Console.WriteLine(analyticsEvent.ToString());
         }
     }
 }

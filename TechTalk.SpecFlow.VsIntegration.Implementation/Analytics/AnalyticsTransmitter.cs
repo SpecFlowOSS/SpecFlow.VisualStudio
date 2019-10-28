@@ -1,26 +1,56 @@
 ﻿using System;
+using System.Collections.Generic;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
+using TechTalk.SpecFlow.IdeIntegration.Analytics.Events;
+using TechTalk.SpecFlow.IdeIntegration.Install;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 {
     public class AnalyticsTransmitter : IAnalyticsTransmitter
     {
-        private readonly IUserUniqueIdStore _userUniqueIdStore;
         private readonly IEnableAnalyticsChecker _enableAnalyticsChecker;
         private readonly IAnalyticsTransmitterSink _analyticsTransmitterSink;
-        private readonly IIdeInformationStore _ideInformationStore;
-        private readonly IProjectTargetFrameworksProvider _projectTargetFrameworksProvider;
 
-        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore, IProjectTargetFrameworksProvider projectTargetFrameworksProvider)
+        private readonly Lazy<string> _userUniqueId;
+        private readonly Lazy<string> _ideName;
+        private readonly Lazy<string> _ideVersion;
+        private readonly Lazy<IEnumerable<string>> _targetFrameworks;
+        private readonly Lazy<string> _extensionVersion;
+
+        public AnalyticsTransmitter(IUserUniqueIdStore userUniqueIdStore, IEnableAnalyticsChecker enableAnalyticsChecker, IAnalyticsTransmitterSink analyticsTransmitterSink, IIdeInformationStore ideInformationStore, IProjectTargetFrameworksProvider projectTargetFrameworksProvider, ICurrentExtensionVersionProvider currentExtensionVersionProvider)
         {
-            _userUniqueIdStore = userUniqueIdStore;
             _enableAnalyticsChecker = enableAnalyticsChecker;
             _analyticsTransmitterSink = analyticsTransmitterSink;
-            _ideInformationStore = ideInformationStore;
-            _projectTargetFrameworksProvider = projectTargetFrameworksProvider;
+
+            _userUniqueId = new Lazy<string>(userUniqueIdStore.GetUserId);
+            _ideName = new Lazy<string>(ideInformationStore.GetName);
+            _ideVersion = new Lazy<string>(ideInformationStore.GetVersion);
+            _targetFrameworks = new Lazy<IEnumerable<string>>(projectTargetFrameworksProvider.GetProjectTargetFrameworks);
+            _extensionVersion = new Lazy<string>(() => currentExtensionVersionProvider.GetCurrentExtensionVersion().ToString());
         }
 
-        public void TransmitExtensionLoadedEvent(string extensionVersion)
+        private IAnalyticsEvent CreateAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null)
+        {
+            switch (analyticsEventType)
+            {
+                case AnalyticsEventType.ExtensionLoaded:
+                    return new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideName.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value);
+                case AnalyticsEventType.ExtensionInstalled:
+                    return new ExtensionInstalledAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value);
+                case AnalyticsEventType.ExtensionUpgraded:
+                    return new ExtensionUpgradedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value);
+                case AnalyticsEventType.ExtensionTenDayUsage:
+                    return new ExtensionTenDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                case AnalyticsEventType.ExtensionOneHundredDayUsage:
+                    return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                case AnalyticsEventType.ExtensionTwoHundredDayUsage:
+                    return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(analyticsEventType), analyticsEventType, null);
+            }
+        }
+
+        private void TransmitAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null)
         {
             try
             {
@@ -29,16 +59,46 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return;
                 }
 
-                var userUniqueId = _userUniqueIdStore.GetUserId();
-                string ideName = _ideInformationStore.GetName();
-                string ideVersion = _ideInformationStore.GetVersion();
-                var targetFrameworks = _projectTargetFrameworksProvider.GetProjectTargetFrameworks();
-                var extensionLoadedAnalyticsEvent = new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, userUniqueId, ideName, ideVersion, extensionVersion, targetFrameworks);
-                _analyticsTransmitterSink.TransmitExtensionLoadedEvent(extensionLoadedAnalyticsEvent);
+                var analyticsEvent = CreateAnalyticsEvent(analyticsEventType, oldExtensionVersion);
+
+                _analyticsTransmitterSink.TransmitEvent(analyticsEvent);
             }
             catch (Exception)
             {
                 // catch all exceptions since we do not want to break the whole extension simply because data transmission failed
+            }
+        }
+
+        public void TransmitExtensionLoadedEvent()
+        {
+            TransmitAnalyticsEvent(AnalyticsEventType.ExtensionLoaded);
+        }
+
+        public void TransmitExtensionInstalledEvent()
+        {
+            TransmitAnalyticsEvent(AnalyticsEventType.ExtensionInstalled);
+        }
+
+        public void TransmitExtensionUpgradedEvent(string oldExtensionVersion)
+        {
+            TransmitAnalyticsEvent(AnalyticsEventType.ExtensionUpgraded, oldExtensionVersion);
+        }
+
+        public void TransmitExtensionUsage(int daysOfUsage)
+        {
+            switch (daysOfUsage)
+            {
+                case InstallServices.AFTER_RAMP_UP_DAYS:
+                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionTenDayUsage);
+                    break;
+                case InstallServices.EXPERIENCED_DAYS:
+                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionOneHundredDayUsage);
+                    break;
+                case InstallServices.VETERAN_DAYS:
+                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionTwoHundredDayUsage);
+                    break;
+                default:
+                    break;
             }
         }
     }

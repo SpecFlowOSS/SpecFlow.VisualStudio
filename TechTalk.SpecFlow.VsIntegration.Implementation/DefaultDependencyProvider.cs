@@ -35,7 +35,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<WindowsRegistry, IWindowsRegistry>();
             container.RegisterTypeAs<FileService, IFileService>();
             container.RegisterTypeAs<DirectoryService, IDirectoryService>();
-
+            
             container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
             container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));
 
@@ -44,13 +44,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<StepTextAnalyzer, IStepTextAnalyzer>();
 
             container.RegisterTypeAs<TelemetryClientWrapper, TelemetryClientWrapper>();
-            container.RegisterTypeAs<AppInsightsExtensionLoadedDataTransformer, IAppInsightsEventConverter<ExtensionLoadedAnalyticsEvent>>();
+            container.RegisterTypeAs<AppInsightsEventConverter, IAppInsightsEventConverter>();
             container.RegisterTypeAs<AppInsightsAnalyticsTransmitterSink, IAnalyticsTransmitterSink>();
             container.RegisterTypeAs<VisualStudioProjectTargetFrameworksProvider, IProjectTargetFrameworksProvider>();
             container.RegisterTypeAs<VisualStudioIdeInformationStore, IIdeInformationStore>();
             container.RegisterTypeAs<AnalyticsTransmitter, IAnalyticsTransmitter>();
             container.RegisterTypeAs<EnableAnalyticsChecker, IEnableAnalyticsChecker>();
             container.RegisterTypeAs<FileUserIdStore, IUserUniqueIdStore>();
+            container.RegisterTypeAs<EnvironmentSpecFlowTelemetryChecker, IEnvironmentSpecFlowTelemetryChecker>();
+            container.RegisterTypeAs<CurrentExtensionVersionProvider, ICurrentExtensionVersionProvider>();
+            container.RegisterTypeAs<DevBuildChecker, IDevBuildChecker>();
 
             RegisterCommands(container);
         }
