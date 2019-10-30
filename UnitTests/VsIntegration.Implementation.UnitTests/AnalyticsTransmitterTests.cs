@@ -47,6 +47,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             enableAnalyticsCheckerStub.Setup(analyticsChecker => analyticsChecker.IsEnabled()).Returns(false);
         }
 
+        private void GivenTheUserUniqueIdStoreThrowsUnauthorizedAccessException()
+        {
+            userUniqueIdStoreStub.Setup(ui => ui.GetUserId()).Throws<UnauthorizedAccessException>();
+        }
+
         [Test]
         public void Should_NotSendAnalytics_WhenDisabled()
         {
@@ -110,6 +115,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             sut.TransmitExtensionUsage(daysOfUsage);
 
             analyticsTransmitterSink.Verify(sink => sink.TransmitEvent(It.Is<IAnalyticsEvent>(ajk => ajk.EventName == expectedEventName)), Times.Once);
+        }
+
+        [Test]
+        public void Should_TryToSendExceptionAnalytics_WhenErrorDuringAnalyticsEventCreation()
+        {
+            GivenAnalyticsEnabled();
+            GivenTheUserUniqueIdStoreThrowsUnauthorizedAccessException();
+
+            sut.TransmitExtensionLoadedEvent();
+
+            analyticsTransmitterSink.Verify(sink => sink.TransmitEvent(It.Is<ExceptionAnalyticsEvent>(ex => 
+                ex.EventName == "System.UnauthorizedAccessException")), Times.Once);
         }
 
     }

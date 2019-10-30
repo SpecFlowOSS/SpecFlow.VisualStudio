@@ -63,9 +63,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 
                 _analyticsTransmitterSink.TransmitEvent(analyticsEvent);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // catch all exceptions since we do not want to break the whole extension simply because data transmission failed
+                TransmitException(ex);
             }
         }
 
@@ -99,6 +99,19 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void TransmitException(Exception exception)
+        {
+            try
+            {
+                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(exception.GetType().ToString(), DateTime.UtcNow);
+                _analyticsTransmitterSink.TransmitEvent(exceptionAnalyticsEvent);
+            }
+            catch (Exception)
+            {
+                // catch all exceptions since we do not want to break the whole extension simply because data transmission failed
             }
         }
     }
