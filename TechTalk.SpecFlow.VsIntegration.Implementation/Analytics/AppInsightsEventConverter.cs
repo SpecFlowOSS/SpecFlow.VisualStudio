@@ -18,9 +18,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 }
             };
 
-            if (analyticsEvent is ExceptionAnalyticsEvent)
+            if (analyticsEvent is ExceptionAnalyticsEvent exceptionAnalyticsEvent)
             {
                 eventTelemetry.Properties.Remove("UserId");
+                eventTelemetry.Properties.Add("ExceptionType", exceptionAnalyticsEvent.ExceptionType);
                 return eventTelemetry;
             }
             if (analyticsEvent is ExtensionInstalledAnalyticsEvent extensionInstalledAnalyticsEvent)

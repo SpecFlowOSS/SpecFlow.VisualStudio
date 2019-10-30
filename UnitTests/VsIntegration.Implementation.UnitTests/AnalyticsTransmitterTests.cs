@@ -126,7 +126,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             sut.TransmitExtensionLoadedEvent();
 
             analyticsTransmitterSink.Verify(sink => sink.TransmitEvent(It.Is<ExceptionAnalyticsEvent>(ex => 
-                ex.EventName == "System.UnauthorizedAccessException")), Times.Once);
+                ex.ExceptionType == "System.UnauthorizedAccessException")), Times.Once);
         }
 
     }
