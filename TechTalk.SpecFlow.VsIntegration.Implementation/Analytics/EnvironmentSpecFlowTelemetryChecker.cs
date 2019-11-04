@@ -9,7 +9,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         public bool IsSpecFlowTelemetryEnabled()
         {
             var specFlowTelemetry = Environment.GetEnvironmentVariable(SpecFlowTelemetryEnvironmentVariable);
-            return specFlowTelemetry != null && specFlowTelemetry.Equals("1");
+            return specFlowTelemetry == null || specFlowTelemetry.Equals("1");
         }
     }
 }
