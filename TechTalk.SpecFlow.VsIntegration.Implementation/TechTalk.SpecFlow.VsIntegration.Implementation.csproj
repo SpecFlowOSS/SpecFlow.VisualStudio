@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
     <!-- This is only the testing instance's instrumentation key -->
-    <AppInsightsInstrumentationKey>88c7861a-5106-4d48-b545-b26ee23e1f21</AppInsightsInstrumentationKey>
+    <AppInsightsInstrumentationKey>27cfb992-6c29-4bc8-8093-78d95e275b3a</AppInsightsInstrumentationKey>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Analytics\AppInsightsInstrumentationKey.template.cs" />
