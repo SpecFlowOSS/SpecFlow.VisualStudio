@@ -17,9 +17,6 @@ namespace TechTalk.SpecFlow.VsIntegration
 {
     [ComVisible(true)]
     [Guid("44F8C2E2-18A9-4B97-B830-6BCD0CAA161C")]
-    [CodeGeneratorRegistrationWithFileExtension(typeof(SpecFlowSingleFileGenerator), "C# SpecFlow Generator", "{9A19103F-16F7-4668-BE54-9A1E7A4F7556}", GeneratesDesignTimeSource = true, FileExtension = ".feature")]
-    [CodeGeneratorRegistrationWithFileExtension(typeof(SpecFlowSingleFileGenerator), "C# SpecFlow Generator", vsContextGuids.vsContextGuidVCSProject, GeneratesDesignTimeSource = true, FileExtension = ".feature")]
-    [CodeGeneratorRegistrationWithFileExtension(typeof(SpecFlowSingleFileGenerator), "VB.NET SpecFlow Generator", vsContextGuids.vsContextGuidVBProject, GeneratesDesignTimeSource = true, FileExtension = ".feature")]
     [ProvideObject(typeof(SpecFlowSingleFileGenerator))]
     public class SpecFlowSingleFileGenerator : SpecFlowSingleFileGeneratorBase
     {
