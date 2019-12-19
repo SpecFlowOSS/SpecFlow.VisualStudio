@@ -70,17 +70,14 @@
     <DeployExtension>False</DeployExtension>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-
   <PropertyGroup>
-      <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
+    <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
   </PropertyGroup>
-
   <Target Name="IncludeNuGetResolvedAssets" DependsOnTargets="ResolveNuGetPackageAssets">
     <ItemGroup>
-	  	<VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'"  />
+      <VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'" />
     </ItemGroup>
   </Target>
-
   <ItemGroup>
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
     <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
@@ -121,6 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="PackageInformation\extensionmanifest.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
