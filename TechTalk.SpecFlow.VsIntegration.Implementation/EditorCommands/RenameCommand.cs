@@ -116,12 +116,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         private static string BuildStepNameWithNewRegex(string stepName, string newStepRegex, IStepDefinitionBinding binding)
         {
             var originalMatch = Regex.Match(stepName, FormatRegexForDisplay(binding.Regex));
-            var newRegexMatch = Regex.Match(newStepRegex, newStepRegex);
+
+            var newStepRegexForMatching = Regex.Replace(newStepRegex, @"\(.*?\)", "(.*)");
+            var newRegexMatch = Regex.Match(newStepRegex, newStepRegexForMatching);
 
             var builder = new StringBuilder(newStepRegex);
-            for (var i = newRegexMatch.Groups.Count - 1; i > 0; i--)
+            if (newRegexMatch.Groups.Count == originalMatch.Groups.Count)
             {
-                builder.Replace(newRegexMatch.Groups[i].Value, originalMatch.Groups[i].Value, newRegexMatch.Groups[i].Index, newRegexMatch.Groups[i].Length);
+                for (var i = newRegexMatch.Groups.Count - 1; i > 0; i--)
+                {
+                    builder.Replace(newRegexMatch.Groups[i].Value, originalMatch.Groups[i].Value,
+                                    newRegexMatch.Groups[i].Index, newRegexMatch.Groups[i].Length);
+                }
             }
 
             return RemoveDoubleQuotes(builder.ToString());
