@@ -3,7 +3,7 @@
 Visual Studio extension of SpecFlow (extracted from the main SpecFlow repo).
 
 For documentation, please refer to the SpecFlow website:
-[http://www.specflow.org](http://www.specflow.org)
+[https://www.specflow.org](https://www.specflow.org)
 
 ## Build status
 
