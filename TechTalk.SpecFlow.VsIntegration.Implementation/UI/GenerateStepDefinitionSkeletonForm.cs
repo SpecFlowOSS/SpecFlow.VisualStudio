@@ -85,7 +85,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UI
             classNameTextBox.Text = string.Format("{0} Steps", featureTitle).ToIdentifier();
 
             styleComboBox.BeginUpdate();
-            var styles = Enum.GetValues(typeof (StepDefinitionSkeletonStyle)).Cast<StepDefinitionSkeletonStyle>()
+            var styles = Enum.GetValues(typeof(StepDefinitionSkeletonStyle)).Cast<StepDefinitionSkeletonStyle>()
                 .Where(value => value != StepDefinitionSkeletonStyle.MethodNameRegex || defaultLanguage == ProgrammingLanguage.FSharp)
                 .ToArray();
             styleComboBox.Items.Clear();
@@ -97,7 +97,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UI
 
             defaultFolder = Path.Combine(VsxHelper.GetProjectFolder(specFlowProject), "StepDefinitions");
             if (!Directory.Exists(defaultFolder))
-                defaultFolder = VsxHelper.GetProjectFolder(specFlowProject);
+            {
+                var currentFeatureFilePath = dte.ActiveDocument.FullName;
+                defaultFolder = Path.GetDirectoryName(currentFeatureFilePath);
+            }
         }
 
         private void selectAllButton_Click(object sender, EventArgs e)
@@ -134,6 +137,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UI
         private void generateButton_Click(object sender, EventArgs e)
         {
             saveFileDialog.FileName = Path.Combine(defaultFolder, ClassName);
+            saveFileDialog.InitialDirectory = defaultFolder;
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 if (OnGenerate(this, saveFileDialog.FileName))
