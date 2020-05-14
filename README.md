@@ -1,5 +1,9 @@
 # SpecFlow.VisualStudio
 
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/TechTalkSpecFlowTeam.SpecFlowForVisualStudio?label=installs%20VS2019)](https://marketplace.visualstudio.com/items?itemName=TechTalkSpecFlowTeam.SpecFlowForVisualStudio)
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/TechTalkSpecFlowTeam.SpecFlowForVisualStudio2017?label=installs%20VS2017)](https://marketplace.visualstudio.com/items?itemName=TechTalkSpecFlowTeam.SpecFlowForVisualStudio2017)
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/TechTalkSpecFlowTeam.SpecFlowForVisualStudio2015?label=installs%20VS2015)](https://marketplace.visualstudio.com/items?itemName=TechTalkSpecFlowTeam.SpecFlowForVisualStudio2015)
+
 Visual Studio extension of SpecFlow (extracted from the main SpecFlow repo).
 
 For documentation, please refer to the SpecFlow website:
