@@ -38,6 +38,7 @@ To start the experimental instance of Visual Studio configure "Start external pr
 
 - Visual Studio 2015: C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe
 - Visual Studio 2017: C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe
+- Visual Studio 2019: C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe
 
 **Command line args for all Visual Studio Versions:**  
 /RootSuffix Exp
