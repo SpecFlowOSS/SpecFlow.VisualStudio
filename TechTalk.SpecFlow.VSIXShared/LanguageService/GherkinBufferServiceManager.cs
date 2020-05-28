@@ -38,16 +38,21 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             foreach (var textBuffer in textBuffers)
             {
-                if (textBuffer.Properties.TryGetProperty(KEY, out List<Type> property))
+                DisposeTextBuffer(textBuffer);
+            }
+        }
+
+        private static void DisposeTextBuffer(ITextBuffer textBuffer)
+        {
+            if (textBuffer.Properties.TryGetProperty(KEY, out List<Type> property))
+            {
+                textBuffer.Properties.RemoveProperty(KEY);
+                foreach (var typeKey in property)
                 {
-                    textBuffer.Properties.RemoveProperty(KEY);
-                    foreach (var typeKey in property)
+                    if (textBuffer.Properties.TryGetProperty(typeKey, out IDisposable service))
                     {
-                        if (textBuffer.Properties.TryGetProperty(typeKey, out IDisposable service))
-                        {
-                            textBuffer.Properties.RemoveProperty(typeKey);
-                            service.Dispose();
-                        }
+                        textBuffer.Properties.RemoveProperty(typeKey);
+                        service.Dispose();
                     }
                 }
             }
