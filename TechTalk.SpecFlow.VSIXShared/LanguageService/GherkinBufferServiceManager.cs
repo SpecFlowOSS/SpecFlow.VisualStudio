@@ -18,6 +18,8 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
     {
         private const string KEY = "GherkinBufferServiceManager";
 
+        private const string CONNECTEDVIEWSKEY = "GherkinBufferServiceManager_ConnectedViews";
+
         public TService GetOrCreate<TService>(ITextBuffer textBuffer, Func<TService> creator) where TService : class, IDisposable
         {
             return textBuffer.Properties.GetOrCreateSingletonProperty(typeof(TService), () =>
@@ -29,7 +31,10 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
         public void SubjectBuffersConnected(IWpfTextView textView, ConnectionReason reason, Collection<ITextBuffer> subjectBuffers)
         {
-            //nop;
+            foreach (var textBuffer in subjectBuffers)
+            {
+                textBuffer.Properties.GetOrCreateSingletonProperty(CONNECTEDVIEWSKEY, () => new HashSet<IWpfTextView>()).Add(textView);
+            }
         }
 
         public void SubjectBuffersDisconnected(IWpfTextView textView, ConnectionReason reason, Collection<ITextBuffer> subjectBuffers)
@@ -38,7 +43,16 @@ namespace TechTalk.SpecFlow.VsIntegration.LanguageService
 
             foreach (var textBuffer in textBuffers)
             {
-                DisposeTextBuffer(textBuffer);
+                var canDisposeTextBuffer = true;
+
+                if (textBuffer.Properties.TryGetProperty(CONNECTEDVIEWSKEY, out HashSet<IWpfTextView> connectedTextViews))
+                {
+                    connectedTextViews.Remove(textView);
+                    if (connectedTextViews.Count > 0) canDisposeTextBuffer = false;
+                }
+
+                if (canDisposeTextBuffer)
+                    DisposeTextBuffer(textBuffer);
             }
         }
 
