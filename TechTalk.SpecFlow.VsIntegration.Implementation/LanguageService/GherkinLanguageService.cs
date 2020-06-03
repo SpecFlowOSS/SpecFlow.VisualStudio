@@ -306,6 +306,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                 projectScope.StepSuggestionProvider.BindingsChanged -= ReParseEntireFile;
             }
             lastGherkinFileScope = null;
+            GC.SuppressFinalize(this);
+        }
+
+        ~GherkinLanguageService()
+        {
+            tracer.Trace("WARNING: Language service was not disposed", "GherkinLanguageService");
         }
     }
 }
