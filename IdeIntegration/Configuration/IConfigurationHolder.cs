@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration

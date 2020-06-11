@@ -1,16 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using TechTalk.SpecFlow.BindingSkeletons;
+using TechTalk.SpecFlow.Configuration;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration
 {
-    public enum ConfigSource
-    {
-        AppConfig,
-        Json,
-        Default
-    }
-
     public enum ObsoleteBehavior
     {
         None = 0,

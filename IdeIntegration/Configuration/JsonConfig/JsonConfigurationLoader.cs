@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Newtonsoft.Json;
+using TechTalk.SpecFlow.Configuration;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
 {

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Globalization;
 using TechTalk.SpecFlow.Configuration;
+using TechTalk.SpecFlow.Configuration.AppConfig;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Configuration.AppConfig
 {
