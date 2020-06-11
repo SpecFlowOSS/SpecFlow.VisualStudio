@@ -11,7 +11,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Bindings
         private readonly IIdeTracer tracer;
         private List<IStepDefinitionBinding> stepDefinitionBindings = new List<IStepDefinitionBinding>();
 
-        public IdeBindingSourceProcessor(IIdeTracer tracer) : base(new BindingFactory(new StepDefinitionRegexCalculator(new RuntimeConfiguration())))
+        //todo review
+        public IdeBindingSourceProcessor(IIdeTracer tracer) : base(new BindingFactory(new StepDefinitionRegexCalculator(ConfigurationLoader.GetDefault())))
         {
             this.tracer = tracer;
         }
