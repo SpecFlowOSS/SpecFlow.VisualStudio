@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
@@ -44,7 +45,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
         public void Should_create_test_generator()
         {
             var generatorServices = new GeneratorServicesMock(TestGeneratorFactoryStub.Object, false, null);
-            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>())).Returns(TestGeneratorStub.Object);
+            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>(), Array.Empty<GeneratorPluginInfo>())).Returns(TestGeneratorStub.Object);
 
             var result = generatorServices.CreateTestGenerator();
 
@@ -59,7 +60,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 
             var generatorServices = new GeneratorServicesMock(TestGeneratorFactoryStub.Object, false,
                 () => { settingsCounter++; return new ProjectSettings();});
-            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>())).Returns(TestGeneratorStub.Object);
+            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>(), Array.Empty<GeneratorPluginInfo>())).Returns(TestGeneratorStub.Object);
 
             generatorServices.CreateTestGenerator();
             generatorServices.CreateTestGenerator();
@@ -74,7 +75,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 
             var generatorServices = new GeneratorServicesMock(TestGeneratorFactoryStub.Object, false,
                 () => { settingsCounter++; return new ProjectSettings();});
-            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>())).Returns(TestGeneratorStub.Object);
+            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>(), Array.Empty<GeneratorPluginInfo>())).Returns(TestGeneratorStub.Object);
 
             generatorServices.CreateTestGenerator();
             generatorServices.InvalidateSettings();
@@ -90,7 +91,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.UnitTests
 
             var generatorServices = new GeneratorServicesMock(TestGeneratorFactoryStub.Object, true,
                 () => { settingsCounter++; return new ProjectSettings();});
-            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>())).Returns(TestGeneratorStub.Object);
+            TestGeneratorFactoryStub.Setup(tgf => tgf.CreateGenerator(It.IsAny<ProjectSettings>(), Array.Empty<GeneratorPluginInfo>())).Returns(TestGeneratorStub.Object);
 
             generatorServices.CreateTestGenerator();
             generatorServices.CreateTestGenerator();

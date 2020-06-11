@@ -32,7 +32,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
 
 
                 var testGeneratorFactory = new TestGeneratorFactory();
-                var testGenerator = testGeneratorFactory.CreateGenerator(projectSettings);
+                var testGenerator = testGeneratorFactory.CreateGenerator(projectSettings, Array.Empty<GeneratorPluginInfo>());
                 var testGeneratorResult = testGenerator.GenerateTestFile(featureFileInput, new GenerationSettings());
 
                 string outputFileContent;

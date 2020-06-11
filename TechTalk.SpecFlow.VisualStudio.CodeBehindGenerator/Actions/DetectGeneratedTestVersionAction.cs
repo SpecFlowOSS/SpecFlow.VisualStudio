@@ -17,7 +17,7 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.Actions
 
 
                 var testGeneratorFactory = new TestGeneratorFactory();
-                var testGenerator = testGeneratorFactory.CreateGenerator(new ProjectSettings());
+                var testGenerator = testGeneratorFactory.CreateGenerator(new ProjectSettings(), Array.Empty<GeneratorPluginInfo>());
                 var version = testGenerator.DetectGeneratedTestVersion(featureFileInput);
                 Console.WriteLine(version);
                 return 0;

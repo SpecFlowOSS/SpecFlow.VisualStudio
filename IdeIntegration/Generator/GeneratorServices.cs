@@ -1,4 +1,5 @@
 ﻿using System;
+using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
@@ -51,7 +52,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
         public ITestGenerator CreateTestGenerator()
         {
             var testGeneratorFactoryForCreate = GetTestGeneratorFactoryForCreate();
-            return testGeneratorFactoryForCreate.CreateGenerator(GetProjectSettingsCached());
+            return testGeneratorFactoryForCreate.CreateGenerator(GetProjectSettingsCached(), Array.Empty<GeneratorPluginInfo>());
         }
 
         //public ITestGenerator CreateTestGeneratorOfIDE()
