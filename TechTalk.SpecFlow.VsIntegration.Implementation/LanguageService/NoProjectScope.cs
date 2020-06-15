@@ -1,5 +1,5 @@
 ﻿using System;
-using TechTalk.SpecFlow.IdeIntegration.Configuration;
+using TechTalk.SpecFlow.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;

@@ -20,11 +20,13 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             this.tracer = tracer;
         }
 
-        public ConfigurationHolder ReadConfiguration()
+        public ISpecFlowConfigurationHolder ReadConfiguration()
         {
+            var holder = new SpecFlowConfigurationHolder();
             string configFileContent = GetConfigFileContent();
             if (configFileContent == null)
-                return new ConfigurationHolder();
+                return new SpecFlowConfigurationHolder();
+
             return GetConfigurationHolderFromFileContent(configFileContent);
         }
 
@@ -50,7 +52,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             throw new NotImplementedException();
         }
 
-        private ConfigurationHolder GetConfigurationHolderFromFileContent(string configFileContent)
+        private SpecFlowConfigurationHolder GetConfigurationHolderFromFileContent(string configFileContent)
         {
             if (IsConfigXml(configFileContent))
             {
@@ -59,17 +61,17 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
                     XmlDocument configDocument = new XmlDocument();
                     configDocument.LoadXml(configFileContent);
 
-                    return new ConfigurationHolder(configDocument.SelectSingleNode("/configuration/specFlow"));
+                    return new SpecFlowConfigurationHolder(configDocument.SelectSingleNode("/configuration/specFlow"));
                 }
                 catch (Exception ex)
                 {
                     tracer.Trace("Config load error: " + ex, GetType().Name);
-                    return new ConfigurationHolder();
+                    return new SpecFlowConfigurationHolder();
                 }
             }
 
             if (IsConfigJson(configFileContent))
-                return new ConfigurationHolder(ConfigSource.Json, configFileContent);
+                return new SpecFlowConfigurationHolder(ConfigSource.Json, configFileContent);
 
             throw new Exception("Config file is not recognized as json nor app.config!");
         }
