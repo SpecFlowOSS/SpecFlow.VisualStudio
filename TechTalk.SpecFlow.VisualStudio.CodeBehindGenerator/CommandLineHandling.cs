@@ -40,7 +40,8 @@ namespace TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator
                     (GetTestFullPathParameters opts) => new GetTestFullPathAction().GetTestFullPath(opts),
                     (DetectGeneratedTestVersionParameters opts) => new DetectGeneratedTestVersionAction().DetectGeneratedTestVersion(opts),
                     (GenerateTestFileParameters opts) => new GenerateTestFileAction().GenerateTestFile(opts),
-                    (GetGeneratorVersionParameters opts) => new GetGeneratorVersionAction().GetGeneratorVersion(opts),
+                    //todo whydo we need the version here?
+                    //(GetGeneratorVersionParameters opts) => new GetGeneratorVersionAction().GetGeneratorVersion(opts),
                     errs => 1);
         }
 

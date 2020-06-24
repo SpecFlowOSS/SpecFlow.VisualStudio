@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.RemoteAppDomain;
@@ -29,7 +31,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
             return Version.Parse(result.Output);
         }
 
-        public ITestGenerator CreateGenerator(ProjectSettings projectSettings)
+        public ITestGenerator CreateGenerator(ProjectSettings projectSettings, IEnumerable<GeneratorPluginInfo> generatorPlugins)
         {
             return new OutOfProcessTestGenerator(_info, projectSettings, _integrationOptions);
         }

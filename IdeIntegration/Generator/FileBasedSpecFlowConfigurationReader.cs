@@ -20,7 +20,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator
             this.tracer = tracer;
         }
 
-        public ISpecFlowConfigurationHolder ReadConfiguration()
+        public SpecFlowConfigurationHolder ReadConfiguration()
         {
             var holder = new SpecFlowConfigurationHolder();
             string configFileContent = GetConfigFileContent();

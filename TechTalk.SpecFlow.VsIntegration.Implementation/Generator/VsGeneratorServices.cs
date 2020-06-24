@@ -34,6 +34,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Generator
         {
             tracer.Trace("Discover project settings", "VsGeneratorServices");
 
+            //todo review
             ProjectPlatformSettings projectPlatformSettings;
             var tergetLanguage = VsProjectScope.GetTargetLanguage(project);
             switch (tergetLanguage)
@@ -68,7 +69,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Generator
                 ProjectFolder = VsxHelper.GetProjectFolder(project),
                 DefaultNamespace = VsxHelper.GetProjectDefaultNamespace(project),
                 ProjectPlatformSettings = projectPlatformSettings,
-                ConfigurationHolder = configurationHolder.TransformConfigurationToOldHolder()
+                ConfigurationHolder = configurationHolder
             };
         }
     }

@@ -43,7 +43,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Generator
 
             try
             {
-                var specflowGeneratorInfo = new GeneratorInfo { UsesPlugins = specflowGeneratorConfig.UsesPlugins };
+                var specflowGeneratorInfo = new GeneratorInfo {  };
                 if (DetectFromConfig(specflowGeneratorInfo, specflowGeneratorConfig))
                 {
                     return specflowGeneratorInfo;
@@ -67,17 +67,19 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Generator
         {
             try
             {
+
                 var specflowGeneratorConfig = new SpecFlowGeneratorConfiguration();
 
                 var configurationHolder = _configurationReader.ReadConfiguration();
                 switch (configurationHolder.ConfigSource)
                 {
                     case ConfigSource.AppConfig:
+                        //TODO review
                         var appConfigFormat = configurationHolder.TransformConfigurationToOldHolder();
-                        var oldGeneratorConfig = new GeneratorConfigurationProvider().LoadConfiguration(appConfigFormat).GeneratorConfiguration;
+                        //var oldGeneratorConfig = new GeneratorConfigurationProvider().LoadConfiguration(appConfigFormat).GeneratorConfiguration;
 
-                        specflowGeneratorConfig.GeneratorPath = oldGeneratorConfig.GeneratorPath;
-                        specflowGeneratorConfig.UsesPlugins = oldGeneratorConfig.UsesPlugins;
+                        //specflowGeneratorConfig.GeneratorPath = oldGeneratorConfig.GeneratorPath;
+                        //specflowGeneratorConfig.UsesPlugins = oldGeneratorConfig.UsesPlugins;
                         break;
                     case ConfigSource.Json:
                         var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
