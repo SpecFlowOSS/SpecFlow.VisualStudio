@@ -147,7 +147,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             if (position == null)
                 return simpleLabel;
 
-            return String.Format("{0} ({1}, line {2})", simpleLabel, position.SourceFile, position.FilePosition.Line);
+            return String.Format("{0} ({1}, line {2})", simpleLabel, position.SourceFile, position.Location.Line);
         }
 
         public static string GetLabel(this StepInstance stepInstance)

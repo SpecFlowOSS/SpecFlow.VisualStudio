@@ -1,5 +1,5 @@
 ﻿using System;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
+using Gherkin.Ast;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
 {

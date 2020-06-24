@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gherkin;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
@@ -36,8 +37,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             var textSnapshot = editorContext.TextView.TextSnapshot;
 
             var textLines = textSnapshot.Lines
-                .Select(line => line.GetText())
-                .ToList();
+                                        .Select(line => line.GetText())
+                                        .ToList();
 
             var formattedTextLines = FormatText(textLines, dialect);
             ReplaceText(textSnapshot, formattedTextLines);
@@ -69,9 +70,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 var currentLines = textSnapshot.Lines.ToList();
 
                 int currentLineIndex, newLineIndex;
+
                 //Replace line-by-line to preserve scroll and cursor position
-                for (currentLineIndex = 0, newLineIndex = 0; currentLineIndex < currentLines.Count
-                    && newLineIndex < newTextLines.Count; currentLineIndex++, newLineIndex++)
+                for (currentLineIndex = 0, newLineIndex = 0;
+                     currentLineIndex < currentLines.Count
+                     && newLineIndex < newTextLines.Count;
+                     currentLineIndex++, newLineIndex++)
                 {
                     var currentLine = currentLines[currentLineIndex];
                     var currentLineText = currentLine.GetText();
@@ -88,7 +92,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                             edit.Delete(span);
                         }
                         else if (!string.IsNullOrWhiteSpace(currentLineText)
-                            && string.IsNullOrWhiteSpace(newTextLines[newLineIndex]))
+                                 && string.IsNullOrWhiteSpace(newTextLines[newLineIndex]))
                         {
                             currentLineIndex--;
                             edit.Insert(currentLine.Start, newTextLines[newLineIndex] + Environment.NewLine);
@@ -153,13 +157,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         i++;
                         tableLines.Add(textLines[i]);
                     }
+
                     var formattedTable =
                         FormatTableCommand.FormatTableString(string.Join(Environment.NewLine, tableLines));
 
                     if (formattedTable != null)
                     {
-                        formattedTextLines.AddRange(formattedTable.Split(new[] { Environment.NewLine },
-                            StringSplitOptions.None));
+                        formattedTextLines.AddRange(
+                            formattedTable.Split(
+                                new[] { Environment.NewLine },
+                                StringSplitOptions.None));
                     }
                     else
                     {
@@ -180,6 +187,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                     {
                         whitespaces++;
                     }
+
                     string originalIndent = textLines[i].Substring(0, whitespaces);
 
                     while (!IsMultilineDelimeterLine(textLines[++i]))
@@ -195,6 +203,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                             //invalid case - leave it as it is
                             formattedLine = textLines[i];
                         }
+
                         formattedTextLines.Add(formattedLine);
                     }
 
@@ -210,6 +219,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                             formattedTextLines.Add(string.Empty);
                         }
                     }
+
                     string indent = GetIndent(trimmedLine, dialect);
 
                     formattedTextLines.AddRange(stringsToInsertBefore.Select(str => indent + str));
@@ -236,19 +246,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         {
             if (IsBlockLine(line, dialect))
             {
-                var keyword = GetBlockKeyword(line, dialect);
-                switch (keyword)
+                var trimmedLine = line.TrimStart();
+
+                if (dialect.ExamplesKeywords.Any(ek => trimmedLine.StartsWith(ek)))
+                    return _exampleIndent;
+                if (dialect.FeatureKeywords.Any(fk => trimmedLine.StartsWith(fk)))
+                    return _featureIndent;
+
+                if (dialect.ScenarioKeywords.Any(sk => trimmedLine.StartsWith(sk)) ||
+                    dialect.ScenarioOutlineKeywords.Any(sok => trimmedLine.StartsWith(sok)) ||
+                    dialect.BackgroundKeywords.Any(bk => trimmedLine.StartsWith(bk)))
                 {
-                    case GherkinBlockKeyword.Scenario:
-                    case GherkinBlockKeyword.ScenarioOutline:
-                    case GherkinBlockKeyword.Background:
-                        return _scenarioIndent;
-
-                    case GherkinBlockKeyword.Examples:
-                        return _exampleIndent;
-
-                    case GherkinBlockKeyword.Feature:
-                        return _featureIndent;
+                    return _scenarioIndent;
                 }
             }
             else if (IsStepLine(line, dialect))
@@ -282,19 +291,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         {
             if (IsBlockLine(line, dialect))
             {
-                var keyword = GetBlockKeyword(line, dialect);
-                switch (keyword)
+                var trimmedLine = line.TrimStart();
+
+                if (dialect.ExamplesKeywords.Any(ek => trimmedLine.StartsWith(ek)))
+                    return _lineBreaksBeforeExamples;
+                if (dialect.FeatureKeywords.Any(fk => trimmedLine.StartsWith(fk)))
+                    return _lineBreaksBeforeFeature;
+
+                if (dialect.ScenarioKeywords.Any(sk => trimmedLine.StartsWith(sk)) ||
+                    dialect.ScenarioOutlineKeywords.Any(sok => trimmedLine.StartsWith(sok)) ||
+                    dialect.BackgroundKeywords.Any(bk => trimmedLine.StartsWith(bk)))
                 {
-                    case GherkinBlockKeyword.Scenario:
-                    case GherkinBlockKeyword.ScenarioOutline:
-                    case GherkinBlockKeyword.Background:
-                        return _lineBreaksBeforeScenario;
-
-                    case GherkinBlockKeyword.Examples:
-                        return _lineBreaksBeforeExamples;
-
-                    case GherkinBlockKeyword.Feature:
-                        return _lineBreaksBeforeFeature;
+                    return _lineBreaksBeforeScenario;
                 }
             }
 
@@ -313,21 +321,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         private bool IsBlockLine(string line, GherkinDialect dialect)
         {
             var trimmedLine = line.TrimStart();
-            return dialect.GetBlockKeywords().Any(keyword => trimmedLine.StartsWith(keyword));
-        }
-
-        private GherkinBlockKeyword GetBlockKeyword(string line, GherkinDialect dialect)
-        {
-            var trimmedLine = line.TrimStart();
-            return Enum.GetValues(typeof(GherkinBlockKeyword))
-                .Cast<GherkinBlockKeyword>()
-                .First(keyword => dialect.GetBlockKeywords(keyword).Any(word => trimmedLine.StartsWith(word)));
+            return dialect.FeatureKeywords.Any(keyword => trimmedLine.StartsWith(keyword)) ||
+                   dialect.ScenarioKeywords.Any(keyword => trimmedLine.StartsWith(keyword)) ||
+                   dialect.ScenarioOutlineKeywords.Any(keyword => trimmedLine.StartsWith(keyword)) ||
+                   dialect.ExamplesKeywords.Any(keyword => trimmedLine.StartsWith(keyword)) ||
+                   dialect.BackgroundKeywords.Any(keyword => trimmedLine.StartsWith(keyword));
         }
 
         private bool IsStepLine(string line, GherkinDialect dialect)
         {
             var trimmedLine = line.TrimStart();
-            return dialect.GetStepKeywords().Any(keyword => trimmedLine.StartsWith(keyword));
+            return dialect.StepKeywords.Any(keyword => trimmedLine.StartsWith(keyword));
         }
 
         private bool IsTableLine(string line)

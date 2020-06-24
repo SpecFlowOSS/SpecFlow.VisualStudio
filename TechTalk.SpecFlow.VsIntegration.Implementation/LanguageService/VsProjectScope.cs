@@ -6,9 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
+using Gherkin;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Configuration;
+using TechTalk.SpecFlow.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
@@ -41,7 +43,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         
         // delay initialized members
         private SpecFlowConfiguration _specFlowConfiguration;
-        private GherkinDialectServices _gherkinDialectServices;
+        private IGherkinDialectProvider _gherkinDialectProvider;
         private VsProjectFileTracker _appConfigTracker;
         private VsProjectFileTracker _specflowJsonTracker;
         private ProjectFeatureFilesTracker _featureFilesTracker;
@@ -58,12 +60,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             }
         }
 
-        public GherkinDialectServices GherkinDialectServices
+        public IGherkinDialectProvider GherkinDialectProvider
         {
             get
             {
                 EnsureInitialized();
-                return _gherkinDialectServices;
+                return _gherkinDialectProvider;
             }
         }
 
@@ -250,8 +252,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             try
             {
                 _specFlowConfiguration = LoadSpecFlowConfiguration();
-                _gherkinDialectServices = new GherkinDialectServices(_specFlowConfiguration.FeatureLanguage);
-
+                //_gherkinDialectServices = new GherkinDialectServices(_specFlowConfiguration.FeatureLanguage);
+                //todo: reuse the featurelanguage name
+                _gherkinDialectProvider = new GherkinDialectProvider(_specFlowConfiguration.FeatureLanguage.Name);
+                
                 InitializeConfigTrackers();
 
                 bool enableAnalysis = _integrationOptionsProvider.GetOptions().EnableAnalysis;
@@ -300,9 +304,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         private void FeatureFilesTrackerOnReady()
         {
             //compare generated file versions with the generator version
-            var generatorVersion = GeneratorServices.GetGeneratorVersion(); //TODO: cache GeneratorVersion
-            if (generatorVersion == null)
-                return;
+            //todo get it from the const of
+            var generatorVersion = TestGeneratorFactory.GeneratorVersion;
+            //var generatorVersion = GeneratorServices.GetGeneratorVersion(); //TODO: cache GeneratorVersion
+            //if (generatorVersion == null)
+            //    return;
 
             Func<FeatureFileInfo, bool> outOfDateFiles = ffi => ffi.GeneratorVersion != null && ffi.GeneratorVersion < generatorVersion;
             if (_featureFilesTracker.Files.Any(outOfDateFiles))
@@ -353,14 +359,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                 return;
             }
 
-            bool dialectServicesChanged = !newConfig.FeatureLanguage.Equals(GherkinDialectServices.DefaultLanguage);
+            //default dialect = gherkindialect
+            //default dialect was set when the object created 
+            bool dialectServicesChanged = !newConfig.FeatureLanguage.Name.Equals(_gherkinDialectProvider.DefaultDialect.Language);
 
             _specFlowConfiguration = newConfig;
             OnSpecFlowConfigurationChanged();
 
             if (dialectServicesChanged)
             {
-                _gherkinDialectServices = new GherkinDialectServices(SpecFlowConfiguration.FeatureLanguage);
+                _gherkinDialectProvider = new GherkinDialectProvider(SpecFlowConfiguration.FeatureLanguage.Name);
                 OnGherkinDialectServicesChanged();
             }
         }
@@ -370,6 +378,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             ConfigFileTrackerOnFileChanged(projectItem);
         }
         
+        //use load from specflow instead of implemented one
         private SpecFlowConfiguration LoadSpecFlowConfiguration()
         {
             var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
@@ -502,7 +511,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                 return;
             }
 
-            var stepMap = StepMap.CreateStepMap(GherkinDialectServices.DefaultLanguage);
+            var stepMap = StepMap.CreateStepMap(CultureInfo.GetCultureInfo(_gherkinDialectProvider.DefaultDialect.Language));
             _featureFilesTracker.SaveToStepMap(stepMap);
             _bindingFilesTracker.SaveToStepMap(stepMap);
 
@@ -520,7 +529,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             var stepMap = StepMap.LoadFromFile(fileName, _tracer);
             if (stepMap != null)
             {
-                if (stepMap.DefaultLanguage.Equals(GherkinDialectServices.DefaultLanguage)) // if default language changed in config => ignore cache
+                if (stepMap.DefaultLanguage.Equals(CultureInfo.GetCultureInfo(_gherkinDialectProvider.DefaultDialect.Language))) // if default language changed in config => ignore cache
                 {
                     _featureFilesTracker.LoadFromStepMap(stepMap);
                 }

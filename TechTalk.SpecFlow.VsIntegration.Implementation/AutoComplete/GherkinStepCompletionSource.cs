@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gherkin;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.Gherkin;
 using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
@@ -81,11 +81,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             }
         }
 
+        //add all the keywords
         private IEnumerable<Completion> GetKeywordCompletions()
         {
             GherkinDialect dialect = GetDialect(languageService);
-            return dialect.GetStepKeywords().Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
-                dialect.GetBlockKeywords().Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
+            return dialect.StepKeywords.Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
+                dialect.FeatureKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.RuleKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.BackgroundKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.ScenarioKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.ScenarioOutlineKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))).Concat(
+                dialect.ExamplesKeywords.Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null))
+            );
         }
 
         static private GherkinDialect GetDialect(GherkinLanguageService languageService)
@@ -117,6 +124,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
         }
 
         //HACK: this is a hotfix to support "Gegeben sei" 'Given' keyword in German
+        //todo review if still needed
         static private string GetFirstTwoWords(SnapshotPoint triggerPoint)
         {
             var line = triggerPoint.GetContainingLine();
@@ -141,13 +149,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             if (dialect == null)
                 return false;
 
-            if (dialect.IsStepKeyword(keywordCandidate))
+            if (dialect.StepKeywords.Contains(keywordCandidate))
                 return true;
 
             keywordCandidate = GetFirstTwoWords(triggerPoint);
             if (keywordCandidate == null)
                 return false;
-            return dialect.IsStepKeyword(keywordCandidate);
+            return dialect.StepKeywords.Contains(keywordCandidate);
         }
 
         static internal bool IsKeywordPrefix(SnapshotPoint triggerPoint, GherkinLanguageService languageService)
@@ -166,7 +174,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
 
             var firstWord = triggerPoint.Snapshot.GetText(start, end.Position - start);
             GherkinDialect dialect = GetDialect(languageService);
-            return dialect.GetKeywords().Any(k => k.StartsWith(firstWord, StringComparison.CurrentCultureIgnoreCase));
+            return dialect.StepKeywords.Any(k => k.StartsWith(firstWord, StringComparison.CurrentCultureIgnoreCase));
         }
 
         private ITrackingSpan GetApplicableToForKeyword(ITextSnapshot snapshot, SnapshotPoint triggerPoint)
@@ -226,13 +234,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
                 return null;
 
             GherkinDialect dialect = GetDialect(languageService);
-            var stepKeyword = dialect.TryParseStepKeyword(keywordCandidate);
+            var stepKeyword = dialect.StepKeywords.FirstOrDefault(sk => sk.Contains(keywordCandidate));
+
             if (stepKeyword == null)
             {
                 keywordCandidate = GetFirstTwoWords(triggerPoint);
                 if (keywordCandidate != null)
                 {
-                    stepKeyword = dialect.TryParseStepKeyword(keywordCandidate);
+                    stepKeyword = dialect.StepKeywords.FirstOrDefault(sk => sk.Contains(keywordCandidate));
                 }
 
                 if (stepKeyword == null)
@@ -240,12 +249,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             }
 
             parsedKeyword = keywordCandidate;
-
-            if (stepKeyword == StepKeyword.Given)
+            
+            if (dialect.GivenStepKeywords.Contains(stepKeyword))
                 return StepDefinitionType.Given;
-            if (stepKeyword == StepKeyword.When)
+            if (dialect.WhenStepKeywords.Contains(stepKeyword))
                 return StepDefinitionType.When;
-            if (stepKeyword == StepKeyword.Then)
+            if (dialect.ThenStepKeywords.Contains(stepKeyword))
                 return StepDefinitionType.Then;
 
             parsedKeyword = null;

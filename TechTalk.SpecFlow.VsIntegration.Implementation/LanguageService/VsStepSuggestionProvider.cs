@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Gherkin.Ast;
 using Microsoft.VisualStudio.Language.Intellisense;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
+using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
@@ -84,48 +85,82 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                 (feature.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Concat(scenario.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Select(t => t.Name).Distinct();
-            return new StepContext(feature.Title, scenario.Title, tags.ToArray(), GetLanguage(feature));
+            //todo: feature has name instead of title?
+            return new StepContext(feature.Name, scenario.Name, tags.ToArray(), GetLanguage(feature));
         }
 
         private StepContext CreateStepScope(Feature feature)
         {
             var tags = (feature.Tags.AsEnumerable() ?? Enumerable.Empty<Tag>())
                 .Select(t => t.Name).Distinct();
-            return new StepContext(feature.Title, null, tags.ToArray(), GetLanguage(feature));
+            return new StepContext(feature.Name, null, tags.ToArray(), GetLanguage(feature));
         }
 
         private CultureInfo GetLanguage(Feature feature)
         {
-            var language = this.vsProjectScope.GherkinDialectServices.GetGherkinDialect(feature).CultureInfo;
+            var language = CultureInfo.GetCultureInfo(feature.Language);
             return language;
         }
 
         private IEnumerable<IStepSuggestion<Completion>> GetStepSuggestions(Feature feature)
         {
-            if (feature.Background != null)
+            foreach (IHasLocation child in feature.Children)
             {
-                var featureScope = CreateStepScope(feature);
-                foreach (var scenarioStep in feature.Background.Steps)
-                    yield return new StepInstance<Completion>(scenarioStep, feature, featureScope, nativeSuggestionItemFactory);
+                switch (child)
+                {
+                    case Background background:
+                        var featureScope = CreateStepScope(feature);
+                        foreach (var scenarioStep in background.Steps)
+                            yield return new StepInstance<Completion>(scenarioStep, feature, featureScope, nativeSuggestionItemFactory);
+                        continue;
+                    case Scenario scenario:
+                        var scenarioOutline = scenario as ScenarioOutline;
+                        var stepScope = CreateStepScope(feature, scenario);
+                        
+                        foreach (var scenarioStep in scenario.Steps)
+                        {
+                            if (scenarioOutline == null || !StepInstanceTemplate<Completion>.IsTemplate(scenarioStep))
+                            {
+                                yield return new StepInstance<Completion>(scenarioStep, feature, stepScope, nativeSuggestionItemFactory);
+                            }
+                            else
+                            {
+                                yield return new StepInstanceTemplate<Completion>(scenarioStep, scenarioOutline, feature, stepScope, nativeSuggestionItemFactory);
+                            }
+                        }
+                        continue;
+                        //case Rule rule:
+                        //    this.Build(pickles, language, tags, pickleSteps, (IHasChildren)child);
+                        //    continue;
+                        //default:
+                        //    Scenario scenario = (Scenario)child;
+                        //    if (!scenario.Examples.Any<Examples>())
+                        //    {
+                        //        this.CompileScenario(pickles, pickleSteps, scenario, tags, language);
+                        //        continue;
+                        //    }
+                        //    this.CompileScenarioOutline(pickles, pickleSteps, scenario, tags, language);
+                        //    continue;
+                }
             }
 
-            if (feature.Scenarios != null)
-                foreach (var scenario in feature.Scenarios)
-                {
-                    var scenarioOutline = scenario as ScenarioOutline;
-                    var stepScope = CreateStepScope(feature, scenario);
-                    foreach (var scenarioStep in scenario.Steps)
-                    {
-                        if (scenarioOutline == null || !StepInstanceTemplate<Completion>.IsTemplate(scenarioStep))
-                        {
-                            yield return new StepInstance<Completion>(scenarioStep, feature, stepScope, nativeSuggestionItemFactory);
-                        }
-                        else
-                        {
-                            yield return new StepInstanceTemplate<Completion>(scenarioStep, scenarioOutline, feature, stepScope, nativeSuggestionItemFactory);
-                        }
-                    }
-                }
+            //if (feature.Scenarios != null)
+            //    foreach (var scenario in feature.Scenarios)
+            //    {
+            //        var scenarioOutline = scenario as ScenarioOutline;
+            //        var stepScope = CreateStepScope(feature, scenario);
+            //        foreach (var scenarioStep in scenario.Steps)
+            //        {
+            //            if (scenarioOutline == null || !StepInstanceTemplate<Completion>.IsTemplate(scenarioStep))
+            //            {
+            //                yield return new StepInstance<Completion>(scenarioStep, feature, stepScope, nativeSuggestionItemFactory);
+            //            }
+            //            else
+            //            {
+            //                yield return new StepInstanceTemplate<Completion>(scenarioStep, scenarioOutline, feature, stepScope, nativeSuggestionItemFactory);
+            //            }
+            //        }
+            //    }
         }
 
         private void FeatureFilesTrackerOnReady()
@@ -252,6 +287,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         public void RegisterStepArgumentTransformationBinding(IStepArgumentTransformationBinding stepArgumentTransformationBinding)
         {
             throw new NotSupportedException();
+        }
+
+        public IEnumerable<IStepDefinitionBinding> GetStepDefinitions() 
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IHookBinding> GetHooks()
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<IHookBinding> GetHooks(HookType bindingEvent)

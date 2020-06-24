@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.Text;
-using TechTalk.SpecFlow.Parser;
+﻿using Gherkin;
+using Microsoft.VisualStudio.Text;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {

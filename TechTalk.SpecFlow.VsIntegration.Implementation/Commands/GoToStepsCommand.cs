@@ -83,7 +83,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
 
             if (!featureProjItem.IsOpen)
                 featureProjItem.Open();
-            GoToLine(featureProjItem, position.FilePosition.Line);
+            GoToLine(featureProjItem, position.Location.Line);
         }
 
         private static void GoToLine(ProjectItem projectItem, int line)

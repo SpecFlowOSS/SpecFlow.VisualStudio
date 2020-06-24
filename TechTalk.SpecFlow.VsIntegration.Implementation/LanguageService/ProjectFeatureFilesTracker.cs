@@ -4,10 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using EnvDTE;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.Generator.Interfaces;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
 using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using VSLangProj;
@@ -53,21 +53,22 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             var codeBehindChangeDate = AnalyzeCodeBehind(featureFileInfo, projectItem);
 
             string fileContent = VsxHelper.GetFileContent(projectItem, loadLastSaved: true);
-            featureFileInfo.ParsedFeature = ParseGherkinFile(fileContent, featureFileInfo.ProjectRelativePath, vsProjectScope.GherkinDialectServices.DefaultLanguage);
+            featureFileInfo.ParsedFeature = ParseGherkinFile(fileContent, featureFileInfo.ProjectRelativePath);
             var featureLastChangeDate = VsxHelper.GetLastChangeDate(projectItem) ?? DateTime.MinValue;
             featureFileInfo.LastChangeDate = featureLastChangeDate > codeBehindChangeDate ? featureLastChangeDate : codeBehindChangeDate;
         }
 
-        public Feature ParseGherkinFile(string fileContent, string sourceFileName, CultureInfo defaultLanguage)
+        public Feature ParseGherkinFile(string fileContent, string sourceFileName)
         {
             try
             {
-                var specFlowLangParser = new SpecFlowLangParser(defaultLanguage);
-
                 using (var featureFileReader = new StringReader(fileContent))
                 {
-                    var feature = specFlowLangParser.Parse(featureFileReader, sourceFileName);
-                    return feature;
+                    //todo: check what else did the SpecFlowLangParser - or use the one from SpecFlow
+                    var parser = new Gherkin.Parser();
+                    var gherkinDocument = parser.Parse(featureFileReader);
+
+                    return gherkinDocument.Feature;
                 }
             }
             catch (Exception)

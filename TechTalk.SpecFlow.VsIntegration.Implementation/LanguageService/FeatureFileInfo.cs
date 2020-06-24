@@ -1,6 +1,6 @@
 ﻿using System;
 using EnvDTE;
-using TechTalk.SpecFlow.Parser.SyntaxElements;
+using Gherkin.Ast;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService

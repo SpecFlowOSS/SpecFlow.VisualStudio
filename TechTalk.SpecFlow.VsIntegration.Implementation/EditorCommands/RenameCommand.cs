@@ -228,7 +228,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             if (!featureFile.IsOpen)
                 featureFile.Open();
 
-            GoToLine(featureFile, sourceFilePosition.FilePosition.Line);
+            GoToLine(featureFile, sourceFilePosition.Location.Line);
             return featureFile.Document;
         }
 

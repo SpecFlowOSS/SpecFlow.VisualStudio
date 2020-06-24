@@ -69,7 +69,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Commands
                 return false;
 
             var featureTitle = GetFeatureTitle(fileScope);
-            var bindingCulture = editorContext.ProjectScope.SpecFlowConfiguration.BindingCulture ?? fileScope.GherkinDialect.CultureInfo;
+            //todo no cultureinfo in gherkindialect
+            var bindingCulture = editorContext.ProjectScope.SpecFlowConfiguration.BindingCulture ?? CultureInfo.GetCultureInfo(fileScope.GherkinDialect.Language);
             var steps = GetUnboundSteps(bindingMatchService, fileScope, bindingCulture).ToArray();
 
             if (steps.Length == 0)

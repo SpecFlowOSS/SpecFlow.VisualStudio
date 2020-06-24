@@ -1,4 +1,5 @@
 ﻿using System;
+using Gherkin;
 using TechTalk.SpecFlow.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Generator;
 using TechTalk.SpecFlow.IdeIntegration.Options;
@@ -16,7 +17,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         public GherkinFileEditorClassifications Classifications { get; private set; }
         public GherkinProcessingScheduler GherkinProcessingScheduler { get; private set; }
         public SpecFlowConfiguration SpecFlowConfiguration { get; private set; }
-        public GherkinDialectServices GherkinDialectServices { get; private set; }
+        public IGherkinDialectProvider GherkinDialectProvider { get; private set; }
         public IIntegrationOptionsProvider IntegrationOptionsProvider { get; private set; }
         public IIdeTracer Tracer { get; private set; }
 
@@ -48,7 +49,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             GherkinTextBufferParser = new GherkinTextBufferParser(this, visualStudioTracer);
             GherkinProcessingScheduler = new GherkinProcessingScheduler(visualStudioTracer, false);
             SpecFlowConfiguration = ConfigurationLoader.GetDefault();
-            GherkinDialectServices = new GherkinDialectServices(SpecFlowConfiguration.FeatureLanguage); 
+            //default of Gherkin
+            //Default SpecFlowConfiguration has the default en-US
+            GherkinDialectProvider = new SpecFlowGherkinDialectProvider("en"); 
             Classifications = classifications;
             IntegrationOptionsProvider = integrationOptionsProvider;
             Tracer = visualStudioTracer;
