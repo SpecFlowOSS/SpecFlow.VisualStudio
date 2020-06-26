@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>The SpecFlow test project</Name>
+    <Description>CSharp Project Template for SpecFlow</Description>
+    <DefaultName>SpecFlow</DefaultName>
+    <Icon>CSharpProjectTemplate.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <LanguageTag>csharp</LanguageTag>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>194131f1-0c44-401f-a1d8-0467c868a297</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Class1.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <!--<WizardExtension>
+    <Assembly>TechTalk.SpecFlow.VisualStudioIntegration, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=token</Assembly>
+    <FullClassName>TechTalk.SpecFlow.VisualStudioIntegration.WizardImplementation</FullClassName>
+  </WizardExtension>-->
+</VSTemplate>

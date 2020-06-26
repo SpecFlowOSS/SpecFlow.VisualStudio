@@ -28,6 +28,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -70,17 +71,14 @@
     <DeployExtension>False</DeployExtension>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-
   <PropertyGroup>
-      <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
+    <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
   </PropertyGroup>
-
   <Target Name="IncludeNuGetResolvedAssets" DependsOnTargets="ResolveNuGetPackageAssets">
     <ItemGroup>
-	  	<VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'"  />
+      <VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'" />
     </ItemGroup>
   </Target>
-
   <ItemGroup>
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
     <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
@@ -94,6 +92,8 @@
       <Version>9.0.1</Version>
     </PackageReference>
     <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />
@@ -114,6 +114,7 @@
     <Reference Include="$(UserProfile)/.nuget/packages/specflow.customplugin/1.9.0/lib/net40/IKVM.Runtime.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WizardImplementation.cs" />
     <None Include=".build\*" />
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
@@ -152,6 +153,13 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSharpProjectTemplate\CSharpProjectTemplate.csproj">
+      <Project>{7814B082-04A0-4210-9ADD-C5F01341ACD4}</Project>
+      <Name>CSharpProjectTemplate</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
     <ProjectReference Include="..\IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj">
       <Project>{44D52C1B-0ABC-44B6-8EB8-0F754E264226}</Project>
       <Name>TechTalk.SpecFlow.IdeIntegration</Name>

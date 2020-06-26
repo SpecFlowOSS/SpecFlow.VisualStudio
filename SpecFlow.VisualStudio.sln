@@ -68,9 +68,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VSIXShare
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests", "UnitTests\VsIntegration.Implementation.UnitTests\TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests.csproj", "{BF49D346-656E-450B-B972-D79C188F5B9E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectTemplates", "ProjectTemplates", "{856CC219-1631-4663-B885-49143DEEF199}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpProjectTemplate", "CSharpProjectTemplate\CSharpProjectTemplate.csproj", "{7814B082-04A0-4210-9ADD-C5F01341ACD4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{10934720-f5ac-49e7-9d4f-b4a4d206c4aa}*SharedItemsImports = 13
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{cbd78521-0f02-4a43-abed-001d2560675b}*SharedItemsImports = 4
@@ -121,6 +124,10 @@ Global
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7814B082-04A0-4210-9ADD-C5F01341ACD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7814B082-04A0-4210-9ADD-C5F01341ACD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7814B082-04A0-4210-9ADD-C5F01341ACD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7814B082-04A0-4210-9ADD-C5F01341ACD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +141,7 @@ Global
 		{10934720-F5AC-49E7-9D4F-B4A4D206C4AA} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
 		{7A62BBFA-3212-420A-AC20-63401A35F534} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
 		{BF49D346-656E-450B-B972-D79C188F5B9E} = {E30EEB3E-0274-45EE-8FCE-4069823E670F}
+		{7814B082-04A0-4210-9ADD-C5F01341ACD4} = {856CC219-1631-4663-B885-49143DEEF199}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE82DEDC-FB35-4666-A342-E4BF059F1137}
