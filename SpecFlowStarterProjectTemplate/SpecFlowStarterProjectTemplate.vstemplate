@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>SpecFlow starter project</Name>
+    <Description>SpecFlow starter project</Description>
+    <Icon>specflowsetup.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <LanguageTag>csharp</LanguageTag>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>SpecFlowStarterProject</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <CreateInPlace>true</CreateInPlace> 
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <Folder Name="Drivers" />
+      <Folder Name="Hooks" />
+      <ProjectItem OpenInEditor="true">Features\Calculator.feature</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Steps\CalculatorStepDefinitions.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

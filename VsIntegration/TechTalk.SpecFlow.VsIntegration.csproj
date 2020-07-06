@@ -70,17 +70,14 @@
     <DeployExtension>False</DeployExtension>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-
   <PropertyGroup>
-      <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
+    <GetVsixSourceItemsDependsOn>$(GetVsixSourceItemsDependsOn);IncludeNuGetResolvedAssets</GetVsixSourceItemsDependsOn>
   </PropertyGroup>
-
   <Target Name="IncludeNuGetResolvedAssets" DependsOnTargets="ResolveNuGetPackageAssets">
     <ItemGroup>
-	  	<VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'"  />
+      <VSIXCopyLocalReferenceSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'Newtonsoft.Json'" />
     </ItemGroup>
   </Target>
-
   <ItemGroup>
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
     <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
@@ -160,6 +157,13 @@
       <Project>{662A06B2-A852-47C4-A258-D84FE81D4A80}</Project>
       <Name>TechTalk.SpecFlow.VsIntegration.ItemTemplates</Name>
       <VSIXSubPath>ItemTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj">
+      <Project>{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}</Project>
+      <Name>SpecFlowStarterProjectTemplate</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
     </ProjectReference>
