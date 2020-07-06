@@ -19,4 +19,8 @@
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">Steps\CalculatorStepDefinitions.cs</ProjectItem>
     </Project>
   </TemplateContent>
+  <WizardExtension>
+    <Assembly>ProjectTemplateWizard, Version=2019.0.0.0, Culture=neutral, PublicKeyToken=c88ad341ebc06276</Assembly>
+    <FullClassName>ProjectTemplateWizard.WizardImplementation</FullClassName>
+  </WizardExtension>
 </VSTemplate>

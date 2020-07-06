@@ -70,6 +70,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VsIntegra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowStarterProjectTemplate", "SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj", "{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTemplateWizard", "ProjectTemplateWizard\ProjectTemplateWizard.csproj", "{4B67F0DD-4216-448E-8D07-01FFECFADFB1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
@@ -126,6 +128,10 @@ Global
 		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
