@@ -17,7 +17,11 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0"/>
     $endif$
-    $if$ ('$unittestprovider$' == 'mstest')<PackageReference Include="SpecFlow.MsTest" Version="3.3.30" />$endif$
+    $if$ ('$unittestprovider$' == 'mstest')<PackageReference Include="SpecFlow.MsTest" Version="3.3.30" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
+    $endif$
   </ItemGroup>
 
   <ItemGroup>
