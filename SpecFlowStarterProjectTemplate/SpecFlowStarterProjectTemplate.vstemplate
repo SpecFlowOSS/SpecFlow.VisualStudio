@@ -4,8 +4,12 @@
     <Name>SpecFlow starter project</Name>
     <Description>SpecFlow starter project</Description>
     <Icon>specflowsetup.ico</Icon>
-    <ProjectType>CSharp</ProjectType>
+    <ProjectType>csharp</ProjectType>
+    <ProjectTypeTag>test</ProjectTypeTag>
     <LanguageTag>csharp</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <PlatformTag>linux</PlatformTag>
+    <PlatformTag>macos</PlatformTag>
     <CreateNewFolder>true</CreateNewFolder>
     <DefaultName>SpecFlowStarterProject</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
