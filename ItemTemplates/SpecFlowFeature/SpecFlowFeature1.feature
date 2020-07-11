@@ -5,7 +5,7 @@
 
 @mytag
 Scenario: Add two numbers
-	Given I have entered 50 into the calculator
-	And I have entered 70 into the calculator
-	When I press add
-	Then the result should be 120 on the screen
+	Given a first number 50
+	And a second number 70
+	When the two numbers are added
+	Then the result should be 120
