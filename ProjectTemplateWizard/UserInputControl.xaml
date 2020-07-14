@@ -6,8 +6,8 @@
              xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              x:Class="ProjectTemplateWizard.UserInputControl"
              mc:Ignorable="d"
-             MinWidth="692" MinHeight="432"
-             Width="768" Height="480">
+             MinWidth="1024" MinHeight="710"
+             Width="1024" Height="710">
 
     <Grid Margin="48,48,48,48" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.Resources>
