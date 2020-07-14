@@ -2,7 +2,7 @@
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
     <Name>SpecFlow Project</Name>
-    <Description>A project template for creating executable specifications with SpecFlow. You can choose from different test frameworks and .NET frameworks.</Description>
+    <Description>A project template for creating executable specifications with SpecFlow. You can choose from different .NET frameworks and test frameworks.</Description>
     <TemplateID>SpecFlow.ProjectTemplate.CSharp</TemplateID>
     <Icon>specflowsetup.ico</Icon>
     <ProjectType>csharp</ProjectType>
