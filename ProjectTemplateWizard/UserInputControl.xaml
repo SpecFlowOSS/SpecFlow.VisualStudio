@@ -35,7 +35,7 @@
         <Label FontFamily="Segoe UI" FontWeight="Normal" FontSize="18.6" Margin="0,0,0,4" Padding="0,0,0,0">Create a new SpecFlow project</Label>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Label Margin="0,16,0,10" Padding="0,0,0,0">.Net Framework</Label>
+            <Label Margin="0,16,0,10" Padding="0,0,0,0">Framework</Label>
             <ComboBox x:Name="DotNetFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
                 <ComboBoxItem Tag="netcoreapp3.1" IsSelected="True">.Net Core 3.1</ComboBoxItem>
                 <ComboBoxItem Tag="net472">.Net Framework 4.7.2</ComboBoxItem>
@@ -43,7 +43,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0">
-            <Label Margin="0,16,0,10" Padding="0,0,0,0">Unit Test Framework</Label>
+            <Label Margin="0,16,0,10" Padding="0,0,0,0">Test Framework</Label>
             <ComboBox x:Name="UnitTestFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
                 <ComboBoxItem Tag="runner" IsSelected="True">SpecFlow+ Runner</ComboBoxItem>
                 <ComboBoxItem Tag="xunit">xUnit</ComboBoxItem>
