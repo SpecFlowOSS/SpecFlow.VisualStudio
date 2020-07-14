@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
-    <Name>SpecFlow starter project</Name>
-    <Description>SpecFlow starter project</Description>
+    <Name>SpecFlow Project</Name>
+    <Description>A project template for creating executable specifications with SpecFlow. You can choose from different test frameworks and .NET frameworks.</Description>
     <Icon>specflowsetup.ico</Icon>
     <ProjectType>csharp</ProjectType>
     <ProjectTypeTag>test</ProjectTypeTag>
@@ -11,7 +11,7 @@
     <PlatformTag>linux</PlatformTag>
     <PlatformTag>macos</PlatformTag>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>SpecFlowStarterProject</DefaultName>
+    <DefaultName>SpecFlowProject</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <CreateInPlace>true</CreateInPlace> 
   </TemplateData>
