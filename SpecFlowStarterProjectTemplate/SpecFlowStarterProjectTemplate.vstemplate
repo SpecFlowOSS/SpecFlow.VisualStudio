@@ -3,6 +3,7 @@
   <TemplateData>
     <Name>SpecFlow Project</Name>
     <Description>A project template for creating executable specifications with SpecFlow. You can choose from different test frameworks and .NET frameworks.</Description>
+    <TemplateID>SpecFlow.ProjectTemplate.CSharp</TemplateID>
     <Icon>specflowsetup.ico</Icon>
     <ProjectType>csharp</ProjectType>
     <ProjectTypeTag>test</ProjectTypeTag>
