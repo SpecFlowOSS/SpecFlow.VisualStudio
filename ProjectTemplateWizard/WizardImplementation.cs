@@ -7,6 +7,7 @@ using System.Windows.Media;
 using EnvDTE;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
+using System.Windows.Shell;
 using Microsoft.VisualStudio.TemplateWizard;
 
 namespace ProjectTemplateWizard
@@ -118,8 +119,6 @@ namespace ProjectTemplateWizard
 
         internal UserInputDialog()
         {
-            IsCloseButtonEnabled = true;
-
             _userInputControl = new UserInputControl();
 
             MinWidth = _userInputControl.MinWidth;
@@ -130,9 +129,16 @@ namespace ProjectTemplateWizard
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             Content = _userInputControl.Content;
+            _userInputControl.CloseButton.Click += CloseDialog;
             _userInputControl.BackButton.Click += CloseDialog;
             _userInputControl.CreateButton.Click += SetCustomParametersAndCloseDialog;
 
+            WindowStyle = WindowStyle.None;
+            WindowChrome.SetWindowChrome(this, new WindowChrome
+            {
+                CaptionHeight = 32,
+                ResizeBorderThickness = SystemParameters.WindowResizeBorderThickness
+            });
             Background = ToBrush(EnvironmentColors.ToolboxBackgroundColorKey);
         }
 
