@@ -49,7 +49,7 @@
                 StrokeThickness="1" />
         </Button>
 
-        <Grid Margin="48,48,48,48" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid Margin="48,8,48,48" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.Resources>
                 <ResourceDictionary>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static vsfx:VsResourceKeys.ThemedDialogButtonStyleKey}}" />
@@ -72,7 +72,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" FontFamily="Segoe UI" FontWeight="Normal" FontSize="18.6" Margin="0,0,0,4" Padding="0,0,0,0">Create a new SpecFlow project</Label>
+            <Label Grid.Row="0" Grid.Column="0"
+                   FontWeight="Normal" FontSize="33.96"
+                   Margin="0,0,0,4" Padding="0,0,0,0">Create a new SpecFlow project</Label>
 
             <StackPanel Grid.Row="1" Grid.Column="0">
                 <Label Margin="0,16,0,10" Padding="0,0,0,0">Framework</Label>
