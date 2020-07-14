@@ -21,7 +21,7 @@
       <Folder Name="Drivers" />
       <Folder Name="Hooks" />
       <ProjectItem OpenInEditor="true">Features\Calculator.feature</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Steps\CalculatorStepDefinitions.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Steps\CalculatorStepDefinitions.cs</ProjectItem>
     </Project>
   </TemplateContent>
   <WizardExtension>
