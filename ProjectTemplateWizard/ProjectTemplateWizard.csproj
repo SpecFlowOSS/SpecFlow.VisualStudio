@@ -35,7 +35,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="envdte">
@@ -60,6 +60,7 @@
     <Compile Include="UserInputControl.xaml.cs">
       <DependentUpon>UserInputControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInputDialog.cs" />
     <Compile Include="WizardImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
