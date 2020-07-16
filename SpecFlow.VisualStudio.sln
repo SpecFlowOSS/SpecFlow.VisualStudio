@@ -68,9 +68,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VSIXShare
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests", "UnitTests\VsIntegration.Implementation.UnitTests\TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests.csproj", "{BF49D346-656E-450B-B972-D79C188F5B9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowStarterProjectTemplate", "SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj", "{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTemplateWizard", "ProjectTemplateWizard\ProjectTemplateWizard.csproj", "{4B67F0DD-4216-448E-8D07-01FFECFADFB1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.projitems*{10934720-f5ac-49e7-9d4f-b4a4d206c4aa}*SharedItemsImports = 13
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{cbd78521-0f02-4a43-abed-001d2560675b}*SharedItemsImports = 4
@@ -121,6 +124,14 @@ Global
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

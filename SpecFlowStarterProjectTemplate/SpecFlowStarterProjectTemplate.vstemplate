@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>SpecFlow Project</Name>
+    <Description>A project template for creating executable specifications with SpecFlow. You can choose from different .NET frameworks and test frameworks.</Description>
+    <TemplateID>SpecFlow.ProjectTemplate.CSharp</TemplateID>
+    <Icon>specflowsetup.ico</Icon>
+    <ProjectType>csharp</ProjectType>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <LanguageTag>csharp</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <PlatformTag>linux</PlatformTag>
+    <PlatformTag>macos</PlatformTag>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>SpecFlowProject</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <CreateInPlace>true</CreateInPlace> 
+  </TemplateData>
+  <TemplateContent>
+    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <Folder Name="Drivers" />
+      <Folder Name="Hooks" />
+      <ProjectItem OpenInEditor="true">Features\Calculator.feature</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Steps\CalculatorStepDefinitions.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>ProjectTemplateWizard, Version=2019.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41</Assembly>
+    <FullClassName>ProjectTemplateWizard.WizardImplementation</FullClassName>
+  </WizardExtension>
+</VSTemplate>
