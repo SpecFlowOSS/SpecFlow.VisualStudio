@@ -11,10 +11,10 @@ Namespace $rootnamespace$
     <Binding()> _
     Public NotInheritable Class $safeitemname$
 
-        private readonly ScenarioContext context;
+        Private ReadOnly ScenarioContext _scenarioContext;
 
-        Public Sub New(injectedContext as ScenarioContext)
-            context = injectedContext
+        Public Sub New(scenarioContext As ScenarioContext)
+            _scenarioContext = scenarioContext
         End Sub
 
         <Given("I have entered (.*) into the calculator")> _
@@ -25,21 +25,21 @@ Namespace $rootnamespace$
             ' additional string/Table parameters can be defined on the step definition
             ' method. 
 
-            context.Pending()
+            _scenarioContext.Pending()
         End Sub
 
         <[When]("I press add")> _
         Public Sub WhenIPressAdd()
             'TODO: implement act (action) logic
 
-            context.Pending()
+            _scenarioContext.Pending()
         End Sub
 
         <[Then]("the result should be (.*) on the screen")> _
         Public Sub ThenTheResultShouldBe(ByVal result As Integer)
             'TODO: implement assert (verification) logic
 
-            context.Pending()
+            _scenarioContext.Pending()
         End Sub
 
 
