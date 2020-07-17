@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using EnvDTE;
 using Microsoft.VisualStudio.TemplateWizard;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
 
 namespace ProjectTemplateWizard
 {
@@ -14,6 +15,7 @@ namespace ProjectTemplateWizard
         private string _projectDirectory;
         private string _solutionDirectory;
         private Project _project;
+        private readonly IAnalyticsTransmitter _analyticsTransmitter;
 
         // This method is called before opening any item that
         // has the OpenInEditor attribute.
@@ -77,6 +79,9 @@ namespace ProjectTemplateWizard
                     // Add custom parameters.
                     replacementsDictionary.Add("$dotnetframework$", _inputDialog.DotNetFramework);
                     replacementsDictionary.Add("$unittestframework$", _inputDialog.UnitTestFramework);
+
+                    // Add analytics.
+                    _analyticsTransmitter.TransmitProjectTemplateUsage(_inputDialog.DotNetFramework, _inputDialog.UnitTestFramework);
                 }
                 else
                 {

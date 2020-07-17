@@ -6,5 +6,6 @@
         void TransmitExtensionInstalledEvent();
         void TransmitExtensionUpgradedEvent(string oldExtensionVersion);
         void TransmitExtensionUsage(int daysOfUsage);
+        void TransmitProjectTemplateUsage(string selectedDotNetFramework, string selectedUnitTestFramework);
     }
 }

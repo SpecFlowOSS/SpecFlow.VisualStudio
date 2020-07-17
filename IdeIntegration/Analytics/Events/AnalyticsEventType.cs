@@ -8,5 +8,6 @@
         ExtensionTenDayUsage,
         ExtensionOneHundredDayUsage,
         ExtensionTwoHundredDayUsage,
+        ProjectTemplateUsage,
     }
 }
