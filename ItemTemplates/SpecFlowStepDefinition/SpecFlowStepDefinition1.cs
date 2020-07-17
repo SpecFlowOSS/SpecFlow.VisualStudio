@@ -11,11 +11,11 @@ namespace $rootnamespace$
     {
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
-        private readonly ScenarioContext context;
+        private readonly ScenarioContext _scenarioContext;
 
-        public $safeitemname$(ScenarioContext injectedContext)
+        public $safeitemname$(ScenarioContext scenarioContext)
         {
-            context = injectedContext;
+            _scenarioContext = scenarioContext;
         }
 
         [Given("I have entered (.*) into the calculator")]
@@ -27,7 +27,7 @@ namespace $rootnamespace$
             // additional string/Table parameters can be defined on the step definition
             // method. 
 
-            context.Pending();
+            _scenarioContext.Pending();
         }
 
         [When("I press add")]
@@ -35,7 +35,7 @@ namespace $rootnamespace$
         {
             //TODO: implement act (action) logic
 
-            context.Pending();
+            _scenarioContext.Pending();
         }
 
         [Then("the result should be (.*) on the screen")]
@@ -43,7 +43,7 @@ namespace $rootnamespace$
         {
             //TODO: implement assert (verification) logic
           
-            context.Pending();
+            _scenarioContext.Pending();
         }
     }
 }
