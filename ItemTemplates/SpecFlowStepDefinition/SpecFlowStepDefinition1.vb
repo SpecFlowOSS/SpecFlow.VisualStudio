@@ -17,8 +17,8 @@ Namespace $rootnamespace$
             _scenarioContext = scenarioContext
         End Sub
 
-        <Given("I have entered (.*) into the calculator")> _
-        Public Sub GivenIHaveEnteredSomethingIntoTheCalculator(ByVal number As Integer)
+        <Given("the first number is (.*)")>
+        Public Sub GivenTheFirstNumberIs(ByVal number As Integer)
             'TODO: implement arrange (precondition) logic
             ' For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata 
             ' To use the multiline text or the table argument of the scenario,
@@ -28,14 +28,25 @@ Namespace $rootnamespace$
             _scenarioContext.Pending()
         End Sub
 
-        <[When]("I press add")> _
-        Public Sub WhenIPressAdd()
+        <Given("the second number is (.*)")>
+        Public Sub GivenTheSecondNumberIs(ByVal number As Integer)
+            'TODO: implement arrange (precondition) logic
+            ' For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata 
+            ' To use the multiline text or the table argument of the scenario,
+            ' additional string/Table parameters can be defined on the step definition
+            ' method. 
+
+            _scenarioContext.Pending()
+        End Sub
+
+        <[When]("the two numbers are added")>
+        Public Sub WhenTheTwoNumbersAreAdded()
             'TODO: implement act (action) logic
 
             _scenarioContext.Pending()
         End Sub
 
-        <[Then]("the result should be (.*) on the screen")> _
+        <[Then]("the result should be (.*)")>
         Public Sub ThenTheResultShouldBe(ByVal result As Integer)
             'TODO: implement assert (verification) logic
 
