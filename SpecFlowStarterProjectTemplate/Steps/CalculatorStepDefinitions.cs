@@ -15,7 +15,7 @@ namespace $safeprojectname$.Steps
            _scenarioContext = scenarioContext;
        }
 
-       [Given("the first number is (.*)")]
+       [Given(@"the first number is (.*)")]
        public void GivenTheFirstNumberIs(int number)
        {
            //TODO: implement arrange (precondition) logic
@@ -27,7 +27,7 @@ namespace $safeprojectname$.Steps
            _scenarioContext.Pending();
        }
 
-       [Given("the second number is (.*)")]
+       [Given(@"the second number is (.*)")]
        public void GivenTheSecondNumberIs(int number)
        {
            //TODO: implement arrange (precondition) logic
@@ -39,7 +39,7 @@ namespace $safeprojectname$.Steps
            _scenarioContext.Pending();
         }
         
-       [When("the two numbers are added")]
+       [When(@"the two numbers are added")]
        public void WhenTheTwoNumbersAreAdded()
        {
            //TODO: implement act (action) logic
