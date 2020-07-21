@@ -101,12 +101,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             int lastPeriodIndex = fullName.LastIndexOf('.');
             var name = lastPeriodIndex >= 0 ? fullName.Substring(lastPeriodIndex + 1) : fullName;
 
-            return new BindingType(name, fullName);
+            //TODO: assembly name
+            return new BindingType(name, fullName, "default");
         }
 
         public IBindingType CreateBindingType(CodeClass codeClass)
         {
-            return new BindingType(codeClass.Name, codeClass.FullName);
+            //TODO: assembly name
+            return new BindingType(codeClass.Name, codeClass.FullName, "default");
         }
 
         public IBindingParameter CreateBindingParameter(CodeParameter codeParameter)

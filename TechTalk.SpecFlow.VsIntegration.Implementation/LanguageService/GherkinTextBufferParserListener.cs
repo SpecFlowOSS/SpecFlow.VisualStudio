@@ -5,8 +5,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal class GherkinTextBufferParserListener : GherkinTextBufferParserListenerBase
     {
-        public GherkinTextBufferParserListener(GherkinDialect gherkinDialect, ITextSnapshot textSnapshot, IProjectScope projectScope)
-            : base(gherkinDialect, textSnapshot, projectScope)
+        public GherkinTextBufferParserListener(GherkinDialectAdapter gherkinDialectAdapter, ITextSnapshot textSnapshot, IProjectScope projectScope)
+            : base(gherkinDialectAdapter, textSnapshot, projectScope)
         {
         }
     }

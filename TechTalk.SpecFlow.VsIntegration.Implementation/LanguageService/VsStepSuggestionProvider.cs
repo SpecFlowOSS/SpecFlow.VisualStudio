@@ -254,6 +254,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             throw new NotSupportedException();
         }
 
+        public IEnumerable<IHookBinding> GetHooks() => Enumerable.Empty<IHookBinding>(); //not used in VS
+
         public IEnumerable<IHookBinding> GetHooks(HookType bindingEvent)
         {
             return Enumerable.Empty<IHookBinding>(); //not used in VS
@@ -263,6 +265,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         {
             return Enumerable.Empty<IStepArgumentTransformationBinding>(); //not used in VS
         }
+
+        public IEnumerable<IStepDefinitionBinding> GetStepDefinitions() => throw new NotSupportedException(); //TODO:??
+
 
         public void Dispose()
         {

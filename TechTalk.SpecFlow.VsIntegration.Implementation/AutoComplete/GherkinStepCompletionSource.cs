@@ -83,15 +83,15 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
 
         private IEnumerable<Completion> GetKeywordCompletions()
         {
-            GherkinDialect dialect = GetDialect(languageService);
-            return dialect.GetStepKeywords().Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
-                dialect.GetBlockKeywords().Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
+            GherkinDialectAdapter dialectAdapter = GetDialect(languageService);
+            return dialectAdapter.GetStepKeywords().Select(k => new Completion(k.Trim(), k.Trim(), null, null, null)).Concat(
+                dialectAdapter.GetBlockKeywords().Select(k => new Completion(k.Trim(), k.Trim() + ": ", null, null, null)));
         }
 
-        static private GherkinDialect GetDialect(GherkinLanguageService languageService)
+        static private GherkinDialectAdapter GetDialect(GherkinLanguageService languageService)
         {
             var fileScope = languageService.GetFileScope(waitForResult: false);
-            return fileScope != null ? fileScope.GherkinDialect : languageService.ProjectScope.GherkinDialectServices.GetDefaultDialect();
+            return fileScope != null ? fileScope.GherkinDialectAdapter : languageService.ProjectScope.GherkinDialectServices.GetDefaultDialect();
         }
 
         static internal bool IsKeywordCompletion(SnapshotPoint triggerPoint)
@@ -137,17 +137,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             var keywordCandidate = GetFirstWord(triggerPoint);
             if (keywordCandidate == null)
                 return false;
-            GherkinDialect dialect = GetDialect(languageService);
-            if (dialect == null)
+            GherkinDialectAdapter dialectAdapter = GetDialect(languageService);
+            if (dialectAdapter == null)
                 return false;
 
-            if (dialect.IsStepKeyword(keywordCandidate))
+            if (dialectAdapter.IsStepKeyword(keywordCandidate))
                 return true;
 
             keywordCandidate = GetFirstTwoWords(triggerPoint);
             if (keywordCandidate == null)
                 return false;
-            return dialect.IsStepKeyword(keywordCandidate);
+            return dialectAdapter.IsStepKeyword(keywordCandidate);
         }
 
         static internal bool IsKeywordPrefix(SnapshotPoint triggerPoint, GherkinLanguageService languageService)
@@ -165,8 +165,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
 //                return false;
 
             var firstWord = triggerPoint.Snapshot.GetText(start, end.Position - start);
-            GherkinDialect dialect = GetDialect(languageService);
-            return dialect.GetKeywords().Any(k => k.StartsWith(firstWord, StringComparison.CurrentCultureIgnoreCase));
+            GherkinDialectAdapter dialectAdapter = GetDialect(languageService);
+            return dialectAdapter.GetKeywords().Any(k => k.StartsWith(firstWord, StringComparison.CurrentCultureIgnoreCase));
         }
 
         private ITrackingSpan GetApplicableToForKeyword(ITextSnapshot snapshot, SnapshotPoint triggerPoint)
@@ -225,14 +225,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             if (keywordCandidate == null)
                 return null;
 
-            GherkinDialect dialect = GetDialect(languageService);
-            var stepKeyword = dialect.TryParseStepKeyword(keywordCandidate);
+            GherkinDialectAdapter dialectAdapter = GetDialect(languageService);
+            var stepKeyword = dialectAdapter.TryParseStepKeyword(keywordCandidate);
             if (stepKeyword == null)
             {
                 keywordCandidate = GetFirstTwoWords(triggerPoint);
                 if (keywordCandidate != null)
                 {
-                    stepKeyword = dialect.TryParseStepKeyword(keywordCandidate);
+                    stepKeyword = dialectAdapter.TryParseStepKeyword(keywordCandidate);
                 }
 
                 if (stepKeyword == null)

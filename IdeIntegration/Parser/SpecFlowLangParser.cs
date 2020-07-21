@@ -27,8 +27,8 @@ namespace TechTalk.SpecFlow.Parser
             var gherkinDialect = dialectServices.GetGherkinDialect(language);
             var gherkinListener = new GherkinParserListener(sourceFilePath);
 
-            GherkinScanner scanner = new GherkinScanner(gherkinDialect, fileContent);
-            scanner.Scan(gherkinListener);
+            GherkinScannerAdapter scannerAdapter = new GherkinScannerAdapter(gherkinDialect, fileContent);
+            scannerAdapter.Scan(gherkinListener);
 
             Feature feature = gherkinListener.GetResult();
 

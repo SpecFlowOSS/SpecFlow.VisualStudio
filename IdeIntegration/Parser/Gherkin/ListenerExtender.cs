@@ -10,7 +10,7 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 {
     internal class ListenerExtender : Listener
     {
-        private readonly GherkinDialect gherkinDialect;
+        private readonly GherkinDialectAdapter _gherkinDialectAdapter;
         private readonly IGherkinListener gherkinListener;
 
         private ScenarioBlock lastScenarioBlock = ScenarioBlock.Given;
@@ -122,9 +122,9 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
         static private readonly Regex newLineRe = new Regex(@"\r?\n");
 
-        public ListenerExtender(GherkinDialect gherkinDialect, IGherkinListener gherkinListener, GherkinBuffer buffer)
+        public ListenerExtender(GherkinDialectAdapter gherkinDialectAdapter, IGherkinListener gherkinListener, GherkinBuffer buffer)
         {
-            this.gherkinDialect = gherkinDialect;
+            this._gherkinDialectAdapter = gherkinDialectAdapter;
             this.gherkinListener = gherkinListener;
             this.GherkinBuffer = buffer;
 
@@ -323,7 +323,7 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             var stepSpan = ProcessSimpleLanguageElement(line);
 
-            StepKeyword stepKeyword = gherkinDialect.TryParseStepKeyword(keyword) ?? StepKeyword.And; // if we dont find it, we suppose an "and"
+            StepKeyword stepKeyword = _gherkinDialectAdapter.TryParseStepKeyword(keyword) ?? StepKeyword.And; // if we dont find it, we suppose an "and"
             ScenarioBlock scenarioBlock = CalculateScenarioBlock(stepKeyword);
 
             gherkinListener.Step(keyword, stepKeyword, scenarioBlock, text, stepSpan);

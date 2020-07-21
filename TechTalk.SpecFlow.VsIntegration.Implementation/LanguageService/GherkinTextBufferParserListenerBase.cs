@@ -41,14 +41,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         protected virtual string FeatureTitle { get { return gherkinFileScope.HeaderBlock == null ? null : gherkinFileScope.HeaderBlock.Title; } }
         protected virtual IEnumerable<string> FeatureTags { get { return gherkinFileScope.HeaderBlock == null ? Enumerable.Empty<string>() : gherkinFileScope.HeaderBlock.Tags; } }
 
-        protected GherkinTextBufferParserListenerBase(GherkinDialect gherkinDialect, ITextSnapshot textSnapshot, IProjectScope projectScope)
+        protected GherkinTextBufferParserListenerBase(GherkinDialectAdapter gherkinDialectAdapter, ITextSnapshot textSnapshot, IProjectScope projectScope)
         {
             this.textSnapshot = textSnapshot;
             this.classifications = projectScope.Classifications;
             this.projectScope = projectScope;
             this.enableStepMatchColoring = projectScope.IntegrationOptionsProvider.GetOptions().EnableStepMatchColoring;
 
-            gherkinFileScope = new GherkinFileScope(gherkinDialect, textSnapshot);
+            gherkinFileScope = new GherkinFileScope(gherkinDialectAdapter, textSnapshot);
         }
 
         public IGherkinFileScope GetResult()
@@ -92,7 +92,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
         private int ColorizeLinePart(string value, GherkinBufferSpan span, IClassificationType classificationType, int lineStartPosition = 0)
         {
-            var textPosition = gherkinBuffer.IndexOfTextForLine(value, span.StartPosition.Line, lineStartPosition);
+//            var textPosition = gherkinBuffer.IndexOfTextForLine(value, span.StartPosition.Line, lineStartPosition);
+            var textPosition = gherkinBuffer.IndexOfTextForLine(value, span.StartPosition.Line);
             if (textPosition == null)
                 return lineStartPosition;
 
@@ -330,11 +331,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
         private static readonly Regex placeholderRe = new Regex(@"\<.*?\>");
 
-        public void Step(string keyword, StepKeyword stepKeyword, Parser.Gherkin.ScenarioBlock scenarioBlock, string text, GherkinBufferSpan stepSpan)
+        public void Step(string keyword, StepKeyword stepKeyword, TechTalk.SpecFlow.Parser.ScenarioBlock scenarioBlock, string text, GherkinBufferSpan stepSpan)
         {
             var editorLine = stepSpan.StartPosition.Line;
             var tags = FeatureTags.Concat(CurrentFileBlockBuilder.Tags).Distinct();
-            var stepContext = new StepContext(FeatureTitle, CurrentFileBlockBuilder.BlockType == typeof(IBackgroundBlock) ? null : CurrentFileBlockBuilder.Title, tags.ToArray(), gherkinFileScope.GherkinDialect.CultureInfo);
+            var stepContext = new StepContext(FeatureTitle, CurrentFileBlockBuilder.BlockType == typeof(IBackgroundBlock) ? null : CurrentFileBlockBuilder.Title, tags.ToArray(), gherkinFileScope.GherkinDialectAdapter.CultureInfo);
 
             currentStep = new GherkinStep((StepDefinitionType)scenarioBlock, (StepDefinitionKeyword)stepKeyword, text, stepContext, keyword, editorLine - CurrentFileBlockBuilder.KeywordLine);
             CurrentFileBlockBuilder.Steps.Add(currentStep);

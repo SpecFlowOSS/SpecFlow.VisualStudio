@@ -34,31 +34,30 @@ namespace TechTalk.SpecFlow.Parser
             return languageInfo;
         }
 
-        public GherkinDialect GetDefaultDialect()
+        public GherkinDialectAdapter GetDefaultDialect()
         {
             return GetGherkinDialect(SupportedLanguageHelper.GetSupportedLanguage(defaultLanguage.Name));
         }
 
-        internal GherkinDialect GetGherkinDialect(LanguageInfo language)
+        internal GherkinDialectAdapter GetGherkinDialect(LanguageInfo language)
         {
-            return new GherkinDialect(language, 
-                new I18n(language.CompatibleGherkinLanguage ?? language.Language));
+            return new GherkinDialectAdapter(language);
         }
 
-        public GherkinDialect GetGherkinDialect(Feature feature)
+        public GherkinDialectAdapter GetGherkinDialect(Feature feature)
         {
             string langName =  feature.Language ?? defaultLanguage.Name;
             var language = SupportedLanguageHelper.GetSupportedLanguage(langName);
             return GetGherkinDialect(language);
         }
 
-        public GherkinDialect GetGherkinDialect(string fileContent)
+        public GherkinDialectAdapter GetGherkinDialect(string fileContent)
         {
             var language = GetLanguage(fileContent);
             return GetGherkinDialect(language);
         }
 
-        public GherkinDialect GetGherkinDialect(Func<int, string> lineProvider)
+        public GherkinDialectAdapter GetGherkinDialect(Func<int, string> lineProvider)
         {
             var language = GetLanguage(lineProvider);
             return GetGherkinDialect(language);

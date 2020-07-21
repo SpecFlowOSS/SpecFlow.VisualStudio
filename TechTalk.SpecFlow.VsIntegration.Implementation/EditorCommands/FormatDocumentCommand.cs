@@ -116,7 +116,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             }
         }
 
-        private List<string> FormatText(List<string> textLines, GherkinDialect dialect)
+        private List<string> FormatText(List<string> textLines, GherkinDialectAdapter dialectAdapter)
         {
             var formattedTextLines = new List<string>();
 
@@ -200,17 +200,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 
                     formattedTextLines.Add(_multilineIndent + textLines[i].Trim());
                 }
-                else if (IsBlockLine(trimmedLine, dialect) || IsStepLine(trimmedLine, dialect))
+                else if (IsBlockLine(trimmedLine, dialectAdapter) || IsStepLine(trimmedLine, dialectAdapter))
                 {
                     if (_normalizeLineBreaks)
                     {
-                        int addLinesBefore = GetPreceedingLineBreaks(trimmedLine, dialect);
+                        int addLinesBefore = GetPreceedingLineBreaks(trimmedLine, dialectAdapter);
                         for (int j = 0; j < addLinesBefore; j++)
                         {
                             formattedTextLines.Add(string.Empty);
                         }
                     }
-                    string indent = GetIndent(trimmedLine, dialect);
+                    string indent = GetIndent(trimmedLine, dialectAdapter);
 
                     formattedTextLines.AddRange(stringsToInsertBefore.Select(str => indent + str));
                     stringsToInsertBefore.Clear();
@@ -232,11 +232,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             return formattedTextLines;
         }
 
-        private string GetIndent(string line, GherkinDialect dialect)
+        private string GetIndent(string line, GherkinDialectAdapter dialectAdapter)
         {
-            if (IsBlockLine(line, dialect))
+            if (IsBlockLine(line, dialectAdapter))
             {
-                var keyword = GetBlockKeyword(line, dialect);
+                var keyword = GetBlockKeyword(line, dialectAdapter);
                 switch (keyword)
                 {
                     case GherkinBlockKeyword.Scenario:
@@ -251,7 +251,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                         return _featureIndent;
                 }
             }
-            else if (IsStepLine(line, dialect))
+            else if (IsStepLine(line, dialectAdapter))
             {
                 return GetConfiguredStepLineBreaksAndIndent();
             }
@@ -278,11 +278,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             return str + _stepIndent;
         }
 
-        private int GetPreceedingLineBreaks(string line, GherkinDialect dialect)
+        private int GetPreceedingLineBreaks(string line, GherkinDialectAdapter dialectAdapter)
         {
-            if (IsBlockLine(line, dialect))
+            if (IsBlockLine(line, dialectAdapter))
             {
-                var keyword = GetBlockKeyword(line, dialect);
+                var keyword = GetBlockKeyword(line, dialectAdapter);
                 switch (keyword)
                 {
                     case GherkinBlockKeyword.Scenario:
@@ -302,32 +302,32 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
         }
 
 
-        private GherkinDialect GetDialect(GherkinLanguageService languageService)
+        private GherkinDialectAdapter GetDialect(GherkinLanguageService languageService)
         {
             var fileScope = languageService.GetFileScope(waitForResult: false);
             return fileScope != null
-                ? fileScope.GherkinDialect
+                ? fileScope.GherkinDialectAdapter
                 : languageService.ProjectScope.GherkinDialectServices.GetDefaultDialect();
         }
 
-        private bool IsBlockLine(string line, GherkinDialect dialect)
+        private bool IsBlockLine(string line, GherkinDialectAdapter dialectAdapter)
         {
             var trimmedLine = line.TrimStart();
-            return dialect.GetBlockKeywords().Any(keyword => trimmedLine.StartsWith(keyword));
+            return dialectAdapter.GetBlockKeywords().Any(keyword => trimmedLine.StartsWith(keyword));
         }
 
-        private GherkinBlockKeyword GetBlockKeyword(string line, GherkinDialect dialect)
+        private GherkinBlockKeyword GetBlockKeyword(string line, GherkinDialectAdapter dialectAdapter)
         {
             var trimmedLine = line.TrimStart();
             return Enum.GetValues(typeof(GherkinBlockKeyword))
                 .Cast<GherkinBlockKeyword>()
-                .First(keyword => dialect.GetBlockKeywords(keyword).Any(word => trimmedLine.StartsWith(word)));
+                .First(keyword => dialectAdapter.GetBlockKeywords(keyword).Any(word => trimmedLine.StartsWith(word)));
         }
 
-        private bool IsStepLine(string line, GherkinDialect dialect)
+        private bool IsStepLine(string line, GherkinDialectAdapter dialectAdapter)
         {
             var trimmedLine = line.TrimStart();
-            return dialect.GetStepKeywords().Any(keyword => trimmedLine.StartsWith(keyword));
+            return dialectAdapter.GetStepKeywords().Any(keyword => trimmedLine.StartsWith(keyword));
         }
 
         private bool IsTableLine(string line)

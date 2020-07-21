@@ -6,7 +6,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     internal class GherkinFileScope : IGherkinFileScope
     {
-        public GherkinDialect GherkinDialect { get; private set; }
+        public GherkinDialectAdapter GherkinDialectAdapter { get; private set; }
         public ITextSnapshot TextSnapshot { get; private set; }
 
         public IInvalidFileBlock InvalidFileEndingBlock { get; set; }
@@ -16,9 +16,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
         IEnumerable<IScenarioBlock> IGherkinFileScope.ScenarioBlocks { get { return ScenarioBlocks; } }
 
-        public GherkinFileScope(GherkinDialect gherkinDialect, ITextSnapshot textSnapshot)
+        public GherkinFileScope(GherkinDialectAdapter gherkinDialectAdapter, ITextSnapshot textSnapshot)
         {
-            GherkinDialect = gherkinDialect;
+            GherkinDialectAdapter = gherkinDialectAdapter;
             TextSnapshot = textSnapshot;
             ScenarioBlocks = new List<IScenarioBlock>();
         }

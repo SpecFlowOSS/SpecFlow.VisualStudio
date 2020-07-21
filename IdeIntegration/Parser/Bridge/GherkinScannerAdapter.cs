@@ -5,25 +5,25 @@ using gherkin.lexer;
 
 namespace TechTalk.SpecFlow.Parser.Gherkin
 {
-    public class GherkinScanner
+    public class GherkinScannerAdapter
     {
-        private readonly GherkinDialect gherkinDialect;
+        private readonly GherkinDialectAdapter _gherkinDialectAdapter;
         private readonly GherkinBuffer buffer;
 
-        public GherkinScanner(GherkinDialect gherkinDialect, string gherkinText)
-            : this(gherkinDialect, gherkinText, 0)
+        public GherkinScannerAdapter(GherkinDialectAdapter gherkinDialectAdapter, string gherkinText)
+            : this(gherkinDialectAdapter, gherkinText, 0)
         {
         }
 
-        public GherkinScanner(GherkinDialect gherkinDialect, string gherkinText, int lineOffset)
+        public GherkinScannerAdapter(GherkinDialectAdapter gherkinDialectAdapter, string gherkinText, int lineOffset)
         {
-            this.gherkinDialect = gherkinDialect;
+            this._gherkinDialectAdapter = gherkinDialectAdapter;
             this.buffer = new GherkinBuffer(gherkinText, lineOffset);
         }
 
         public void Scan(IGherkinListener listener)
         {
-            ListenerExtender listenerExtender = new ListenerExtender(gherkinDialect, listener, buffer);
+            ListenerExtender listenerExtender = new ListenerExtender(_gherkinDialectAdapter, listener, buffer);
             DoScan(listenerExtender, buffer.LineOffset, 0);
         }
 
@@ -37,8 +37,9 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             try
             {
-                Lexer lexer = gherkinDialect.NativeLanguageService.lexer(listenerExtender);
-                lexer.scan(contentToScan);
+                //TODO
+                //Lexer lexer = _gherkinDialectAdapter.NativeLanguageService.lexer(listenerExtender);
+                //lexer.scan(contentToScan);
             }
             catch (ScanningCancelledException)
             {

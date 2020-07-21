@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using EnvDTE;
+using Microsoft.VisualStudio.Debugger.ComponentInterfaces;
 using TechTalk.SpecFlow.Configuration;
 using TechTalk.SpecFlow.Generator.Configuration;
 using TechTalk.SpecFlow.IdeIntegration.Configuration;
@@ -65,39 +66,42 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Generator
 
         private SpecFlowGeneratorConfiguration GenSpecFlowGeneratorConfig()
         {
-            try
-            {
+            //TODO: GeneratorPath and UsesPlugins have been removed from SpecFlowConfiguration
+            return new SpecFlowGeneratorConfiguration();
 
-                var specflowGeneratorConfig = new SpecFlowGeneratorConfiguration();
+            //try
+            //{
 
-                var configurationHolder = _configurationReader.ReadConfiguration();
-                switch (configurationHolder.ConfigSource)
-                {
-                    case ConfigSource.AppConfig:
-                        //TODO review
-                        var appConfigFormat = configurationHolder.TransformConfigurationToOldHolder();
-                        //var oldGeneratorConfig = new GeneratorConfigurationProvider().LoadConfiguration(appConfigFormat).GeneratorConfiguration;
+            //    var specflowGeneratorConfig = new SpecFlowGeneratorConfiguration();
 
-                        //specflowGeneratorConfig.GeneratorPath = oldGeneratorConfig.GeneratorPath;
-                        //specflowGeneratorConfig.UsesPlugins = oldGeneratorConfig.UsesPlugins;
-                        break;
-                    case ConfigSource.Json:
-                        var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
-                        var specflowLoader = new ConfigurationLoader();
-                        var jsonConfig = specflowLoader.Load(defaultSpecFlowConfiguration, configurationHolder);
+            //    var configurationHolder = _configurationReader.ReadConfiguration();
+            //    switch (configurationHolder.ConfigSource)
+            //    {
+            //        case ConfigSource.AppConfig:
+            //            //TODO review
+            //            var appConfigFormat = configurationHolder.TransformConfigurationToOldHolder();
+            //            //var oldGeneratorConfig = new GeneratorConfigurationProvider().LoadConfiguration(appConfigFormat).GeneratorConfiguration;
 
-                        specflowGeneratorConfig.GeneratorPath = jsonConfig.GeneratorPath;
-                        specflowGeneratorConfig.UsesPlugins = jsonConfig.UsesPlugins;
-                        break;
-                }
+            //            //specflowGeneratorConfig.GeneratorPath = oldGeneratorConfig.GeneratorPath;
+            //            //specflowGeneratorConfig.UsesPlugins = oldGeneratorConfig.UsesPlugins;
+            //            break;
+            //        case ConfigSource.Json:
+            //            var defaultSpecFlowConfiguration = ConfigurationLoader.GetDefault();
+            //            var specflowLoader = new ConfigurationLoader();
+            //            var jsonConfig = specflowLoader.Load(defaultSpecFlowConfiguration, configurationHolder);
 
-                return specflowGeneratorConfig;
-            }
-            catch (Exception exception)
-            {
-                _tracer.Trace("Config load error: " + exception, "VsGeneratorInfoProvider");
-                return new SpecFlowGeneratorConfiguration();
-            }
+            //            specflowGeneratorConfig.GeneratorPath = jsonConfig.GeneratorPath;
+            //            specflowGeneratorConfig.UsesPlugins = jsonConfig.UsesPlugins;
+            //            break;
+            //    }
+
+            //    return specflowGeneratorConfig;
+            //}
+            //catch (Exception exception)
+            //{
+            //    _tracer.Trace("Config load error: " + exception, "VsGeneratorInfoProvider");
+            //    return new SpecFlowGeneratorConfiguration();
+            //}
         }
 
         private bool DetectFromConfig(GeneratorInfo generatorInfo, SpecFlowGeneratorConfiguration generatorConfiguration)

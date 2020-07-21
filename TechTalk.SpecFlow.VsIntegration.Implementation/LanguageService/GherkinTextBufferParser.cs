@@ -25,7 +25,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             _visualStudioTracer = visualStudioTracer;
         }
 
-        private GherkinDialect GetGherkinDialect(ITextSnapshot textSnapshot)
+        private GherkinDialectAdapter GetGherkinDialect(ITextSnapshot textSnapshot)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             {
                 fullParse = true;
             }
-            else if (!Equals(previousScope.GherkinDialect, gherkinDialect))
+            else if (!Equals(previousScope.GherkinDialectAdapter, gherkinDialect))
             {
                 fullParse = true;
             }
@@ -84,7 +84,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             return GherkinFileScopeChange.CreateEntireScopeChange(fileScope);
         }
 
-        private GherkinFileScopeChange FullParse(ITextSnapshot textSnapshot, GherkinDialect gherkinDialect)
+        private GherkinFileScopeChange FullParse(ITextSnapshot textSnapshot, GherkinDialectAdapter gherkinDialectAdapter)
         {
             _visualStudioTracer.Trace("Start full parsing", ParserTraceCategory);
             var stopwatch = new Stopwatch();
@@ -92,9 +92,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
             _partialParseCount = 0;
 
-            var gherkinListener = new GherkinTextBufferParserListener(gherkinDialect, textSnapshot, _projectScope);
+            var gherkinListener = new GherkinTextBufferParserListener(gherkinDialectAdapter, textSnapshot, _projectScope);
 
-            var scanner = new GherkinScanner(gherkinDialect, textSnapshot.GetText(), 0);
+            var scanner = new GherkinScannerAdapter(gherkinDialectAdapter, textSnapshot.GetText(), 0);
             scanner.Scan(gherkinListener);
 
             var gherkinFileScope = gherkinListener.GetResult();
@@ -128,12 +128,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             string fileContent = textSnapshot.GetText(parseStartPosition, textSnapshot.Length - parseStartPosition);
 
             var gherkinListener = new GherkinTextBufferPartialParserListener(
-                previousScope.GherkinDialect,
+                previousScope.GherkinDialectAdapter,
                 textSnapshot, _projectScope, 
                 previousScope, 
                 change.EndLine, change.LineCountDelta);
 
-            var scanner = new GherkinScanner(previousScope.GherkinDialect, fileContent, firstAffectedScenario.GetStartLine());
+            var scanner = new GherkinScannerAdapter(previousScope.GherkinDialectAdapter, fileContent, firstAffectedScenario.GetStartLine());
 
             IScenarioBlock firstUnchangedScenario = null;
             try
@@ -174,7 +174,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
             var changedBlocks = new List<IGherkinFileBlock>();
             var shiftedBlocks = new List<IGherkinFileBlock>();
 
-            var fileScope = new GherkinFileScope(previousScope.GherkinDialect, partialResult.TextSnapshot)
+            var fileScope = new GherkinFileScope(previousScope.GherkinDialectAdapter, partialResult.TextSnapshot)
                                 {
                                     HeaderBlock = previousScope.HeaderBlock,
                                     BackgroundBlock = previousScope.BackgroundBlock

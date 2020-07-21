@@ -20,7 +20,7 @@ namespace TechTalk.SpecFlow.Parser.GherkinBuilder
                 throw new GherkinSemanticErrorException(
                     "There are no examples defined for the scenario outline.", position);
 
-            return new ScenarioOutline(
+            return new SyntaxElements.ScenarioOutline(
                 keyword,
                 title,
                 description,

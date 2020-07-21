@@ -15,8 +15,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         protected override string FeatureTitle { get { return previousScope.HeaderBlock == null ? null : previousScope.HeaderBlock.Title; } }
         protected override IEnumerable<string> FeatureTags { get { return previousScope.HeaderBlock == null ? Enumerable.Empty<string>() : previousScope.HeaderBlock.Tags; } }
 
-        public GherkinTextBufferPartialParserListener(GherkinDialect gherkinDialect, ITextSnapshot textSnapshot, IProjectScope projectScope, IGherkinFileScope previousScope, int changeLastLine, int changeLineDelta)
-            : base(gherkinDialect, textSnapshot, projectScope)
+        public GherkinTextBufferPartialParserListener(GherkinDialectAdapter gherkinDialectAdapter, ITextSnapshot textSnapshot, IProjectScope projectScope, IGherkinFileScope previousScope, int changeLastLine, int changeLineDelta)
+            : base(gherkinDialectAdapter, textSnapshot, projectScope)
         {
             this.previousScope = previousScope;
             this.changeLastLine = changeLastLine;

@@ -6,7 +6,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 {
     public interface IGherkinFileScope
     {
-        GherkinDialect GherkinDialect { get; }
+        GherkinDialectAdapter GherkinDialectAdapter { get; }
         IInvalidFileBlock InvalidFileEndingBlock { get; }
         IHeaderBlock HeaderBlock { get; }
         IBackgroundBlock BackgroundBlock { get; }
