@@ -12,31 +12,30 @@ namespace TechTalk.SpecFlow.Parser
 {
     public class GherkinDialectAdapter
     {
-        private GherkinDialect GherkinDialect { get; set; }
+        private GherkinDialect GherkinDialect { get; }
+        private string LangName { get; }
 
-        internal LanguageInfo LanguageInfo { get; private set; }
+        public CultureInfo CultureInfo => new CultureInfo(LangName);
 
-        public CultureInfo CultureInfo
+        //TODO: why did we use a different culture here? there was some magic mapping between e.g. de => de-de
+        public CultureInfo CultureInfoForConversions => CultureInfo;
+
+        internal GherkinDialectAdapter(string langName)
         {
-            get { return LanguageInfo.CultureInfo; }
-        }
-
-        internal GherkinDialectAdapter(LanguageInfo languageInfo)
-        {
-            LanguageInfo = languageInfo;
-            GherkinDialect = new SpecFlowGherkinDialectProvider(languageInfo.Language).GetDialect(languageInfo.Language, new Location());
+            LangName = langName;
+            GherkinDialect = new SpecFlowGherkinDialectProvider(langName).GetDialect(langName, new Location());
         }
 
         public override bool Equals(object obj)
         {
             GherkinDialectAdapter other = obj as GherkinDialectAdapter;
 
-            return other != null && other.LanguageInfo.Equals(LanguageInfo);
+            return other != null && other.LangName.Equals(LangName);
         }
 
         public override int GetHashCode()
         {
-            return LanguageInfo.GetHashCode();
+            return LangName.GetHashCode();
         }
 
         public bool IsStepKeyword(string keyword)

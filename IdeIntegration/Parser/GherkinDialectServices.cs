@@ -22,48 +22,45 @@ namespace TechTalk.SpecFlow.Parser
 
         static private readonly Regex languageRe = new Regex(@"^\s*#\s*language:\s*(?<lang>[\w-]+)\s*\n");
         static private readonly Regex languageLineRe = new Regex(@"^\s*#\s*language:\s*(?<lang>[\w-]+)\s*$");
-        internal LanguageInfo GetLanguage(string fileContent)
+        internal string GetLanguageNameFromFileContent(string fileContent)
         {
             string langName = defaultLanguage.Name;
             var langMatch = languageRe.Match(fileContent);
             if (langMatch.Success)
                 langName = langMatch.Groups["lang"].Value;
 
-            LanguageInfo languageInfo =
-                SupportedLanguageHelper.GetSupportedLanguage(langName);
-            return languageInfo;
+            return langName;
         }
 
         public GherkinDialectAdapter GetDefaultDialect()
         {
-            return GetGherkinDialect(SupportedLanguageHelper.GetSupportedLanguage(defaultLanguage.Name));
+            return GetGherkinDialect(defaultLanguage.Name);
         }
 
-        internal GherkinDialectAdapter GetGherkinDialect(LanguageInfo language)
+        public GherkinDialectAdapter GetGherkinDialect(string langName)
         {
-            return new GherkinDialectAdapter(language);
+            return new GherkinDialectAdapter(langName);
         }
 
         public GherkinDialectAdapter GetGherkinDialect(Feature feature)
         {
             string langName =  feature.Language ?? defaultLanguage.Name;
-            var language = SupportedLanguageHelper.GetSupportedLanguage(langName);
-            return GetGherkinDialect(language);
+            return GetGherkinDialect(langName);
         }
 
-        public GherkinDialectAdapter GetGherkinDialect(string fileContent)
+        public GherkinDialectAdapter GetGherkinDialectFromFileContent(string fileContent)
         {
-            var language = GetLanguage(fileContent);
-            return GetGherkinDialect(language);
+            var langName = GetLanguageNameFromFileContent(fileContent);
+            return GetGherkinDialect(langName);
         }
 
         public GherkinDialectAdapter GetGherkinDialect(Func<int, string> lineProvider)
         {
-            var language = GetLanguage(lineProvider);
-            return GetGherkinDialect(language);
+            var langName = GetLanguageName(lineProvider);
+            return GetGherkinDialect(langName);
         }
 
-        internal LanguageInfo GetLanguage(Func<int, string> lineProvider)
+        internal string GetLanguageName(Func<int, string> lineProvider)
         {
             string langName = defaultLanguage.Name;
             int lineNo = 0;
@@ -81,7 +78,7 @@ namespace TechTalk.SpecFlow.Parser
                     break;
             }
 
-            return SupportedLanguageHelper.GetSupportedLanguage(langName);
+            return langName;
         }
 
         static public bool IsLanguageLine(string line)

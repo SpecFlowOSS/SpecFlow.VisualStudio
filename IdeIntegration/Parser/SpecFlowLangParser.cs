@@ -22,9 +22,7 @@ namespace TechTalk.SpecFlow.Parser
         {
             var fileContent = featureFileReader.ReadToEnd();
 
-            var language = dialectServices.GetLanguage(fileContent);
-
-            var gherkinDialect = dialectServices.GetGherkinDialect(language);
+            var gherkinDialect = dialectServices.GetGherkinDialectFromFileContent(fileContent);
             var gherkinListener = new GherkinParserListener(sourceFilePath);
 
             GherkinScannerAdapter scannerAdapter = new GherkinScannerAdapter(gherkinDialect, fileContent);
@@ -36,7 +34,9 @@ namespace TechTalk.SpecFlow.Parser
                 throw new SpecFlowParserException(gherkinListener.Errors);
 
             Debug.Assert(feature != null, "If there were no errors, the feature cannot be null");
-            feature.Language = language.LanguageForConversions.Name;
+            
+            //feature.Language = language.LanguageForConversions.Name;
+            feature.Language = gherkinDialect.CultureInfoForConversions.Name;
 
             return feature;
         }
