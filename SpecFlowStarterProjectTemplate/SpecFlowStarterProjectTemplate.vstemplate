@@ -20,7 +20,7 @@
     <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
       <Folder Name="Drivers" />
       <Folder Name="Hooks" />
-      <ProjectItem OpenInEditor="true">Features\Calculator.feature</ProjectItem>
+      <ProjectItem>Features\Calculator.feature</ProjectItem>
       <ProjectItem ReplaceParameters="true">Steps\CalculatorStepDefinitions.cs</ProjectItem>
     </Project>
   </TemplateContent>

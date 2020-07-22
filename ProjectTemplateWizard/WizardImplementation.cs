@@ -13,6 +13,7 @@ namespace ProjectTemplateWizard
         private UserInputDialog _inputDialog;
         private string _projectDirectory;
         private string _solutionDirectory;
+        private Project _project;
 
         // This method is called before opening any item that
         // has the OpenInEditor attribute.
@@ -22,6 +23,8 @@ namespace ProjectTemplateWizard
 
         public void ProjectFinishedGenerating(Project project)
         {
+            // We need the project in method RunFinished below.
+            _project = project;
         }
 
         // This method is only called for item templates,
@@ -34,6 +37,28 @@ namespace ProjectTemplateWizard
         // This method is called after the project is created.
         public void RunFinished()
         {
+            // A workaround so that the Visual extension can recognize the bindings:
+            // Trigger parsing of step definition file(s) by saving them.
+            // Use a delay of 10 seconds on a different thread before saving the C# source files
+            // to allow some time for initializing the project.
+            // Otherwise, the bindings might not get recognized by the SpecFlow Visual Studio extension
+            // until saving the C# source files manually.
+            new System.Threading.Thread(() =>
+            {
+                System.Threading.Thread.Sleep(10000);
+                try
+                {
+                    foreach (var cSharpCodeFile in CollectCSharpCodeFileProjectItems(_project.ProjectItems))
+                    {
+                        cSharpCodeFile.Open();
+                        cSharpCodeFile.Save();
+                    }
+                }
+                catch (Exception)
+                {
+                    // NOOP
+                }
+            }).Start();
         }
 
         public void RunStarted(object automationObject,
@@ -97,6 +122,29 @@ namespace ProjectTemplateWizard
             {
                 Directory.Delete(_solutionDirectory);
             }
+        }
+
+        private static List<ProjectItem> CollectCSharpCodeFileProjectItems(ProjectItems projectItems)
+        {
+            var collectedCSharpCodeFileProjectItems = new List<ProjectItem>();
+
+            if (projectItems == null)
+            {
+                return collectedCSharpCodeFileProjectItems;
+            }
+
+            foreach (ProjectItem projectItem in projectItems)
+            {
+                // Include .cs files but exclude generated feature code behind files.
+                if (projectItem.Name.EndsWith(".cs"))
+                {
+                    collectedCSharpCodeFileProjectItems.Add(projectItem);
+                }
+                
+                collectedCSharpCodeFileProjectItems.AddRange(CollectCSharpCodeFileProjectItems(projectItem.ProjectItems));
+            }
+
+            return collectedCSharpCodeFileProjectItems;
         }
     }
 }
