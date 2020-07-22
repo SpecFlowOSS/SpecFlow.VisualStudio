@@ -46,6 +46,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                 return GetInvalidDialectScopeChange(change);
             }
 
+            return FullParse(change.ResultTextSnapshot, gherkinDialect);
+
+            //NOTE: the new parser cannot perform a partial parse
+
             bool fullParse = false;
             if (previousScope == null)
             {

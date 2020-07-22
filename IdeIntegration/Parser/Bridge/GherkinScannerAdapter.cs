@@ -37,9 +37,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
         private void DoScan(ListenerExtender listenerExtender, int startLine, int errorRertyCount)
         {
-            listenerExtender.LineOffset = startLine;
-            
             //NOTE: the new parser can only do a full parse
+            //listenerExtender.LineOffset = startLine;
             //var contentToScan = buffer.GetContentFrom(startLine);
             var contentToScan = buffer.GetContent();
 
