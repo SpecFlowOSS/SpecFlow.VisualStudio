@@ -14,6 +14,6 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.23-beta-g2354e4874c" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.60-g900f3ea98a" />
   </ItemGroup>
 </Project>

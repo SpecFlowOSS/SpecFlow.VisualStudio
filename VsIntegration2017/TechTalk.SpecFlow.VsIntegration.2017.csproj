@@ -89,7 +89,7 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>9.0.1</Version>
     </PackageReference>
-    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.23-beta-g2354e4874c" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.60-g900f3ea98a" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
