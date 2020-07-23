@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -110,6 +111,23 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
                 if (node is IHasSteps hasSteps) NotifySteps(hasSteps);
 
+                if (node is Scenario hasExamplesList) NotifyExamplesList(hasExamplesList);
+            }
+
+            private void NotifyExamplesList(Scenario hasExamplesList)
+            {
+                foreach (var examples in hasExamplesList.Examples)
+                {
+                    NotifyExamples(examples);
+                }
+            }
+
+            private void NotifyExamples(Examples examples)
+            {
+                NotifyNode(examples);
+
+                NotifyTableRow(examples.TableHeader);
+                NotifyTableRows(examples.TableBody);
             }
 
             private void NotifySteps(IHasSteps hasSteps)
@@ -141,7 +159,12 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyDataTable(DataTable dataTable)
             {
-                foreach (var tableRow in dataTable.Rows)
+                NotifyTableRows(dataTable.Rows);
+            }
+
+            private void NotifyTableRows(IEnumerable<global::Gherkin.Ast.TableRow> rows)
+            {
+                foreach (var tableRow in rows)
                 {
                     NotifyTableRow(tableRow);
                 }
@@ -167,6 +190,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
                     case Feature feature: _listenerExtender.feature(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
                         break;
                     case Scenario scenario: _listenerExtender.scenario(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
+                        break;
+                    case Examples examples: _listenerExtender.examples(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
                         break;
                 }
             }
