@@ -182,6 +182,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyTableRow(global::Gherkin.Ast.TableRow tableRow)
             {
+                if (tableRow == null) return;
+
                 _listenerExtender.row(tableRow.Cells.Select(c => c.Value).ToList(), tableRow.Location.Line);
             }
 
