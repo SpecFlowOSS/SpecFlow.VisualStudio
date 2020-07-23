@@ -19,6 +19,7 @@ Unit tests: ![Unit tests status](https://vsrm.dev.azure.com/specflow/_apis/publi
 
 Publish to MyGet: ![Publish to MyGet status](https://vsrm.dev.azure.com/specflow/_apis/public/Release/badge/4d755a95-f4b3-45f5-abb5-aeccc2b85d15/2/26)
 
+MyGet Feed: <https://www.myget.org/F/specflow-vsix/vsix/>
 
 ## Build prerequisites
 
