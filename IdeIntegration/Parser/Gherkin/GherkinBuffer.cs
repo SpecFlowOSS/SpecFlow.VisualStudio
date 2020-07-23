@@ -164,6 +164,16 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
             int startPosition = GetBufferPositionFromLine(line);
             return content.Substring(startPosition);
         }
+
+        public string GetContentBefore(int line)
+        {
+            if (line == 0)
+                return string.Empty;
+
+            AssertLineInBuffer(line);
+            int endPosition = GetBufferPositionFromLine(line);
+            return content.Substring(0, endPosition);
+        }
     }
 
     public class GherkinBufferSpan

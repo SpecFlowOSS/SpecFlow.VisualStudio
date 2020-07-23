@@ -14,7 +14,7 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
     public class GherkinScannerAdapter
     {
         private readonly GherkinDialectAdapter _gherkinDialectAdapter;
-        private readonly GherkinBuffer buffer;
+        private readonly GherkinBuffer _buffer;
 
         public GherkinScannerAdapter(GherkinDialectAdapter gherkinDialectAdapter, string gherkinText)
             : this(gherkinDialectAdapter, gherkinText, 0)
@@ -24,43 +24,44 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
         public GherkinScannerAdapter(GherkinDialectAdapter gherkinDialectAdapter, string gherkinText, int lineOffset)
         {
             this._gherkinDialectAdapter = gherkinDialectAdapter;
-            this.buffer = new GherkinBuffer(gherkinText, lineOffset);
+            this._buffer = new GherkinBuffer(gherkinText, lineOffset);
         }
 
         public void Scan(IGherkinListener listener)
         {
-            ListenerExtender listenerExtender = new ListenerExtender(_gherkinDialectAdapter, listener, buffer);
-            DoScan(listenerExtender, buffer.LineOffset, 0);
-        }
+            ListenerExtender listenerExtender = new ListenerExtender(_gherkinDialectAdapter, listener, _buffer);
 
-        const int MAX_ERROR_RETRY = 5;
-        const int SKIP_LINES_BEFORE_RETRY = 1;
-
-        private void DoScan(ListenerExtender listenerExtender, int startLine, int errorRertyCount)
-        {
             //NOTE: the new parser can only do a full parse
             //listenerExtender.LineOffset = startLine;
             //var contentToScan = buffer.GetContentFrom(startLine);
-            var contentToScan = buffer.GetContent();
-
+            var contentToScan = _buffer.GetContent();
             var parser = new global::Gherkin.Parser();
+            var notifier = new ListenerExtenderNotifier(listenerExtender, _buffer);
+
             GherkinDocument document = null;
+            ParserException firstParserException = null;
+
             try
             {
-                using (var reader = new StringReader(contentToScan))
-                {
-                    document = parser.Parse(reader);
-                    var notifier = new ListenerExtenderNotifier(listenerExtender);
-                    notifier.NotifyDocument(document);
-                }
+                document = Parse(contentToScan, parser);
             }
-            catch (AstBuilderException astBuilderException)
+            catch (ParserException parserException)
             {
-                listenerExtender.GherkinListener.Error(
-                    astBuilderException.Message,
-                    buffer.GetLineStartPosition(astBuilderException.Location.Line),
-                    astBuilderException);
+                firstParserException = parserException;
+
+                var firstErrorLine = parserException.Expand()
+                               .Where(e => e.Location != null)
+                               .Min(e => e.Location.Line);
+
+
+                //TODO: review line number in AST vs. GherkinBuffer
+                contentToScan =_buffer.GetContentBefore(firstErrorLine - 1);
+
+                //TODO: what if the second parse also fails?
+                document = Parse(contentToScan, parser);
             }
+
+            notifier.NotifyDocument(document, firstParserException);
 
             //try
             //{
@@ -85,22 +86,37 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
             //}
         }
 
+        private static GherkinDocument Parse(string contentToScan, global::Gherkin.Parser parser)
+        {
+            GherkinDocument document;
+            using (var reader = new StringReader(contentToScan))
+            {
+                document = parser.Parse(reader);
+            }
+
+            return document;
+        }
+
         private class ListenerExtenderNotifier
         {
             private readonly ListenerExtender _listenerExtender;
+            private readonly GherkinBuffer _gherkinBuffer;
 
-            public ListenerExtenderNotifier(ListenerExtender listenerExtender)
+            public ListenerExtenderNotifier(ListenerExtender listenerExtender, GherkinBuffer gherkinBuffer)
             {
                 _listenerExtender = listenerExtender;
+                _gherkinBuffer = gherkinBuffer;
             }
 
-            public void NotifyDocument(GherkinDocument document)
+            public void NotifyDocument(GherkinDocument document, ParserException error)
             {
                 if (document == null) return;
 
                 NotifyNode(document.Feature);
 
                 NotifyComments(document.Comments);
+
+                NotifyError(error);
 
                 _listenerExtender.eof();
             }
@@ -245,6 +261,29 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
                     _listenerExtender.tag(tag.Name, tag.Location.Line);
                 }
             }
+
+            public void NotifyError(ParserException parserException)
+            {
+                if (parserException == null) return;
+
+                foreach (var exception in parserException.Expand())
+                {
+                    NotifySingleError(exception);
+                }
+            }
+
+            private void NotifySingleError(ParserException parserException)
+            {
+                _listenerExtender.GherkinListener.Error(
+                    parserException.Message,
+                    GetErrorPosition(parserException),
+                    parserException);
+            }
+
+            private GherkinBufferPosition GetErrorPosition(ParserException parserException) => 
+                parserException.Location == null ? 
+                    _gherkinBuffer.StartPosition :
+                    _gherkinBuffer.GetLineStartPosition(parserException.Location.Line).ShiftByCharacters(parserException.Location.Column);
         }
 
         //        static private readonly Regex lexingErrorRe = new Regex(@"^Lexing error on line (?<lineno>\d+):\s*'?(?<nearTo>[^\r\n']*)");
@@ -305,5 +344,17 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
         //                position ?? buffer.EndPosition, 
         //                originalException);
         //        }
+    }
+
+    public static class ParserExceptionExtensions
+    {
+        public static IEnumerable<ParserException> Expand(this ParserException parserException)
+        {
+            switch (parserException)
+            {
+                case CompositeParserException composite when composite.Errors != null: return composite.Errors;
+                default: return new[]{parserException};
+            }
+        }
     }
 }
