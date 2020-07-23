@@ -98,7 +98,17 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
             {
                 NotifyNode(document.Feature);
 
+                NotifyComments(document.Comments);
+
                 _listenerExtender.eof();
+            }
+
+            private void NotifyComments(IEnumerable<Comment> comments)
+            {
+                foreach (var comment in comments)
+                {
+                    _listenerExtender.comment(comment.Text, comment.Location.Line);
+                }
             }
 
             public void NotifyNode(IHasLocation node)
