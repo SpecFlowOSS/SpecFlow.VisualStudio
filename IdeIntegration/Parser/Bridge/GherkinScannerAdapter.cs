@@ -197,11 +197,13 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
             {
                 switch (hasDescription)
                 {
-                    case Feature feature: _listenerExtender.feature(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
+                    case Feature _: _listenerExtender.feature(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
                         break;
-                    case Scenario scenario: _listenerExtender.scenario(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
+                    case Scenario _: _listenerExtender.scenario(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
                         break;
-                    case Examples examples: _listenerExtender.examples(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
+                    case Examples _: _listenerExtender.examples(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
+                        break;
+                    case Background _: _listenerExtender.background(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
                         break;
                 }
             }
