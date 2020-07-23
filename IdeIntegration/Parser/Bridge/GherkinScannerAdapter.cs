@@ -96,6 +96,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             public void NotifyDocument(GherkinDocument document)
             {
+                if (document == null) return;
+
                 NotifyNode(document.Feature);
 
                 NotifyComments(document.Comments);
@@ -105,14 +107,18 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyComments(IEnumerable<Comment> comments)
             {
+                if (comments == null) return;
+
                 foreach (var comment in comments)
                 {
                     _listenerExtender.comment(comment.Text, comment.Location.Line);
                 }
             }
 
-            public void NotifyNode(IHasLocation node)
+            private void NotifyNode(IHasLocation node)
             {
+                if (node == null) return;
+
                 if (node is IHasTags hasTags) NotifyTags(hasTags);
 
                 if (node is IHasDescription hasDescription) NotifyDescription(hasDescription, node.Location);
@@ -126,6 +132,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyExamplesList(Scenario hasExamplesList)
             {
+                if (hasExamplesList?.Examples == null) return;
+
                 foreach (var examples in hasExamplesList.Examples)
                 {
                     NotifyExamples(examples);
@@ -134,6 +142,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyExamples(Examples examples)
             {
+                if (examples == null) return;
+
                 NotifyNode(examples);
 
                 NotifyTableRow(examples.TableHeader);
@@ -142,6 +152,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifySteps(IHasSteps hasSteps)
             {
+                if (hasSteps?.Steps == null) return;
+
                 foreach (var step in hasSteps.Steps)
                 {
                     NotifyStep(step);
@@ -150,6 +162,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyStep(Step step)
             {
+                if (step == null) return;
+                
                 _listenerExtender.step(step.Keyword, step.Text, step.Location.Line);
 
                 NotifyStepArgument(step.Argument);
@@ -157,6 +171,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyStepArgument(StepArgument stepArgument)
             {
+                if (stepArgument == null) return;
+
                 if (stepArgument is DataTable dataTable) NotifyDataTable(dataTable);
 
                 if (stepArgument is DocString docString) NotifyDocString(docString);
@@ -164,16 +180,22 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyDocString(DocString docString)
             {
+                if (docString == null) return;
+
                 _listenerExtender.docString(docString.ContentType, docString.Content, docString.Location.Line);
             }
 
             private void NotifyDataTable(DataTable dataTable)
             {
+                if (dataTable == null) return;
+
                 NotifyTableRows(dataTable.Rows);
             }
 
             private void NotifyTableRows(IEnumerable<global::Gherkin.Ast.TableRow> rows)
             {
+                if (rows == null) return;
+
                 foreach (var tableRow in rows)
                 {
                     NotifyTableRow(tableRow);
@@ -189,6 +211,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyChildren(IHasChildren hasChildren)
             {
+                if (hasChildren?.Children == null) return;
+
                 foreach (var child in hasChildren.Children)
                 {
                     NotifyNode(child);
@@ -197,6 +221,8 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
 
             private void NotifyDescription(IHasDescription hasDescription, Location location)
             {
+                if (hasDescription == null || location == null) return;
+
                 switch (hasDescription)
                 {
                     case Feature _: _listenerExtender.feature(hasDescription.Keyword, hasDescription.Name, hasDescription.Description, location.Line);
@@ -210,9 +236,11 @@ namespace TechTalk.SpecFlow.Parser.Gherkin
                 }
             }
 
-            public void NotifyTags(IHasTags node)
+            public void NotifyTags(IHasTags hasTags)
             {
-                foreach (var tag in node.Tags)
+                if (hasTags?.Tags == null) return;
+
+                foreach (var tag in hasTags.Tags)
                 {
                     _listenerExtender.tag(tag.Name, tag.Location.Line);
                 }
