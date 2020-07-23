@@ -23,12 +23,22 @@ namespace TechTalk.SpecFlow.IdeIntegration.Generator.OutOfProcess
 
         public Version GetGeneratorVersion()
         {
-            var result = _outOfProcessExecutor.Execute(new GetGeneratorVersionParameters()
+            try
             {
-                Debug = Debugger.IsAttached
-            },false);
+                var result = _outOfProcessExecutor.Execute(
+                    new GetGeneratorVersionParameters()
+                    {
+                        Debug = Debugger.IsAttached
+                    },
+                    false);
 
-            return Version.Parse(result.Output);
+                return Version.Parse(result.Output);
+            }
+            catch (Exception ex)
+            {
+                //TODO: fix generator version reading, error handling
+                return null;
+            }
         }
 
         public ITestGenerator CreateGenerator(ProjectSettings projectSettings, IEnumerable<GeneratorPluginInfo> generatorPlugins)
