@@ -26,6 +26,6 @@
     <PackageReference Include="CommandLineParser" Version="2.3.0" />
     <PackageReference Include="Mono.Cecil" Version="0.9.5.3" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.60-g900f3ea98a" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.62-beta" />
   </ItemGroup>
 </Project>

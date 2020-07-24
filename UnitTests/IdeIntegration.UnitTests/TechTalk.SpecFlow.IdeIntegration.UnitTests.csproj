@@ -12,6 +12,6 @@
     <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
-    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.60-g900f3ea98a" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.62-beta" />
   </ItemGroup>
 </Project>

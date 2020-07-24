@@ -16,7 +16,7 @@
     <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
     <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers" Version="15.8.36" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
-    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.60-g900f3ea98a" />
+    <PackageReference Include="SpecFlow.CustomPlugin" Version="3.3.62-beta" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />

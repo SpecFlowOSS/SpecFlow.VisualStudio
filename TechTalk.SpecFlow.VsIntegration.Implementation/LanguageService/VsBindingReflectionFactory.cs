@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using EnvDTE;
@@ -52,52 +51,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                            NamedAttributeValues = attribute.Arguments.Cast<CodeAttributeArgument>().Where(arg => !string.IsNullOrEmpty(arg.Name)).ToDictionary(na => na.Name, CreateAttributeValue)
                        };
         }
-
-        #region Workaround lack of polymorphism with IBindingType for StepDefitiontionAttributes
-
-        private static readonly Type[] StepDefinitionAttributeTypes = { typeof(StepDefinitionAttribute), typeof(GivenAttribute), typeof(WhenAttribute), typeof(ThenAttribute) };
-
-        private static IBindingType WrapStepDefinitionAttributeType(IBindingType bindingType)
-        {
-            if (bindingType == null) return null;
-
-            ;
-            if (StepDefinitionAttributeTypes
-                .Any(stepDefAttrType => bindingType.FullName == stepDefAttrType.FullName))
-                return new PolymorphicBindingType(bindingType, typeof(StepDefinitionBaseAttribute));
-
-            return bindingType;
-        }
-
-        public class PolymorphicBindingType : IPolymorphicBindingType
-        {
-            private readonly IBindingType _bindingType;
-            private readonly List<string> _typeHierarchyFullNames;
-
-            public PolymorphicBindingType(IBindingType bindingType, string[] baseTypeFullNames)
-            {
-                _bindingType = bindingType;
-                _typeHierarchyFullNames = baseTypeFullNames.ToList();
-                _typeHierarchyFullNames.Insert(0, _bindingType.FullName);
-            }
-
-            public PolymorphicBindingType(IBindingType bindingType, Type baseType) :
-                this(bindingType, new[] {baseType.FullName})
-            {}
-
-            public string Name => _bindingType.Name;
-
-            public string FullName => _bindingType.FullName;
-
-            public string AssemblyName => _bindingType.AssemblyName;
-
-            public bool IsAssignableTo(IBindingType baseType)
-            {
-                return _typeHierarchyFullNames.Any(fn => fn == baseType.FullName);
-            }
-        }
-
-        #endregion
 
         private class VsBindingSourceAttributeValueProvider: IBindingSourceAttributeValueProvider
         {
