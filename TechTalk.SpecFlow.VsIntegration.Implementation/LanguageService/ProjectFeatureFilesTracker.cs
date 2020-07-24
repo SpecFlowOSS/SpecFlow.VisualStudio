@@ -70,9 +70,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                     return feature;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 vsProjectScope.Tracer.Trace("Invalid feature file: " + sourceFileName, "ProjectFeatureFilesTracker");
+                vsProjectScope.Tracer.Trace("Invalid feature file details: " + ex.Message, "ProjectFeatureFilesTracker");
                 return null;
             }
         }
