@@ -57,6 +57,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockIntegrationOptionsProvider.cs" />
+    <Compile Include="MockServiceProvider.cs" />
     <Compile Include="UserInputControl.xaml.cs">
       <DependentUpon>UserInputControl.xaml</DependentUpon>
     </Compile>
@@ -81,6 +83,10 @@
     <ProjectReference Include="..\IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj">
       <Project>{44D52C1B-0ABC-44B6-8EB8-0F754E264226}</Project>
       <Name>TechTalk.SpecFlow.IdeIntegration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TechTalk.SpecFlow.VsIntegration.Implementation\TechTalk.SpecFlow.VsIntegration.Implementation.csproj">
+      <Project>{10934720-F5AC-49E7-9D4F-B4A4D206C4AA}</Project>
+      <Name>TechTalk.SpecFlow.VsIntegration.Implementation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

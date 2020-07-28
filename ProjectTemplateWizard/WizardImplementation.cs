@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using BoDi;
 using EnvDTE;
 using Microsoft.VisualStudio.TemplateWizard;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
+using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
 
 namespace ProjectTemplateWizard
 {
@@ -16,6 +19,24 @@ namespace ProjectTemplateWizard
         private string _solutionDirectory;
         private Project _project;
         private readonly IAnalyticsTransmitter _analyticsTransmitter;
+
+        public WizardImplementation()
+        {
+            var defaultDependencyProvider = new DefaultDependencyProvider();
+            var container = new ObjectContainer();
+            defaultDependencyProvider.RegisterDependencies(container);
+            container.RegisterTypeAs<MockIntegrationOptionsProvider, IIntegrationOptionsProvider>();
+            container.RegisterTypeAs<MockIServiceProvider, IServiceProvider>();
+            try
+            {
+                _analyticsTransmitter = container.Resolve<IAnalyticsTransmitter>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
+        }
 
         // This method is called before opening any item that
         // has the OpenInEditor attribute.

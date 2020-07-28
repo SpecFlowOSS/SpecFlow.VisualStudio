@@ -6,6 +6,10 @@
     <!-- This is only the testing instance's instrumentation key -->
     <AppInsightsInstrumentationKey>27cfb992-6c29-4bc8-8093-78d95e275b3a</AppInsightsInstrumentationKey>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Analytics\AppInsightsInstrumentationKey.template.cs" />
     <None Remove="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml" />
