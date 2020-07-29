@@ -5,9 +5,11 @@ using System.Linq;
 using System.Windows;
 using BoDi;
 using EnvDTE;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.TemplateWizard;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
 
 namespace ProjectTemplateWizard
@@ -22,6 +24,8 @@ namespace ProjectTemplateWizard
 
         public WizardImplementation()
         {
+            TelemetryConfiguration.Active.InstrumentationKey = AppInsightsInstrumentationKey.Key;
+
             var defaultDependencyProvider = new DefaultDependencyProvider();
             var container = new ObjectContainer();
             defaultDependencyProvider.RegisterDependencies(container);
