@@ -64,6 +64,9 @@ namespace ProjectTemplateWizard
         // This method is called after the project is created.
         public void RunFinished()
         {
+            // Add analytics.
+            _analyticsTransmitter.TransmitProjectTemplateWizardCompletedEvent(_inputDialog.DotNetFramework, _inputDialog.UnitTestFramework);
+
             // A workaround so that the Visual extension can recognize the bindings:
             // Trigger parsing of step definition file(s) by saving them.
             // Use a delay of 10 seconds on a different thread before saving the C# source files
@@ -104,9 +107,6 @@ namespace ProjectTemplateWizard
                     // Add custom parameters.
                     replacementsDictionary.Add("$dotnetframework$", _inputDialog.DotNetFramework);
                     replacementsDictionary.Add("$unittestframework$", _inputDialog.UnitTestFramework);
-
-                    // Add analytics.
-                    _analyticsTransmitter.TransmitProjectTemplateUsage(_inputDialog.DotNetFramework, _inputDialog.UnitTestFramework);
                 }
                 else
                 {

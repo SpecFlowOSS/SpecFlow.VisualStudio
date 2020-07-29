@@ -45,8 +45,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionTwoHundredDayUsage:
                     return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ProjectTemplateUsage:
-                    return new ProjectTemplateUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework);
+                case AnalyticsEventType.ProjectTemplateWizardCompleted:
+                    return new ProjectTemplateWizardCompletedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(analyticsEventType), analyticsEventType, null);
             }
@@ -104,9 +104,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             }
         }
 
-        public void TransmitProjectTemplateUsage(string selectedDotNetFramework, string selectedUnitTestFramework)
+        public void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework)
         {
-            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateUsage, null, selectedDotNetFramework, selectedUnitTestFramework);
+            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateWizardCompleted, null, selectedDotNetFramework, selectedUnitTestFramework);
         }
 
         private void TransmitException(Exception exception)
