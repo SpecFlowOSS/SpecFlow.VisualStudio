@@ -95,6 +95,9 @@ namespace ProjectTemplateWizard
             Dictionary<string, string> replacementsDictionary,
             WizardRunKind runKind, object[] customParams)
         {
+            // Add analytics.
+            _analyticsTransmitter.TransmitProjectTemplateWizardStartedEvent();
+
             try
             {
                 _projectDirectory = replacementsDictionary["$destinationdirectory$"];

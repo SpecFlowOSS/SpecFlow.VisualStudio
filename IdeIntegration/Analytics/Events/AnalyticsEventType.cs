@@ -10,6 +10,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
         ExtensionTenDayUsage,
         ExtensionOneHundredDayUsage,
         ExtensionTwoHundredDayUsage,
+        [Description("Project Template Wizard Started")]
+        ProjectTemplateWizardStarted,
         [Description("Project Template Wizard Completed")]
         ProjectTemplateWizardCompleted,
     }

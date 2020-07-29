@@ -45,6 +45,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionTwoHundredDayUsage:
                     return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                case AnalyticsEventType.ProjectTemplateWizardStarted:
+                    return new ProjectTemplateWizardStartedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ProjectTemplateWizardCompleted:
                     return new ProjectTemplateWizardCompletedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework);
                 default:
@@ -102,6 +104,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 default:
                     break;
             }
+        }
+
+        public void TransmitProjectTemplateWizardStartedEvent()
+        {
+            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateWizardStarted);
         }
 
         public void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework)
