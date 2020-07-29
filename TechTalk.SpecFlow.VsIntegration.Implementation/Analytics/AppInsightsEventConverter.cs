@@ -41,6 +41,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 eventTelemetry.Properties.Add("ExtensionVersion", extensionUpgradeAnalyticsEvent.ExtensionVersion);
                 eventTelemetry.Properties.Add("OldExtensionVersion", extensionUpgradeAnalyticsEvent.OldExtensionVersion);
             }
+            if (analyticsEvent is ProjectTemplateUsageAnalyticsEvent projectTemplateUsageAnalyticsEvent)
+            {
+                eventTelemetry.Properties.Add("SelectedDotNetFramework", projectTemplateUsageAnalyticsEvent.SelectedDotNetFramework);
+                eventTelemetry.Properties.Add("SelectedUnitTestFramework", projectTemplateUsageAnalyticsEvent.SelectedUnitTestFramework);
+            }
 
             return eventTelemetry;
         }
