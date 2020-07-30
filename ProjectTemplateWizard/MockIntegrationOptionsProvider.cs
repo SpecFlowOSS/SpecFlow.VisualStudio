@@ -1,5 +1,6 @@
 ﻿using System;
 using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
 
 namespace ProjectTemplateWizard
 {
@@ -7,7 +8,7 @@ namespace ProjectTemplateWizard
     {
         public IntegrationOptions GetOptions() => new IntegrationOptions
         {
-            OptOutDataCollection = false
+            OptOutDataCollection = OptionDefaultValues.DefaultOptOutDataCollection
         };
 
         public void ClearCache()
