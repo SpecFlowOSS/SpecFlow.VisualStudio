@@ -57,8 +57,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MockIntegrationOptionsProvider.cs" />
-    <Compile Include="MockServiceProvider.cs" />
+    <Compile Include="DefaultOptOutDataCollectionOptionsProvider.cs" />
+    <Compile Include="EmptyServiceProvider.cs" />
     <Compile Include="UserInputControl.xaml.cs">
       <DependentUpon>UserInputControl.xaml</DependentUpon>
     </Compile>

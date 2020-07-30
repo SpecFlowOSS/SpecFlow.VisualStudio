@@ -29,8 +29,8 @@ namespace ProjectTemplateWizard
             var defaultDependencyProvider = new DefaultDependencyProvider();
             var container = new ObjectContainer();
             defaultDependencyProvider.RegisterDependencies(container);
-            container.RegisterTypeAs<MockIntegrationOptionsProvider, IIntegrationOptionsProvider>();
-            container.RegisterTypeAs<MockIServiceProvider, IServiceProvider>();
+            container.RegisterTypeAs<DefaultOptOutDataCollectionOptionsProvider, IIntegrationOptionsProvider>();
+            container.RegisterTypeAs<EmptyServiceProvider, IServiceProvider>();
             try
             {
                 _analyticsTransmitter = container.Resolve<IAnalyticsTransmitter>();

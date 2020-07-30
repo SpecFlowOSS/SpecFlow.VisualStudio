@@ -4,7 +4,7 @@ using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
 
 namespace ProjectTemplateWizard
 {
-    public class MockIntegrationOptionsProvider: IIntegrationOptionsProvider
+    public class DefaultOptOutDataCollectionOptionsProvider: IIntegrationOptionsProvider
     {
         public IntegrationOptions GetOptions() => new IntegrationOptions
         {
