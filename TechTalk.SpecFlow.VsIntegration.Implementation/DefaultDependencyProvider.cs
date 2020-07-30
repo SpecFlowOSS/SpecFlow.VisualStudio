@@ -25,7 +25,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
         {
             var serviceProvider = container.Resolve<IServiceProvider>();
             RegisterVsDependencies(container, serviceProvider);
+            RegisterDependencies(container);
 
+            container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
+            container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));
+
+            RegisterCommands(container);
+        }
+
+        public virtual void RegisterDependencies(IObjectContainer container)
+        {
             container.RegisterTypeAs<InstallServices, InstallServices>();
             container.RegisterTypeAs<InstallServicesHelper, InstallServicesHelper>();
             container.RegisterTypeAs<VsBrowserGuidanceNotificationService, IGuidanceNotificationService>();
@@ -35,9 +44,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<WindowsRegistry, IWindowsRegistry>();
             container.RegisterTypeAs<FileService, IFileService>();
             container.RegisterTypeAs<DirectoryService, IDirectoryService>();
-            
-            container.RegisterInstanceAs<IIdeTracer>(VsxHelper.ResolveMefDependency<IVisualStudioTracer>(serviceProvider));
-            container.RegisterInstanceAs(VsxHelper.ResolveMefDependency<IProjectScopeFactory>(serviceProvider));
 
             container.RegisterTypeAs<StepDefinitionSkeletonProvider, IStepDefinitionSkeletonProvider>();
             container.RegisterTypeAs<DefaultSkeletonTemplateProvider, ISkeletonTemplateProvider>();
@@ -54,8 +60,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<EnvironmentSpecFlowTelemetryChecker, IEnvironmentSpecFlowTelemetryChecker>();
             container.RegisterTypeAs<CurrentExtensionVersionProvider, ICurrentExtensionVersionProvider>();
             container.RegisterTypeAs<DevBuildChecker, IDevBuildChecker>();
-
-            RegisterCommands(container);
         }
 
         protected virtual void RegisterVsDependencies(IObjectContainer container, IServiceProvider serviceProvider)

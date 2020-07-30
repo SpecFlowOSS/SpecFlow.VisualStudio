@@ -29,7 +29,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             _extensionVersion = new Lazy<string>(() => currentExtensionVersionProvider.GetCurrentExtensionVersion().ToString());
         }
 
-        private IAnalyticsEvent CreateAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null)
+        private IAnalyticsEvent CreateAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null, string selectedDotNetFramework = null, string selectedUnitTestFramework = null)
         {
             switch (analyticsEventType)
             {
@@ -45,12 +45,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionTwoHundredDayUsage:
                     return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                case AnalyticsEventType.ProjectTemplateWizardStarted:
+                    return new ProjectTemplateWizardStartedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                case AnalyticsEventType.ProjectTemplateWizardCompleted:
+                    return new ProjectTemplateWizardCompletedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(analyticsEventType), analyticsEventType, null);
             }
         }
 
-        private void TransmitAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null)
+        private void TransmitAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null, string selectedDotNetFramework = null, string selectedUnitTestFramework = null)
         {
             try
             {
@@ -59,7 +63,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return;
                 }
 
-                var analyticsEvent = CreateAnalyticsEvent(analyticsEventType, oldExtensionVersion);
+                var analyticsEvent = CreateAnalyticsEvent(analyticsEventType, oldExtensionVersion, selectedDotNetFramework, selectedUnitTestFramework);
 
                 _analyticsTransmitterSink.TransmitEvent(analyticsEvent);
             }
@@ -100,6 +104,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 default:
                     break;
             }
+        }
+
+        public void TransmitProjectTemplateWizardStartedEvent()
+        {
+            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateWizardStarted);
+        }
+
+        public void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework)
+        {
+            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateWizardCompleted, null, selectedDotNetFramework, selectedUnitTestFramework);
         }
 
         private void TransmitException(Exception exception)

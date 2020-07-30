@@ -1,4 +1,6 @@
-﻿namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
+﻿using System.ComponentModel;
+
+namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public enum AnalyticsEventType
     {
@@ -8,5 +10,9 @@
         ExtensionTenDayUsage,
         ExtensionOneHundredDayUsage,
         ExtensionTwoHundredDayUsage,
+        [Description("Project Template Wizard Started")]
+        ProjectTemplateWizardStarted,
+        [Description("Project Template Wizard Completed")]
+        ProjectTemplateWizardCompleted,
     }
 }

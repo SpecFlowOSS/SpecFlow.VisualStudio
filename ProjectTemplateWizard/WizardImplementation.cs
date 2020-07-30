@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using BoDi;
 using EnvDTE;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.TemplateWizard;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
+using TechTalk.SpecFlow.IdeIntegration.Options;
+using TechTalk.SpecFlow.VsIntegration.Analytics;
+using TechTalk.SpecFlow.VsIntegration.Implementation;
 
 namespace ProjectTemplateWizard
 {
@@ -14,6 +20,27 @@ namespace ProjectTemplateWizard
         private string _projectDirectory;
         private string _solutionDirectory;
         private Project _project;
+        private readonly IAnalyticsTransmitter _analyticsTransmitter;
+
+        public WizardImplementation()
+        {
+            TelemetryConfiguration.Active.InstrumentationKey = AppInsightsInstrumentationKey.Key;
+
+            try
+            {
+                var defaultDependencyProvider = new DefaultDependencyProvider();
+                var container = new ObjectContainer();
+                defaultDependencyProvider.RegisterDependencies(container);
+                container.RegisterTypeAs<DefaultOptOutDataCollectionOptionsProvider, IIntegrationOptionsProvider>();
+                container.RegisterTypeAs<EmptyServiceProvider, IServiceProvider>();
+            
+                _analyticsTransmitter = container.Resolve<IAnalyticsTransmitter>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
         // This method is called before opening any item that
         // has the OpenInEditor attribute.
@@ -37,6 +64,9 @@ namespace ProjectTemplateWizard
         // This method is called after the project is created.
         public void RunFinished()
         {
+            // Add analytics.
+            _analyticsTransmitter.TransmitProjectTemplateWizardCompletedEvent(_inputDialog.DotNetFramework, _inputDialog.UnitTestFramework);
+
             // A workaround so that the Visual extension can recognize the bindings:
             // Trigger parsing of step definition file(s) by saving them.
             // Use a delay of 10 seconds on a different thread before saving the C# source files
@@ -65,6 +95,9 @@ namespace ProjectTemplateWizard
             Dictionary<string, string> replacementsDictionary,
             WizardRunKind runKind, object[] customParams)
         {
+            // Add analytics.
+            _analyticsTransmitter.TransmitProjectTemplateWizardStartedEvent();
+
             try
             {
                 _projectDirectory = replacementsDictionary["$destinationdirectory$"];
