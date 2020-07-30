@@ -26,20 +26,20 @@ namespace ProjectTemplateWizard
         {
             TelemetryConfiguration.Active.InstrumentationKey = AppInsightsInstrumentationKey.Key;
 
-            var defaultDependencyProvider = new DefaultDependencyProvider();
-            var container = new ObjectContainer();
-            defaultDependencyProvider.RegisterDependencies(container);
-            container.RegisterTypeAs<DefaultOptOutDataCollectionOptionsProvider, IIntegrationOptionsProvider>();
-            container.RegisterTypeAs<EmptyServiceProvider, IServiceProvider>();
             try
             {
+                var defaultDependencyProvider = new DefaultDependencyProvider();
+                var container = new ObjectContainer();
+                defaultDependencyProvider.RegisterDependencies(container);
+                container.RegisterTypeAs<DefaultOptOutDataCollectionOptionsProvider, IIntegrationOptionsProvider>();
+                container.RegisterTypeAs<EmptyServiceProvider, IServiceProvider>();
+            
                 _analyticsTransmitter = container.Resolve<IAnalyticsTransmitter>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            
         }
 
         // This method is called before opening any item that
