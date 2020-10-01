@@ -153,7 +153,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         }
 
         [TestCase(5, GuidanceNotification.AfterInstall, 1)]
-        [TestCase(10, GuidanceNotification.FiveDayUser, 1)]
+        [TestCase(20, GuidanceNotification.FiveDayUser, 1)]
         [TestCase(100, GuidanceNotification.AfterRampUp, 1)]
         [TestCase(200, GuidanceNotification.Experienced, 1)]
         [TestCase(1, GuidanceNotification.AfterRampUp, 0)]

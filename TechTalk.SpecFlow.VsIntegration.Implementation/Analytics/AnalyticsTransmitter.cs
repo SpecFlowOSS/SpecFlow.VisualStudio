@@ -41,8 +41,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return new ExtensionUpgradedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value);
                 case AnalyticsEventType.ExtensionFiveDayUsage:
                     return new ExtensionFiveDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ExtensionTenDayUsage:
-                    return new ExtensionTenDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
+                case AnalyticsEventType.ExtensionTwentyDayUsage:
+                    return new ExtensionTwentyDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionOneHundredDayUsage:
                     return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
                 case AnalyticsEventType.ExtensionTwoHundredDayUsage:
@@ -98,7 +98,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     TransmitAnalyticsEvent(AnalyticsEventType.ExtensionFiveDayUsage);
                     break;
                 case InstallServices.AFTER_RAMP_UP_DAYS:
-                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionTenDayUsage);
+                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionTwentyDayUsage);
                     break;
                 case InstallServices.EXPERIENCED_DAYS:
                     TransmitAnalyticsEvent(AnalyticsEventType.ExtensionOneHundredDayUsage);
