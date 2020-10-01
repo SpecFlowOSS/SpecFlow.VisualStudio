@@ -7,6 +7,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
         ExtensionLoaded,
         ExtensionInstalled,
         ExtensionUpgraded,
+        ExtensionFiveDayUsage,
         ExtensionTenDayUsage,
         ExtensionOneHundredDayUsage,
         ExtensionTwoHundredDayUsage,
