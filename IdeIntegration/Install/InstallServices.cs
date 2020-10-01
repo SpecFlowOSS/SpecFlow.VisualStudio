@@ -8,7 +8,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
 {
     public class InstallServices
     {
-        public const int AFTER_RAMP_UP_DAYS = 10;
+        public const int FIVE_DAY_USAGE = 5;
+        public const int AFTER_RAMP_UP_DAYS = 20;
         public const int EXPERIENCED_DAYS = 100;
         public const int VETERAN_DAYS = 200;
 
@@ -89,6 +90,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             if (IsDevBuild)
                 tracer.Trace("Package used", this);
 
+            UpdateUsageOfExtension(isSpecRunUsed);
+        }
+
+        private void UpdateUsageOfExtension(bool isSpecRunUsed)
+        {
             var today = DateTime.Today;
             var status = GetInstallStatus();
 
@@ -113,6 +119,16 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
                     status.InstallDate = today;
                     status.InstalledVersion = CurrentVersion;
 
+                    UpdateStatus(status);
+                }
+            }
+            else if (status.UsageDays >= FIVE_DAY_USAGE && status.UserLevel < (int)GuidanceNotification.FiveDayUser)
+            {
+                if (ShowNotification(GuidanceNotification.FiveDayUser, isSpecRunUsed))
+                {
+                    _analyticsTransmitter.TransmitExtensionUsage(FIVE_DAY_USAGE);
+
+                    status.UserLevel = (int)GuidanceNotification.FiveDayUser;
                     UpdateStatus(status);
                 }
             }

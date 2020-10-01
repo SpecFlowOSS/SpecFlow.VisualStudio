@@ -152,10 +152,12 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             analyticsTransmitterStub.Verify(at => at.TransmitExtensionUpgradedEvent(_extensionVersion.ToString()), Times.Once);
         }
 
-        [TestCase(10, GuidanceNotification.AfterInstall, 1)]
+        [TestCase(5, GuidanceNotification.AfterInstall, 1)]
+        [TestCase(20, GuidanceNotification.FiveDayUser, 1)]
         [TestCase(100, GuidanceNotification.AfterRampUp, 1)]
         [TestCase(200, GuidanceNotification.Experienced, 1)]
         [TestCase(1, GuidanceNotification.AfterRampUp, 0)]
+        [TestCase(6, GuidanceNotification.FiveDayUser, 0)]
         [TestCase(99, GuidanceNotification.AfterRampUp, 0)]
         [TestCase(500, GuidanceNotification.Veteran, 0)]
         public void Should_FireExtensionUsageEvents(int daysOfUsage, GuidanceNotification notificationLevel, int callCount)
