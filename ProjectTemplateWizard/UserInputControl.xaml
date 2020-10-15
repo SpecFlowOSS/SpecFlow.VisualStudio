@@ -68,6 +68,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -92,6 +93,12 @@
                     <ComboBoxItem Tag="nunit">NUnit</ComboBoxItem>
                     <ComboBoxItem Tag="mstest">MSTest</ComboBoxItem>
                 </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="0">
+                <CheckBox x:Name="FluentAssertionsCheckBox" IsChecked="True"  Margin="0,16,0,10">
+                    <TextBlock>Add FluentAssertions library</TextBlock>
+                </CheckBox>
             </StackPanel>
 
             <Button Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="90" Height="28" x:Name="BackButton" Content="Back" Margin="0,0,8,0" Padding="13,5.5,13,5.5" />
