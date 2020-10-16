@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -110,7 +111,7 @@ namespace ProjectTemplateWizard
                     // Add custom parameters.
                     replacementsDictionary.Add("$dotnetframework$", _inputDialog.DotNetFramework);
                     replacementsDictionary.Add("$unittestframework$", _inputDialog.UnitTestFramework);
-                    replacementsDictionary.Add("$fluentassertionsincluded$", _inputDialog.FluentAssertionsIncluded.ToString());
+                    replacementsDictionary.Add("$fluentassertionsincluded$", _inputDialog.FluentAssertionsIncluded.ToString(CultureInfo.InvariantCulture));
                 }
                 else
                 {
