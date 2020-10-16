@@ -29,6 +29,10 @@
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
     $endif$
+
+    $if$ ('$fluentassertionsincluded$' == 'True')
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    $endif$
   </ItemGroup>
 
   <ItemGroup>

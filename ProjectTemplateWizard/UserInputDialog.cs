@@ -13,6 +13,7 @@ namespace ProjectTemplateWizard
         
         public string DotNetFramework { get; private set; }
         public string UnitTestFramework { get; private set; }
+        public bool FluentAssertionsIncluded { get; private set; }
 
         private static SolidColorBrush ToBrush(ThemeResourceKey key)
         {
@@ -55,6 +56,7 @@ namespace ProjectTemplateWizard
         {
             DotNetFramework = _userInputControl.DotNetFrameworkComboBox.SelectedValue as string;
             UnitTestFramework = _userInputControl.UnitTestFrameworkComboBox.SelectedValue as string;
+            FluentAssertionsIncluded = _userInputControl.FluentAssertionsCheckBox.IsChecked.GetValueOrDefault();
 
             DialogResult = true;
             Close();
