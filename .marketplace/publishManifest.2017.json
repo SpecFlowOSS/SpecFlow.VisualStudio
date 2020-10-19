@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/vsix-publish",
+    "categories": [ "documentation", "testing", "team development" ],
+    "identity": {
+        "internalName": "SpecFlowforVisualStudio2017"
+    },
+    "overview": "overview.md",
+    "priceCategory": "free",
+    "publisher": "techtalkspecflowteam",
+    "private": false,
+    "qna": true,
+    "repo": "https://github.com/SpecFlowOSS/SpecFlow.VisualStudio"
+}
