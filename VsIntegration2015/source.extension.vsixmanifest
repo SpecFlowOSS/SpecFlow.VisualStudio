@@ -10,7 +10,7 @@
     <ReleaseNotes>changelog.txt</ReleaseNotes>
     <Icon>specflowsetup.ico</Icon>
     <PreviewImage>specflow_preview.png</PreviewImage>
-    <Tags>BDD, specflow, gherkin, cucumber, living documentation, specification by example, atdd, Behavior Driven Development</Tags>
+    <Tags>BDD; specflow; gherkin; cucumber; living documentation; specification by example; atdd; Behavior Driven Development</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[14.0]" />
