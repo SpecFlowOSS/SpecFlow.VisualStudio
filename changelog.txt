@@ -1,5 +1,6 @@
 Upcoming
 
++ Marketplace release automation
 + Add FluentAssertions to project template
 + Add SpecFlow project template for Visual Studio 2017 and 2019
 + Fix ObjectDisposedException when opening and closing a second window for the same feature file
