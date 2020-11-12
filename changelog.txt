@@ -1,5 +1,6 @@
 Upcoming
 
++ Add prerequisite for the SpecFlow project wizard
 + Marketplace release automation
 + Add FluentAssertions to project template
 + Add SpecFlow project template for Visual Studio 2017 and 2019
