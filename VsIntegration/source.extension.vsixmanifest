@@ -27,6 +27,7 @@
         <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="ProjectTemplateWizard" Path="|ProjectTemplateWizard|" AssemblyName="|ProjectTemplateWizard;AssemblyName|" />
     </Assets>
     <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Workload.NetCoreTools" Version="[15.0,17.0)" DisplayName=".NET Core cross-platform development" />
         <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0,17.0)" DisplayName="C# and Visual Basic" />
     </Prerequisites>
 </PackageManifest>
