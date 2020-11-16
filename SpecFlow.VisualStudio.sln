@@ -58,8 +58,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechTalk.SpecFlow.VsIntegra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2017", "VsIntegration2017\TechTalk.SpecFlow.VsIntegration.2017.csproj", "{F3EFE63B-77C7-449E-B118-E16F445873C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2015", "VsIntegration2015\TechTalk.SpecFlow.VsIntegration.2015.csproj", "{CBD78521-0F02-4A43-ABED-001D2560675B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeBehindGeneration", "CodeBehindGeneration", "{62BA7DEF-D976-4B64-8EFE-368AD625DD96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5A165F38-88BA-4FED-BB14-6621B83F8B58}"
@@ -76,7 +74,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
-		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{cbd78521-0f02-4a43-abed-001d2560675b}*SharedItemsImports = 4
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{f3efe63b-77c7-449e-b118-e16f445873c3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,10 +113,6 @@ Global
 		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3EFE63B-77C7-449E-B118-E16F445873C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CBD78521-0F02-4A43-ABED-001D2560675B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBD78521-0F02-4A43-ABED-001D2560675B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBD78521-0F02-4A43-ABED-001D2560675B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBD78521-0F02-4A43-ABED-001D2560675B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF49D346-656E-450B-B972-D79C188F5B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
