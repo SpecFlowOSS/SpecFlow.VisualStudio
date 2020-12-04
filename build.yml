@@ -57,12 +57,6 @@ jobs:
       PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2017/bin/Release/TechTalk.SpecFlow.VsIntegration.2017.vsix'
       ArtifactName: VS2017
 
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: VS2015 Extension'
-    inputs:
-      PathtoPublish: '$(Build.SourcesDirectory)/VsIntegration2015/bin/Release/TechTalk.SpecFlow.VsIntegration.2015.vsix'
-      ArtifactName: VS2015
-
   - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
     displayName: 'WhiteSource Bolt'
     inputs:
