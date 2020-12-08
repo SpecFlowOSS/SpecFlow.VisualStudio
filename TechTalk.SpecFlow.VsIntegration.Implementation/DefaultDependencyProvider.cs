@@ -9,6 +9,7 @@ using TechTalk.SpecFlow.IdeIntegration.Options;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Install;
 using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Services;
@@ -48,6 +49,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<StepDefinitionSkeletonProvider, IStepDefinitionSkeletonProvider>();
             container.RegisterTypeAs<DefaultSkeletonTemplateProvider, ISkeletonTemplateProvider>();
             container.RegisterTypeAs<StepTextAnalyzer, IStepTextAnalyzer>();
+            container.RegisterTypeAs<StepNameReplacer, IStepNameReplacer>();
 
             container.RegisterTypeAs<TelemetryClientWrapper, TelemetryClientWrapper>();
             container.RegisterTypeAs<AppInsightsEventConverter, IAppInsightsEventConverter>();

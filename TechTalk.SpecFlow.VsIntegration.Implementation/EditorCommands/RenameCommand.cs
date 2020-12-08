@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using EnvDTE;
@@ -22,11 +21,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
     {
         private readonly IGherkinLanguageServiceFactory _gherkinLanguageServiceFactory;
         private readonly IProjectScopeFactory _projectScopeFactory;
+        private readonly IStepNameReplacer _stepNameReplacer;
 
-        public RenameCommand(IGherkinLanguageServiceFactory gherkinLanguageServiceFactory, IProjectScopeFactory projectScopeFactory)
+        public RenameCommand(IGherkinLanguageServiceFactory gherkinLanguageServiceFactory, IProjectScopeFactory projectScopeFactory, IStepNameReplacer stepNameReplacer)
         {
             _gherkinLanguageServiceFactory = gherkinLanguageServiceFactory;
             _projectScopeFactory = projectScopeFactory;
+            this._stepNameReplacer = stepNameReplacer;
         }
 
         public bool Rename(GherkinEditorContext editorContext)
@@ -104,27 +105,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
                 var numLeadingWhiteSpaces = lineText.Length - trimmedText.Length;
 
                 var actualStepName = trimmedText.Substring(stepToRename.Keyword.Length);
-                var newStepName = BuildStepNameWithNewRegex(actualStepName, newStepRegex, binding);
+                var newStepName = _stepNameReplacer.BuildStepNameWithNewRegex(actualStepName, newStepRegex, binding);
 
                 var stepNamePosition = line.Start.Position + numLeadingWhiteSpaces +  stepToRename.Keyword.Length;
                 stepNameTextEdit.Replace(stepNamePosition, actualStepName.Length, newStepName);
 
                 stepNameTextEdit.Apply();
             }
-        }
-
-        private static string BuildStepNameWithNewRegex(string stepName, string newStepRegex, IStepDefinitionBinding binding)
-        {
-            var originalMatch = Regex.Match(stepName, FormatRegexForDisplay(binding.Regex));
-            var newRegexMatch = Regex.Match(newStepRegex, newStepRegex);
-
-            var builder = new StringBuilder(newStepRegex);
-            for (var i = newRegexMatch.Groups.Count - 1; i > 0; i--)
-            {
-                builder.Replace(newRegexMatch.Groups[i].Value, originalMatch.Groups[i].Value, newRegexMatch.Groups[i].Index, newRegexMatch.Groups[i].Length);
-            }
-
-            return RemoveDoubleQuotes(builder.ToString());
         }
 
         private IEnumerable<VsProjectScope> GetProjectScopes(Document activeDocument)
