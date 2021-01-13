@@ -6,6 +6,7 @@ Upcoming
 + Add SpecFlow project template for Visual Studio 2017 and 2019
 + Fix ObjectDisposedException when opening and closing a second window for the same feature file
 + Changed default directory for generating steps file to the same directory as the .feature file
++ Fix styling issues in the Project Template Wizard
 
 2019.0 - 2019-04-25
 
