@@ -2,7 +2,17 @@ name: $(GitAssemblyInformationalVersion)
 
 resources:
 - repo: self
-  clean: true
+  clean: "true"
+
+trigger:
+  branches:
+    include:
+    - master
+
+pr:
+  branches:
+    include:
+    - '*'
 
 jobs:
 

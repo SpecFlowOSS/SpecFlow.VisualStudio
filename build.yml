@@ -1,29 +1,19 @@
 parameters:
   name: ''
   pool: ''
-  nugetVersion: 4.6.2
-  sdkVersion: 2.1.401
-  artifactFileName: ''
-  artifactName: ''
-  visualStudioVersion: ''
+  nugetVersion: 5.8.0
   appInsightsInstrumentationKey: ''
 
 jobs:
 - job: ${{ parameters.name }}
   pool: ${{ parameters.pool }}
   variables:
-    specFlowVisualStudioVersion: ${{ parameters.visualStudioVersion }}
     instrumentationKey: ${{ parameters.appInsightsInstrumentationKey }}
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Use NuGet'
     inputs:
       versionSpec: ${{ parameters.nugetVersion }}
-
-  - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core'
-    inputs:
-      version: ${{ parameters.sdkVersion }}
 
   - task: PowerShell@2
     displayName: 'restore & build Release'
@@ -33,17 +23,14 @@ jobs:
       arguments: Release -appInsightsInstrumentationKey $(instrumentationKey)
       pwsh: true
 
-  - task: ArchiveFiles@2
-    displayName: 'Archive $(Build.SourcesDirectory)'
+  - task: VSTest@2
+    displayName: 'Unit Tests'
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)'
-      archiveFile: ${{ parameters.artifactFileName }} 
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: SpecFlow.VisualStudio.CI-BuildResult'
-    inputs:
-      PathtoPublish: ${{ parameters.artifactFileName }} 
-      ArtifactName: ${{ parameters.artifactName }}
+      testAssemblyVer2: |
+       **\Release\**\*.UnitTests.dll
+       !**\*TestAdapter.dll
+       !**\obj\**
+    diagnosticsEnabled: True
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: VS2019 Extension'
@@ -60,4 +47,4 @@ jobs:
   - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
     displayName: 'WhiteSource Bolt'
     inputs:
-      advance: true       
+      advance: true
