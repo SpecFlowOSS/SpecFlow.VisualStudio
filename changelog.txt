@@ -1,12 +1,21 @@
 Upcoming
++ Fix styling issues in the Project Template Wizard
++ Add support for .NET Core 5 in the Project Template Wizard 
+
+2019.0.68 - 2020-11-13
 
 + Add prerequisite for the SpecFlow project wizard
 + Marketplace release automation
+
+2019.0.65 - 2020-10-16
+
 + Add FluentAssertions to project template
+
+2019.0.58 - 2020-07-23
+
 + Add SpecFlow project template for Visual Studio 2017 and 2019
 + Fix ObjectDisposedException when opening and closing a second window for the same feature file
 + Changed default directory for generating steps file to the same directory as the .feature file
-+ Fix styling issues in the Project Template Wizard
 
 2019.0 - 2019-04-25
 
