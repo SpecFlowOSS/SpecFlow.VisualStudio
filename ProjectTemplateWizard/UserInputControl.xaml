@@ -87,7 +87,7 @@
                         <Label Margin="0,16,0,10" Padding="0,0,0,0">Framework</Label>
                         <ComboBox x:Name="DotNetFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
                             <ComboBoxItem Tag="netcoreapp3.1" IsSelected="True">.NET Core 3.1</ComboBoxItem>
-                            <ComboBoxItem Tag="net5.0">.NET Core 5.0</ComboBoxItem>
+                            <ComboBoxItem Tag="net5.0">.NET 5.0</ComboBoxItem>
                             <ComboBoxItem Tag="net48">.NET Framework 4.8</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
