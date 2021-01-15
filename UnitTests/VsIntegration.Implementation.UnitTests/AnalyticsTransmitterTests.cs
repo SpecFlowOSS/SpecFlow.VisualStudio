@@ -105,7 +105,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             analyticsTransmitterSink.Verify(sink => sink.TransmitEvent(It.Is<ExtensionUpgradedAnalyticsEvent>(eu => eu.OldExtensionVersion == oldExtensionVersion)), Times.Once);
         }
 
-        [TestCase(10, "10 day usage")]
+        [TestCase(5, "5 day usage")]
+        [TestCase(20, "20 day usage")]
         [TestCase(100, "100 day usage")]
         [TestCase(200, "200 day usage")]
         public void Should_TransmitExtensionUsageEvents(int daysOfUsage, string expectedEventName)
