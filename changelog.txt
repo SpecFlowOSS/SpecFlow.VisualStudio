@@ -1,3 +1,5 @@
+TEST
+
 Upcoming
 + Fix styling issues in the Project Template Wizard
 + Add support for .NET Core 5 in the Project Template Wizard 
