@@ -15,7 +15,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Services
             // Trailing white spaces are always ignored but folders may have
             // leading spaces. It's unusual but it may happen. If it's an issue
             // then just replace TrimEnd() with Trim(). Tnx Paul Groke to point this out.
-            path = path.TrimEnd();
+            //path = path.TrimEnd();
 
             // Argument is always a directory name then if there is one
             // of allowed separators then I have nothing to do.
