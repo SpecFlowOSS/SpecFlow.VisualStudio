@@ -1,6 +1,6 @@
 Upcoming
 + Fix styling issues in the Project Template Wizard
-+ Add support for .NET Core 5 in the Project Template Wizard 
++ Add all supported .NET Implementations in the Project Template Wizard 
 + Update the feature file templates
 
 2019.0.71 - 2020-12-09
