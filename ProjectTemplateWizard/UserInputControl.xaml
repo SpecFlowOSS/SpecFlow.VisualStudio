@@ -72,40 +72,46 @@
                    FontWeight="Normal" FontSize="33.96"
                    Margin="0,0,0,4" Padding="0,0,0,0">Create a new SpecFlow project</Label>
 
-                <Grid Grid.Row="1" Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="6*" />
-                        <ColumnDefinition Width="4*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0">
-                        <Label Margin="0,16,0,10" Padding="0,0,0,0">Framework</Label>
-                        <ComboBox x:Name="DotNetFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
-                            <ComboBoxItem Tag="netcoreapp3.1" IsSelected="True">.NET Core 3.1</ComboBoxItem>
-                            <ComboBoxItem Tag="net5.0">.NET 5.0</ComboBoxItem>
-                            <ComboBoxItem Tag="net48">.NET Framework 4.8</ComboBoxItem>
-                        </ComboBox>
-                    </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <Label Margin="0,16,0,10" Padding="0,0,0,0">Framework</Label>
+                    <ComboBox x:Name="DotNetFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
+                        <ComboBoxItem Tag="netcoreapp2.1">.NET Core 2.1</ComboBoxItem>
+                        <ComboBoxItem Tag="netcoreapp3.1" IsSelected="True">.NET Core 3.1</ComboBoxItem>
+                        <ComboBoxItem Tag="net5.0">.NET 5.0</ComboBoxItem>
+                        <ComboBoxItem Tag="net461">.NET Framework 4.6.1</ComboBoxItem>
+                        <ComboBoxItem Tag="net462">.NET Framework 4.6.2</ComboBoxItem>
+                        <ComboBoxItem Tag="net47">.NET Framework 4.7</ComboBoxItem>
+                        <ComboBoxItem Tag="net471">.NET Framework 4.7.1</ComboBoxItem>
+                        <ComboBoxItem Tag="net472">.NET Framework 4.7.2</ComboBoxItem>
+                        <ComboBoxItem Tag="net48">.NET Framework 4.8</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
 
-                    <StackPanel Grid.Row="1" Grid.Column="0">
-                        <Label Margin="0,16,0,10" Padding="0,0,0,0">Test Framework</Label>
-                        <ComboBox x:Name="UnitTestFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
-                            <ComboBoxItem Tag="runner" IsSelected="True">SpecFlow+ Runner</ComboBoxItem>
-                            <ComboBoxItem Tag="xunit">xUnit</ComboBoxItem>
-                            <ComboBoxItem Tag="nunit">NUnit</ComboBoxItem>
-                            <ComboBoxItem Tag="mstest">MSTest</ComboBoxItem>
-                        </ComboBox>
-                    </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <Label Margin="0,16,0,10" Padding="0,0,0,0">Test Framework</Label>
+                    <ComboBox x:Name="UnitTestFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
+                        <ComboBoxItem Tag="runner" IsSelected="True">SpecFlow+ Runner</ComboBoxItem>
+                        <ComboBoxItem Tag="xunit">xUnit</ComboBoxItem>
+                        <ComboBoxItem Tag="nunit">NUnit</ComboBoxItem>
+                        <ComboBoxItem Tag="mstest">MSTest</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
 
-                    <StackPanel Grid.Row="2" Grid.Column="0">
-                        <CheckBox x:Name="FluentAssertionsCheckBox" Content="Add FluentAssertions library" IsChecked="True" Margin="0,16,0,10" />
-                    </StackPanel>
-                </Grid>
+                <StackPanel Grid.Row="2" Grid.Column="0">
+                    <CheckBox x:Name="FluentAssertionsCheckBox" Content="Add FluentAssertions library" IsChecked="True" Margin="0,16,0,10" />
+                </StackPanel>
+            </Grid>
 
             <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
