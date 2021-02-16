@@ -1,7 +1,12 @@
-Upcoming
-+ Fix styling issues in the Project Template Wizard
-+ Add all supported .NET Implementations in the Project Template Wizard 
+2019.0.79 - 2021-02-16
++ Add all supported .NET Implementations in the Project Template Wizard
 + Update the feature file templates
+
+2019.0.77 - 2021-01-25
++ Update the feature file templates
+
+2019.0.76 - 2021-01-18
++ Fix styling issues in the Project Template Wizard
 
 2019.0.71 - 2020-12-09
 + Fix: Renaming a step should not change the parameters
