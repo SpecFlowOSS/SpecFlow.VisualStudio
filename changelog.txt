@@ -1,3 +1,6 @@
+2019.0.80 - 2021-02-17
++ Update project templates
+
 2019.0.79 - 2021-02-16
 + Add all supported .NET Implementations in the Project Template Wizard
 + Update the feature file templates
