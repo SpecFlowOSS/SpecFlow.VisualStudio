@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.7.2" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.7.10" />
 
     $if$ ('$unittestframework$' == 'runner')
     <PackageReference Include="SpecRun.SpecFlow" Version="3.7.3" />
