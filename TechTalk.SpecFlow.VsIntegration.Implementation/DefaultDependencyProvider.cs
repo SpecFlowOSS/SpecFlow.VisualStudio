@@ -38,7 +38,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
         {
             container.RegisterTypeAs<InstallServices, InstallServices>();
             container.RegisterTypeAs<InstallServicesHelper, InstallServicesHelper>();
-            container.RegisterTypeAs<VsBrowserGuidanceNotificationService, IGuidanceNotificationService>();
+            container.RegisterTypeAs<ExternalBrowserGuidanceNotificationService, IGuidanceNotificationService>();
             container.RegisterTypeAs<WindowsFileAssociationDetector, IFileAssociationDetector>();
             container.RegisterTypeAs<RegistryStatusAccessor, IStatusAccessor>();
 
