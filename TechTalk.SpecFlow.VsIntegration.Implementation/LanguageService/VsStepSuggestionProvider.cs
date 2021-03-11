@@ -21,6 +21,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
         public event Action BindingsChanged;
 
         private readonly Dictionary<BindingFileInfo, List<IStepDefinitionBinding>> bindingSuggestions = new Dictionary<BindingFileInfo, List<IStepDefinitionBinding>>();
+        private readonly Dictionary<BindingFileInfo, List<StepArgumentType>> stepArgumentSuggestions = new Dictionary<BindingFileInfo, List<StepArgumentType>>();
         private readonly Dictionary<FeatureFileInfo, List<IStepSuggestion<Completion>>> fileSuggestions = new Dictionary<FeatureFileInfo, List<IStepSuggestion<Completion>>>();
 
         public bool Populated
@@ -208,6 +209,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
                 FireBindingsChanged();
             }
+
+            List<StepArgumentType> stepArgumentTypes;
+            if (stepArgumentSuggestions.TryGetValue(bindingFileInfo, out stepArgumentTypes))
+            {
+                stepArgumentTypes.ForEach(RemoveStepArgumentType);
+                stepArgumentSuggestions.Remove(bindingFileInfo);
+            }
         }
 
         private void BindingFilesTrackerOnFileUpdated(BindingFileInfo bindingFileInfo)
@@ -237,6 +245,25 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
             if (isChanged)
                 FireBindingsChanged();
+
+            List<StepArgumentType> stepArgumentTypes;
+            if (stepArgumentSuggestions.TryGetValue(bindingFileInfo, out stepArgumentTypes))
+            {
+                stepArgumentTypes.ForEach(RemoveStepArgumentType);
+                stepArgumentTypes.Clear();
+            }
+
+            if (!bindingFileInfo.IsError && bindingFileInfo.StepArgumentTypes.Any())
+            {
+                if (stepArgumentTypes == null)
+                {
+                    stepArgumentTypes = new List<StepArgumentType>();
+                    stepArgumentSuggestions.Add(bindingFileInfo, stepArgumentTypes);
+                }
+
+                stepArgumentTypes.AddRange(bindingFileInfo.StepArgumentTypes);
+                stepArgumentTypes.ForEach(AddStepArgumentType);
+            }
         }
 
         public void RegisterStepDefinitionBinding(IStepDefinitionBinding stepDefinitionBinding)

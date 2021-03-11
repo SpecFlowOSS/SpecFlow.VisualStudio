@@ -426,6 +426,32 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
             }
         }
 
+        public static IEnumerable<CodeEnum> GetEnums(ProjectItem projectItem)
+        {
+            if (projectItem.FileCodeModel == null || projectItem.FileCodeModel.CodeElements == null)
+                return Enumerable.Empty<CodeEnum>();
+
+            return GetEnums(projectItem.FileCodeModel.CodeElements);
+        }
+
+        private static IEnumerable<CodeEnum> GetEnums(CodeElements codeElements)
+        {
+            foreach (CodeElement codeElement in codeElements)
+            {
+                if (codeElement.Kind == vsCMElement.vsCMElementNamespace ||
+                    codeElement.Kind == vsCMElement.vsCMElementClass)
+                {
+                    foreach (var codeEnum in GetEnums(codeElement.Children))
+                        yield return codeEnum;
+                }
+                else if (codeElement.Kind == vsCMElement.vsCMElementEnum)
+                {
+                    CodeEnum codeEnum = (CodeEnum)codeElement;
+                    yield return codeEnum;
+                }
+            }
+        }
+
         public static IEnumerable<CodeClass> GetClasses(ProjectItem projectItem)
         {
             if (projectItem.FileCodeModel == null || projectItem.FileCodeModel.CodeElements == null)

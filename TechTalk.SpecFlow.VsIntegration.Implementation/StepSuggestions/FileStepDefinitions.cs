@@ -8,5 +8,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
         public string FileName { get; set; }
         public DateTime TimeStamp { get; set; }
         public List<StepDefinitionBindingItem> StepDefinitions { get; set; }
+        public List<StepArgumentType> StepArgumentTypes { get; set; }
     }
 }

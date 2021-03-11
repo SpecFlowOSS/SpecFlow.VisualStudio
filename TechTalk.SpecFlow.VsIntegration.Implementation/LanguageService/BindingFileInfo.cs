@@ -4,6 +4,7 @@ using System.IO;
 using EnvDTE;
 using TechTalk.SpecFlow.Bindings;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 using VSLangProj;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
@@ -11,6 +12,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
     public class BindingFileInfo : FileInfo
     {
         public IEnumerable<IStepDefinitionBinding> StepBindings { get; set; }
+        public IEnumerable<StepArgumentType> StepArgumentTypes { get; set; }
 
         public bool IsAssembly
         {

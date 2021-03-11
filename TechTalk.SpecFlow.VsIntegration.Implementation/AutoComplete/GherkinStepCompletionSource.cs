@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.Parser;
 using TechTalk.SpecFlow.Parser.Gherkin;
@@ -52,7 +54,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
                         completions,
                         null));
             }
-            else
+            else if (IsKeywordPrefix(triggerPoint.Value - 1, languageService))
             {
                 string parsedKeyword;
                 var bindingType = GetCurrentBindingType(triggerPoint.Value, out parsedKeyword);
@@ -78,6 +80,33 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
                 if (!string.IsNullOrEmpty(statusText))
                     completionSet.StatusText = statusText;
                 completionSets.Add(completionSet);
+            }
+            else
+            {
+                SnapshotSpan? stepArgumentSpan;
+                IBindingType stepArgumentType = GetCurrentStepArgumentType(triggerPoint.Value, languageService, out stepArgumentSpan);
+
+                if (stepArgumentType != null && stepArgumentSpan != null)
+                {
+                    IEnumerable<Completion> completions;
+                    string statusText;
+                    GetCompletionsForStepArgumentType(stepArgumentType.FullName, out completions, out statusText);
+
+                    ITrackingSpan applicableTo = snapshot.CreateTrackingSpan(
+                        stepArgumentSpan.Value, SpanTrackingMode.EdgeInclusive);
+
+                    string displayName = string.Format("All {0} Values", stepArgumentType.Name);
+                    var completionSet = new CustomCompletionSet(
+                        displayName,
+                        displayName,
+                        applicableTo,
+                        completions,
+                        null);
+
+                    if (!string.IsNullOrEmpty(statusText))
+                        completionSet.StatusText = statusText;
+                    completionSets.Add(completionSet);
+                }
             }
         }
 
@@ -168,6 +197,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             GherkinDialect dialect = GetDialect(languageService);
             return dialect.GetKeywords().Any(k => k.StartsWith(firstWord, StringComparison.CurrentCultureIgnoreCase));
         }
+
+        static internal bool IsStepArgument(SnapshotPoint triggerPoint, GherkinLanguageService languageService)
+        {
+            SnapshotSpan? stepArgumentSpan;
+            return GetCurrentStepArgumentType(triggerPoint, languageService, out stepArgumentSpan) != null;
+        }
+
 
         private ITrackingSpan GetApplicableToForKeyword(ITextSnapshot snapshot, SnapshotPoint triggerPoint)
         {
@@ -279,6 +315,97 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
                 completions = suggestionProvider.GetNativeSuggestionItems(stepDefinitionType);
             }
             catch(Exception)
+            {
+                //fallback case
+                completions = Enumerable.Empty<Completion>();
+            }
+        }
+
+        static private IBindingType GetCurrentStepArgumentType(SnapshotPoint triggerPoint, GherkinLanguageService languageService,  out SnapshotSpan? stepArgumentSpan)
+        {
+            stepArgumentSpan = null;
+
+            var fileScope = languageService.GetFileScope(waitForParsingSnapshot: triggerPoint.Snapshot);
+            if (fileScope == null)
+                return null;
+
+            var triggerLineNumber = triggerPoint.Snapshot.GetLineNumberFromPosition(triggerPoint.Position);
+            var step = fileScope.GetStepAtPosition(triggerLineNumber);
+            if (step == null)
+                return null;
+
+            // todo: this will not find a match if the step argument is at the end of the binding definition,
+            //       because trailing whitespace is already removed from step.Text
+            Infrastructure.StepDefinitionAmbiguityReason ambuguitiyReason;
+            List<BindingMatch> matches;
+            BindingMatch bindingMatch = languageService.ProjectScope.BindingMatchService.GetBestMatch(
+                step,
+                fileScope.GherkinDialect.CultureInfo,
+                out ambuguitiyReason,
+                out matches);
+
+            if (!bindingMatch.Success)
+                return null;
+
+            // todo: this regex will only match with the current step definition, if it also captures
+            //       the default step argument insertion (as "{argName}" ).
+            //       This is e.g. the case when the step argument is caputed as (.*), but not when using (Value1|Value2).
+            Regex regex = bindingMatch.StepBinding.Regex;
+
+            var line = triggerPoint.GetContainingLine();
+            SnapshotPoint stepTextStart = line.Start;
+            ForwardWhile(ref stepTextStart, triggerPoint, p => char.IsWhiteSpace(p.GetChar()));
+            stepTextStart += step.Keyword.Length;
+            string stepText = line.Snapshot.GetText(stepTextStart, line.End - stepTextStart);
+
+            int triggerPointIndexInStepText = triggerPoint.Position - stepTextStart;
+            var m = regex.Match(stepText);
+            if (!m.Success || m.Groups.Count <= 1)
+                return null;
+
+            // group at index 0 matches the entire regular expression pattern
+            // so start searching for step parameters at index 1
+            for (int g = 1; g < m.Groups.Count; g++)
+            {
+                Group group = m.Groups[g];
+                if (group.Captures.Count > 0)
+                {
+                    Capture capture = group.Captures[0];
+                    if (triggerPointIndexInStepText >= capture.Index &&
+                        triggerPointIndexInStepText <= capture.Index + capture.Length &&
+                        bindingMatch.StepBinding.Method.Parameters.Count() >= g)
+                    {
+                        stepArgumentSpan = new SnapshotSpan(stepTextStart + capture.Index, capture.Length);
+                        return bindingMatch.StepBinding.Method.Parameters.ElementAt(g-1).Type;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private void GetCompletionsForStepArgumentType(string fullTypeName, out IEnumerable<Completion> completions, out string statusText)
+        {
+            statusText = null;
+
+            var suggestionProvider = languageService.ProjectScope.StepSuggestionProvider;
+            if (suggestionProvider == null)
+            {
+                completions = Enumerable.Empty<Completion>();
+                return;
+            }
+
+            if (!suggestionProvider.BindingsPopulated)
+            {
+                string percentText = string.Format("({0}% completed)", suggestionProvider.GetPopulationPercent());
+                statusText = "step argument suggestion list is being populated... " + percentText;
+            }
+
+            try
+            {
+                completions = suggestionProvider.GetNativeStepArgumentSuggestionItems(fullTypeName);
+            }
+            catch (Exception)
             {
                 //fallback case
                 completions = Enumerable.Empty<Completion>();

@@ -27,9 +27,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.AutoComplete
             {
                 return GherkinStepCompletionSource.IsKeywordPrefix(caret, languageService);
             }
-            if (GherkinStepCompletionSource.IsStepLine(caret, languageService))
+            if (ch == ' ' && GherkinStepCompletionSource.IsStepLine(caret, languageService))
             {
-                return ch == ' ' && GherkinStepCompletionSource.IsKeywordPrefix(caret - 1, languageService); 
+                return GherkinStepCompletionSource.IsKeywordPrefix(caret - 1, languageService) // step completion
+                    || GherkinStepCompletionSource.IsStepArgument(caret, languageService); // step argument completion
             }
 
             return false;

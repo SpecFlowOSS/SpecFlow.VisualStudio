@@ -4,11 +4,13 @@ using System.Linq;
 using EnvDTE;
 using EnvDTE80;
 using TechTalk.SpecFlow.Bindings;
+using TechTalk.SpecFlow.Bindings.Reflection;
 using TechTalk.SpecFlow.Bindings.Discovery;
 using TechTalk.SpecFlow.IdeIntegration.Bindings;
 using TechTalk.SpecFlow.IdeIntegration.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
+using TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Bindings.Discovery
 {
@@ -34,6 +36,26 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Bindings.Discovery
             relatedProjectItems = new List<ProjectItem>();
             ProcessBindingsFromProjectItem(projectItem, bindingProcessor, relatedProjectItems);
             return bindingProcessor.ReadStepDefinitionBindings();
+        }
+
+        public IEnumerable<StepArgumentType> GetStepArgumentTypesFromProjectItem(ProjectItem projectItem)
+        {
+            List<StepArgumentType> stepArgumentTypes = new List<StepArgumentType>();
+            foreach (CodeEnum codeEnum in VsxHelper.GetEnums(projectItem))
+            {
+                List<string> values = new List<string>();
+                foreach (CodeElement member in codeEnum.Members)
+                {
+                    values.Add(member.Name);
+                }
+
+                StepArgumentType stepArgumentType = new StepArgumentType();
+                stepArgumentType.Type = new BindingType(codeEnum.Name, codeEnum.FullName);
+                stepArgumentType.Values = values;
+
+                stepArgumentTypes.Add(stepArgumentType);
+            }
+            return stepArgumentTypes;
         }
 
         private void ProcessBindingsFromProjectItem(ProjectItem projectItem, IdeBindingSourceProcessor bindingSourceProcessor, List<ProjectItem> relatedProjectItems)

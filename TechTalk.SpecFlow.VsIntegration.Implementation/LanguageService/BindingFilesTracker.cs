@@ -120,6 +120,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                 List<ProjectItem> relatedProjectItems;
                 fileInfo.StepBindings = stepSuggestionBindingCollector.GetBindingsFromProjectItem(projectItem, out relatedProjectItems).ToArray();
                 relatedFiles = relatedProjectItems.Select(pi => FindFileInfo(VsxHelper.GetProjectRelativePath(pi))).Where(fi => fi != null).Distinct().ToList();
+                fileInfo.StepArgumentTypes = stepSuggestionBindingCollector.GetStepArgumentTypesFromProjectItem(projectItem);
                 fileInfo.LastChangeDate = VsxHelper.GetLastChangeDate(projectItem) ?? DateTime.MinValue;
             }
         }
@@ -184,6 +185,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
 
                 fileStepDefinitions.StepDefinitions = new List<StepDefinitionBindingItem>();
                 fileStepDefinitions.StepDefinitions.AddRange(bindingFileInfo.StepBindings.Select(StepDefinitionBindingItem.FromStepDefinitionBinding));
+                fileStepDefinitions.StepArgumentTypes = bindingFileInfo.StepArgumentTypes.ToList();
                 projectStepDefinitions.FileStepDefinitions.Add(fileStepDefinitions);
             }
         }
@@ -222,6 +224,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService
                         continue;
 
                     fileInfo.StepBindings = fileStepDefinitions.StepDefinitions.Select(bi => bi.ToStepDefinitionBinding()).ToList();
+                    fileInfo.StepArgumentTypes = fileStepDefinitions.StepArgumentTypes;
 
                     FireFileUpdated(fileInfo);
                     fileInfo.IsError = false;

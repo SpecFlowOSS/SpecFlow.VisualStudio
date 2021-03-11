@@ -16,6 +16,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
         protected readonly INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory;
         protected readonly RegexDictionary<BoundStepSuggestions<TNativeSuggestionItem>> boundStepSuggestions;
         private readonly Dictionary<StepDefinitionType, BoundStepSuggestions<TNativeSuggestionItem>> notMatchingSteps;
+        private readonly Dictionary<string, StepArgumentType> stepArgumentSuggestions;
 
         protected abstract IStepDefinitionMatchService BindingMatchService { get; }
 
@@ -45,6 +46,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
             }
         }
 
+        public IEnumerable<TNativeSuggestionItem> GetNativeStepArgumentSuggestionItems(string fullTypeName)
+        {
+            StepArgumentType stepArgumentType;
+            if (stepArgumentSuggestions.TryGetValue(fullTypeName, out stepArgumentType))
+            {
+                foreach (string suggestion in stepArgumentType.Values)
+                    yield return nativeSuggestionItemFactory.Create(suggestion, suggestion, 0, null, null);
+            }
+        }
+
         protected StepSuggestionProvider(INativeSuggestionItemFactory<TNativeSuggestionItem> nativeSuggestionItemFactory, IProjectScope projectScope)
         {
             boundStepSuggestions = new RegexDictionary<BoundStepSuggestions<TNativeSuggestionItem>>(item => item.StepBinding == null ? null : item.StepBinding.Regex);
@@ -54,6 +65,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
                                         {StepDefinitionType.When, new BoundStepSuggestions<TNativeSuggestionItem>(StepDefinitionType.When, nativeSuggestionItemFactory)},
                                         {StepDefinitionType.Then, new BoundStepSuggestions<TNativeSuggestionItem>(StepDefinitionType.Then, nativeSuggestionItemFactory)}
                                     };
+            stepArgumentSuggestions = new Dictionary<string, StepArgumentType>();
             this.nativeSuggestionItemFactory = nativeSuggestionItemFactory;
             this.projectScope = projectScope;
         }
@@ -99,6 +111,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.StepSuggestions
             }
 
             boundStepSuggestions.Remove(item);
+        }
+
+        public void AddStepArgumentType(StepArgumentType stepArgumentType)
+        {
+            stepArgumentSuggestions.Remove(stepArgumentType.Type.FullName);
+            stepArgumentSuggestions.Add(stepArgumentType.Type.FullName, stepArgumentType);
+        }
+
+        public void RemoveStepArgumentType(StepArgumentType stepArgumentType)
+        {
+            stepArgumentSuggestions.Remove(stepArgumentType.Type.FullName);
         }
 
         public void AddStepSuggestion(IStepSuggestion<TNativeSuggestionItem> suggestion)
