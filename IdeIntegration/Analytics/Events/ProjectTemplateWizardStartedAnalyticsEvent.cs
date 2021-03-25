@@ -9,6 +9,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
         {
         }
 
-        public override string EventName => AnalyticsEventType.ProjectTemplateWizardStarted.AsString(EnumFormat.Description, EnumFormat.Name);
+        public override string EventName => "Project Template Wizard Started";
     }
 }

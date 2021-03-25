@@ -11,7 +11,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
             SelectedUnitTestFramework = selectedUnitTestFramework;
         }
 
-        public override string EventName => AnalyticsEventType.ProjectTemplateWizardCompleted.AsString(EnumFormat.Description, EnumFormat.Name);
+        public override string EventName => "Project Template Wizard Completed";
         
         public string SelectedUnitTestFramework { get; }
 
