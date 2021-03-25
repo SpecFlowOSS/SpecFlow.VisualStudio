@@ -4,9 +4,11 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
     {
         AfterInstall = 1,
         Upgrade = 2,
-        FiveDayUser = 50,
-        AfterRampUp = 100,
-        Experienced = 200,
-        Veteran = 300
+        TwoDayUsage = 10,
+        FiveDayUsage = 50,
+        TenDayUsage = 100,
+        TwentyDayUsage = 150,
+        HundredDayUsage = 200,
+        TwoHundredDayUsage = 300
     }
 }

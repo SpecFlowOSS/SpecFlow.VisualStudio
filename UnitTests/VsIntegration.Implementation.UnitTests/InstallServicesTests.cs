@@ -152,14 +152,16 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             analyticsTransmitterStub.Verify(at => at.TransmitExtensionUpgradedEvent(_extensionVersion.ToString()), Times.Once);
         }
 
-        [TestCase(5, GuidanceNotification.AfterInstall, 1)]
-        [TestCase(20, GuidanceNotification.FiveDayUser, 1)]
-        [TestCase(100, GuidanceNotification.AfterRampUp, 1)]
-        [TestCase(200, GuidanceNotification.Experienced, 1)]
-        [TestCase(1, GuidanceNotification.AfterRampUp, 0)]
-        [TestCase(6, GuidanceNotification.FiveDayUser, 0)]
-        [TestCase(99, GuidanceNotification.AfterRampUp, 0)]
-        [TestCase(500, GuidanceNotification.Veteran, 0)]
+        [TestCase(2, GuidanceNotification.AfterInstall, 1)]
+        [TestCase(5, GuidanceNotification.TwoDayUsage, 1)]
+        [TestCase(10, GuidanceNotification.FiveDayUsage, 1)]
+        [TestCase(20, GuidanceNotification.TenDayUsage, 1)]
+        [TestCase(100, GuidanceNotification.TwentyDayUsage, 1)]
+        [TestCase(200, GuidanceNotification.HundredDayUsage, 1)]
+        [TestCase(1, GuidanceNotification.TenDayUsage, 0)]
+        [TestCase(6, GuidanceNotification.FiveDayUsage, 0)]
+        [TestCase(99, GuidanceNotification.TenDayUsage, 0)]
+        [TestCase(500, GuidanceNotification.TwoHundredDayUsage, 0)]
         public void Should_FireExtensionUsageEvents(int daysOfUsage, GuidanceNotification notificationLevel, int callCount)
         {
             GivenGuidanceNotificationEnabled();
