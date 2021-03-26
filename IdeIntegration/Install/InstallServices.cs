@@ -7,11 +7,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
 {
     public class InstallServices
     {
-        public const int FIVE_DAY_USAGE = 5;
-        public const int AFTER_RAMP_UP_DAYS = 10;
-        public const int EXPERIENCED_DAYS = 100;
-        public const int VETERAN_DAYS = 200;
-
         private readonly IIdeTracer tracer;
         private readonly IGuidanceNotificationService notificationService;
         private readonly IFileAssociationDetector fileAssociationDetector;
