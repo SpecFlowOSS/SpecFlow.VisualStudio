@@ -4,7 +4,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public class ExtensionUpgradedAnalyticsEvent : AnalyticsEventBase
     {
-        public ExtensionUpgradedAnalyticsEvent(DateTime utcDate, string userId, string oldExtensionVersion, string extensionVersion) : base(utcDate, userId)
+        public ExtensionUpgradedAnalyticsEvent(string ide, DateTime utcDate, string userId, string oldExtensionVersion, string extensionVersion) : base(ide, utcDate, userId)
         {
             OldExtensionVersion = oldExtensionVersion;
             ExtensionVersion = extensionVersion;

@@ -52,44 +52,44 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         public void TransmitExtensionLoadedEvent()
         {
             Execute(() => 
-                new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideName.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value));
+                new ExtensionLoadedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value));
         }
 
         public void TransmitExtensionInstalledEvent()
         {
             Execute(() =>
-                new ExtensionInstalledAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value));
+                new ExtensionInstalledAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value));
             }
 
         public void TransmitExtensionUpgradedEvent(string oldExtensionVersion)
         {
             Execute(() =>                    
-                new ExtensionUpgradedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value));
+                new ExtensionUpgradedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value));
         }
 
         public void TransmitExtensionUsage(int daysOfUsage)
         {
             Execute(() =>
-                new ExtensionUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, daysOfUsage));
+                new ExtensionUsageAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, daysOfUsage));
         }
 
         public void TransmitProjectTemplateWizardStartedEvent()
         {
             Execute(() =>
-                new ProjectTemplateWizardStartedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value));
+                new ProjectTemplateWizardStartedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value));
         }
 
         public void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework)
         {
             Execute(() =>
-                new ProjectTemplateWizardCompletedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework));
+                new ProjectTemplateWizardCompletedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework));
         }
 
         private void TransmitException(Exception exception)
         {
             try
             {
-                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(exception.GetType().ToString(), DateTime.UtcNow);
+                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(_ideName.Value, exception.GetType().ToString(), DateTime.UtcNow);
                 _analyticsTransmitterSink.TransmitEvent(exceptionAnalyticsEvent);
             }
             catch (Exception)

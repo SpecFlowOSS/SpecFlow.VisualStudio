@@ -1,11 +1,10 @@
 ﻿using System;
-using EnumsNET;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public class ProjectTemplateWizardCompletedAnalyticsEvent : AnalyticsEventBase
     {
-        public ProjectTemplateWizardCompletedAnalyticsEvent(DateTime utcDate, string userId, string selectedDotNetFramework, string selectedUnitTestFramework) : base(utcDate, userId)
+        public ProjectTemplateWizardCompletedAnalyticsEvent(string ide, DateTime utcDate, string userId, string selectedDotNetFramework, string selectedUnitTestFramework) : base(ide, utcDate, userId)
         {
             SelectedDotNetFramework = selectedDotNetFramework;
             SelectedUnitTestFramework = selectedUnitTestFramework;
