@@ -6,8 +6,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         Upgrade = 2,
         TwoDayUsage = 10,
         FiveDayUsage = 50,
-        TenDayUsage = 100,
-        TwentyDayUsage = 150,
+        TenDayUsage = 75,
+        TwentyDayUsage = 100,
         HundredDayUsage = 200,
         TwoHundredDayUsage = 300
     }
