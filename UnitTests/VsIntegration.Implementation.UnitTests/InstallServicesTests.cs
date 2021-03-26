@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
@@ -17,8 +18,9 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         Mock<IAnalyticsTransmitter> analyticsTransmitterStub;
         Mock<ICurrentExtensionVersionProvider> currentExtensionVersionProviderStub;
         Mock<IDevBuildChecker> devBuildCheckerStub;
+        private Mock<IGuidanceConfiguration> guidanceConfigurationStub;
         private InstallServices sut;
-        
+
         private readonly Version _extensionVersion = new Version("2019.0");
 
         [SetUp]
@@ -31,9 +33,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             analyticsTransmitterStub = new Mock<IAnalyticsTransmitter>();
             currentExtensionVersionProviderStub = new Mock<ICurrentExtensionVersionProvider>();
             devBuildCheckerStub = new Mock<IDevBuildChecker>();
+            guidanceConfigurationStub = new Mock<GuidanceConfiguration> 
+                {CallBase = true}.As<IGuidanceConfiguration>(); //NOTE: we used the real GuidanceConfiguration by default
             sut = new InstallServices(guidanceNotificationServiceStub.Object, ideTracerStub.Object, 
                 fileAssociationDetectorStub.Object, statusAccessorStub.Object, analyticsTransmitterStub.Object,
-                currentExtensionVersionProviderStub.Object, devBuildCheckerStub.Object);
+                currentExtensionVersionProviderStub.Object, devBuildCheckerStub.Object, guidanceConfigurationStub.Object);
         }
 
         public void GivenVisualStudioVersion()
@@ -172,5 +176,43 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
             analyticsTransmitterStub.Verify(at => at.TransmitExtensionUsage(daysOfUsage), Times.Exactly(callCount));
         }
 
+        [Test]
+        public void Should_NotifyAndTransmitEventForGuidanceStepsWithUrl()
+        {
+            GivenGuidanceNotificationEnabled();
+            var url = "https://someurl.example.org";
+            guidanceConfigurationStub.Setup(s => s.UsageSequence).Returns(new[]
+            {
+                new GuidanceStep(
+                    GuidanceNotification.FiveDayUsage,
+                    5,
+                    url)
+            });
+            GivenVisualStudioExtensionInstalledAndUsed(5, GuidanceNotification.AfterInstall);
+
+            sut.OnPackageUsed(true);
+
+            guidanceNotificationServiceStub.Verify(s => s.ShowPage(url), Times.Once);
+            analyticsTransmitterStub.Verify(at => at.TransmitExtensionUsage(It.IsAny<int>()), Times.Once);
+        }
+
+        [Test]
+        public void Should_NotNotifyButTransmitEventForGuidanceStepsWithNoUrl()
+        {
+            GivenGuidanceNotificationEnabled();
+            guidanceConfigurationStub.Setup(s => s.UsageSequence).Returns(new[]
+            {
+                new GuidanceStep(
+                    GuidanceNotification.FiveDayUsage,
+                    5,
+                    null)
+            });
+            GivenVisualStudioExtensionInstalledAndUsed(5, GuidanceNotification.AfterInstall);
+
+            sut.OnPackageUsed(true);
+
+            guidanceNotificationServiceStub.Verify(s => s.ShowPage(It.IsAny<string>()), Times.Never);
+            analyticsTransmitterStub.Verify(at => at.TransmitExtensionUsage(It.IsAny<int>()), Times.Once);
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<EnvironmentSpecFlowTelemetryChecker, IEnvironmentSpecFlowTelemetryChecker>();
             container.RegisterTypeAs<CurrentExtensionVersionProvider, ICurrentExtensionVersionProvider>();
             container.RegisterTypeAs<DevBuildChecker, IDevBuildChecker>();
+            container.RegisterTypeAs<GuidanceConfiguration, IGuidanceConfiguration>();
         }
 
         protected virtual void RegisterVsDependencies(IObjectContainer container, IServiceProvider serviceProvider)

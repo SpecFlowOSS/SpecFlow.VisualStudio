@@ -19,6 +19,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         private readonly IAnalyticsTransmitter _analyticsTransmitter;
         private readonly ICurrentExtensionVersionProvider _currentExtensionVersionProvider;
         private readonly IDevBuildChecker _devBuildChecker;
+        private readonly IGuidanceConfiguration _guidanceConfiguration;
 
         public IdeIntegration IdeIntegration { get; private set; }
         private Version CurrentVersion => _currentExtensionVersionProvider.GetCurrentExtensionVersion();
@@ -26,7 +27,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
     
         private bool IsDevBuild => _devBuildChecker.IsDevBuild();
 
-        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter, ICurrentExtensionVersionProvider currentExtensionVersionProvider, IDevBuildChecker devBuildChecker)
+        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter, ICurrentExtensionVersionProvider currentExtensionVersionProvider, IDevBuildChecker devBuildChecker, IGuidanceConfiguration guidanceConfiguration)
         {
             this.notificationService = notificationService;
             this.tracer = tracer;
@@ -35,6 +36,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             _analyticsTransmitter = analyticsTransmitter;
             _currentExtensionVersionProvider = currentExtensionVersionProvider;
             _devBuildChecker = devBuildChecker;
+            _guidanceConfiguration = guidanceConfiguration;
             IdeIntegration = IdeIntegration.Unknown;
         }
 
@@ -53,7 +55,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             if (!status.IsInstalled)
             {
                 // new user
-                if (ShowNotification(GuidanceConfiguration.Installation))
+                if (ShowNotification(_guidanceConfiguration.Installation))
                 {
                     _analyticsTransmitter.TransmitExtensionInstalledEvent();
 
@@ -112,7 +114,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             if (status.InstalledVersion < CurrentVersion)
             {
                 //upgrading user   
-                if (ShowNotification(GuidanceConfiguration.Upgrade))
+                if (ShowNotification(_guidanceConfiguration.Upgrade))
                 {
                     _analyticsTransmitter.TransmitExtensionUpgradedEvent(status.InstalledVersion.ToString());
 
@@ -124,7 +126,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
             }
             else
             {
-                var guidance = GuidanceConfiguration.UsageSequence
+                var guidance = _guidanceConfiguration.UsageSequence
                     .FirstOrDefault(i => status.UsageDays >= i.UsageDays && status.UserLevel < (int)i.UserLevel);
                 
                 if (guidance?.UsageDays != null)
