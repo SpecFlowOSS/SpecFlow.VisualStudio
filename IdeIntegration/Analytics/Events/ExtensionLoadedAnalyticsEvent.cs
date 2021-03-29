@@ -6,9 +6,8 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public class ExtensionLoadedAnalyticsEvent : AnalyticsEventBase
     {
-        public ExtensionLoadedAnalyticsEvent(DateTime utcDate, string userId, string ide, string ideVersion, string extensionVersion, IEnumerable<string> projectTargetFrameworks) : base(utcDate, userId)
+        public ExtensionLoadedAnalyticsEvent(string ide, DateTime utcDate, string userId, string ideVersion, string extensionVersion, IEnumerable<string> projectTargetFrameworks) : base(ide, utcDate, userId)
         {
-            Ide = ide;
             IdeVersion = ideVersion;
             ExtensionVersion = extensionVersion;
             ProjectTargetFrameworks = projectTargetFrameworks.ToArray();
@@ -16,7 +15,6 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 
         public override string EventName => "Extension loaded";
 
-        public string Ide { get; }
         public string IdeVersion { get; }
         public string ExtensionVersion { get; }
         public IReadOnlyList<string> ProjectTargetFrameworks { get; }

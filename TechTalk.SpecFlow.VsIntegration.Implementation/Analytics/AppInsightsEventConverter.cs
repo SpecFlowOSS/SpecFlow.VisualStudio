@@ -15,6 +15,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 {
                     { "UserId", analyticsEvent.UserId },
                     { "UtcDate", analyticsEvent.UtcDate.ToString("O") },
+                    { "Ide", analyticsEvent.Ide },
                 }
             };
 
@@ -33,7 +34,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             {
                 eventTelemetry.Properties.Add("ExtensionVersion", extensionLoadedAnalyticsEvent.ExtensionVersion);
                 eventTelemetry.Properties.Add("IdeVersion", extensionLoadedAnalyticsEvent.IdeVersion);
-                eventTelemetry.Properties.Add("Ide", extensionLoadedAnalyticsEvent.Ide);
                 eventTelemetry.Properties.Add("ProjectTargetFramework", string.Join(";", extensionLoadedAnalyticsEvent.ProjectTargetFrameworks));
             }
             if (analyticsEvent is ExtensionUpgradedAnalyticsEvent extensionUpgradeAnalyticsEvent)

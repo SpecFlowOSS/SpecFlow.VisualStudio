@@ -29,34 +29,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             _extensionVersion = new Lazy<string>(() => currentExtensionVersionProvider.GetCurrentExtensionVersion().ToString());
         }
 
-        private IAnalyticsEvent CreateAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null, string selectedDotNetFramework = null, string selectedUnitTestFramework = null)
-        {
-            switch (analyticsEventType)
-            {
-                case AnalyticsEventType.ExtensionLoaded:
-                    return new ExtensionLoadedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideName.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value);
-                case AnalyticsEventType.ExtensionInstalled:
-                    return new ExtensionInstalledAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value);
-                case AnalyticsEventType.ExtensionUpgraded:
-                    return new ExtensionUpgradedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value);
-                case AnalyticsEventType.ExtensionFiveDayUsage:
-                    return new ExtensionFiveDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ExtensionTwentyDayUsage:
-                    return new ExtensionTwentyDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ExtensionOneHundredDayUsage:
-                    return new ExtensionOneHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ExtensionTwoHundredDayUsage:
-                    return new ExtensionTwoHundredDayUsageAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ProjectTemplateWizardStarted:
-                    return new ProjectTemplateWizardStartedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value);
-                case AnalyticsEventType.ProjectTemplateWizardCompleted:
-                    return new ProjectTemplateWizardCompletedAnalyticsEvent(DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(analyticsEventType), analyticsEventType, null);
-            }
-        }
-
-        private void TransmitAnalyticsEvent(AnalyticsEventType analyticsEventType, string oldExtensionVersion = null, string selectedDotNetFramework = null, string selectedUnitTestFramework = null)
+        private void Execute(Func<IAnalyticsEvent> createEvent)
         {
             try
             {
@@ -65,7 +38,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                     return;
                 }
 
-                var analyticsEvent = CreateAnalyticsEvent(analyticsEventType, oldExtensionVersion, selectedDotNetFramework, selectedUnitTestFramework);
+                var analyticsEvent = createEvent();
 
                 _analyticsTransmitterSink.TransmitEvent(analyticsEvent);
             }
@@ -73,59 +46,50 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
             {
                 TransmitException(ex);
             }
+
         }
 
         public void TransmitExtensionLoadedEvent()
         {
-            TransmitAnalyticsEvent(AnalyticsEventType.ExtensionLoaded);
+            Execute(() => 
+                new ExtensionLoadedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value));
         }
 
         public void TransmitExtensionInstalledEvent()
         {
-            TransmitAnalyticsEvent(AnalyticsEventType.ExtensionInstalled);
-        }
+            Execute(() =>
+                new ExtensionInstalledAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value));
+            }
 
         public void TransmitExtensionUpgradedEvent(string oldExtensionVersion)
         {
-            TransmitAnalyticsEvent(AnalyticsEventType.ExtensionUpgraded, oldExtensionVersion);
+            Execute(() =>                    
+                new ExtensionUpgradedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value));
         }
 
         public void TransmitExtensionUsage(int daysOfUsage)
         {
-            switch (daysOfUsage)
-            {
-                case InstallServices.FIVE_DAY_USAGE:
-                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionFiveDayUsage);
-                    break;
-                case InstallServices.AFTER_RAMP_UP_DAYS:
-                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionTwentyDayUsage);
-                    break;
-                case InstallServices.EXPERIENCED_DAYS:
-                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionOneHundredDayUsage);
-                    break;
-                case InstallServices.VETERAN_DAYS:
-                    TransmitAnalyticsEvent(AnalyticsEventType.ExtensionTwoHundredDayUsage);
-                    break;
-                default:
-                    break;
-            }
+            Execute(() =>
+                new ExtensionUsageAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, daysOfUsage));
         }
 
         public void TransmitProjectTemplateWizardStartedEvent()
         {
-            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateWizardStarted);
+            Execute(() =>
+                new ProjectTemplateWizardStartedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value));
         }
 
         public void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework)
         {
-            TransmitAnalyticsEvent(AnalyticsEventType.ProjectTemplateWizardCompleted, null, selectedDotNetFramework, selectedUnitTestFramework);
+            Execute(() =>
+                new ProjectTemplateWizardCompletedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework));
         }
 
         private void TransmitException(Exception exception)
         {
             try
             {
-                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(exception.GetType().ToString(), DateTime.UtcNow);
+                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(_ideName.Value, exception.GetType().ToString(), DateTime.UtcNow);
                 _analyticsTransmitterSink.TransmitEvent(exceptionAnalyticsEvent);
             }
             catch (Exception)

@@ -130,5 +130,15 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
                 ex.ExceptionType == "System.UnauthorizedAccessException")), Times.Once);
         }
 
+        [Test]
+        public void Should_TransmitEventsWithIdeParameter()
+        {
+            GivenAnalyticsEnabled();
+            ideInformationStore.Setup(s => s.GetName()).Returns("NAME_OF_IDE");
+            
+            sut.TransmitExtensionUsage(100);
+
+            analyticsTransmitterSink.Verify(sink => sink.TransmitEvent(It.Is<ExtensionUsageAnalyticsEvent>(e => e.Ide == "NAME_OF_IDE")));
+        }
     }
 }

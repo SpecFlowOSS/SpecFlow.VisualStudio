@@ -1,14 +1,13 @@
 ﻿using System;
-using EnumsNET;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public class ProjectTemplateWizardStartedAnalyticsEvent : AnalyticsEventBase
     {
-        public ProjectTemplateWizardStartedAnalyticsEvent(DateTime utcDate, string userId) : base(utcDate, userId)
+        public ProjectTemplateWizardStartedAnalyticsEvent(string ide, DateTime utcDate, string userId) : base(ide, utcDate, userId)
         {
         }
 
-        public override string EventName => AnalyticsEventType.ProjectTemplateWizardStarted.AsString(EnumFormat.Description, EnumFormat.Name);
+        public override string EventName => "Project Template Wizard Started";
     }
 }
