@@ -35,7 +35,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Configuration.JsonConfig
             {
                 if (!string.IsNullOrWhiteSpace(jsonConfig.BindingCulture.Name))
                 {
-                    featureLanguage = CultureInfo.GetCultureInfo(jsonConfig.BindingCulture.Name);
+                    bindingCulture = CultureInfo.GetCultureInfo(jsonConfig.BindingCulture.Name);
                 }
             }
 
