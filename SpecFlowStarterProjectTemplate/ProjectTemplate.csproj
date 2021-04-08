@@ -20,7 +20,7 @@
 
     $if$ ('$unittestframework$' == 'nunit')
     <PackageReference Include="SpecFlow.NUnit" Version="3.7.38" />
-    <PackageReference Include="nunit" Version="3.13.0" />
+    <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     $endif$
 
