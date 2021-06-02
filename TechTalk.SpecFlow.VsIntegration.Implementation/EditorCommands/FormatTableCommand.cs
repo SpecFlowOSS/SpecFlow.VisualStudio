@@ -58,6 +58,8 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
             const string escapedPipeString = "\\\0";
             oldTable = oldTable.Replace("\\|", escapedPipeString);
 
+            bool hasCRCharacter = oldTable.Contains("\r");
+
             string[] lines = oldTable.Replace("\r\n", "\n").Split('\n');
             if (lines.All(l => l.StartsWith("#")))
                 return null;
@@ -114,7 +116,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands
 
             stringBuilder.Remove(stringBuilder.Length - Environment.NewLine.Length, Environment.NewLine.Length);
 
-            return stringBuilder.ToString().Replace(escapedPipeString, "\\|");
+            string result = stringBuilder.ToString().Replace(escapedPipeString, "\\|");
+
+            if (!hasCRCharacter)
+            {
+                result = result.Replace("\r", "");
+            }
+
+            return result;
         }
 
         private static string[] GetCells(string line)
