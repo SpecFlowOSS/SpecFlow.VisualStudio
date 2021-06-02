@@ -1,4 +1,4 @@
-Upcoming
+2019.0.91 - 2021-05-19
 + Update nunit package reference in project templates
 + Fix specflow.json template to generate a valid configuration
 + Update MSTest package references in project templates
