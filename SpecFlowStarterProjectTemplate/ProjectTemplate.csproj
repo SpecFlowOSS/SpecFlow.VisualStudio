@@ -6,26 +6,26 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.8.35" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.5" />
 
     $if$ ('$unittestframework$' == 'runner')
-    <PackageReference Include="SpecRun.SpecFlow" Version="3.8.12" />
+    <PackageReference Include="SpecRun.SpecFlow" Version="3.9.7" />
     $endif$
 
     $if$ ('$unittestframework$' == 'xunit')
-    <PackageReference Include="SpecFlow.xUnit" Version="3.8.7" />
+    <PackageReference Include="SpecFlow.xUnit" Version="3.9.8" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     $endif$
 
     $if$ ('$unittestframework$' == 'nunit')
-    <PackageReference Include="SpecFlow.NUnit" Version="3.8.7" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.9.8" />
     <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     $endif$
 
     $if$ ('$unittestframework$' == 'mstest')
-    <PackageReference Include="SpecFlow.MsTest" Version="3.8.7" />
+    <PackageReference Include="SpecFlow.MsTest" Version="3.9.8" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
     $endif$
