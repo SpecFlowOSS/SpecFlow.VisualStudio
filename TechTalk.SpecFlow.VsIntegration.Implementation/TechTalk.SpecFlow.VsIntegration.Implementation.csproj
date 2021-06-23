@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
     <!-- This is only the testing instance's instrumentation key -->
@@ -76,9 +76,7 @@
     <Compile Update="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.Designer.cs">
       <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="$(MSBuildThisFileDirectory)Options\OptionsPageGeneral.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="$(MSBuildThisFileDirectory)Options\OptionsPageGeneral.cs" />
   </ItemGroup>
   <Target Name="RunTokenReplace" AfterTargets="GetBuildVersion" BeforeTargets="BeforeCompile" Condition="$(DesignTimeBuild) != 'true' OR '$(BuildingProject)' == 'true'">
     <ReplaceTextInFileTask InputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.template.cs" OutputFile="$(SolutionDir)TechTalk.SpecFlow.VsIntegration.Implementation\Analytics\AppInsightsInstrumentationKey.cs" TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
