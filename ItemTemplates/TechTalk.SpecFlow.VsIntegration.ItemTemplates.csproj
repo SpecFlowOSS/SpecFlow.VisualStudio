@@ -65,9 +65,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.VisualStudio.CoreUtility.14.0.23205\lib\net45\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -177,7 +174,6 @@
     <Content Include="SpecFlowStepDefinition\SpecFlowStepDefinitionIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="SpecFlowFeature_Nederlands\SpecFlowFeature1.feature" />
     <None Include="SpecFlowFeature_French\SpecFlowFeature1.feature" />
     <None Include="SpecFlowFeature_German\SpecFlowFeature1.feature" />
