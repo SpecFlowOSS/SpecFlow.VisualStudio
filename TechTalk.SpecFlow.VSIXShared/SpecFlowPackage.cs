@@ -4,18 +4,15 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using BoDi;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
-using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Notifications;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TechTalk.SpecFlow.VsIntegration.Options;
@@ -85,7 +82,7 @@ namespace TechTalk.SpecFlow.VsIntegration
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2017;
                     case 16:
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2019;
-                    
+
                 }
                 return IdeIntegration.Install.IdeIntegration.Unknown;
             }
@@ -134,6 +131,9 @@ namespace TechTalk.SpecFlow.VsIntegration
                     menuCommandHandler.Value.RegisterTo(menuCommandService, menuCommandHandler.Key);
                 }
             }
+
+            var notificationInfoBar = Container.Resolve<NotificationInfoBar>();
+            await notificationInfoBar.InitializeAsync(cancellationToken);
 
             await base.InitializeAsync(cancellationToken, progress);
         }
