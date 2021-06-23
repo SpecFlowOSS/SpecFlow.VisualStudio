@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
-             xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:vsfx="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              x:Class="ProjectTemplateWizard.UserInputControl"
              mc:Ignorable="d"
              MinWidth="1024" MinHeight="710"
@@ -14,7 +13,7 @@
         VerticalAlignment="Stretch">
         <DockPanel.Resources>
             <Style x:Key="CloseButtonStyle" TargetType="Button">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.SystemButtonTextBrushKey}}" />
+                <Setter Property="Foreground" Value="{DynamicResource EnvironmentColors.SystemButtonTextBrushKey}" />
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">

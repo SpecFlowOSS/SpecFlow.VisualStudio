@@ -17,9 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
-    <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="14.0.81-pre" />
-    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers" Version="15.8.36" />
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="15.0.1" />
     <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />
