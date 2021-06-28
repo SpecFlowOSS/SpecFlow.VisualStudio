@@ -8,7 +8,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
     public class InstallServices
     {
         private readonly IIdeTracer tracer;
-        private readonly IGuidanceNotificationService notificationService;
+        private readonly IBrowserNotificationService notificationService;
         private readonly IFileAssociationDetector fileAssociationDetector;
         private readonly IStatusAccessor statusAccessor;
         private readonly IAnalyticsTransmitter _analyticsTransmitter;
@@ -22,7 +22,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
     
         private bool IsDevBuild => _devBuildChecker.IsDevBuild();
 
-        public InstallServices(IGuidanceNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter, ICurrentExtensionVersionProvider currentExtensionVersionProvider, IDevBuildChecker devBuildChecker, IGuidanceConfiguration guidanceConfiguration)
+        public InstallServices(IBrowserNotificationService notificationService, IIdeTracer tracer, IFileAssociationDetector fileAssociationDetector, IStatusAccessor statusAccessor, IAnalyticsTransmitter analyticsTransmitter, ICurrentExtensionVersionProvider currentExtensionVersionProvider, IDevBuildChecker devBuildChecker, IGuidanceConfiguration guidanceConfiguration)
         {
             this.notificationService = notificationService;
             this.tracer = tracer;

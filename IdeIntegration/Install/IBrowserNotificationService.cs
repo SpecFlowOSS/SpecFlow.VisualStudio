@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Install
 {
-    public interface IGuidanceNotificationService
+    public interface IBrowserNotificationService
     {
         bool ShowPage(string url);
     }
 
-    class TestGuidanceNotificationService : IGuidanceNotificationService
+    class TestBrowserNotificationService : IBrowserNotificationService
     {
         public bool ShowPage(string url)
         {

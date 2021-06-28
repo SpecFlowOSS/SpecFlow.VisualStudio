@@ -132,8 +132,8 @@ namespace TechTalk.SpecFlow.VsIntegration
                 }
             }
 
-            var notificationInfoBar = Container.Resolve<NotificationInfoBar>();
-            await notificationInfoBar.InitializeAsync(cancellationToken);
+            var notificationService = Container.Resolve<NotificationService>();
+            await notificationService.InitializeAsync(cancellationToken);
 
             await base.InitializeAsync(cancellationToken, progress);
         }
