@@ -8,10 +8,9 @@ using BoDi;
 using EnvDTE;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.TemplateWizard;
+using ProjectTemplateWizard.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Options;
-using TechTalk.SpecFlow.VsIntegration.Analytics;
-using TechTalk.SpecFlow.VsIntegration.Implementation;
 
 namespace ProjectTemplateWizard
 {
@@ -29,12 +28,11 @@ namespace ProjectTemplateWizard
 
             try
             {
-                var defaultDependencyProvider = new DefaultDependencyProvider();
                 var container = new ObjectContainer();
-                defaultDependencyProvider.RegisterDependencies(container);
+                container.RegisterAnalyticsDefaults();
                 container.RegisterTypeAs<DefaultOptOutDataCollectionOptionsProvider, IIntegrationOptionsProvider>();
-                container.RegisterTypeAs<EmptyServiceProvider, IServiceProvider>();
-            
+                container.RegisterTypeAs<WizardProjectTargetFrameworksProvider, IProjectTargetFrameworksProvider>();
+
                 _analyticsTransmitter = container.Resolve<IAnalyticsTransmitter>();
             }
             catch (Exception ex)
@@ -66,6 +64,7 @@ namespace ProjectTemplateWizard
         public void RunFinished()
         {
             // Add analytics.
+            
             _analyticsTransmitter.TransmitProjectTemplateWizardCompletedEvent(_inputDialog.DotNetFramework, _inputDialog.UnitTestFramework);
 
             // A workaround so that the Visual extension can recognize the bindings:

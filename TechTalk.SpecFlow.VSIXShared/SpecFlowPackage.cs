@@ -8,13 +8,13 @@ using System.Threading;
 using BoDi;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.Shell;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Install;
-using TechTalk.SpecFlow.VsIntegration.Analytics;
+using TechTalk.SpecFlow.IdeIntegration.Utils;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Notifications;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
-using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TechTalk.SpecFlow.VsIntegration.Options;
 using Task = System.Threading.Tasks.Task;
 

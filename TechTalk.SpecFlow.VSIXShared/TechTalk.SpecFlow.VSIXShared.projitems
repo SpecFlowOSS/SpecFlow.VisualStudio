@@ -9,16 +9,59 @@
     <Import_RootNamespace>TechTalk.SpecFlow.VSIXShared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Analytics\VisualStudioProjectTargetFrameworksProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Asserter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\CompletionCommandFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\CustomCompletionSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinCompletionCommandFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinStepCompletionSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinStepCompletionSourceProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\GherkinTextViewCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\HierarchicalCompletionSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\CompletionSessionPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\CompletionSessionView.xaml.cs">
+      <DependentUpon>CompletionSessionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\IntellisensePresenterProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\Text2Visibility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BiDiContainerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bindings\Discovery\VsBindingMethodLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Bindings\Discovery\VsBindingRegistryBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ContextDependentNavigationCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\DelegateMenuCommandHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GenerateStepDefinitionSkeletonCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GoToStepDefinitionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GoToStepsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\IEditorCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\IGoToStepDefinitionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\IGoToStepsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\MenuCommandHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\ReGenerateAllCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\SpecFlowProjectSingleSelectionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DefaultDependencyProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\CommentUncommentAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\CommentUncommentCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\EditorCommandFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\FormatDocumentCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\FormatTableCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\GherkinEditorContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\GherkinTextViewCreationListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\RenameCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\ReSharperCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\ReSharperCommandGroups.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\VS2012Command.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EditorCommands\VS2012CommandGroups.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generator\VsGeneratorInfoProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generator\VsGeneratorServices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinCommentClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinDescriptionClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFeatureTitleClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassificationDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileClassifierProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileEditorClassifications.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinFileOutliningTagger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinKeywordClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinMultilineTextClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinPlaceholderClassificationFormat.cs" />
@@ -30,15 +73,188 @@
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinTagClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\GherkinUnboundStepTextClassificationFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GherkinFileEditor\OutliningTaggerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GuidList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBiDiContainerProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InstallServicesHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Install\VsBrowserGuidanceNotificationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BackgroundBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingFileInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingFilesTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingStatusKind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\CompletionWithImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ConcurrentQueueExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\DelegateTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ErrorInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\FeatureFileInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\FileInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinBufferServiceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinFileBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinFileBlockBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinFileBlockWithSteps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinFileScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinFileScopeChange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinFileScopeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinLanguageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinLanguageServiceFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinProcessingScheduler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinScopeAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinStep.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinTextBufferChange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinTextBufferChangeType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinTextBufferParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinTextBufferParserListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinTextBufferParserListenerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\GherkinTextBufferPartialParserListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\HeaderBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IBackgroundBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IdleTaskProcessingQueue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IGherkinBufferServiceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IGherkinFileBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IGherkinFileScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IGherkinLanguageServiceFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IGherkinProcessingTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IHeaderBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IInvalidFileBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IKeywordLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\InvalidFileBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IProjectScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IProjectScopeFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IScenarioBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IScenarioOutlineBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IScenarioOutlineExampleSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\IStepBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ITableWithRowPositions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\KeywordLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\NoProjectScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\PartialListeningDoneException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ProjectFeatureFilesTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ProjectFilesTracker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ProjectScopeFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ScenarioBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ScenarioOutlineBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ScenarioOutlineExampleSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ScenarioOutlineExamplesRow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ScenarioOutlineExamplesTable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ShiftedBackgroundBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ShiftedGherkinFileBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ShiftedGherkinFileBlockExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ShiftedInvalidFileBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ShiftedScenarioBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\ShiftedScenarioOutlineBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsBindingReflectionFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsProjectScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsStepSuggestionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsSuggestionItemFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\IntegrationOptionsProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Options\OptionsPageGeneral.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PkgCmdIDList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\CodeGeneratorRegistrationWithFileExtensionAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\CustomToolSwitch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\SingleFileGeneratorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\SingleFileGeneratorError.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\SingleFileGeneratorSupportRegistrationAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\SpecFlowSingleFileGeneratorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpecFlowCmdSet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpecFlowSingleFileGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\BoundInstanceTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\BoundStepSuggestions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\FeatureSteps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\FileStepDefinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\IBoundStepSuggestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\INativeSuggestionItemFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\ISourceFilePosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\IStepSuggestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\IStepSuggestionGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\ProjectStepDefinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepDefinitionBindingItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepInstanceTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepInstanceWithProjectScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepMapSetializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepSuggestionList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepSuggestions\StepSuggestionProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestRunner\SpecRunConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\IVisualStudioTracer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindowDefinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\IOutputWindowDefinitionMetadata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\IOutputWindowPane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\IOutputWindowService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\OutputWindowDefinition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\OutputWindowService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\PredefinedOutputWindowPanes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\ServiceProviderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\VsOutputWindowPaneAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tracing\VisualStudioTracer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ContextMenuBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.Designer.cs">
+      <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\VsContextMenuManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\DteWithEvents.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EnumerableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FileChangeEventsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\RegexDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\SolutionEventsListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StepInstanceComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StringLiteralHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\SynchInitializedInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\SynchronizedResultCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VsProjectFilesTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VsProjectFileTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VsProjectFileTrackerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VsProjectReferencesTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VsxHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VsContainerBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VsSpecFlowConfigurationReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)AutoComplete\IntellisensePresenter\CompletionSessionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)LanguageService\VsStepSuggestionBindingCollector.cs.orig" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\AutoCompleteIcons.psd" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\specflowpackage.ico" />
+    <None Include="$(MSBuildThisFileDirectory)specflow.pkgdef" />
+    <None Include="$(MSBuildThisFileDirectory)Tracing\OutputWindow\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-g-b.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-g-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-g.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-nb.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-t-b.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-t-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-w-b.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-w-t.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\autocomplete-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <DependentUpon>Resources.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\GenerateStepDefinitionSkeletonForm.resx">
+      <DependentUpon>GenerateStepDefinitionSkeletonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)VSPackage.resx">
+      <SubType>Designer</SubType>
+      <LogicalName>VSPackage.resources</LogicalName>
+      <MergeWithCTO>true</MergeWithCTO>
+      <LastGenOutput>VSPackage.Designer.cs</LastGenOutput>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
