@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using Task = System.Threading.Tasks.Task;
 
@@ -14,12 +15,14 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
         private readonly IServiceProvider _serviceProvider;
         private readonly IBrowserNotificationService _browserService;
         private readonly NotificationDataStore _notificationDataStore;
+        private readonly IAnalyticsTransmitter _analyticsTransmitter;
 
-        public NotificationService(IServiceProvider serviceProvider, IBrowserNotificationService browserService, NotificationDataStore notificationDataStore)
+        public NotificationService(IServiceProvider serviceProvider, IBrowserNotificationService browserService, NotificationDataStore notificationDataStore, IAnalyticsTransmitter analyticsTransmitter)
         {
             _serviceProvider = serviceProvider;
             _browserService = browserService;
-            this._notificationDataStore = notificationDataStore;
+            _notificationDataStore = notificationDataStore;
+            _analyticsTransmitter = analyticsTransmitter;
         }
 
 
@@ -75,7 +78,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
             //Showing notification with a slight delay to prove that this thread does not block Visual Studio
             await Task.Delay(TimeSpan.FromSeconds(20));
 
-            var infoBar = new NotificationInfoBar(_serviceProvider, _browserService, _notificationDataStore, notification);
+            var infoBar = new NotificationInfoBar(_serviceProvider, _browserService, _notificationDataStore, _analyticsTransmitter, notification);
             await infoBar.ShowInfoBar();
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using Task = System.Threading.Tasks.Task;
 
@@ -13,14 +14,21 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
         private readonly IServiceProvider _serviceProvider;
         private readonly IBrowserNotificationService _notificationService;
         private readonly NotificationDataStore _notificationDataStore;
+        private readonly IAnalyticsTransmitter _analyticsTransmitter;
         private readonly NotificationData _notification;
         private uint _cookie;
 
-        public NotificationInfoBar(IServiceProvider serviceProvider, IBrowserNotificationService notificationService, NotificationDataStore notificationDataStore, NotificationData notification)
+        public NotificationInfoBar(
+            IServiceProvider serviceProvider,
+            IBrowserNotificationService notificationService,
+            NotificationDataStore notificationDataStore,
+            IAnalyticsTransmitter analyticsTransmitter,
+            NotificationData notification)
         {
             _serviceProvider = serviceProvider;
             _notificationService = notificationService;
             _notificationDataStore = notificationDataStore;
+            _analyticsTransmitter = analyticsTransmitter;
             _notification = notification;
         }
 
@@ -35,12 +43,17 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
             ThreadHelper.ThrowIfNotOnUIThread();
             string url = (string)actionItem.ActionContext;
 
-            _notificationService.ShowPage(url);
+            var opened = _notificationService.ShowPage(url);
+            if (opened)
+            {
+                _analyticsTransmitter.TransmitNotificationLinkOpenedEvent(_notification.Id);
+            }
         }
 
-        public Task ShowInfoBar()
+        public async Task ShowInfoBar()
         {
-            return ShowInfoBar(_notification.Message, _notification.LinkText, _notification.LinkUrl);
+            await ShowInfoBar(_notification.Message, _notification.LinkText, _notification.LinkUrl);
+            _analyticsTransmitter.TransmitNotificationShownEvent(_notification.Id);
         }
 
         private async Task ShowInfoBar(string message, string linkText, string linkUrl)
