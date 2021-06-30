@@ -11,6 +11,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Install
         VisualStudio2013 = 6000,
         VisualStudio2015 = 7000,
         VisualStudio2017 = 8000,
-        VisualStudio2019 = 9000
+        VisualStudio2019 = 9000,
+        VisualStudio2022 = 10000
     }
 }
