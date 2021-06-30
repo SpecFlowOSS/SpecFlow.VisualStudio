@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using TechTalk.SpecFlow.IdeIntegration.Analytics;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using Task = System.Threading.Tasks.Task;
@@ -39,10 +39,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
         {
             try
             {
-                var notification = await GetNotification();
+                var notification = await GetNotificationAsync();
 
                 if (notification != null && !_notificationDataStore.IsDismissed(notification))
-                    await Notify(notification);
+                    await NotifyAsync(notification);
             }
             catch
             {
@@ -50,30 +50,27 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
             }
         }
 
+        private const string DefaultApiUrl = "https://notifications.specflow.org/api/notifications/visualstudio";
+        private const string SpecFlowNotificationUnpublishedEnvironmentVariable = "SPECFLOW_NOTIFICATION_UNPUBLISHED";
 
-        
-        private static async Task<NotificationData> GetNotification()
+        private static string GetApiUrl()
         {
-            //TODO: POC implementation, should call notification service
+            return Environment.GetEnvironmentVariable(SpecFlowNotificationUnpublishedEnvironmentVariable) != "1" ?
+                    DefaultApiUrl : $"{DefaultApiUrl}/unpublished";
+        }
+
+        private static async Task<NotificationData> GetNotificationAsync()
+        {
             var httpClient = new HttpClient();
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            var result = await httpClient.GetAsync("https://specflow.org/tools/releases/");
+            var result = await httpClient.GetAsync(GetApiUrl());
             result.EnsureSuccessStatusCode();
             var content = await result.Content.ReadAsStringAsync();
 
-            var regex = new Regex(@"<h2 class=""[^""]*"">([^>]*)</h2>");
-            var match = regex.Match(content);
-            var text = match.Groups[1].Value;
-            return new NotificationData
-            {
-                Id = text,
-                Message = text,
-                LinkText = "Learn more",
-                LinkUrl = "https://specflow.org/tools/releases/"
-            };
+            return JsonConvert.DeserializeObject<NotificationData>(content);
         }
 
-        private async Task Notify(NotificationData notification)
+        private async Task NotifyAsync(NotificationData notification)
         {
             //Showing notification with a slight delay to prove that this thread does not block Visual Studio
             await Task.Delay(TimeSpan.FromSeconds(20));
