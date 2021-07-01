@@ -55,7 +55,6 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
 
-
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
         }
 
@@ -65,7 +64,6 @@ namespace TechTalk.SpecFlow.VsIntegration
             {
                 Debugger.Break();
             }
-
         }
 
         public static IdeIntegration.Install.IdeIntegration? CurrentIdeIntegration
@@ -82,7 +80,6 @@ namespace TechTalk.SpecFlow.VsIntegration
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2017;
                     case 16:
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2019;
-
                 }
                 return IdeIntegration.Install.IdeIntegration.Unknown;
             }

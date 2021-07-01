@@ -12,7 +12,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
     public class NotificationInfoBar : IVsInfoBarUIEvents
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly IBrowserNotificationService _notificationService;
+        private readonly IBrowserNotificationService _browserService;
         private readonly NotificationDataStore _notificationDataStore;
         private readonly IAnalyticsTransmitter _analyticsTransmitter;
         private readonly NotificationData _notification;
@@ -20,13 +20,13 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
 
         public NotificationInfoBar(
             IServiceProvider serviceProvider,
-            IBrowserNotificationService notificationService,
+            IBrowserNotificationService browserService,
             NotificationDataStore notificationDataStore,
             IAnalyticsTransmitter analyticsTransmitter,
             NotificationData notification)
         {
             _serviceProvider = serviceProvider;
-            _notificationService = notificationService;
+            _browserService = browserService;
             _notificationDataStore = notificationDataStore;
             _analyticsTransmitter = analyticsTransmitter;
             _notification = notification;
@@ -43,7 +43,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
             ThreadHelper.ThrowIfNotOnUIThread();
             string url = (string)actionItem.ActionContext;
 
-            var opened = _notificationService.ShowPage(url);
+            var opened = _browserService.ShowPage(url);
             if (opened)
             {
                 _analyticsTransmitter.TransmitNotificationLinkOpenedEvent(_notification.Id);

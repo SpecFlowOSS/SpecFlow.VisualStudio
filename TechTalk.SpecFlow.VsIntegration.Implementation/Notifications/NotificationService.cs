@@ -4,27 +4,23 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using TechTalk.SpecFlow.IdeIntegration.Analytics;
-using TechTalk.SpecFlow.IdeIntegration.Install;
 using Task = System.Threading.Tasks.Task;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
 {
     public class NotificationService
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IBrowserNotificationService _browserService;
         private readonly NotificationDataStore _notificationDataStore;
-        private readonly IAnalyticsTransmitter _analyticsTransmitter;
+        private readonly NotificationInfoBarFactory _notificationInfoBarFactory;
 
-        public NotificationService(IServiceProvider serviceProvider, IBrowserNotificationService browserService, NotificationDataStore notificationDataStore, IAnalyticsTransmitter analyticsTransmitter)
+        private const string DefaultApiUrl = "https://notifications.specflow.org/api/notifications/visualstudio";
+        private const string SpecFlowNotificationUnpublishedEnvironmentVariable = "SPECFLOW_NOTIFICATION_UNPUBLISHED";
+
+        public NotificationService(NotificationDataStore notificationDataStore, NotificationInfoBarFactory notificationInfoBarFactory)
         {
-            _serviceProvider = serviceProvider;
-            _browserService = browserService;
             _notificationDataStore = notificationDataStore;
-            _analyticsTransmitter = analyticsTransmitter;
+            _notificationInfoBarFactory = notificationInfoBarFactory;
         }
-
 
         public Task InitializeAsync(CancellationToken cancellationToken)
         {
@@ -50,9 +46,6 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
             }
         }
 
-        private const string DefaultApiUrl = "https://notifications.specflow.org/api/notifications/visualstudio";
-        private const string SpecFlowNotificationUnpublishedEnvironmentVariable = "SPECFLOW_NOTIFICATION_UNPUBLISHED";
-
         private static string GetApiUrl()
         {
             return Environment.GetEnvironmentVariable(SpecFlowNotificationUnpublishedEnvironmentVariable) != "1" ?
@@ -72,10 +65,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Notifications
 
         private async Task NotifyAsync(NotificationData notification)
         {
-            //Showing notification with a slight delay to prove that this thread does not block Visual Studio
-            await Task.Delay(TimeSpan.FromSeconds(20));
-
-            var infoBar = new NotificationInfoBar(_serviceProvider, _browserService, _notificationDataStore, _analyticsTransmitter, notification);
+            var infoBar = _notificationInfoBarFactory.Create(notification);
             await infoBar.ShowInfoBar();
         }
     }
