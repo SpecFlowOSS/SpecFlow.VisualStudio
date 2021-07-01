@@ -133,16 +133,32 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
         /// <returns>The project found or <see langword="null"/>.</returns>
         public static Project FindProject(_DTE vs, Predicate<Project> match)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (vs == null) throw new ArgumentNullException("vs");
             if (match == null) throw new ArgumentNullException("match");
 
-            foreach (Project project in vs.Solution.Projects)
+            return FindProjectInSolution(vs.Solution, match);
+        }
+
+        public static Project FindProject(DTE vs, Predicate<Project> match)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (vs == null) throw new ArgumentNullException("vs");
+            if (match == null) throw new ArgumentNullException("match");
+
+            return FindProjectInSolution(vs.Solution, match);
+        }
+
+        private static Project FindProjectInSolution(Solution solution, Predicate<Project> match)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            foreach (Project project in solution.Projects)
             {
                 if (match(project))
                 {
                     return project;
                 }
-                
+
                 if (project.ProjectItems != null)
                 {
                     Project child = FindProjectInternal(project.ProjectItems, match);
@@ -197,7 +213,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
         /// </summary>
         /// <returns>A <see cref="Project"/> reference or <see langword="null" /> if 
         /// it doesn't exist. Project can be C# or VB.</returns>
-        public static Project FindProjectByAssemblyName(_DTE vs, string name)
+        public static Project FindProjectByAssemblyName(DTE vs, string name)
         {
             if (name == null)
                 return null;
