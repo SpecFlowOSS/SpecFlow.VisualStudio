@@ -57,25 +57,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <!--<PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />-->
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Analytics\DefaultOptOutDataCollectionOptionsProvider.cs" />
-    <Compile Include="Analytics\WizardProjectTargetFrameworksProvider.cs" />
-    <Compile Include="UserInputControl.xaml.cs">
-      <DependentUpon>UserInputControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserInputDialog.cs" />
-    <Compile Include="WizardImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="UserInputControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
@@ -83,10 +67,11 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj">
+    <ProjectReference Include="..\..\IdeIntegration\TechTalk.SpecFlow.IdeIntegration.csproj">
       <Project>{44D52C1B-0ABC-44B6-8EB8-0F754E264226}</Project>
       <Name>TechTalk.SpecFlow.IdeIntegration</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\ProjectTemplateWizard.Shared\ProjectTemplateWizard.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

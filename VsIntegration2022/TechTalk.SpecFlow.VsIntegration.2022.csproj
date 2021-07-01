@@ -145,13 +145,13 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectTemplateWizard\ProjectTemplateWizard.csproj">
-      <Project>{4B67F0DD-4216-448E-8D07-01FFECFADFB1}</Project>
-      <Name>ProjectTemplateWizard</Name>
+    <ProjectReference Include="..\ProjectTemplate\ProjectTemplateWizard.2022\ProjectTemplateWizard.2022.csproj">
+      <Project>{cf7a2e76-ce72-4478-9d10-47d157d7d066}</Project>
+      <Name>ProjectTemplateWizard.2022</Name>
       <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
       <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
-    <ProjectReference Include="..\SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj">
+    <ProjectReference Include="..\ProjectTemplate\SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj">
       <Project>{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}</Project>
       <Name>SpecFlowStarterProjectTemplate</Name>
       <VSIXSubPath>ProjectTemplates</VSIXSubPath>

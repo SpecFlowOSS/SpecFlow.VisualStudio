@@ -60,17 +60,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5A165F
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TechTalk.SpecFlow.VSIXShared", "TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.shproj", "{7A62BBFA-3212-420A-AC20-63401A35F534}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowStarterProjectTemplate", "SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj", "{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowStarterProjectTemplate", "ProjectTemplate\SpecFlowStarterProjectTemplate\SpecFlowStarterProjectTemplate.csproj", "{4938DE4A-8E85-4DD6-9B1F-D09728A789CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTemplateWizard", "ProjectTemplateWizard\ProjectTemplateWizard.csproj", "{4B67F0DD-4216-448E-8D07-01FFECFADFB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTemplateWizard", "ProjectTemplate\ProjectTemplateWizard\ProjectTemplateWizard.csproj", "{4B67F0DD-4216-448E-8D07-01FFECFADFB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalk.SpecFlow.VsIntegration.2022", "VsIntegration2022\TechTalk.SpecFlow.VsIntegration.2022.csproj", "{83874F58-C995-4E66-8F5F-F180062C5567}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ProjectTemplateWizard.Shared", "ProjectTemplateWizard.Shared\ProjectTemplateWizard.Shared.shproj", "{43A2E69D-0948-40EE-B7E8-E8D001330E8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTemplateWizard.2022", "ProjectTemplate\ProjectTemplateWizard.2022\ProjectTemplateWizard.2022.csproj", "{CF7A2E76-CE72-4478-9D10-47D157D7D066}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectTemplate", "ProjectTemplate", "{B035157A-BC5A-4766-AFE8-8054A5D79A60}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ProjectTemplateWizard.Shared\ProjectTemplateWizard.Shared.projitems*{43a2e69d-0948-40ee-b7e8-e8d001330e8c}*SharedItemsImports = 13
+		ProjectTemplateWizard.Shared\ProjectTemplateWizard.Shared.projitems*{4b67f0dd-4216-448e-8d07-01ffecfadfb1}*SharedItemsImports = 4
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{7a62bbfa-3212-420a-ac20-63401a35f534}*SharedItemsImports = 13
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{83874f58-c995-4e66-8f5f-f180062c5567}*SharedItemsImports = 4
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{96294e6f-8875-4d12-8577-4ec83e60bd6c}*SharedItemsImports = 4
+		ProjectTemplateWizard.Shared\ProjectTemplateWizard.Shared.projitems*{cf7a2e76-ce72-4478-9d10-47d157d7d066}*SharedItemsImports = 4
 		TechTalk.SpecFlow.VSIXShared\TechTalk.SpecFlow.VSIXShared.projitems*{f3efe63b-77c7-449e-b118-e16f445873c3}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,8 +196,8 @@ Global
 		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|x64.Build.0 = Release|Any CPU
 		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|x86.ActiveCfg = Release|Any CPU
 		{4B67F0DD-4216-448E-8D07-01FFECFADFB1}.Release|x86.Build.0 = Release|Any CPU
-		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|Any CPU.Build.0 = Debug|x64
 		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|x64.ActiveCfg = Debug|x64
 		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|x64.Build.0 = Debug|x64
 		{83874F58-C995-4E66-8F5F-F180062C5567}.Debug|x86.ActiveCfg = Debug|x86
@@ -199,6 +208,18 @@ Global
 		{83874F58-C995-4E66-8F5F-F180062C5567}.Release|x64.Build.0 = Release|x64
 		{83874F58-C995-4E66-8F5F-F180062C5567}.Release|x86.ActiveCfg = Release|x86
 		{83874F58-C995-4E66-8F5F-F180062C5567}.Release|x86.Build.0 = Release|x86
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Debug|x64.Build.0 = Debug|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Debug|x86.Build.0 = Debug|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Release|x64.ActiveCfg = Release|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Release|x64.Build.0 = Release|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Release|x86.ActiveCfg = Release|Any CPU
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +231,10 @@ Global
 		{8B5402B9-7580-4AA3-9525-6C4563EF0623} = {62BA7DEF-D976-4B64-8EFE-368AD625DD96}
 		{5351E241-2B8B-4D04-8999-5E3A79E8DD64} = {62BA7DEF-D976-4B64-8EFE-368AD625DD96}
 		{7A62BBFA-3212-420A-AC20-63401A35F534} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+		{4938DE4A-8E85-4DD6-9B1F-D09728A789CF} = {B035157A-BC5A-4766-AFE8-8054A5D79A60}
+		{4B67F0DD-4216-448E-8D07-01FFECFADFB1} = {B035157A-BC5A-4766-AFE8-8054A5D79A60}
+		{43A2E69D-0948-40EE-B7E8-E8D001330E8C} = {5A165F38-88BA-4FED-BB14-6621B83F8B58}
+		{CF7A2E76-CE72-4478-9D10-47D157D7D066} = {B035157A-BC5A-4766-AFE8-8054A5D79A60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE82DEDC-FB35-4666-A342-E4BF059F1137}
