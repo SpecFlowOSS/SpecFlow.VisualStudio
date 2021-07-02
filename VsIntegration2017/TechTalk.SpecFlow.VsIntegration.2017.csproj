@@ -131,7 +131,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <VSCTCompile Include="VisualStudioCommands.vsct">
+    <VSCTCompile Include="..\VisualStudioCommands.vsct">
+      <Link>VisualStudioCommands.vsct</Link>
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
     </VSCTCompile>
