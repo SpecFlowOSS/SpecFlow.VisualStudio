@@ -51,7 +51,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
 
         public void TransmitExtensionLoadedEvent()
         {
-            Execute(() => 
+            Execute(() =>
                 new ExtensionLoadedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value, _targetFrameworks.Value));
         }
 
@@ -59,11 +59,11 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         {
             Execute(() =>
                 new ExtensionInstalledAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, _extensionVersion.Value));
-            }
+        }
 
         public void TransmitExtensionUpgradedEvent(string oldExtensionVersion)
         {
-            Execute(() =>                    
+            Execute(() =>
                 new ExtensionUpgradedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value));
         }
 
@@ -83,6 +83,18 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
         {
             Execute(() =>
                 new ProjectTemplateWizardCompletedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework));
+        }
+
+        public void TransmitNotificationShownEvent(string notificationId)
+        {
+            Execute(() =>
+                new NotificationShownAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, notificationId));
+        }
+
+        public void TransmitNotificationLinkOpenedEvent(string notificationId)
+        {
+            Execute(() =>
+                        new NotificationLinkOpenedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, notificationId));
         }
 
         private void TransmitException(Exception exception)

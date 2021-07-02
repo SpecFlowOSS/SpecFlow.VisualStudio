@@ -12,6 +12,7 @@ using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
 using TechTalk.SpecFlow.VsIntegration.Implementation.EditorCommands;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Install;
 using TechTalk.SpecFlow.VsIntegration.Implementation.LanguageService;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Notifications;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Services;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Tracing.OutputWindow;
@@ -38,7 +39,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
         {
             container.RegisterTypeAs<InstallServices, InstallServices>();
             container.RegisterTypeAs<InstallServicesHelper, InstallServicesHelper>();
-            container.RegisterTypeAs<ExternalBrowserGuidanceNotificationService, IGuidanceNotificationService>();
+            container.RegisterTypeAs<ExternalBrowserNotificationService, IBrowserNotificationService>();
             container.RegisterTypeAs<WindowsFileAssociationDetector, IFileAssociationDetector>();
             container.RegisterTypeAs<RegistryStatusAccessor, IStatusAccessor>();
 
@@ -63,6 +64,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation
             container.RegisterTypeAs<CurrentExtensionVersionProvider, ICurrentExtensionVersionProvider>();
             container.RegisterTypeAs<DevBuildChecker, IDevBuildChecker>();
             container.RegisterTypeAs<GuidanceConfiguration, IGuidanceConfiguration>();
+            container.RegisterTypeAs<NotificationInfoBar, NotificationInfoBar>();
         }
 
         protected virtual void RegisterVsDependencies(IObjectContainer container, IServiceProvider serviceProvider)

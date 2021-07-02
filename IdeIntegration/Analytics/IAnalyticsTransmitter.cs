@@ -1,4 +1,6 @@
-﻿namespace TechTalk.SpecFlow.IdeIntegration.Analytics
+﻿using System.Configuration;
+
+namespace TechTalk.SpecFlow.IdeIntegration.Analytics
 {
     public interface IAnalyticsTransmitter
     {
@@ -9,5 +11,8 @@
 
         void TransmitProjectTemplateWizardStartedEvent();
         void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework);
+
+        void TransmitNotificationShownEvent(string notificationId);
+        void TransmitNotificationLinkOpenedEvent(string notificationId);
     }
 }

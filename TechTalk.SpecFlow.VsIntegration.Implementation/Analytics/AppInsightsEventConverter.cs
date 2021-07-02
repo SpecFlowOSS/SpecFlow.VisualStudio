@@ -46,6 +46,10 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Analytics
                 eventTelemetry.Properties.Add("SelectedDotNetFramework", projectTemplateWizardCompleted.SelectedDotNetFramework);
                 eventTelemetry.Properties.Add("SelectedUnitTestFramework", projectTemplateWizardCompleted.SelectedUnitTestFramework);
             }
+            if (analyticsEvent is NotificationAnalyticsEventBase notificationEvent)
+            {
+                eventTelemetry.Properties.Add("NotificationId", notificationEvent.NotificationId);
+            }
 
             return eventTelemetry;
         }

@@ -4,18 +4,15 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using BoDi;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using TechTalk.SpecFlow.IdeIntegration.Install;
 using TechTalk.SpecFlow.VsIntegration.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation;
-using TechTalk.SpecFlow.VsIntegration.Implementation.Analytics;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Commands;
+using TechTalk.SpecFlow.VsIntegration.Implementation.Notifications;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Options;
 using TechTalk.SpecFlow.VsIntegration.Implementation.Utils;
 using TechTalk.SpecFlow.VsIntegration.Options;
@@ -58,7 +55,6 @@ namespace TechTalk.SpecFlow.VsIntegration
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
 
-
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
         }
 
@@ -68,7 +64,6 @@ namespace TechTalk.SpecFlow.VsIntegration
             {
                 Debugger.Break();
             }
-
         }
 
         public static IdeIntegration.Install.IdeIntegration? CurrentIdeIntegration
@@ -85,7 +80,6 @@ namespace TechTalk.SpecFlow.VsIntegration
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2017;
                     case 16:
                         return IdeIntegration.Install.IdeIntegration.VisualStudio2019;
-                    
                 }
                 return IdeIntegration.Install.IdeIntegration.Unknown;
             }
@@ -134,6 +128,9 @@ namespace TechTalk.SpecFlow.VsIntegration
                     menuCommandHandler.Value.RegisterTo(menuCommandService, menuCommandHandler.Key);
                 }
             }
+
+            var notificationService = Container.Resolve<NotificationService>();
+            await notificationService.InitializeAsync(cancellationToken);
 
             await base.InitializeAsync(cancellationToken, progress);
         }

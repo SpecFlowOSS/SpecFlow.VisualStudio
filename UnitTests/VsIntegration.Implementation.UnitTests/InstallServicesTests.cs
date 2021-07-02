@@ -11,7 +11,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
     [TestFixture]
     public class InstallServicesTests
     {
-        Mock<IGuidanceNotificationService> guidanceNotificationServiceStub;
+        Mock<IBrowserNotificationService> guidanceNotificationServiceStub;
         Mock<IIdeTracer> ideTracerStub;
         Mock<IFileAssociationDetector> fileAssociationDetectorStub;
         Mock<IStatusAccessor> statusAccessorStub;
@@ -26,7 +26,7 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests
         [SetUp]
         public void Setup()
         {
-            guidanceNotificationServiceStub = new Mock<IGuidanceNotificationService>();
+            guidanceNotificationServiceStub = new Mock<IBrowserNotificationService>();
             ideTracerStub = new Mock<IIdeTracer>();
             fileAssociationDetectorStub = new Mock<IFileAssociationDetector>();
             statusAccessorStub = new Mock<IStatusAccessor>();

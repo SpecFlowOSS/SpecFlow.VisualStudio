@@ -4,11 +4,11 @@ using TechTalk.SpecFlow.IdeIntegration.Tracing;
 
 namespace TechTalk.SpecFlow.IdeIntegration.Install
 {
-    public class ExternalBrowserGuidanceNotificationService : IGuidanceNotificationService
+    public class ExternalBrowserNotificationService : IBrowserNotificationService
     {
         private readonly IIdeTracer tracer;
 
-        public ExternalBrowserGuidanceNotificationService(IIdeTracer tracer)
+        public ExternalBrowserNotificationService(IIdeTracer tracer)
         {
             this.tracer = tracer;
         }

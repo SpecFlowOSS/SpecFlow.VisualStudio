@@ -6,11 +6,11 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace TechTalk.SpecFlow.VsIntegration.Implementation.Install
 {
-    class VsBrowserGuidanceNotificationService : IGuidanceNotificationService
+    class VsBrowserNotificationService : IBrowserNotificationService
     {
         private readonly DTE dte;
 
-        public VsBrowserGuidanceNotificationService(DTE dte)
+        public VsBrowserNotificationService(DTE dte)
         {
             this.dte = dte;
         }
