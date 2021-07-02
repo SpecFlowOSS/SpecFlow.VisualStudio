@@ -76,7 +76,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)GuidList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IBiDiContainerProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InstallServicesHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Install\VsBrowserGuidanceNotificationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Install\VsBrowserNotificationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BackgroundBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingAssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\BindingFileInfo.cs" />
@@ -147,6 +147,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsProjectScope.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsStepSuggestionProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageService\VsSuggestionItemFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notifications\NotificationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notifications\NotificationDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notifications\NotificationInfoBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notifications\NotificationInfoBarFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Notifications\NotificationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\IntegrationOptionsProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Options\OptionsPageGeneral.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PkgCmdIDList.cs" />

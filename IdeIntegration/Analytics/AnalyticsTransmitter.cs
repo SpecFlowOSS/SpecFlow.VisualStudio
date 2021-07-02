@@ -87,13 +87,13 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics
         public void TransmitNotificationShownEvent(string notificationId)
         {
             Execute(() =>
-                new NotificationShownAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, notificationId));
+                new NotificationShownAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _ideVersion.Value, _userUniqueId.Value, notificationId));
         }
 
         public void TransmitNotificationLinkOpenedEvent(string notificationId)
         {
             Execute(() =>
-                        new NotificationLinkOpenedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, notificationId));
+                        new NotificationLinkOpenedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _ideVersion.Value, _userUniqueId.Value, notificationId));
         }
 
         private void TransmitException(Exception exception)

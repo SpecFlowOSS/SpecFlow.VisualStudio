@@ -6,7 +6,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
     {
         public string NotificationId { get; }
 
-        protected NotificationAnalyticsEventBase(string ide, DateTime utcDate, string userId, string notificationId) : base(ide, utcDate, userId)
+        protected NotificationAnalyticsEventBase(string ide, DateTime utcDate, string ideVersion, string userId, string notificationId) : base(ide, ideVersion, utcDate, userId)
         {
             NotificationId = notificationId;
         }
@@ -14,7 +14,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 
     public class NotificationShownAnalyticsEvent : NotificationAnalyticsEventBase
     {
-        public NotificationShownAnalyticsEvent(string ide, DateTime utcDate, string userId, string notificationId) : base(ide, utcDate, userId, notificationId)
+        public NotificationShownAnalyticsEvent(string ide, DateTime utcDate, string ideVersion, string userId, string notificationId) : base(ide, utcDate, ideVersion, userId, notificationId)
         {
         }
 
@@ -23,7 +23,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 
     public class NotificationLinkOpenedAnalyticsEvent : NotificationAnalyticsEventBase
     {
-        public NotificationLinkOpenedAnalyticsEvent(string ide, DateTime utcDate, string userId, string notificationId) : base(ide, utcDate, userId, notificationId)
+        public NotificationLinkOpenedAnalyticsEvent(string ide, DateTime utcDate, string ideVersion, string userId, string notificationId) : base(ide, utcDate, ideVersion, userId, notificationId)
         {
         }
 
