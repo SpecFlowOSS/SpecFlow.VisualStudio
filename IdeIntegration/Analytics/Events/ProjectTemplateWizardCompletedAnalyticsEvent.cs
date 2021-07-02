@@ -4,7 +4,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public class ProjectTemplateWizardCompletedAnalyticsEvent : AnalyticsEventBase
     {
-        public ProjectTemplateWizardCompletedAnalyticsEvent(string ide, DateTime utcDate, string userId, string selectedDotNetFramework, string selectedUnitTestFramework) : base(ide, utcDate, userId)
+        public ProjectTemplateWizardCompletedAnalyticsEvent(string ide, DateTime utcDate, string userId, string ideVersion, string selectedDotNetFramework, string selectedUnitTestFramework) : base(ide, ideVersion, utcDate, userId)
         {
             SelectedDotNetFramework = selectedDotNetFramework;
             SelectedUnitTestFramework = selectedUnitTestFramework;

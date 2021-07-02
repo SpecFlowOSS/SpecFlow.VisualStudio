@@ -63,25 +63,25 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics
         public void TransmitExtensionUpgradedEvent(string oldExtensionVersion)
         {
             Execute(() =>
-                new ExtensionUpgradedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, oldExtensionVersion, _extensionVersion.Value));
+                new ExtensionUpgradedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, oldExtensionVersion, _extensionVersion.Value));
         }
 
         public void TransmitExtensionUsage(int daysOfUsage)
         {
             Execute(() =>
-                new ExtensionUsageAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, daysOfUsage));
+                new ExtensionUsageAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, daysOfUsage));
         }
 
         public void TransmitProjectTemplateWizardStartedEvent()
         {
             Execute(() =>
-                new ProjectTemplateWizardStartedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value));
+                new ProjectTemplateWizardStartedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value));
         }
 
         public void TransmitProjectTemplateWizardCompletedEvent(string selectedDotNetFramework, string selectedUnitTestFramework)
         {
             Execute(() =>
-                new ProjectTemplateWizardCompletedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, selectedDotNetFramework, selectedUnitTestFramework));
+                new ProjectTemplateWizardCompletedAnalyticsEvent(_ideName.Value, DateTime.UtcNow, _userUniqueId.Value, _ideVersion.Value, selectedDotNetFramework, selectedUnitTestFramework));
         }
 
         public void TransmitNotificationShownEvent(string notificationId)
@@ -100,7 +100,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics
         {
             try
             {
-                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(_ideName.Value, exception.GetType().ToString(), DateTime.UtcNow);
+                var exceptionAnalyticsEvent = new ExceptionAnalyticsEvent(_ideName.Value, _ideVersion.Value, exception.GetType().ToString(), DateTime.UtcNow);
                 _analyticsTransmitterSink.TransmitEvent(exceptionAnalyticsEvent);
             }
             catch (Exception)
