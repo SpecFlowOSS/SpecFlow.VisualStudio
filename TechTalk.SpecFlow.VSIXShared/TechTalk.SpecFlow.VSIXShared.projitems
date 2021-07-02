@@ -151,6 +151,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Options\OptionsPageGeneral.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PkgCmdIDList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources.Designer.cs">
+      <DependentUpon>Resources.cs</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\CodeGeneratorRegistrationWithFileExtensionAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\CustomToolSwitch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleFileGenerator\SingleFileGeneratorBase.cs" />

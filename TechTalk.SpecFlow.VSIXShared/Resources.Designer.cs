@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TechTalk.SpecFlow.VsIntegration.Implementation.UnitTests.......TechTalk.SpecFlow.VSIXShared {
+namespace TechTalk.SpecFlow.VSIXShared {
     using System;
     
     
