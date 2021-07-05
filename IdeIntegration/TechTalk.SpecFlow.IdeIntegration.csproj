@@ -4,6 +4,15 @@
     <SignAssembly>$(SpecFlow_SignAssembly)</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SpecFlow_KeyFile)</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">
+    <!-- This is only the testing instance's instrumentation key -->
+    <AppInsightsInstrumentationKey>27cfb992-6c29-4bc8-8093-78d95e275b3a</AppInsightsInstrumentationKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Analytics\AppInsightsInstrumentationKey.template.cs" />
+    <None Remove="AutoComplete\IntellisensePresenter\CompletionSessionView.xaml" />
+    <None Include="Analytics\AppInsightsInstrumentationKey.template.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Windows.Forms" />
@@ -23,10 +32,19 @@
     <ProjectReference Include="..\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator\TechTalk.SpecFlow.VisualStudio.CodeBehindGenerator.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.20" />
     <PackageReference Include="CommandLineParser" Version="2.3.0" />
     <PackageReference Include="Enums.NET" Version="3.0.3" />
     <PackageReference Include="Mono.Cecil" Version="0.9.5.3" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="SpecFlow.CustomPlugin" Version="1.9.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.9.1" />
   </ItemGroup>
+
+  <Target Name="RunTokenReplace" AfterTargets="GetBuildVersion" BeforeTargets="BeforeCompile" Condition="$(DesignTimeBuild) != 'true' OR '$(BuildingProject)' == 'true'">
+    <ReplaceTextInFileTask InputFile="$(SolutionDir)IdeIntegration\Analytics\AppInsightsInstrumentationKey.template.cs" OutputFile="$(SolutionDir)IdeIntegration\Analytics\AppInsightsInstrumentationKey.cs" TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
+    <ItemGroup>
+      <Compile Include="$(SolutionDir)IdeIntegration\Analytics\AppInsightsInstrumentationKey.cs" />
+    </ItemGroup>
+  </Target>
 </Project>

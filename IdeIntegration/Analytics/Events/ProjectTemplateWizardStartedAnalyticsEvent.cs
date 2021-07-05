@@ -4,7 +4,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
 {
     public class ProjectTemplateWizardStartedAnalyticsEvent : AnalyticsEventBase
     {
-        public ProjectTemplateWizardStartedAnalyticsEvent(string ide, DateTime utcDate, string userId) : base(ide, utcDate, userId)
+        public ProjectTemplateWizardStartedAnalyticsEvent(string ide, DateTime utcDate, string userId, string ideVersion) : base(ide, ideVersion, utcDate, userId)
         {
         }
 

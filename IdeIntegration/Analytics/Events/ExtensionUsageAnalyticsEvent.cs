@@ -6,7 +6,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics.Events
     {
         private readonly int _daysUsage;
 
-        public ExtensionUsageAnalyticsEvent(string ide, DateTime utcDate, string userId, int daysUsage) : base(ide, utcDate, userId)
+        public ExtensionUsageAnalyticsEvent(string ide, DateTime utcDate, string userId, string ideVersion, int daysUsage) : base(ide, ideVersion, utcDate, userId)
         {
             _daysUsage = daysUsage;
         }

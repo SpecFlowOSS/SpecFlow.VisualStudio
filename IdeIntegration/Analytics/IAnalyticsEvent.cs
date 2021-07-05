@@ -6,6 +6,7 @@ namespace TechTalk.SpecFlow.IdeIntegration.Analytics
     {
         string EventName { get; }
         string Ide { get; }
+        string IdeVersion { get; }
         DateTime UtcDate { get; }
         string UserId { get; }
     }
