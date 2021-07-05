@@ -88,6 +88,7 @@
                         <ComboBoxItem Tag="netcoreapp2.1">.NET Core 2.1</ComboBoxItem>
                         <ComboBoxItem Tag="netcoreapp3.1" IsSelected="True">.NET Core 3.1</ComboBoxItem>
                         <ComboBoxItem Tag="net5.0">.NET 5.0</ComboBoxItem>
+                        <ComboBoxItem Tag="net6.0">.NET 6.0</ComboBoxItem>
                         <ComboBoxItem Tag="net461">.NET Framework 4.6.1</ComboBoxItem>
                         <ComboBoxItem Tag="net462">.NET Framework 4.6.2</ComboBoxItem>
                         <ComboBoxItem Tag="net47">.NET Framework 4.7</ComboBoxItem>
