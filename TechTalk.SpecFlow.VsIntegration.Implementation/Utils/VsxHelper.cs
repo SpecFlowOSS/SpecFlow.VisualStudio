@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
+
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -623,6 +625,22 @@ namespace TechTalk.SpecFlow.VsIntegration.Implementation.Utils
             {
                 return null;
             }
+        }
+
+        public static string GetAppConfigPathFromCsProj(Project project)
+        {
+            XElement csProjXElement = XElement.Load(project.FileName);
+
+            string appConfigPath = csProjXElement
+                        .Element("PropertyGroup")?
+                        .Element("AppConfig")?
+                        .Value;
+            if (!string.IsNullOrEmpty(appConfigPath) && !Path.IsPathRooted(appConfigPath))
+            {
+                appConfigPath = Path.Combine(Path.GetDirectoryName(project.FileName), appConfigPath);
+            }
+
+            return appConfigPath;
         }
     }
 }
