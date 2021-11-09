@@ -28,3 +28,5 @@ SpecFlow.VisualStudio.v2.ncrunchsolution
 
 AppInsightsInstrumentationKey.cs
 *.binlog
+/.idea/
+*.backup
