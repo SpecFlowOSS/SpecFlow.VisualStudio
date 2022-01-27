@@ -101,9 +101,8 @@
                 <StackPanel Grid.Row="1" Grid.Column="0">
                     <Label Margin="0,16,0,10" Padding="0,0,0,0">Test Framework</Label>
                     <ComboBox x:Name="UnitTestFrameworkComboBox" SelectedValuePath="Tag" IsEditable="True" IsReadOnly="True" Margin="0,0,0,0" Padding="8,8,8,8">
-                        <ComboBoxItem Tag="runner" IsSelected="True">SpecFlow+ Runner</ComboBoxItem>
                         <ComboBoxItem Tag="xunit">xUnit</ComboBoxItem>
-                        <ComboBoxItem Tag="nunit">NUnit</ComboBoxItem>
+                        <ComboBoxItem Tag="nunit" IsSelected="True">NUnit</ComboBoxItem>
                         <ComboBoxItem Tag="mstest">MSTest</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>

@@ -7,8 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />$if$ ('$unittestframework$' == 'runner')
-    <PackageReference Include="SpecRun.SpecFlow" Version="3.9.7" />$endif$$if$ ('$unittestframework$' == 'xunit')
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />$if$ ('$unittestframework$' == 'xunit')
     <PackageReference Include="SpecFlow.xUnit" Version="3.9.22" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />$endif$$if$ ('$unittestframework$' == 'nunit')
