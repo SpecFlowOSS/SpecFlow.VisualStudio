@@ -6,6 +6,9 @@
 
 Visual Studio extension of SpecFlow (extracted from the main SpecFlow repo).
 
+**This is the extension for Visual Studio 2015-2019, which is no longer being actively worked on.**  
+The extension for Visual Studio 2022 can be found [here](https://github.com/SpecFlowOSS/SpecFlow.VS).
+
 For documentation, please refer to the SpecFlow website:
 [https://www.specflow.org](https://www.specflow.org)
 
